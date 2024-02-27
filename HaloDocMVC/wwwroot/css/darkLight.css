@@ -1,0 +1,97 @@
+.darkMode {
+    background-color: black;
+    color: white;
+}
+
+.darkMode .darkBtn {
+    background-color: black;
+}
+
+.darkMode .card, .darkMode .card-body {
+    background-color: #212529;
+    color: white;
+}
+
+.darkMode .card td, .darkMode .card-body td {
+    color: white;
+}
+
+.darkMode .card input {
+    background-color: #212529;
+    color: white;
+}
+
+.darkMode .card select {
+    background-color: #212529;
+    color: white;
+}
+
+.darkMode strong {
+    color: black;
+}
+
+.darkMode input {
+    background-color: #212529;
+    color: white;
+}
+
+.darkMode textarea {
+    background-color: #212529;
+    color: white;
+}
+
+.darkMode form h4 {
+    color: white;
+}
+
+.darkMode .selected-filename {
+    color: white;
+}
+
+.darkMode .backBtn1 button {
+    background-color: #212529;
+}
+
+.darkMode .backBtn button {
+    background-color: #212529;
+}
+
+.darkMode .form-floating .form-control ~ label::after {
+    color: white;
+}
+
+.darkMode .form-floating label {
+    color: white;
+}
+
+.darkMode .navbar {
+    background-color: #212529;
+    color: white;
+}
+
+.darkMode .navbar ul li a {
+    color: white !important;
+}
+
+.darkMode header {
+    background-color: #212529;
+}
+
+.darkMode .footer {
+    background-color: #212529;
+}
+
+.darkMode .footer a small {
+    color: white;
+}
+
+.darkMode .modal-header, 
+.darkMode .modal-body, 
+.darkMode .modal-footer {
+    background-color: #212529;
+    color: white;
+}
+
+.darkMode .viewNotes {
+    color: white;
+}

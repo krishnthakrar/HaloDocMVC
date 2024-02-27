@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaloDocMVC", "HaloDocMVC\HaloDocMVC.csproj", "{0031B086-5E28-4DF2-8D31-CF11A17C118F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaloDocMVC.Entity", "HaloDocMVC.Entity\HaloDocMVC.Entity.csproj", "{59D483DE-AA63-4ED0-B20C-2C2A9E65322A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaloDocMVC.Repository.Admin", "HaloDocMVC.Repository.Admin\HaloDocMVC.Repository.Admin.csproj", "{6CC79C61-3791-4580-A940-DCBCDE088FA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DA203AC-6425-44C7-86EB-DDF3CCF9D18E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0031B086-5E28-4DF2-8D31-CF11A17C118F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0031B086-5E28-4DF2-8D31-CF11A17C118F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0031B086-5E28-4DF2-8D31-CF11A17C118F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0031B086-5E28-4DF2-8D31-CF11A17C118F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59D483DE-AA63-4ED0-B20C-2C2A9E65322A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59D483DE-AA63-4ED0-B20C-2C2A9E65322A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59D483DE-AA63-4ED0-B20C-2C2A9E65322A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59D483DE-AA63-4ED0-B20C-2C2A9E65322A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC79C61-3791-4580-A940-DCBCDE088FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC79C61-3791-4580-A940-DCBCDE088FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC79C61-3791-4580-A940-DCBCDE088FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC79C61-3791-4580-A940-DCBCDE088FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EB30B73-C82B-44D9-9686-519EAEEFA3F4}
+	EndGlobalSection
+EndGlobal

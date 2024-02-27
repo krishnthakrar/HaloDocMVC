@@ -1,0 +1,301 @@
+/*Logo Resize code*/
+
+.logo {
+    height: 80px;
+    width: 140px;
+}
+
+/*dark button css*/
+
+.darkBtn {
+    position: absolute;
+    right: -40px;
+    top: -3px;
+    background-color: #fff;
+    border: 1px solid #59A2A8;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.darkBtn:hover {
+    box-shadow: 2px 2px 2px 1px #59A2A8;
+}
+
+/*Tabs*/
+
+.active {
+    color: #8dcaf0 !important;
+    font-weight: 600;
+    border-bottom: 2px solid #8dcaf0;
+}
+
+/*Status css*/
+
+.s1 {
+    border: 2px solid #0c47b3;
+    color: #0c47b3;
+    background-color: #97bbfc;
+}
+
+.s1:hover {
+    border: 2px solid #0c47b3;
+    color: #ffffff;
+    background-color: #0c47b3;
+}
+
+.s2 {
+    border: 2px solid #54b4d3;
+    color: #54b4d3;
+    background-color: #c5effc;
+}
+
+.s2:hover {
+    border: 2px solid #54b4d3;
+    color: #ffffff;
+    background-color: #54b4d3;
+}
+
+.s3 {
+    border: 2px solid #14a44d;
+    color: #14a44d;
+    background-color: #a9f5c7;
+}
+
+.s3:hover {
+    border: 2px solid #14a44d;
+    color: #ffffff;
+    background-color: #14a44d;
+}
+
+.s4 {
+    border: 2px solid #cf154c;
+    color: #cf154c;
+    background-color: #fab6ca;
+}
+
+.s4:hover {
+    border: 2px solid #cf154c;
+    color: #ffffff;
+    background-color: #cf154c;
+}
+
+.s5 {
+    border: 2px solid #0761ab;
+    color: #0761ab;
+    background-color: #a4c5e0;
+}
+
+.s5:hover {
+    border: 2px solid #0761ab;
+    color: #ffffff;
+    background-color: #0761ab;
+}
+
+.s6 {
+    border: 2px solid #be69f0;
+    color: #be69f0;
+    background-color: #e4c6f5;
+}
+
+.s6:hover {
+    border: 2px solid #be69f0;
+    color: #ffffff;
+    background-color: #be69f0;
+}
+
+.s7 {
+    background-color: #e1f4fa;
+}
+
+.searchBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchPatientRegion {
+    display: inline-flex;
+}
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+}
+
+.search input, .search select {
+    height: 50px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4;
+}
+
+.search select {
+    min-width: 230px;
+}
+
+.search input:focus, .search select:focus {
+    box-shadow: none;
+    border: 2px solid #0dcaf0;
+}
+
+.search .fa-search {
+    position: absolute;
+    top: 20px;
+    left: 16px;
+}
+
+.requestType {
+    display: inline-flex;
+    align-items: center;
+}
+
+.Patient {
+    background-color: #5fbc61;
+}
+
+.Business {
+    background-color: #cd697b;
+}
+
+.Family {
+    background-color: #ed9124;
+}
+
+.Concierge {
+    background-color: #0a7cb9;
+}
+
+.txt-Patient {
+    color: #5fbc61;
+}
+
+.txt-Business {
+    color: #0a7cb9;
+}
+
+.txt-Family {
+    color: #ed9124;
+}
+
+.txt-Concierge {
+    color: #cd697b;
+}
+
+@media (max-width : 925px) {
+    .searchBar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .requestType {
+        display: flex;
+        justify-content: start;
+    }
+
+    .adminIcon {
+        display: none;
+    }
+}
+
+@media (max-width : 425px) {
+    .searchPatientRegion {
+        display: flex;
+        flex-direction: column;
+    }
+    linkButtons {
+        margin-top: 20px;
+    }
+}
+
+/*view case css*/
+
+/*Back button css code*/
+.back {
+    font-size: 20px;
+    color: #59A2A8;
+}
+
+.backBtn {
+    display: flex;
+    justify-content: start;
+}
+
+.backBtn button {
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    border: 1px solid #59A2A8;
+    color: #59A2A8;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding: 10px;
+    position: relative;
+}
+
+.backBtn button:hover {
+    color: #0d6efd;
+}
+
+backBtn button:hover span {
+    color: #0d6efd;
+}
+
+.backBtn a {
+    text-decoration: none;
+    font-weight: bold
+}
+
+/*Form Design*/
+
+.darkMode form {
+    color: black;
+    background-color: #212529;
+}
+
+form {
+    margin-top: 7vh;
+    background-color: white;
+}
+
+    form h4 {
+        font-weight: 600;
+    }
+
+.form-floating input:focus,
+.form-floating textarea:focus {
+    border: 2px solid #59A2A8;
+}
+
+.form-floating label {
+    margin-left: 15px;
+    z-index: 0;
+}
+
+.dateInput label {
+    margin-top: 0px;
+    margin-left: 13px;
+}
+
+.iti {
+    display: block;
+    width: 100%;
+}
+
+.phone .form-control {
+    line-height: 2.5;
+}
+
+#files {
+    display: none;
+}
+
+.btn-outline-info:hover {
+    color: #ffffff !important;
+}
+
+label {
+    display: inline-block;
+}
+
+.row .btnMap {
+    height: 58px;
+}

@@ -1,0 +1,97 @@
+﻿@model HaloDocMVC.Entity.Models.ViewDataViewCase;
+@using static HaloDocMVC.Entity.Models.Constant
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "View Case";
+}
+<div class="body">
+    <div class="container">
+        <div class="d-flex justify-content-between mt-3">
+            <div class="d-flex align-items-center">
+                <h4 class="pt-2">New Request</h4>
+                <span class="@Enum.GetName(typeof(ListType), Model.RequestTypeId) text-white rounded-pill mx-3 px-3 py-1">@Enum.GetName(typeof(ListType), Model.RequestTypeId)</span>
+            </div>
+            <div class="backBtn">
+                <a asp-controller="Home" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
+            </div>
+        </div>
+        <form class="card border-0 shadow py-4 mb-5 mt-3 rounded p-3 rounded container" method="post" asp-controller="Profile" asp-action="Edit">
+            @*<input type="hidden" asp-for="UserId" />*@
+            <h4 class="mb-4">Patient Information</h4>
+            <input type="hidden" asp-for="RequestId" />
+            <div class="row">
+                <div class="mb-4">
+                    <span>Confirmation Number</span>
+                    <strong class="text-info">@Model.ConfNo</strong>
+                </div>
+            </div>
+            <div class="form-floating">
+                <textarea asp-for="Notes" class="form-control shadow-none mb-4" id="symptoms" rows="5" placeholder="Patient Notes" disabled></textarea>
+                @*<textarea class="form-control shadow-none mb-4" id="symptoms" rows="5" placeholder="Patient Notes"></textarea>*@
+                <label for="symptoms" class="form-label">Patient Notes</label>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input asp-for="FirstName" type="text" class="form-control shadow-none" id="fName" placeholder="FirstName" disabled>
+                    @*<input type="text" class="form-control shadow-none" id="fName" placeholder="FirstName">*@
+                    <label for="fName" class="form-label">First Name</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input asp-for="LastName" type="text" class="form-control shadow-none" id="lName" placeholder="LastName" disabled>
+                    @*<input type="text" class="form-control shadow-none" id="lName" placeholder="LastName">*@
+                    <label for="lName" class="form-label">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 dateInput">
+                    <input asp-for="DOB" type="date" class="form-control shadow-none" id="date" disabled>
+                    @*<input type="date" class="form-control shadow-none" id="date">*@
+                    <label for="date" class="form-label">Date of Birth</label>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 form-floating mb-4 phone">
+                    <input asp-for="Mobile" class="form-control shadow-none" id="phone" disabled>
+                    @*<input class="form-control shadow-none" id="phone">*@
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 form-floating mb-4">
+                    <button class="btn btn-outline-info text text-info p-3" ><i class="fa-solid fa-phone"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input asp-for="Email" type="email" class="form-control shadow-none" id="email" placeholder="Email" disabled>
+                    @*<input type="email" class="form-control shadow-none" id="email" placeholder="Email">*@
+                    <label for="email" class="form-label">Email</label>
+                </div>
+            </div>
+            <h4 class="mb-4">Location Information</h4>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input asp-for="Region" type="text" class="form-control shadow-none" id="region" placeholder="Region" disabled>
+                    @*<input type="text" class="form-control shadow-none" id="region" placeholder="Region">*@
+                    <label for="region" class="form-label">Region</label>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 form-floating mb-4">
+                    <input asp-for="Address" type="text" class="form-control shadow-none" id="business" placeholder="Business Name / Address" disabled>
+                    @*<input type="text" class="form-control shadow-none" id="business" placeholder="Business Name / Address">*@
+                    <label for="business" class="form-label">Business Name / Address</label>
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 form-floating mb-4">
+                    <button class="btn btn-outline-info text text-info p-3"><i class="fa-solid fa-location-dot"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="room" placeholder="Room" disabled>
+                    <label for="room" class="form-label">Room# / Suite</label>
+                </div>
+            </div>
+            <div class="row px-3 d-flex justify-content-end">
+                <a class="col-1 btn btn-info text-white rounded mx-2 p-2">Assign</a>
+                <a asp-controller="Home" asp-action="ViewNotes" asp-route-id="@Model.RequestId" class="col-1 btn btn-info text-white rounded mx-2 p-2">Notes</a>
+                <a class="col-1 btn btn-danger text-white rounded mx-2 p-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/js/phone.js"></script>

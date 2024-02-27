@@ -1,0 +1,59 @@
+﻿@*@using static HaloDoc.MVC.Models.CredentialValue;*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/admin/dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/darkLight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar px-2 mt-0 border-2 navbar-expand-lg">
+            <div class="container-fluid">
+                <i class="fa fa-solid fa-bars text-info border rounded border-info d-block d-lg-none align-self-center my-3 p-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"></i>
+                <img src="~/images/Fig56._Patient_site_1.png" class="img-fluid logo" />
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+                <div class=" top-0 end-0 my-4 mx-5 position-absolute text-info border-info rounded-3 d-flex">
+                    <h5 class="align-bottom pt-2 d-none d-lg-block">
+                        Welcome @*<span class="fw-bolder"> @CredentialValue.UserName() </span>*@
+                    </h5>
+                    <a asp-action="Logout" asp-controller="Login" class="btn btn-outline-info mx-2">Logout</a>
+                    <button class="darkBtn" onclick="darkLight()"><img src="../../Images/moon.svg" id="moonImg" alt="Dark Light Button"></button>
+                </div>
+            </div>
+        </nav>
+        <partial name="../_PartialViews/AdminNav" />
+    </header>
+    <main role="main" class="mx-sm-1 mx-md-2 mx-xxl-4 min-vh-100">
+        @RenderBody()
+    </main>
+    <footer>
+        <div class=" justify-content-end position-static  w-100 align-self-end d-flex left-0 bg-dark text-light px-2 align-items-end  bottom-0 py-3 fs-7 align-text-bottom align-items-end">
+            <div class="text-center">
+                <span class="text-center mx-2">
+                    Term Of Condition
+                </span>
+                <span>
+                    |
+                </span>
+                <span class="mx-2">
+                    Privacy Policy
+                </span>
+            </div>
+        </div>
+    </footer>
+    <script src="~/js/darklight.js" asp-append-version="true"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

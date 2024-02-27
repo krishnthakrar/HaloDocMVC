@@ -1,0 +1,146 @@
+/* Header Design */
+
+header {
+    height: 11vh;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.65);
+    z-index: 1;
+}
+
+.logoImg {
+    position: absolute;
+    left: 35px;
+    height: 80px;
+    width: 140px;
+}
+
+.darkBtn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #fff;
+    border: 1px solid #59A2A8;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.darkBtn:hover {
+    box-shadow: 2px 2px 2px 1px #59A2A8;
+}
+
+/* Body Design */
+
+.darkMode .body {
+    background-color: black;
+    color: #ffffff;
+}
+
+.body {
+    background-color: #f8f9fa;
+    margin-top: 0.5vh;
+    padding-top: 3vh;
+    height: 79vh;
+}
+
+.top {
+    position: relative;
+}
+
+.back {
+    font-size: 20px;
+    color: #59A2A8;
+}
+
+.backBtn {
+    display: flex;
+    justify-content: start;
+    position: absolute;
+    right: 10vw;
+}
+
+.backBtn button {
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    border: 1px solid #59A2A8;
+    color: #59A2A8;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding: 10px;
+ }
+
+.backBtn button:hover {
+    color: #0d6efd;
+}
+
+backBtn button:hover span {
+    color: #0d6efd;
+}
+
+.backBtn a {
+    text-decoration: none;
+    font-weight: bold
+}
+
+/* Buttons Design */
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .buttons a {
+        border: 2px solid;
+        padding: 20px;
+    }
+
+.patient {
+    background-color: #dcdcef;
+    border-color: #8064A2;
+    color: #8064A2;
+}
+
+    .patient:hover {
+        background-color: #8064A2;
+        color: #e4e4e4;
+    }
+
+.friend {
+    background-color: #dcf6ff;
+    border-color: #0d6efd;
+    color: #0d6efd;
+}
+
+    .friend:hover {
+        background-color: #0d6efd;
+        color: #e4e4e4;
+    }
+
+.concierge {
+    background-color: #cffee0;
+    border-color: #198754;
+    color: #198754;
+}
+
+    .concierge:hover {
+        background-color: #198754;
+        color: #e4e4e4;
+    }
+
+.partner {
+    background-color: #f8e6ee;
+    border-color: #962b64;
+    color: #962b64;
+}
+
+    .partner:hover {
+        background-color: #962b64;
+        color: #e4e4e4;
+    }
+
+/* Footer Design */
+
+.footer a {
+    text-decoration: none;
+}

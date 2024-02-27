@@ -1,0 +1,185 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(rgba(255,255,255,.60), rgba(255,255,255,.60)), url('../../Images/11116016_415-removebg.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: contain;
+    backdrop-filter: blur(5px);
+}
+
+.main
+{
+    margin: 0 auto;
+    position: relative;
+}
+
+.darkBtn
+{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #fff;
+    border: 1px solid #59A2A8 ;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.darkBtn:hover
+{
+    box-shadow: 2px 2px 2px 1px #59A2A8;
+}
+
+.innerMain
+{
+    display: flex;
+    flex-direction: column;
+    /* z-index: 1; */
+    align-items: center;
+    height: 98vh;
+}
+
+/* HalloDoc Logo Design */
+
+.header
+{
+    margin-top: 2vh;
+}
+
+/* Back Button Design */
+
+.backBtn2
+{
+    display: flex;
+    justify-content: start;
+}
+
+.body
+{
+    margin-top: 16vh;
+    margin-bottom: 1vh;
+}
+
+.back {
+    font-size: 20px;
+    color: #59A2A8;
+}
+
+.backBtn2 button
+{
+    margin-bottom: 5px;
+    background-color: unset;
+    border: none;
+    color: #59A2A8;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding-left: 0;
+}
+
+.backBtn2 button:hover
+{
+    color: #0d6efd;
+}
+
+.backBtn2 button:hover span
+{
+    color: #0d6efd;
+}
+
+.backBtn2 a
+{
+    text-decoration: none;
+    font-weight: bold
+}
+
+/* Heading Design */
+
+.body h3
+{
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+
+/* Form Design */
+
+.form-floating input:focus
+{
+    border: 2px solid #59A2A8;
+}
+
+.form-floating .form-control:focus~label
+{
+    margin-top: -15px;
+    margin-left: 15px;
+}
+
+.email
+{
+    position: relative;
+}
+
+.email button
+{
+    position: absolute;
+    right: 0.8rem;
+    top: 0.9rem;
+    background-color: #ffffff;
+    padding: 3px;
+    padding-right: 3px;
+    border: 0;
+}
+
+.email button:hover
+{
+    background-color: #01bce9;
+    cursor: pointer;
+}
+
+button.btn
+{
+    background-color: #01bce9;
+    border-color: #01bce9;
+    height: 6vh;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.forgotPassword
+{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.forgotPassword a
+{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #59A2A8;
+}
+
+.forgotPassword a:hover
+{
+    color: #0d6efd;
+}
+
+/* Footer Design */
+
+.footer
+{
+    margin-top: auto;
+    margin-bottom: 1vh;
+}
+
+.footer a
+{
+    text-decoration: none;
+}
+
+.footer a small {
+    color: black;
+}
