@@ -10,5 +10,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
     public interface IViewCase
     {
         public ViewDataViewCase NewRequestData(int? RId, int? RTId);
+
+        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId);
     }
 }

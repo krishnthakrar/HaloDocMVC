@@ -62,6 +62,13 @@ namespace HaloDocMVC.Controllers
             return View(vdvc);
         }
 
+        [HttpPost]
+        public IActionResult ViewCase(ViewDataViewCase vdvc, int? RId, int? RTId)
+        {
+            ViewDataViewCase vc = _iviewcase.Edit(vdvc, RId, RTId);
+            return View(vc);
+        }
+
         public IActionResult ViewNotes(int? id)
         {
             return View();

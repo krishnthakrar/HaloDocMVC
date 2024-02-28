@@ -69,7 +69,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                 on req.PhysicianId equals phys.PhysicianId into physGroup
                                                 from p in physGroup.DefaultIfEmpty()
                                                 join reg in _context.Regions
-                                               on rc.RegionId equals reg.RegionId into RegGroup
+                                                on rc.RegionId equals reg.RegionId into RegGroup
                                                 from rg in RegGroup.DefaultIfEmpty()
                                                 where statusdata.Contains((int)req.Status)
                                                 orderby req.CreatedDate descending
@@ -80,7 +80,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                     RequestTypeId = req.RequestTypeId,
                                                     Requestor = req.FirstName + " " + req.LastName,
                                                     PatientName = rc.FirstName + " " + rc.LastName,
-                                                    //DateOfBirth = new DateTime((int)req.RequestClients.IntYear, Convert.ToInt32(req.RequestClients.StrMonth.Trim()), (int)req.RequestClients.IntDate),
+                                                    DateOfBirth = new DateTime((int)rc.IntYear, Convert.ToInt32(rc.StrMonth.Trim()), (int)rc.IntDate),
                                                     RequestedDate = req.CreatedDate,
                                                     Email = rc.Email,
                                                     Region = rg.Name,

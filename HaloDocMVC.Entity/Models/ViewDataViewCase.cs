@@ -2,6 +2,7 @@
 {
     public class ViewDataViewCase
     {
+        public int? UserId { get; set; }
         public int RequestTypeId { get; set; }
 
         public int RequestId { get; set; } 
@@ -20,7 +21,7 @@
 
         public string Email { get; set; } = string.Empty;
 
-        public string Region { get; set; } = string.Empty;
+        public string? Region { get; set; } = string.Empty;
 
         public string Address { get; set; } = string.Empty;
     }
