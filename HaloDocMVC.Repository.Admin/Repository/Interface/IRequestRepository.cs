@@ -12,5 +12,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public CountStatusWiseRequestModel IndexData();
 
         public List<AdminDashboardList> NewRequestData();
+
+        public List<AdminDashboardList> GetRequests(string Status);
     }
 }

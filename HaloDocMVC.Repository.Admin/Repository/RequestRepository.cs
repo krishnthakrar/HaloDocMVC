@@ -36,7 +36,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                             PatientPhoneNumber = req.Requestclient.PhoneNumber,
                             RequestorPhoneNumber = req.Request.PhoneNumber,
                             Notes = req.Requestclient.Notes,
-                            Address = req.Requestclient.Address + " " + req.Requestclient.Street + " " + req.Requestclient.City + " " + req.Requestclient.State
+                            Address = req.Requestclient.Address
                         })
                         .OrderByDescending(req => req.RequestedDate)
                         .ToList();
@@ -54,6 +54,45 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 UnpaidRequest = _context.Requests.Where(r => r.Status == 9).Count(),
                 adminDashboardList = NewRequestData()
             };
+        }
+
+        public List<AdminDashboardList> GetRequests(string Status)
+        {
+
+            List<int> statusdata = Status.Split(',').Select(int.Parse).ToList();
+
+            List<AdminDashboardList> allData = (from req in _context.Requests
+                                                join reqClient in _context.RequestClients
+                                                on req.RequestId equals reqClient.RequestId into reqClientGroup
+                                                from rc in reqClientGroup.DefaultIfEmpty()
+                                                join phys in _context.Physicians
+                                                on req.PhysicianId equals phys.PhysicianId into physGroup
+                                                from p in physGroup.DefaultIfEmpty()
+                                                join reg in _context.Regions
+                                               on rc.RegionId equals reg.RegionId into RegGroup
+                                                from rg in RegGroup.DefaultIfEmpty()
+                                                where statusdata.Contains((int)req.Status)
+                                                orderby req.CreatedDate descending
+                                                select new AdminDashboardList
+                                                {
+
+                                                    RequestId = req.RequestId,
+                                                    RequestTypeId = req.RequestTypeId,
+                                                    Requestor = req.FirstName + " " + req.LastName,
+                                                    PatientName = rc.FirstName + " " + rc.LastName,
+                                                    //DateOfBirth = new DateTime((int)req.RequestClients.IntYear, Convert.ToInt32(req.RequestClients.StrMonth.Trim()), (int)req.RequestClients.IntDate),
+                                                    RequestedDate = req.CreatedDate,
+                                                    Email = rc.Email,
+                                                    Region = rg.Name,
+                                                    ProviderName = p.FirstName + " " + p.LastName,
+                                                    PatientPhoneNumber = rc.PhoneNumber,
+                                                    Address = rc.Address,
+                                                    Notes = rc.Notes,
+                                                    ProviderId = req.PhysicianId,
+                                                    RequestorPhoneNumber = req.PhoneNumber
+                                                }).ToList();
+
+            return allData;
         }
     }
 }

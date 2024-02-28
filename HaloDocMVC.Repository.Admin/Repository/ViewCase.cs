@@ -16,14 +16,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             _context = context;
         }
-        public ViewDataViewCase NewRequestData(int? id, int? id2)
+        public ViewDataViewCase NewRequestData(int? RId, int? RTId)
         {
             ViewDataViewCase caseList = _context.RequestClients
-                                        .Where(r => r.Request.RequestId == id)
+                                        .Where(r => r.Request.RequestId == RId)
                                         .Select(req => new ViewDataViewCase()
                                         {
-                                            RequestId = (int)id,
-                                            RequestTypeId = (int)id2,
+                                            RequestId = (int)RId,
+                                            RequestTypeId = (int)RTId,
                                             ConfNo = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002",
                                             Notes = req.Notes,
                                             FirstName = req.FirstName,

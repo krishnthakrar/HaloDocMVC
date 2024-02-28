@@ -15,5 +15,14 @@ namespace HaloDocMVC.Entity.Models
             Family,
             Concierge
         }
+        public enum AdminDashStatus
+        {
+            New = 1,
+            Pending,
+            Active,
+            Conclude,
+            ToClose,
+            UnPaid
+        }
     }
 }

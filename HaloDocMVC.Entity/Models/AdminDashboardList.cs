@@ -19,5 +19,8 @@ namespace HaloDocMVC.Entity.Models
         public string Address { get; set; }
         public string Notes { get; set; }
         public string Email { get; set; }
+        public string? Region { get; set; }
+        public int? ProviderId { get; set; }
+        public string? ProviderName { get; set; }
     }
 }

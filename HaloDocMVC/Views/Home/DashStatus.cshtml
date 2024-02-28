@@ -1,0 +1,62 @@
+﻿@using static HaloDocMVC.Entity.Models.Constant
+
+<form id="filterForm" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"
+      asp-action="_SearchResult" asp-controller="Home" novalidate="novalidate">
+    <input type="hidden" name="Status" id="hiddenfirst" />
+    <div class="row mt-3">
+        <button type="submit" value="1" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
+            <div class="rounded p-3 s1 text-start">
+                <div>
+                    <i class="fa-solid fa-circle-plus"></i>
+                    <span>New</span>
+                </div>
+                <h4><strong>@Model.NewRequest</strong></h4>
+            </div>
+        </button>
+        <button type="submit" value="2" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
+            <div class="rounded p-3 s2 text-start">
+                <div>
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Pending</span>
+                </div>
+                <h4><strong>@Model.PendingRequest</strong></h4>
+            </div>
+        </button>
+        <button type="submit" value="4,5" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
+            <div class="rounded p-3 s3 text-start">
+                <div>
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Active</span>
+                </div>
+                <h4><strong>@Model.ActiveRequest</strong></h4>
+            </div>
+        </button>
+        <button type="submit" value="6" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
+            <div class="rounded p-3 s4 text-start">
+                <div>
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Conclude</span>
+                </div>
+                <h4><strong>@Model.ConcludeRequest</strong></h4>
+            </div>
+        </button>
+        <button type="submit" value="3,7,8" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
+            <div class="rounded p-3 s5 text-start">
+                <div>
+                    <i class="fa-solid fa-user-clock"></i>
+                    <span>To Close</span>
+                </div>
+                <h4><strong>@Model.ToCloseRequest</strong></h4>
+            </div>
+        </button>
+        <button type="submit" value="9" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
+            <div class="rounded p-3 s6 text-start">
+                <div>
+                    <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                    <span>Unpaid</span>
+                </div>
+                <h4><strong>@Model.UnpaidRequest</strong></h4>
+            </div>
+        </button>
+    </div>
+</form>

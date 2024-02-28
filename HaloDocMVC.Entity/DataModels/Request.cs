@@ -29,7 +29,7 @@ public partial class Request
     [StringLength(50)]
     public string? Email { get; set; }
 
-    public short? Status { get; set; }
+    public int? Status { get; set; }
 
     public int? PhysicianId { get; set; }
 
