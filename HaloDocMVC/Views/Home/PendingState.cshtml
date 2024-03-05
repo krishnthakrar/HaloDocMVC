@@ -13,11 +13,11 @@
         </strong>
     </div>
     <div class="linkButtons">
-        <button type="button" class="btn btn-info mb-2"><i class="fa-regular fa-paper-plane px-1"></i><span class="adminIcon">Send Link</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-solid fa-file-pen px-1"></i><span class="adminIcon">Create Requests</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-solid fa-share px-1"></i><span class="adminIcon">Export</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-regular fa-share-from-square px-1"></i><span class="adminIcon">Export All</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-solid fa-user-nurse px-1"></i><span class="adminIcon">Request DIY Support</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-regular fa-paper-plane px-1"></i><span class="adminIcon">Send Link</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-file-pen px-1"></i><span class="adminIcon">Create Requests</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-share px-1"></i><span class="adminIcon">Export</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-regular fa-share-from-square px-1"></i><span class="adminIcon">Export All</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-user-nurse px-1"></i><span class="adminIcon">Request DIY Support</span></button>
     </div>
 </div>
 <div class="card border-1 rounded shadow mt-4">
@@ -92,7 +92,7 @@
                             <small>@item.DateOfBirth.ToString("MMM d , yyyy")</small>
                         </td>
                         <td><small>@item.Requestor</small></td>
-                        <td><small>Dr. J K Shani</small></td>
+                        <td><small>Dr. @item.ProviderName</small></td>
                         <td><small>@item.RequestedDate.ToString("MMM d , yyyy")</small></td>
                         <td>
                             <button class="btn border border-white text-white mt-2">
@@ -176,7 +176,7 @@
                         <p><i class="btn btn-outline-info rounded-pill fa-solid fa-phone me-2"></i>Patient : @item.PatientPhoneNumber</p>
                         <p><i class="btn btn-outline-info rounded-pill fa-solid fa-note-sticky me-2"></i>Transfer Notes : @item.Notes</p>
                         <p><i class="btn btn-outline-info rounded-pill fa-solid fa-calendar-days me-2"></i>Date of service : @item.RequestedDate.ToString("dd/MM/yyyy")</p>
-                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user-doctor me-2"></i>Physician : Dr. J K Shani</p>
+                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user-doctor me-2"></i>Physician : Dr. @item.ProviderName</p>
                         <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user me-2"></i>Requestor : @item.Requestor</p>
                         <div class="row">
                             <div class="col-6 mb-3">

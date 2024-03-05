@@ -1,0 +1,32 @@
+﻿﻿@{
+    string path = Context.Request.Path;
+}
+<nav class="navbar px-5 navbar-expand-lg shadow rounded d-none d-lg-block">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Dashboard") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 text-dark @(path.StartsWith("/Profile") ? "active" : "")" asp-action="Index" asp-controller="Profile">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="offcanvas offcanvas-start w-50" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header bg-info text-white">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome @*<strong>@CredentialValue.UserName()</strong>*@</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item h6"><a asp-controller="Dashboard" asp-action="Index" class="text-decoration-none text-dark">Dashboard</a></li>
+            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">Profile</a></li>
+        </ul>
+    </div>
+</div>

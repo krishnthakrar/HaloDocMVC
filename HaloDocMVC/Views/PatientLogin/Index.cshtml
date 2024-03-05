@@ -1,0 +1,63 @@
+﻿@model HaloDocMVC.Entity.Models.ViewDataCreatePatient;
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html5>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/patient/loginStyle.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/darkLight.css">
+    <title>Login Patient</title>
+</head>
+<body>
+    <div class="main">
+        <button class="darkBtn" onclick="darkLight()"><img src="../../Images/moon.svg" id="moonImg" alt="Dark Light Button"></button>
+        <div class="innerMain">
+            <div class="header">
+                <img src="../../Images/Fig56._Patient_site_1.png" alt="HalloDoc Logo">
+            </div>
+            <div class="body">
+                <div class="backBtn2">
+                    <a asp-controller="PatientHome" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
+                </div>
+                <h3><strong>Login To Your Account</strong></h3>
+                @ViewData["error"]
+                @TempData["emailmessage"]
+                @TempData["EmailCheck"]
+                <div class="form">
+                    <form method="post">
+                        <div class="form-floating email">
+                            <input asp-for="Email" name="Email" type="email" class="form-control shadow-none mb-3 col-xl-3 col-lg-4 col-md-6 col-sm-6" id="email" placeholder="Email">
+                            <label for="email">Email</label>
+                            <button><img src="../../Images/person-circle.svg" alt="Person Logo"></button>
+                        </div>
+                        <div class="form-floating password">
+                            <input asp-for="PasswordHash" name="PasswordHash" type="password" class="form-control shadow-none mb-3 col-xl-3 col-lg-4 col-md-6 col-sm-6" id="password" placeholder="Password">
+                            <label for="password">Password</label>
+                            <button onclick="pwdShowHide()"><img class="showImg" src="../../Images/eye.svg" alt="Password Show/Hide"><img class="hideImg" src="../../Images/hide-eye.png" alt="Password Show/Hide"></button>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3 form-control col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12">Log In</button>
+                    </form>
+                    <div class="forgotPassword">
+                        <a asp-controller="PatientLogin" asp-action="ForgotPassword">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <a href="#"><small>Terms & Conditions</small></a> | <a href="#"><small>Privacy Policy</small></a>
+            </div>
+        </div>
+    </div>
+</body>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="~/js/custom.js"></script>
+<script src="~/js/darklight.js"></script>
+</html>

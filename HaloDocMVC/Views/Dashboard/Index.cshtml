@@ -1,0 +1,111 @@
+﻿@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Dashboard";
+}
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<div id="Dashboard">
+    <div class="d-flex container-fluid mt-3 position-relative ">
+        <div class="">
+            <h3 class="fw-bolder">
+                Medical History @*@CredentialValue.UserName();*@
+            </h3>
+        </div>
+    </div>
+    <div class="card border-0 shadow py-4 mb-5 mt-3 rounded">
+        <div class="text-end mx-2 px-3">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Create New
+                Request
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade text-start" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create New Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Here, I want to create new request for...</p>
+                            <div>
+                                <button id="me" class="btn btn-outline-info mx-2">Me</button>
+                                <button id="else" class="btn btn-outline-info mx-2">Some One Else</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="cont" type="button" class="btn btn-primary">Continue</button>
+                            <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive dNone">
+            <table class="table table-responsive mt-3 p-3">
+                <thead class="theadbg">
+                    <tr class="table-secondary">
+                        <th class="px-3" width="30%" scope="col">Created Date <i class="bi bi-arrow-down"></i></th>
+                        <th width="40%" scope="col">Current Status</th>
+                        <th scope="col">Document</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider mx-5">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="px-3" scope="row"> @item.createdDate</td>
+                            <td>@item.Status</td>
+                            <td>
+                                @{
+                                    if (item.Fcount != 0)
+                                    {
+                                        <a asp-action="ViewDoc" asp-controller="Dashboard" asp-route-id="@item.RequestId" class="btn btn-outline-info btn-sm document-button">
+                                            Document(@item.Fcount)<i class="fa fa-arrow-circle-down px-1" aria-hidden="true"></i>
+                                        </a>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="dBlock mt-3">
+            <div class="accordion" id="accordionExample">
+                @foreach (var item in Model)
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-heading-@item.RequestId">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-@item.RequestId" aria-expanded="true" aria-controls="flush-collapseOne">
+                                <i class="fa fa-clock text-info me-2"></i>
+                                <b>Created Date :  </b>
+                                @item.createdDate.ToString("MMM d, yyyy")
+                            </button>
+                        </h2>
+                        <div id="flush-@item.RequestId" class="accordion-collapse collapse collapse show" aria-labelledby="flush-heading-@item.RequestId" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="mb-1">
+                                    <b> Current Status : </b>
+                                    @item.Status
+                                </div>
+                                <div>
+                                    @{
+                                        if (item.Fcount != 0)
+                                        {
+                                            <a asp-action="ViewDoc" asp-controller="Dashboard" asp-route-id="@item.RequestId" class="btn btn-outline-info btn-sm">
+                                                Documents<i class="fa fa-arrow-circle-down px-1" aria-hidden="true"></i>
+                                            </a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

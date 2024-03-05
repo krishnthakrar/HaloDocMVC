@@ -1,6 +1,7 @@
 ﻿@model List<HaloDocMVC.Entity.Models.AdminDashboardList>
 @using static HaloDocMVC.Entity.Models.Constant
 
+
 <div class="d-flex justify-content-between mt-4 mx-2 searchPatientRegion">
     <div>
         <strong class="d-flex align-items-center">
@@ -13,11 +14,11 @@
         </strong>
     </div>
     <div class="linkButtons">
-        <button type="button" class="btn btn-info mb-2"><i class="fa-regular fa-paper-plane px-1"></i><span class="adminIcon">Send Link</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-solid fa-file-pen px-1"></i><span class="adminIcon">Create Requests</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-solid fa-share px-1"></i><span class="adminIcon">Export</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-regular fa-share-from-square px-1"></i><span class="adminIcon">Export All</span></button>
-        <button type="button" class="btn btn-info mb-2"><i class="fa-solid fa-user-nurse px-1"></i><span class="adminIcon">Request DIY Support</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-regular fa-paper-plane px-1"></i><span class="adminIcon">Send Link</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-file-pen px-1"></i><span class="adminIcon">Create Requests</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-share px-1"></i><span class="adminIcon">Export</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-regular fa-share-from-square px-1"></i><span class="adminIcon">Export All</span></button>
+        <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-user-nurse px-1"></i><span class="adminIcon">Request DIY Support</span></button>
     </div>
 </div>
 <div class="card border-1 rounded shadow mt-4">
@@ -32,9 +33,11 @@
                     <i class="fa fa-search"></i>
                     <select class="form-select shadow-none" id="floatingSelectGrid">
                         <option selected class="text-secondary">All Regions</option>
-                        <option value="1">Ahmedabad</option>
-                        <option value="2">Rajkot</option>
-                        <option value="3">Surat</option>
+                        <option value="1">East</option>
+                        <option value="2">West</option>
+                        <option value="3">North</option>
+                        <option value="4">South</option>
+                        <option value="5">Center</option>
                     </select>
                 </div>
             </div>
@@ -78,7 +81,7 @@
                 </tr>
             </thead>
             <tbody class="mb-5">
-                @foreach (var item in Model)
+                @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
                 {
                     <tr class="@Enum.GetName(typeof(ListType), item.RequestTypeId) border-bottom border-white text-white">
                         <td><small>@item.PatientName</small></td>
@@ -126,8 +129,8 @@
                                 <small>Actions</small>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"><i class="fa-solid fa-list"></i> Assign Case</a></li>
-                                <li><a class="dropdown-item"><i class="fa-regular fa-circle-xmark"></i> Cancel Case</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName"><i class="fa-solid fa-list"></i> Assign Case</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#cancelcase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName"><i class="fa-regular fa-circle-xmark"></i> Cancel Case</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-ban"></i> Block Patient</a></li>
@@ -171,9 +174,9 @@
                         <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user me-2"></i>Requestor : @item.Requestor</p>
                         <div class="row">
                             <div class="col-6 mb-3">
-                                <button class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #A020F0;">
+                                    <a class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #A020F0;" onclick="model_Case(@item.RequestId)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName">
                                     <small>Assign Case</small>
-                                </button>
+                                </a>
                             </div>
                             <div class="col-6 mb-3">
                                 <button class="btn btn-white bg-danger text-white rounded-pill 2px w-100">
@@ -202,3 +205,15 @@
         }
     </div>
 </div>
+<script>
+    function model_Case(id) {
+        console.log(id);
+        var modeldata = @Html.Raw(Json.Serialize(Model))
+        console.log("model data", modeldata[id])
+        console.log(modeldata[id].patientName)
+        document.getElementById('RequestId_Input_ModelAssignCase').value = modeldata[id].requestId;
+        document.getElementById('PatientName_ModelCancelCase').innerText = modeldata[id].patientName;
+        document.getElementById('RequestID_Input_ModelCancelCase').value = modeldata[id].requestId;
+        
+    }
+</script>

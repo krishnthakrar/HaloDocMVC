@@ -75,7 +75,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                 orderby req.CreatedDate descending
                                                 select new AdminDashboardList
                                                 {
-
                                                     RequestId = req.RequestId,
                                                     RequestTypeId = req.RequestTypeId,
                                                     Requestor = req.FirstName + " " + req.LastName,
@@ -91,7 +90,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                     ProviderId = req.PhysicianId,
                                                     RequestorPhoneNumber = req.PhoneNumber
                                                 }).ToList();
-
             return allData;
         }
     }

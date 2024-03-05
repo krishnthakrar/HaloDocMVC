@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "_LayoutHome";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/patient/requestLanding.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/darkLight.css">
+    <title>Submit Request</title>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="../../Images/Fig56._Patient_site_1.png" class="logoImg" alt="HalloDoc Logo">
+        </div>
+        <div>
+            <button class="darkBtn" onclick="darkLight()"><img src="../../Images/moon.svg" id="moonImg" alt="Dark Light Button"></button>
+        </div>
+    </header>
+    <div class="body">
+        <div class="mb-5 top">
+            <div class="backBtn">
+                <a asp-controller="PatientHome" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
+            </div>
+            <center><h1>I am a.......</h1></center>
+        </div>
+        <div class="buttons">
+            <a asp-controller="Request" asp-action="CreatePatient" type="button" class="btn mb-4 col-xl-2 col-lg-3 col-md-6 col-sm-6 col-6 d-flex justify-content-center patient">PATIENT</a>
+            <a asp-controller="Request" asp-action="CreateFriend" type="button" class="btn mb-4 col-xl-2 col-lg-3 col-md-6 col-sm-6 col-6 friend">FAMILY/FRIEND</a>
+            <a asp-controller="Request" asp-action="CreateConcierge" type="button" class="btn mb-4 col-xl-2 col-lg-3 col-md-6 col-sm-6 col-6 concierge">CONCIERGE</a>
+            <a asp-controller="Request" asp-action="CreatePartner" type="button" class="btn mb-4 col-xl-2 col-lg-3 col-md-6 col-sm-6 col-6 partner">BUSINESS PARTNERS</a>
+        </div>
+    </div>
+    <div class="footer fixed-bottom d-flex justify-content-end bg-dark text-white p-3">
+        <a href="#"><small class="text-white">Terms & Conditions</small></a> | <a href="#"><small class="text-white">Privacy Policy</small></a>
+    </div>
+</body>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="~/js/darklight.js"></script>
+</html>

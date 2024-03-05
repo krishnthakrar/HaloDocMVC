@@ -7,20 +7,27 @@ using HaloDocMVC.Repository.Admin.Repository;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HaloDocMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IRequestRepository _irequestRepository;
-        private readonly IViewCase _iviewcase;
-        public HomeController(IRequestRepository irequestRepository, IViewCase iviewcase)
+        private readonly IAdminDashboardActions _admindashboardactions;
+        private readonly IDropdown _dropdown;
+        private readonly INotyfService _notyf;
+        public HomeController(IRequestRepository irequestRepository, IAdminDashboardActions admindashboardactions, IDropdown idropdown, INotyfService notyf)
         {
             _irequestRepository = irequestRepository;
-            _iviewcase = iviewcase;
+            _admindashboardactions = admindashboardactions;
+            _dropdown = idropdown;
+            _notyf = notyf;
         }
         public IActionResult Index()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
+            ViewBag.CaseReason = _dropdown.CaseReason();
             CountStatusWiseRequestModel cswr = _irequestRepository.IndexData();
             return View(cswr);
         }
@@ -58,20 +65,56 @@ namespace HaloDocMVC.Controllers
 
         public IActionResult ViewCase(int? RId, int? RTId)
         {
-            ViewDataViewCase vdvc = _iviewcase.NewRequestData(RId, RTId);
+            ViewDataViewCase vdvc = _admindashboardactions.NewRequestData(RId, RTId);
             return View(vdvc);
         }
 
         [HttpPost]
         public IActionResult ViewCase(ViewDataViewCase vdvc, int? RId, int? RTId)
         {
-            ViewDataViewCase vc = _iviewcase.Edit(vdvc, RId, RTId);
+            ViewDataViewCase vc = _admindashboardactions.Edit(vdvc, RId, RTId);
             return View(vc);
         }
 
         public IActionResult ViewNotes(int? id)
         {
             return View();
+        }
+
+        public IActionResult ProviderByRegion(int Regionid)
+        {
+            var v = _dropdown.ProviderByRegion(Regionid);
+            return Json(v);
+        }
+
+        public async Task<IActionResult> AssignProvider(int requestid, int ProviderId, string Notes)
+        {
+            if (await _admindashboardactions.AssignProvider(requestid, ProviderId, Notes))
+            {
+                _notyf.Success("Physician Assigned successfully...");
+            }
+            else
+            {
+                _notyf.Error("Physician Not Assigned...");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult CancelCase(int RequestID, string Note, string CaseTag)
+        {
+            bool CancelCase = _admindashboardactions.CancelCase(RequestID, Note, CaseTag);
+            if (CancelCase)
+            {
+                _notyf.Success("Case Canceled Successfully");
+
+            }
+            else
+            {
+                _notyf.Error("Case Not Canceled");
+
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

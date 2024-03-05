@@ -27,31 +27,26 @@
             </div>
             <div class="form-floating">
                 <textarea asp-for="Notes" class="form-control shadow-none mb-4" id="symptoms" rows="5" placeholder="Patient Notes"></textarea>
-                @*<textarea class="form-control shadow-none mb-4" id="symptoms" rows="5" placeholder="Patient Notes"></textarea>*@
                 <label for="symptoms" class="form-label">Patient Notes</label>
             </div>
 
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
                     <input asp-for="FirstName" type="text" class="form-control shadow-none" id="fName" placeholder="FirstName">
-                    @*<input type="text" class="form-control shadow-none" id="fName" placeholder="FirstName">*@
                     <label for="fName" class="form-label">First Name</label>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
                     <input asp-for="LastName" type="text" class="form-control shadow-none" id="lName" placeholder="LastName">
-                    @*<input type="text" class="form-control shadow-none" id="lName" placeholder="LastName">*@
                     <label for="lName" class="form-label">Last Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 dateInput">
                     <input asp-for="DOB" type="date" class="form-control shadow-none" id="date">
-                    @*<input type="date" class="form-control shadow-none" id="date">*@
                     <label for="date" class="form-label">Date of Birth</label>
                 </div>
                 <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 form-floating mb-4 phone">
                     <input asp-for="Mobile" class="form-control shadow-none" id="phone">
-                    @*<input class="form-control shadow-none" id="phone">*@
                 </div>
                 <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 form-floating mb-4">
                     <button class="btn btn-outline-info text text-info p-3" ><i class="fa-solid fa-phone"></i></button>
@@ -60,7 +55,6 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
                     <input asp-for="Email" type="email" class="form-control shadow-none" id="email" placeholder="Email">
-                    @*<input type="email" class="form-control shadow-none" id="email" placeholder="Email">*@
                     <label for="email" class="form-label">Email</label>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 form-floating mb-4 d-flex justify-content-start">
@@ -72,12 +66,10 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
                     <input asp-for="Region" type="text" class="form-control shadow-none" id="region" placeholder="Region">
-                    @*<input type="text" class="form-control shadow-none" id="region" placeholder="Region">*@
                     <label for="region" class="form-label">Region</label>
                 </div>
                 <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 form-floating mb-4">
                     <input asp-for="Address" type="text" class="form-control shadow-none" id="business" placeholder="Business Name / Address">
-                    @*<input type="text" class="form-control shadow-none" id="business" placeholder="Business Name / Address">*@
                     <label for="business" class="form-label">Business Name / Address</label>
                 </div>
                 <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 form-floating mb-4">
@@ -91,30 +83,40 @@
                 </div>
             </div>
             <div class="row px-3 d-flex justify-content-end">
-                <a class="col-1 btn btn-info text-white rounded mx-2 p-2">Assign</a>
+                <a class="col-1 btn btn-info text-white rounded mx-2 p-2" onclick="model_Case(@Model.RequestId)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@Model.RequestId" data-bs-patientname="@Model.FirstName">Assign</a>
                 <a asp-controller="Home" asp-action="ViewNotes" asp-route-id="@Model.RequestId" class="col-1 btn btn-info text-white rounded mx-2 p-2">Notes</a>
                 <a class="col-1 btn btn-danger text-white rounded mx-2 p-2">Cancel</a>
             </div>
         </form>
     </div>
 </div>
+<partial name="../AdminDashboardActions/AssignCase.cshtml" />
 <script src="~/js/phone.js"></script>
 <script>
     $(document).ready(function () {
-        $("input").prop("readonly", true);
-        $("textarea").prop("readonly", true);
-        $("input").css("background-color", "#e9ecef");
-        $("textarea").css("background-color", "#e9ecef");
+        $("#email").prop("readonly", true);
+        $("#phone").prop("readonly", true);
+        $("#email").css("background-color", "#e9ecef");
+        $("#phone").css("background-color", "#e9ecef");
         $("#submit").css("display", "none");
     });
 </script>
 <script>
     function enable_disable() {
-        $("input").prop("readonly", false);
-        $("#submit").prop("readonly", false);
+        $("#email").prop("readonly", false);
+        $("#phone").prop("readonly", false);
+        //$("#submit").prop("readonly", false);
         $("#submit").css("display", "block");
         $("#edit").css("display", "none");
-        $("input").css("background-color", "transparent");
-        $("textarea").css("background-color", "transparent");
+        $("#email").css("background-color", "transparent");
+        $("#phone").css("background-color", "transparent");
+    }
+</script>
+<script>
+    function model_Case(id) {
+        console.log(id);
+        var modeldata = @Html.Raw(Json.Serialize(Model))
+            console.log(modeldata[id])
+        document.getElementById('RequestId_Input_ModelAssignCase').value = id;
     }
 </script>

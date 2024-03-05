@@ -1,17 +1,17 @@
-﻿@*@using static HaloDoc.MVC.Models.CredentialValue;*@
+@*@using static HaloDoc.MVC.Models.CredentialValue;*@
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/css/admin/dashboard.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="~/css/patient/dashboard.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/darkLight.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -30,9 +30,9 @@
                 </div>
             </div>
         </nav>
-        <partial name="../_PartialViews/AdminNav" />
+        <partial name="../_PartialViews/NavBar" />
     </header>
-    <main role="main" class="mx-sm-1 mx-md-2 mx-xxl-4 min-vh-100">
+    <main role="main" class="pb-3 container-fluid px-5 min-vh-100">
         @RenderBody()
     </main>
     <footer>
@@ -52,12 +52,30 @@
     </footer>
     <script src="~/js/darklight.js" asp-append-version="true"></script>
     <script src="~/js/custom.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="@Url.Content("~/plugins/mvc-jquery-ajax/jquery.unobtrusive-ajax.js")"></script>
-    <script src="@Url.Content("~/plugins/mvc-jquery-validate/jquery.validate.js")"></script>
-    <script src="@Url.Content("~/plugins/mvc-jquery-validate/jquery.validate.unobtrusive.js")"></script>
+    <script src="~/js/phone.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        let metemp = false;
+        let elsetemp = false;
+
+        $('#me').on('click', function () {
+            metemp = true;
+            elsetemp = false;
+        })
+        $('#else').on('click', function () {
+            elsetemp = true;
+            metemp = false;
+        })
+        $('#cont').on('click', function () {
+            if (metemp == true) {
+                window.location.href = "/Request/CreateMe";
+            }
+            else if (elsetemp == true) {
+                window.location.href = "/Request/CreateSomeOneElse";
+            }
+        })
+    </script>
 </body>
 </html>
