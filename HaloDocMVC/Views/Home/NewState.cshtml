@@ -133,7 +133,7 @@
                                 <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#cancelcase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName"><i class="fa-regular fa-circle-xmark"></i> Cancel Case</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
-                                <li><a class="dropdown-item"><i class="fa-solid fa-ban"></i> Block Patient</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#blockcase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName"><i class="fa-solid fa-ban"></i> Block Patient</a></li>
                             </ul>
                         </td>
                     </tr>
@@ -211,5 +211,8 @@
         document.getElementById('RequestId_Input_ModelAssignCase').value = modeldata[id].requestId;
         document.getElementById('PatientName_ModelCancelCase').innerText = modeldata[id].patientName;
         document.getElementById('RequestID_Input_ModelCancelCase').value = modeldata[id].requestId;
+        document.getElementById('RequestID_Input_ModelBlockCase').value = modeldata[id].requestId;
+        document.getElementById('PatientName_ModelBlockCase').innerText = modeldata[id].patientName;
+        console.log(document.getElementById('RequestID_Input_ModelBlockCase').value);
     }
 </script>

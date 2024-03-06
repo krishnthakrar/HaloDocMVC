@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using AspNetCoreHero.ToastNotification.Abstractions;
 
+
 namespace HaloDocMVC.Controllers
 {
     public class HomeController : Controller
@@ -24,6 +25,8 @@ namespace HaloDocMVC.Controllers
             _dropdown = idropdown;
             _notyf = notyf;
         }
+
+        [AdminAccess]
         public IActionResult Index()
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
@@ -113,6 +116,20 @@ namespace HaloDocMVC.Controllers
             {
                 _notyf.Error("Case Not Canceled");
 
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult BlockCase(int RequestID, string Note)
+        {
+            bool BlockCase = _admindashboardactions.BlockCase(RequestID, Note);
+            if (BlockCase)
+            {
+                _notyf.Success("Case Blocked Successfully");
+            }
+            else
+            {
+                _notyf.Error("Case Not Blocked");
             }
             return RedirectToAction("Index", "Home");
         }

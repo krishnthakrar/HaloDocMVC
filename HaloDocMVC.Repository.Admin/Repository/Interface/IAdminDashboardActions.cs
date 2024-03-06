@@ -16,5 +16,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public Task<bool> AssignProvider(int RequestId, int ProviderId, string notes);
 
         public bool CancelCase(int RequestID, string Note, string CaseTag);
+        
+        public bool BlockCase(int RequestID, string Note);
     }
 }

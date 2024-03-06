@@ -141,5 +141,39 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+
+        public bool BlockCase(int RequestID, string Note)
+        {
+            try
+            {
+                var requestData = _context.Requests.FirstOrDefault(e => e.RequestId == RequestID);
+                if (requestData != null)
+                {
+                    requestData.Status = 11;
+                    _context.Requests.Update(requestData);
+                    _context.SaveChanges();
+                    BlockRequest blc = new BlockRequest
+                    {
+                        RequestId = requestData.RequestId,
+                        PhoneNumber = requestData.PhoneNumber,
+                        Email = requestData.Email,
+                        Reason = Note,
+                        CreatedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now
+                    };
+                    _context.BlockRequests.Add(blc);
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
