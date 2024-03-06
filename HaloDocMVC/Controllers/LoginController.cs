@@ -46,9 +46,5 @@ namespace HaloDocMVC.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Login");
         }
-        public IActionResult AuthError()
-        {
-            return View("../Home/AuthError");
-        }
     }
 }

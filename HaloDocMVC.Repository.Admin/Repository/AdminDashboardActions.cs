@@ -19,7 +19,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             _context = context;
         }
-        public ViewDataViewCase NewRequestData(int? RId, int? RTId)
+        public ViewDataViewCase NewRequestData(int? RId, int? RTId, int? Status)
         {
             ViewDataViewCase caseList = _context.RequestClients
                                         .Where(r => r.Request.RequestId == RId)
@@ -28,6 +28,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                             UserId = req.Request.UserId,
                                             RequestId = (int)RId,
                                             RequestTypeId = (int)RTId,
+                                            Status = (int)Status,
                                             ConfNo = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002",
                                             Notes = req.Notes,
                                             FirstName = req.FirstName,
@@ -41,7 +42,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             return caseList;
         }
 
-        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId)
+        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status)
         {
             try
             {
@@ -59,6 +60,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                             UserId = req.Request.UserId,
                                             RequestId = (int)RId,
                                             RequestTypeId = (int)RTId,
+                                            Status = (int)Status,
                                             ConfNo = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002",
                                             Notes = req.Notes,
                                             FirstName = req.FirstName,

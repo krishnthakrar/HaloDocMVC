@@ -57,10 +57,13 @@
                     <input asp-for="Email" type="email" class="form-control shadow-none" id="email" placeholder="Email">
                     <label for="email" class="form-label">Email</label>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 form-floating mb-4 d-flex justify-content-start">
-                    <a id="edit" onclick="enable_disable()" class="btn btn-info text-white rounded p-2">Edit</a>
-                    <input type="submit" id="submit" class="btn bg-info text-white rounded p-2" value="Save">
-                </div>
+                @if(Model.Status != 1)
+                {
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 form-floating mb-4 d-flex justify-content-start">
+                        <a id="edit" onclick="enable_disable()" class="btn btn-info text-white rounded p-2">Edit</a>
+                        <input type="submit" id="submit" class="btn bg-info text-white rounded p-2" value="Save">
+                    </div>
+                }
             </div>
             <h4 class="mb-4">Location Information</h4>
             <div class="row">
@@ -83,7 +86,10 @@
                 </div>
             </div>
             <div class="row px-3 d-flex justify-content-end">
-                <a class="col-1 btn btn-info text-white rounded mx-2 p-2" onclick="model_Case(@Model.RequestId)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@Model.RequestId" data-bs-patientname="@Model.FirstName">Assign</a>
+                @if(Model.Status == 1)
+                {
+                    <a class="col-1 btn btn-info text-white rounded mx-2 p-2" onclick="model_Case(@Model.RequestId)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@Model.RequestId" data-bs-patientname="@Model.FirstName">Assign</a>
+                }
                 <a asp-controller="Home" asp-action="ViewNotes" asp-route-id="@Model.RequestId" class="col-1 btn btn-info text-white rounded mx-2 p-2">Notes</a>
                 <a class="col-1 btn btn-danger text-white rounded mx-2 p-2">Cancel</a>
             </div>

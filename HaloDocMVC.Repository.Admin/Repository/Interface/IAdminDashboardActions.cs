@@ -9,9 +9,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IAdminDashboardActions
     {
-        public ViewDataViewCase NewRequestData(int? RId, int? RTId);
+        public ViewDataViewCase NewRequestData(int? RId, int? RTId, int? Status);
 
-        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId);
+        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status);
 
         public Task<bool> AssignProvider(int RequestId, int ProviderId, string notes);
 

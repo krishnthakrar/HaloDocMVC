@@ -78,7 +78,7 @@
                 </tr>
             </thead>
             <tbody class="mb-5">
-                @foreach (var item in Model)
+                @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
                 {
                     <tr class="@Enum.GetName(typeof(ListType), item.RequestTypeId) border-bottom border-white text-white">
                         <td><small>@item.PatientName</small></td>
@@ -113,7 +113,7 @@
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Doctor's Note</a></li>
-                                <li><a class="dropdown-item"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#clearcase"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>
                             </ul>
                         </td>
@@ -123,7 +123,7 @@
         </table>
     </div>
     <div class="accordion mt-3 d-block d-sm-none" id="accordionExample">
-        @foreach (var item in Model)
+        @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
         {
             <div class="accordion-item s7">
                 <div class="accordion-header" id="flush-heading-@item.RequestId">
@@ -183,7 +183,7 @@
                                 </button>
                             </div>
                             <div class="col-6 mb-3">
-                                <button class="btn btn-white bg-warning text-white rounded-pill 2px w-100">
+                                <button class="btn btn-white bg-warning text-white rounded-pill 2px w-100" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#clearcase">
                                     <small>Clear Case</small>
                                 </button>
                             </div>
@@ -210,3 +210,9 @@
         }
     </div>
 </div>
+<script>
+    function model_Case(id) {
+        var modeldata = @Html.Raw(Json.Serialize(Model))
+        document.getElementById('RequestID_Input_ModelClearCase').value = modeldata[id].requestId;
+    }
+</script>

@@ -66,16 +66,18 @@ namespace HaloDocMVC.Controllers
             return View();
         }
 
-        public IActionResult ViewCase(int? RId, int? RTId)
+        public IActionResult ViewCase(int? RId, int? RTId, int? Status)
         {
-            ViewDataViewCase vdvc = _admindashboardactions.NewRequestData(RId, RTId);
+            ViewBag.AllRegion = _dropdown.AllRegion();
+            ViewDataViewCase vdvc = _admindashboardactions.NewRequestData(RId, RTId, Status);
             return View(vdvc);
         }
 
         [HttpPost]
-        public IActionResult ViewCase(ViewDataViewCase vdvc, int? RId, int? RTId)
+        public IActionResult ViewCase(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status)
         {
-            ViewDataViewCase vc = _admindashboardactions.Edit(vdvc, RId, RTId);
+            ViewBag.AllRegion = _dropdown.AllRegion();
+            ViewDataViewCase vc = _admindashboardactions.Edit(vdvc, RId, RTId, Status);
             return View(vc);
         }
 
@@ -147,6 +149,11 @@ namespace HaloDocMVC.Controllers
                 _notyf.Error("there is some error in deletion...");
             }
             return RedirectToAction("Index", "Home", new { Status = "2" });
+        }
+
+        public IActionResult AuthError()
+        {
+            return View("../Home/AuthError");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

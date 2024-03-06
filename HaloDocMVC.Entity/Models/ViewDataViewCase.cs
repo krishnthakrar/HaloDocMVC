@@ -3,7 +3,10 @@
     public class ViewDataViewCase
     {
         public int? UserId { get; set; }
+
         public int RequestTypeId { get; set; }
+
+        public int Status { get; set; }
 
         public int RequestId { get; set; } 
 
