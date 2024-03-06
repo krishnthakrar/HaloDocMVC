@@ -124,7 +124,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     {
                         RequestId = RequestID,
                         Notes = Note,
-                        Status = 3,
+                        Status = 8,
                         CreatedDate = DateTime.Now
                     };
                     _context.RequestStatusLogs.Add(rsl);

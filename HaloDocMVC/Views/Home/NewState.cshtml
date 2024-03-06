@@ -142,7 +142,7 @@
         </table>
     </div>
     <div class="accordion mt-3 d-block d-sm-none" id="accordionExample">
-        @foreach (var item in Model)
+        @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
         {
             <div class="accordion-item s7">
                 <div class="accordion-header" id="flush-heading-@item.RequestId">
@@ -174,12 +174,12 @@
                         <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user me-2"></i>Requestor : @item.Requestor</p>
                         <div class="row">
                             <div class="col-6 mb-3">
-                                    <a class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #A020F0;" onclick="model_Case(@item.RequestId)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName">
+                                <a class="btn btn-white text-white rounded-pill 2px w-100" style="background-color: #A020F0;" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName">
                                     <small>Assign Case</small>
                                 </a>
                             </div>
                             <div class="col-6 mb-3">
-                                <button class="btn btn-white bg-danger text-white rounded-pill 2px w-100">
+                                <button class="btn btn-white bg-danger text-white rounded-pill 2px w-100" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#cancelcase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName">
                                     <small>Cancel Case</small>
                                 </button>
                             </div>
@@ -207,13 +207,9 @@
 </div>
 <script>
     function model_Case(id) {
-        console.log(id);
         var modeldata = @Html.Raw(Json.Serialize(Model))
-        console.log("model data", modeldata[id])
-        console.log(modeldata[id].patientName)
         document.getElementById('RequestId_Input_ModelAssignCase').value = modeldata[id].requestId;
         document.getElementById('PatientName_ModelCancelCase').innerText = modeldata[id].patientName;
         document.getElementById('RequestID_Input_ModelCancelCase').value = modeldata[id].requestId;
-        
     }
 </script>

@@ -29,13 +29,13 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }).ToList();
         }
 
-        public Task<List<CaseReason>> CaseReason()
+        public List<CaseReason> CaseReason()
         {
             return _context.CaseTags.Select(req => new CaseReason()
             {
                 CaseReasonId = req.CaseTagId,
                 CaseReasonName = req.Name
-            }).ToListAsync();
+            }).ToList();
         }
 
         public List<Physician> ProviderByRegion(int regionid)

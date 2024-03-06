@@ -12,7 +12,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
     {
         public List<AllRegion> AllRegion();
 
-        Task<List<CaseReason>> CaseReason();
+        public List<CaseReason> CaseReason();
 
         public List<Physician> ProviderByRegion(int regionid);
     }
