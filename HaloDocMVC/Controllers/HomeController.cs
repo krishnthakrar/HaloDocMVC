@@ -134,6 +134,21 @@ namespace HaloDocMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult ClearCase(int RequestID)
+        {
+            bool cc = _admindashboardactions.ClearCase(RequestID);
+            if (cc)
+            {
+                _notyf.Success("Case Cleared...");
+                _notyf.Warning("You can not show Cleared Case ...");
+            }
+            else
+            {
+                _notyf.Error("there is some error in deletion...");
+            }
+            return RedirectToAction("Index", "Home", new { Status = "2" });
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

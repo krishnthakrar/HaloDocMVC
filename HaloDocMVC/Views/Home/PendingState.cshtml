@@ -79,7 +79,7 @@
                 </tr>
             </thead>
             <tbody class="mb-5">
-                @foreach (var item in Model)
+                @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
                 {
                     <tr class="@Enum.GetName(typeof(ListType), item.RequestTypeId) border-bottom border-white text-white">
                         <td><small>@item.PatientName</small></td>
@@ -135,7 +135,7 @@
                                 <li><a class="dropdown-item"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-list"></i> Transfer</a></li>
-                                <li><a class="dropdown-item"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#clearcase"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-paper-plane"></i> Send Agreement</a></li>
                             </ul>
                         </td>
@@ -145,7 +145,7 @@
         </table>
     </div>
     <div class="accordion mt-3 d-block d-sm-none" id="accordionExample">
-        @foreach (var item in Model)
+        @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
         {
             <div class="accordion-item s7">
                 <div class="accordion-header" id="flush-heading-@item.RequestId">
@@ -217,3 +217,9 @@
         }
     </div>
 </div>
+<script>
+    function model_Case(id) {
+        var modeldata = @Html.Raw(Json.Serialize(Model))
+        document.getElementById('RequestID_Input_ModelClearCase').value = modeldata[id].requestId;
+    }
+</script>

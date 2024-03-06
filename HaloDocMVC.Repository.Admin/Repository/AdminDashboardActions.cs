@@ -175,5 +175,36 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+
+        public bool ClearCase(int RequestID)
+        {
+            try
+            {
+                var requestData = _context.Requests.FirstOrDefault(e => e.RequestId == RequestID);
+                if (requestData != null)
+                {
+                    requestData.Status = 10;
+                    _context.Requests.Update(requestData);
+                    _context.SaveChanges();
+                    RequestStatusLog rsl = new RequestStatusLog
+                    {
+                        RequestId = RequestID,
+                        Status = 10,
+                        CreatedDate = DateTime.Now
+                    };
+                    _context.RequestStatusLogs.Add(rsl);
+                    _context.SaveChanges();
+                    return true;
+                }
+                else 
+                { 
+                    return false; 
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -18,5 +18,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool CancelCase(int RequestID, string Note, string CaseTag);
         
         public bool BlockCase(int RequestID, string Note);
+
+        public bool ClearCase(int RequestID);
     }
 }
