@@ -32,9 +32,11 @@
                     <i class="fa fa-search"></i>
                     <select class="form-select shadow-none" id="floatingSelectGrid">
                         <option selected class="text-secondary">All Regions</option>
-                        <option value="1">Ahmedabad</option>
-                        <option value="2">Rajkot</option>
-                        <option value="3">Surat</option>
+                        <option value="1">East</option>
+                        <option value="2">West</option>
+                        <option value="3">North</option>
+                        <option value="4">South</option>
+                        <option value="5">Center</option>
                     </select>
                 </div>
             </div>
@@ -108,7 +110,7 @@
                                 <small>Actions</small>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
+                                <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" asp-route-Status="378" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>

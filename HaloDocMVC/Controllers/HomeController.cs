@@ -56,8 +56,6 @@ namespace HaloDocMVC.Controllers
                 default:
                     break;
             }
-
-
             return PartialView("../Home/NewState", contacts);
         }
 

@@ -47,7 +47,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
             try
             {
                 RequestClient RC = _context.RequestClients.FirstOrDefault(E => E.RequestId == vdvc.RequestId);
-
                 RC.PhoneNumber = vdvc.Mobile;
                 RC.Email = vdvc.Email;
                 _context.Update(RC);
