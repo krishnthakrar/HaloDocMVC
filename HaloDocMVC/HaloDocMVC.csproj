@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\main.css" />
-    <Content Remove="wwwroot\css\style.css" />
+    <Content Remove="wwwroot\css\Admin\login.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +30,7 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="wwwroot\css\Admin\login.css" />
     <None Include="wwwroot\css\Admin\dashboard.css" />
     <None Include="wwwroot\css\bootstrap.min.css" />
     <None Include="wwwroot\css\darkLight.css" />
@@ -40,8 +40,6 @@
     <None Include="wwwroot\css\patient\requestLanding.css" />
     <None Include="wwwroot\css\patient\resetPasssword.css" />
     <None Include="wwwroot\css\patient\style.css" />
-    <None Include="wwwroot\css\main.css" />
-    <None Include="wwwroot\css\style.css" />
     <None Include="wwwroot\css\site.css" />
     <None Include="wwwroot\favicon.ico" />
     <None Include="wwwroot\Images\11116016_415-removebg.png" />

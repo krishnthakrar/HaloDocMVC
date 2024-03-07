@@ -101,12 +101,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
             rsl.RequestId = RequestId;
             rsl.PhysicianId = ProviderId;
             rsl.Notes = notes;
-
             rsl.CreatedDate = DateTime.Now;
             rsl.Status = 2;
             _context.RequestStatusLogs.Update(rsl);
             _context.SaveChanges();
-
             return true;
         }
 

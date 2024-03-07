@@ -1,0 +1,14 @@
+@media only screen and (max-width: 992px) {
+    #leftDiv {
+        display: none;
+    }
+
+    #rightDiv {
+        background: linear-gradient(rgba(255,255,255,.60), rgba(255,255,255,.60)), url('../../Images/11116016_415-removebg.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: contain;
+        backdrop-filter: blur(5px);
+    }
+}
