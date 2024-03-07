@@ -20,5 +20,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool BlockCase(int RequestID, string Note);
 
         public bool ClearCase(int RequestID);
+
+        public ViewDataViewNotes GetNotesByID(int id);
+
+        public bool EditViewNotes(string? adminnotes, string? physiciannotes, int RequestID);
     }
 }

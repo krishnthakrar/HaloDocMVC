@@ -24,5 +24,11 @@ namespace HaloDocMVC.Entity.Models
             ToClose,
             UnPaid
         }
+        public enum Status
+        {
+            Unassigned = 1,
+            Accepted, Cancelled, MDEnRoute, MDONSite, Conclude, CancelledByPatients, Closed, Unpaid, Clear,
+            Block
+        }
     }
 }

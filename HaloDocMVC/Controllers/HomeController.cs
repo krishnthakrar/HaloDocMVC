@@ -78,10 +78,34 @@ namespace HaloDocMVC.Controllers
             ViewDataViewCase vc = _admindashboardactions.Edit(vdvc, RId, RTId, Status);
             return View(vc);
         }
-
-        public IActionResult ViewNotes(int? id)
+        public IActionResult ViewNotes(int RId)
         {
-            return View();
+            ViewDataViewNotes vdvn = _admindashboardactions.GetNotesByID(RId);
+            return View("../Home/ViewNotes", vdvn);
+        }
+
+        public IActionResult ChangeNotes(int RequestID, string? adminnotes, string? physiciannotes)
+        {
+            if (adminnotes != null || physiciannotes != null)
+            {
+                bool result = _admindashboardactions.EditViewNotes(adminnotes, physiciannotes, RequestID);
+                if (result)
+                {
+                    _notyf.Success("Notes Updated successfully...");
+                    return RedirectToAction("ViewNotes", new { id = RequestID });
+                }
+                else
+                {
+                    _notyf.Error("Notes Note Updated");
+                    return View("../Home/ViewNotes");
+                }
+            }
+            else
+            {
+                _notyf.Information("Please Select one of the note!!");
+                TempData["Errormassage"] = "Please Select one of the note!!";
+                return RedirectToAction("ViewNotes", new { id = RequestID });
+            }
         }
 
         public IActionResult ProviderByRegion(int Regionid)
