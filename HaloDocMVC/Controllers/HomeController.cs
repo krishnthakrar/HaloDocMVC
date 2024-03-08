@@ -170,7 +170,21 @@ namespace HaloDocMVC.Controllers
             {
                 _notyf.Error("there is some error in deletion...");
             }
-            return RedirectToAction("Index", "Home", new { Status = "2" });
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> TransferProvider(int requestid, int ProviderId, string Notes)
+        {
+            if (await _admindashboardactions.TransferProvider(requestid, ProviderId, Notes))
+            {
+                _notyf.Success("Physician Transfered successfully...");
+            }
+            else
+            {
+                _notyf.Error("Physician Not Transfered...");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult AuthError()

@@ -27,8 +27,7 @@ namespace HaloDocMVC.Entity.Models
         public enum Status
         {
             Unassigned = 1,
-            Accepted, Cancelled, MDEnRoute, MDONSite, Conclude, CancelledByPatients, Closed, Unpaid, Clear,
-            Block
+            Accepted, Cancelled, MDEnRoute, MDONSite, Conclude, CancelledByPatients, Closed, Unpaid, Clear,Block
         }
     }
 }

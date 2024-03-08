@@ -4,8 +4,8 @@
       asp-action="_SearchResult" asp-controller="Home" novalidate="novalidate">
     <input type="hidden" name="Status" id="hiddenfirst" />
     <div class="row mt-3">
-        <button type="submit" value="1" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
-            <div class="rounded p-3 s1 text-start">
+        <button type="submit" value="1" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
+            <div class="rounded p-3 s1 as text-start a-s1">
                 <div>
                     <i class="fa-solid fa-circle-plus"></i>
                     <span>New</span>
@@ -13,8 +13,8 @@
                 <h4><strong>@Model.NewRequest</strong></h4>
             </div>
         </button>
-        <button type="submit" value="2" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
-            <div class="rounded p-3 s2 text-start">
+        <button type="submit" value="2" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
+            <div class="rounded p-3 s2 text-start a-s2">
                 <div>
                     <i class="fa-solid fa-user-doctor"></i>
                     <span>Pending</span>
@@ -22,8 +22,8 @@
                 <h4><strong>@Model.PendingRequest</strong></h4>
             </div>
         </button>
-        <button type="submit" value="4,5" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
-            <div class="rounded p-3 s3 text-start">
+        <button type="submit" value="4,5" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
+            <div class="rounded p-3 s3 text-start a-s3">
                 <div>
                     <i class="fa-solid fa-circle-check"></i>
                     <span>Active</span>
@@ -31,8 +31,8 @@
                 <h4><strong>@Model.ActiveRequest</strong></h4>
             </div>
         </button>
-        <button type="submit" value="6" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
-            <div class="rounded p-3 s4 text-start">
+        <button type="submit" value="6" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
+            <div class="rounded p-3 s4 text-start a-s4">
                 <div>
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     <span>Conclude</span>
@@ -40,8 +40,8 @@
                 <h4><strong>@Model.ConcludeRequest</strong></h4>
             </div>
         </button>
-        <button type="submit" value="3,7,8" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
-            <div class="rounded p-3 s5 text-start">
+        <button type="submit" value="3,7,8" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
+            <div class="rounded p-3 s5 text-start a-s5">
                 <div>
                     <i class="fa-solid fa-user-clock"></i>
                     <span>To Close</span>
@@ -49,8 +49,8 @@
                 <h4><strong>@Model.ToCloseRequest</strong></h4>
             </div>
         </button>
-        <button type="submit" value="9" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none">
-            <div class="rounded p-3 s6 text-start">
+        <button type="submit" value="9" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
+            <div class="rounded p-3 s6 text-start a-s6">
                 <div>
                     <i class="fa-solid fa-circle-dollar-to-slot"></i>
                     <span>Unpaid</span>
@@ -60,3 +60,11 @@
         </button>
     </div>
 </form>
+<script>
+    $(document).ready(function () {
+        $(".row > .btn > .rounded").click(function () {
+            $(".row > .btn > .rounded").removeClass("as");
+            $(this).addClass("as");
+        });
+    });
+</script>

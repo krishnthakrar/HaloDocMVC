@@ -37,7 +37,7 @@
     background-color: #97bbfc;
 }
 
-.s1:hover {
+.s1:hover, .s1.as {
     border: 2px solid #0c47b3;
     color: #ffffff;
     background-color: #0c47b3;
@@ -49,7 +49,7 @@
     background-color: #c5effc;
 }
 
-.s2:hover {
+.s2:hover, .s2.as {
     border: 2px solid #54b4d3;
     color: #ffffff;
     background-color: #54b4d3;
@@ -61,7 +61,7 @@
     background-color: #a9f5c7;
 }
 
-.s3:hover {
+.s3:hover, .s3.as {
     border: 2px solid #14a44d;
     color: #ffffff;
     background-color: #14a44d;
@@ -73,7 +73,7 @@
     background-color: #fab6ca;
 }
 
-.s4:hover {
+.s4:hover, .s4.as {
     border: 2px solid #cf154c;
     color: #ffffff;
     background-color: #cf154c;
@@ -85,7 +85,7 @@
     background-color: #a4c5e0;
 }
 
-.s5:hover {
+.s5:hover, .s5.as {
     border: 2px solid #0761ab;
     color: #ffffff;
     background-color: #0761ab;
@@ -97,13 +97,13 @@
     background-color: #e4c6f5;
 }
 
-.s6:hover {
+.s6:hover, .s6.as {
     border: 2px solid #be69f0;
     color: #ffffff;
     background-color: #be69f0;
 }
 
-.s1Btn {
+/*.s1Btn {
     color: #0c47b3;
     background-color: #97bbfc;
 }
@@ -161,7 +161,7 @@
 .s6Btn:hover {
     color: #ffffff;
     background-color: #be69f0;
-}
+}*/
 
 .s7 {
     background-color: #e1f4fa;
@@ -358,4 +358,79 @@ label {
 
 .row .btnMap {
     height: 58px;
+}
+
+
+@media only screen and (min-width: 992px) {
+    .as.a-s1::after {
+        position: absolute;
+        content: '';
+        left: 42%;
+        bottom: -11px;
+        border-style: solid;
+        border-width: 0 20px 20px 20px;
+        border-color: transparent transparent #0c47b3 transparent;
+        transform: rotate(179deg);
+        transition: 1s;
+    }
+
+    .as.a-s2::after {
+        position: absolute;
+        content: '';
+        left: 42%;
+        bottom: -11px;
+        border-style: solid;
+        border-width: 0 20px 20px 20px;
+        border-color: transparent transparent #54b4d3 transparent;
+        transform: rotate(179deg);
+        transition: 1s;
+    }
+
+    .as.a-s3::after {
+        position: absolute;
+        content: '';
+        left: 42%;
+        bottom: -11px;
+        border-style: solid;
+        border-width: 0 20px 20px 20px;
+        border-color: transparent transparent #14a44d transparent;
+        transform: rotate(179deg);
+        transition: 1s;
+    }
+
+    .as.a-s4::after {
+        position: absolute;
+        content: '';
+        left: 42%;
+        bottom: -11px;
+        border-style: solid;
+        border-width: 0 20px 20px 20px;
+        border-color: transparent transparent #cf154c transparent;
+        transform: rotate(179deg);
+        transition: 1s;
+    }
+
+    .as.a-s5::after {
+        position: absolute;
+        content: '';
+        left: 42%;
+        bottom: -11px;
+        border-style: solid;
+        border-width: 0 20px 20px 20px;
+        border-color: transparent transparent #0761ab transparent;
+        transform: rotate(179deg);
+        transition: 1s;
+    }
+
+    .as.a-s6::after {
+        position: absolute;
+        content: '';
+        left: 42%;
+        bottom: -11px;
+        border-style: solid;
+        border-width: 0 20px 20px 20px;
+        border-color: transparent transparent #be69f0 transparent;
+        transform: rotate(179deg);
+        transition: 1s;
+    }
 }

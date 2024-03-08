@@ -136,7 +136,7 @@
                                 <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" asp-route-Status="2" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
-                                <li><a class="dropdown-item"><i class="fa-solid fa-list"></i> Transfer</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#transfercase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName"><i class="fa-solid fa-list"></i> Transfer</a></li>
                                 <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#clearcase"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-paper-plane"></i> Send Agreement</a></li>
                             </ul>
@@ -193,7 +193,7 @@
                             </div>
 
                             <div class="col-6 mb-3">
-                                <button class="btn btn-white bg-info text-white rounded-pill 2px w-100">
+                                <button class="btn btn-white bg-info text-white rounded-pill 2px w-100" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#transfercase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName">
                                     <small>Transfer</small>
                                 </button>
                             </div>
@@ -222,6 +222,7 @@
 <script>
     function model_Case(id) {
         var modeldata = @Html.Raw(Json.Serialize(Model))
+        document.getElementById('RequestID_Input_ModelTransferCase').value = modeldata[id].requestId;
         document.getElementById('RequestID_Input_ModelClearCase').value = modeldata[id].requestId;
     }
 </script>

@@ -24,5 +24,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public ViewDataViewNotes GetNotesByID(int id);
 
         public bool EditViewNotes(string? adminnotes, string? physiciannotes, int RequestID);
+
+        public Task<bool> TransferProvider(int RequestId, int ProviderId, string notes);
     }
 }

@@ -175,6 +175,26 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
         }
 
+        public async Task<bool> TransferProvider(int RequestId, int ProviderId, string notes)
+        {
+            var request = await _context.Requests.FirstOrDefaultAsync(req => req.RequestId == RequestId);
+            RequestStatusLog rsl = new();
+            rsl.RequestId = RequestId;
+            rsl.PhysicianId = request.PhysicianId;
+            rsl.Notes = notes;
+            rsl.CreatedDate = DateTime.Now;
+            rsl.TransToPhysicianId = ProviderId;
+            rsl.Status = 2;
+            _context.RequestStatusLogs.Update(rsl);
+            _context.SaveChanges();
+
+            request.PhysicianId = ProviderId;
+            request.Status = 2;
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            return true;
+        }
+
         public bool ClearCase(int RequestID)
         {
             try

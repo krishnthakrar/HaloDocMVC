@@ -51,18 +51,27 @@
 </nav>
 <div class="offcanvas offcanvas-start w-50" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header bg-info text-white">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome @*<strong>@CredentialValue.UserName()</strong>*@</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome <strong>@CredentialValue.UserName()</strong></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <ul class="list-group list-group-flush">
             <li class="list-group-item h6"><a asp-controller="AdminDashboard" asp-action="Index" class="text-decoration-none text-dark">Dashboard</a></li>
-            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">Provider Location</a></li>
-            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">My Profile</a></li>
-            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">Providers</a></li>
-            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">Partners</a></li>
-            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">Access</a></li>
-            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">Records</a></li>
+            <li class="list-group-item h6"><a asp-controller="AdminProfile" asp-action="Index" class="text-decoration-none text-dark">My Profile</a></li>
+            @if (CredentialValue.RoleID() == "1")
+            {
+                <li class="list-group-item h6"><a asp-controller="ProviderLocation" asp-action="Index" class="text-decoration-none text-dark">Provider Location</a></li>
+                <li class="list-group-item h6"><a asp-controller="Providers" asp-action="Index" class="text-decoration-none text-dark">Providers</a></li>
+                <li class="list-group-item h6"><a asp-controller="Partners" asp-action="Index" class="text-decoration-none text-dark">Partners</a></li>
+                <li class="list-group-item h6"><a asp-controller="Access" asp-action="Index" class="text-decoration-none text-dark">Access</a></li>
+                <li class="list-group-item h6"><a asp-controller="Records" asp-action="Index" class="text-decoration-none text-dark">Records</a></li>
+            }
+            @if (CredentialValue.RoleID() == "2")
+            {
+                <li class="list-group-item h6"><a asp-controller="Partners" asp-action="Index" class="text-decoration-none text-dark">Chat</a></li>
+                <li class="list-group-item h6"><a asp-controller="Access" asp-action="Index" class="text-decoration-none text-dark">Invoicing</a></li>
+                <li class="list-group-item h6"><a asp-controller="Records" asp-action="Index" class="text-decoration-none text-dark">My Schedule</a></li>
+            }
         </ul>
     </div>
 </div>

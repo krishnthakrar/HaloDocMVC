@@ -29,8 +29,8 @@ namespace HaloDocMVC.Entity.Models
 
         public string? Physician { get; set; }
 
-        public string TransferNote => $"{Admin} transferred  <b> {Physician}  </b> to <b> {TransPhysician} </b> on {CreatedDate}: <b>{Notes}</b>";
-       
+        public string TransferNote => $"{Admin} transferred <b> {Physician} </b> to <b> {TransPhysician} </b> on {CreatedDate}: <b>{Notes}</b>";
+
         public BitArray? TransToAdmin { get; set; }
     }
 }

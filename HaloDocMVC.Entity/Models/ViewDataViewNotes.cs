@@ -43,8 +43,6 @@ namespace HaloDocMVC.Entity.Models
 
         public List<TransferNotes> TransferNotes { get; set; } = null!;
 
-        public List<TransferNotes> CancelNotes { get; set; } = null!;
-
         public List<TransferNotes> Cancel { get; set; } = null!;
 
         public List<TransferNotes> CancelByPhysician { get; set; } = null!;
