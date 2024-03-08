@@ -35,6 +35,7 @@ namespace HaloDocMVC.Controllers
             return View(cswr);
         }
 
+        #region DashStatus
         public async Task<IActionResult> _SearchResult(string Status)
         {
             List<AdminDashboardList> contacts = _irequestRepository.GetRequests(Status);
@@ -58,19 +59,18 @@ namespace HaloDocMVC.Controllers
             }
             return PartialView("../Home/NewState", contacts);
         }
+        #endregion
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+        #region ViewCase
         public IActionResult ViewCase(int? RId, int? RTId, int? Status)
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewDataViewCase vdvc = _admindashboardactions.NewRequestData(RId, RTId, Status);
             return View(vdvc);
         }
+        #endregion
 
+        #region EditViewCase
         [HttpPost]
         public IActionResult ViewCase(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status)
         {
@@ -78,12 +78,17 @@ namespace HaloDocMVC.Controllers
             ViewDataViewCase vc = _admindashboardactions.Edit(vdvc, RId, RTId, Status);
             return View(vc);
         }
+        #endregion
+
+        #region ViewNotes
         public IActionResult ViewNotes(int RId)
         {
             ViewDataViewNotes vdvn = _admindashboardactions.GetNotesByID(RId);
             return View("../Home/ViewNotes", vdvn);
         }
+        #endregion
 
+        #region EditViewNotes
         public IActionResult ChangeNotes(int RequestID, string? adminnotes, string? physiciannotes)
         {
             if (adminnotes != null || physiciannotes != null)
@@ -96,7 +101,7 @@ namespace HaloDocMVC.Controllers
                 }
                 else
                 {
-                    _notyf.Error("Notes Note Updated");
+                    _notyf.Error("Notes Not Updated");
                     return View("../Home/ViewNotes");
                 }
             }
@@ -107,13 +112,17 @@ namespace HaloDocMVC.Controllers
                 return RedirectToAction("ViewNotes", new { id = RequestID });
             }
         }
+        #endregion
 
+        #region ProviderByRegion
         public IActionResult ProviderByRegion(int Regionid)
         {
             var v = _dropdown.ProviderByRegion(Regionid);
             return Json(v);
         }
+        #endregion
 
+        #region AssignProvider
         public async Task<IActionResult> AssignProvider(int requestid, int ProviderId, string Notes)
         {
             if (await _admindashboardactions.AssignProvider(requestid, ProviderId, Notes))
@@ -127,7 +136,9 @@ namespace HaloDocMVC.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region CancelCase
         public IActionResult CancelCase(int RequestID, string Note, string CaseTag)
         {
             bool CancelCase = _admindashboardactions.CancelCase(RequestID, Note, CaseTag);
@@ -143,7 +154,9 @@ namespace HaloDocMVC.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region BlockCase
         public IActionResult BlockCase(int RequestID, string Note)
         {
             bool BlockCase = _admindashboardactions.BlockCase(RequestID, Note);
@@ -157,7 +170,9 @@ namespace HaloDocMVC.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region ClearCase
         public IActionResult ClearCase(int RequestID)
         {
             bool cc = _admindashboardactions.ClearCase(RequestID);
@@ -172,7 +187,9 @@ namespace HaloDocMVC.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region TransferProvider
         public async Task<IActionResult> TransferProvider(int requestid, int ProviderId, string Notes)
         {
             if (await _admindashboardactions.TransferProvider(requestid, ProviderId, Notes))
@@ -186,11 +203,67 @@ namespace HaloDocMVC.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region ViewUploadIndex
+        public async Task<IActionResult> ViewUpload(int? id)
+        {
+            ViewDataViewDocuments v = await _admindashboardactions.GetDocumentByRequest(id);
+            return View("../Home/ViewUpload", v);
+        }
+        #endregion
+
+        #region UploadDoc
+        public IActionResult UploadDoc(int Requestid, IFormFile file)
+        {
+            if (_admindashboardactions.SaveDoc(Requestid, file))
+            {
+                _notyf.Success("File Uploaded Successfully");
+            }
+            else
+            {
+                _notyf.Error("File Not Uploaded");
+            }
+            return RedirectToAction("ViewUpload", "Home", new { id = Requestid });
+        }
+        #endregion
+
+        #region AllFilesDelete
+        public async Task<IActionResult> AllFilesDelete(string deleteids, int Requestid)
+        {
+            if (await _admindashboardactions.DeleteDocumentByRequest(deleteids))
+            {
+                _notyf.Success("All Selected File Deleted Successfully");
+            }
+            else
+            {
+                _notyf.Error("All Selected File Not Deleted");
+            }
+            return RedirectToAction("ViewUpload", "Home", new { id = Requestid });
+        }
+        #endregion
+
+        #region DeleteFile
+        public async Task<IActionResult> DeleteFile(int? id, int Requestid)
+        {
+            if (await _admindashboardactions.DeleteDocumentByRequest(id.ToString()))
+            {
+                _notyf.Success("File Deleted Successfully");
+            }
+            else
+            {
+                _notyf.Error("File Not Deleted");
+            }
+            return RedirectToAction("ViewUpload", "Home", new { id = Requestid });
+        }
+        #endregion
+
+        #region AuthError
         public IActionResult AuthError()
         {
             return View("../Home/AuthError");
         }
+        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

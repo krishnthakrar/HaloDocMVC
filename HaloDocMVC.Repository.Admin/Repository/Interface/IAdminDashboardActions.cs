@@ -1,4 +1,5 @@
 ﻿using HaloDocMVC.Entity.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool EditViewNotes(string? adminnotes, string? physiciannotes, int RequestID);
 
         public Task<bool> TransferProvider(int RequestId, int ProviderId, string notes);
+
+        public Task<ViewDataViewDocuments> GetDocumentByRequest(int? id);
+
+        public Boolean SaveDoc(int Requestid, IFormFile file);
+
+        public Task<bool> DeleteDocumentByRequest(string ids);
     }
 }

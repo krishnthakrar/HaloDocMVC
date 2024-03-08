@@ -2,13 +2,17 @@
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static HaloDocMVC.Entity.Models.ViewDataViewDocuments;
 
 namespace HaloDocMVC.Repository.Admin.Repository
 {
@@ -19,6 +23,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             _context = context;
         }
+
+        #region ViewCase
         public ViewDataViewCase NewRequestData(int? RId, int? RTId, int? Status)
         {
             ViewDataViewCase caseList = _context.RequestClients
@@ -41,7 +47,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
 
             return caseList;
         }
+        #endregion
 
+        #region EditViewCase
         public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status)
         {
             try
@@ -88,7 +96,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             throw new NotImplementedException();
         }
+        #endregion
 
+        #region AssignProvider
         public async Task<bool> AssignProvider(int RequestId, int ProviderId, string notes)
         {
             var request = await _context.Requests.FirstOrDefaultAsync(req => req.RequestId == RequestId);
@@ -107,7 +117,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             _context.SaveChanges();
             return true;
         }
+        #endregion
 
+        #region CancelCase
         public bool CancelCase(int RequestID, string Note, string CaseTag)
         {
             try
@@ -140,7 +152,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
 
+        #region BlockCase
         public bool BlockCase(int RequestID, string Note)
         {
             try
@@ -174,7 +188,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
 
+        #region TransferProvider
         public async Task<bool> TransferProvider(int RequestId, int ProviderId, string notes)
         {
             var request = await _context.Requests.FirstOrDefaultAsync(req => req.RequestId == RequestId);
@@ -194,7 +210,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             _context.SaveChanges();
             return true;
         }
+        #endregion
 
+        #region ClearCase
         public bool ClearCase(int RequestID)
         {
             try
@@ -225,7 +243,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
 
+        #region ViewNotes
         public ViewDataViewNotes GetNotesByID(int id)
         {
             var req = _context.Requests.FirstOrDefault(W => W.RequestId == id);
@@ -326,7 +346,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
 
             return vdvn;
         }
+        #endregion
 
+        #region EditViewNotes
         public bool EditViewNotes(string? adminnotes, string? physiciannotes, int RequestID)
         {
             try
@@ -389,5 +411,93 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
+
+        #region GetDocumentByRequest
+        public async Task<ViewDataViewDocuments> GetDocumentByRequest(int? id)
+        {
+            var req = _context.RequestClients.FirstOrDefault(r => r.RequestId == id);
+            ViewDataViewDocuments doc = new();
+            doc.ConfirmationNumber = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002";
+            doc.FirstName = req.FirstName;
+            doc.LastName = req.LastName;
+            doc.RequestId = req.RequestId;
+
+            var result = from requestWiseFile in _context.RequestWiseFiles
+                         join request in _context.Requests on requestWiseFile.RequestId equals request.RequestId
+                         join physician in _context.Physicians on request.PhysicianId equals physician.PhysicianId into physicianGroup
+                         from phys in physicianGroup.DefaultIfEmpty()
+                         join admin in _context.Admins on requestWiseFile.AdminId equals admin.AdminId into adminGroup
+                         from adm in adminGroup.DefaultIfEmpty()
+                         where request.RequestId == id && requestWiseFile.IsDeleted == new BitArray(1)
+                         select new
+                         {
+                             Uploader = requestWiseFile.PhysicianId != null ? phys.FirstName : (requestWiseFile.AdminId != null ? adm.FirstName : request.FirstName),
+                             isDeleted = requestWiseFile.IsDeleted.ToString(),
+                             RequestwisefilesId = requestWiseFile.RequestWiseFileId,
+                             Status = requestWiseFile.DocType,
+                             Createddate = requestWiseFile.CreatedDate,
+                             Filename = requestWiseFile.FileName
+                         };
+            List<Documents> doclist = new();
+            foreach (var item in result)
+            {
+                doclist.Add(new Documents
+                {
+                    Uploader = item.Uploader,
+                    IsDeleted = item.isDeleted,
+                    RequestWiseFilesId = item.RequestwisefilesId,
+                    Status = item.Status,
+                    CreatedDate = item.Createddate,
+                    FileName = item.Filename
+                });
+            }
+            doc.DocumentsList = doclist;
+            return doc;
+        }
+        #endregion
+
+        #region SaveDocument
+        public Boolean SaveDoc(int Requestid, IFormFile file)
+        {
+            string UploadDoc = SaveFile.UploadDoc(file, Requestid);
+            var requestwisefile = new RequestWiseFile
+            {
+                RequestId = Requestid,
+                FileName = UploadDoc,
+                CreatedDate = DateTime.Now,
+                IsDeleted = new BitArray(1),
+                /*AdminId = 1*/
+            };
+            _context.RequestWiseFiles.Add(requestwisefile);
+            _context.SaveChanges();
+            return true;
+        }
+        #endregion
+
+        #region DeleteDocumentByRequest
+        public async Task<bool> DeleteDocumentByRequest(string ids)
+        {
+            List<int> deletelist = ids.Split(',').Select(int.Parse).ToList();
+            foreach (int item in deletelist)
+            {
+                if (item > 0)
+                {
+                    var data = await _context.RequestWiseFiles.Where(e => e.RequestWiseFileId == item).FirstOrDefaultAsync();
+                    if (data != null)
+                    {
+                        data.IsDeleted[0] = true;
+                        _context.RequestWiseFiles.Update(data);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        #endregion
     }
 }
