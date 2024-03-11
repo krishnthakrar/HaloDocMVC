@@ -46,5 +46,27 @@ namespace HaloDocMVC.Repository.Admin.Repository
                             .ToList();
             return result;
         }
+
+        public List<HealthProfessionalTypes> HealthProfessionalType()
+        {
+            return _context.HealthProfessionalTypes.Select(req => new HealthProfessionalTypes()
+            {
+                HealthProfessionalId = req.HealthProfessionalId,
+                ProfessionName = req.ProfessionName
+            })
+            .ToList();
+        }
+
+        public List<HealthProfessionals> ProfessionalByType(int? HealthProfessionalID)
+        {
+            var result = _context.HealthProfessionals
+                        .Where(r => r.Profession == HealthProfessionalID)
+                        .Select(req => new HealthProfessionals()
+                        {
+                            VendorId = req.VendorId,
+                            VendorName = req.VendorName
+                        }).ToList();
+            return result;
+        }
     }
 }

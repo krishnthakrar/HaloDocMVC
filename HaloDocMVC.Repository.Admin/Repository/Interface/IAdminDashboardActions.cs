@@ -1,4 +1,5 @@
-﻿using HaloDocMVC.Entity.Models;
+﻿using HaloDocMVC.Entity.DataModels;
+using HaloDocMVC.Entity.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -33,5 +34,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public Boolean SaveDoc(int Requestid, IFormFile file);
 
         public Task<bool> DeleteDocumentByRequest(string ids);
+
+        public HealthProfessional SelectProfessionalByID(int VendorID);
+
+        public bool SendOrder(ViewDataViewOrders data);
     }
 }

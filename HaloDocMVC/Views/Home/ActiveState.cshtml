@@ -136,7 +136,7 @@
                                 <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" asp-route-Status="45" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
-                                <li><a class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>
+                                <li><a asp-action="Order" asp-controller="Home" asp-route-id="@item.RequestId" class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Doctor's Note</a></li>
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>
                             </ul>
@@ -203,9 +203,9 @@
                                 </button>
                             </div>
                             <div class="col-6 mb-3">
-                                <button class="btn btn-white bg-warning text-white rounded-pill 2px w-100">
+                                <a asp-action="Order" asp-controller="Home" asp-route-id="@item.RequestId" class="btn btn-white bg-warning text-white rounded-pill 2px w-100">
                                     <small>Orders</small>
-                                </button>
+                                </a>
                             </div>
                             <div class="col-6 mb-3 ">
                                 <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">

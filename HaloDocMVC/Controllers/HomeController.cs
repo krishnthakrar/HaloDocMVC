@@ -258,6 +258,52 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region SendOrder
+        public async Task<IActionResult> Order(int id)
+        {
+            List<HealthProfessionalTypes> cs = _dropdown.HealthProfessionalType();
+            ViewBag.ProfessionType = cs;
+            ViewDataViewOrders data = new()
+            {
+                RequestId = id
+            };
+            return View("../Home/SendOrder", data);
+        }
+        public Task<IActionResult> ProfessionalByType(int HealthprofessionalID)
+        {
+            var v = _dropdown.ProfessionalByType(HealthprofessionalID);
+            return Task.FromResult<IActionResult>(Json(v));
+        }
+
+        public Task<IActionResult> SelectProfessionalByID(int VendorID)
+        {
+            var v = _admindashboardactions.SelectProfessionalByID(VendorID);
+            return Task.FromResult<IActionResult>(Json(v));
+        }
+        public IActionResult SendOrder(ViewDataViewOrders sm)
+        {
+            if (ModelState.IsValid)
+            {
+                bool data = _admindashboardactions.SendOrder(sm);
+                if (data)
+                {
+                    _notyf.Success("Order Created  successfully...");
+                    _notyf.Information("Mail is sended to Vendor successfully...");
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    _notyf.Error("Order Not Created...");
+                    return View("../Home/SendOrder", sm);
+                }
+            }
+            else
+            {
+                return View("../Home/SendOrder", sm);
+            }
+        }
+        #endregion
+
         #region AuthError
         public IActionResult AuthError()
         {

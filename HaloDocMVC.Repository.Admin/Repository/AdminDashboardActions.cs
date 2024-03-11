@@ -499,5 +499,37 @@ namespace HaloDocMVC.Repository.Admin.Repository
             return true;
         }
         #endregion
+
+        public HealthProfessional SelectProfessionalByID(int VendorID)
+        {
+            return _context.HealthProfessionals.FirstOrDefault(e => e.VendorId == VendorID);
+        }
+
+        public bool SendOrder(ViewDataViewOrders data)
+        {
+            try
+            {
+                OrderDetail od = new()
+                {
+                    RequestId = data.RequestId,
+                    VendorId = data.VendorId,
+                    FaxNumber = data.FaxNumber,
+                    Email = data.Email,
+                    BusinessContact = data.BusinessContact,
+                    Prescription = data.Prescription,
+                    NoOfRefill = data.NoOfRefill,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = "65e196bf-b39d-48e8-a3da-ebd3b699dede"
+                };
+                _context.OrderDetails.Add(od);
+                _context.SaveChanges(true);
+                var req = _context.Requests.FirstOrDefault(e => e.RequestId == data.RequestId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

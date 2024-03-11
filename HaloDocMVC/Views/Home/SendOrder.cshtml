@@ -1,0 +1,120 @@
+﻿﻿@{
+    Layout = "_Layout";
+}
+@model HaloDocMVC.Entity.Models.ViewDataViewOrders
+<div class="container">
+    @* heading *@
+    <div class="d-flex justify-content-between">
+        <div class="d-flex align-self-center">
+            <h4><strong>Send Orders</strong></h4>
+        </div>
+        <div class="backBtn">
+            <a asp-controller="Home" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
+        </div>
+    </div>
+    @* Case Information *@
+    <div class="bg-white rounded shadow mt-3">
+        <div class="p-4">
+            @* data *@
+            <form method="post" asp-controller="Home" asp-action="SendOrder" class="mt-0">
+                <input type="hidden" asp-for="RequestId" value="@Model.RequestId" class="inputs" />
+                <div class="col-xl-12">
+                    <div class="row pb-4">
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <select class="form-select" required name="ProfessionType" onchange="RetriveProfessions()" id="ProfessionType" data-allow-clear="true" tabindex="-1" asp-items="@(new SelectList(ViewBag.ProfessionType,"HealthProfessionalId","ProfessionName"))" data-control="select2" data-placeholder="Select Level">
+                                    <option>Options</option>
+                                </select>
+                                <label for="region2">Select Profession</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <select class="form-select" required asp-for="VendorId" onchange="GetData()" id="Vendor" data-allow-clear="true" tabindex="-1" data-control="select2" data-placeholder="Select Level">
+                                    <option>Options</option>
+                                </select>
+                                <label for="region2">Business</label>
+                            </div>
+                            <span asp-validation-for="VendorId" class="err-msg"></span>
+                        </div>
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <input asp-for="BusinessContact" type="text" class="form-control shadow-none inputs" id="BusinessContact">
+                                <label for="BusinessContact">Business Contact</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <input asp-for="Email" type="text" class="form-control shadow-none inputs" id="Email">
+                                <label for="Email">Email</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <input asp-for="FaxNumber" type="text" class="form-control shadow-none inputs" id="FaxNumber">
+                                <label for="FaxNumber">Fax Number</label>
+                            </div>
+                        </div>
+                        <div class="col-12 pb-3">
+                            <div class="form-floating">
+                                <textarea asp-for="Prescription" class="w-100 h-100 form-control txtarea shadow-none inputs" id="Prescription" rows="4"></textarea>
+                                <label for="Prescription">Prescription or Order details</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <input asp-for="NoOfRefill" type="text" class="form-control shadow-none inputs" id="NoOFRefill">
+                                <label for="NoOFRefill">Number of Refill</label>
+                            </div>
+                            <span asp-validation-for="NoOfRefill" class="err-msg"></span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-info text-white rounded me-1">Submit</button>
+                        <a class="btn btn-danger text-white rounded">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function RetriveProfessions() {
+        var id = $("#ProfessionType").val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ProfessionalByType", "Home")?HealthProfessionalId=' + id,
+            cache: false,
+            success: function (response) {
+                console.log(response);
+                var s = '<option value="-1">Please Select</option>';
+                for (var i = 0; i < response.length; i++) {
+                    s += '<option value="' + response[i].vendorId + '">' + response[i].vendorName + '</option>';
+                }
+                $("#Vendor").html(s);
+            },
+            error: function () {
+                alert("Error while checking email.");
+            }
+        });
+    }
+
+    function GetData() {
+        var id = $("#Vendor").val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SelectProfessionalByID", "Home")?VendorId=' + id,
+            cache: false,
+            success: function (response) {
+                console.log(response);
+                $("#Email").val(response.email);
+                $("#FaxNumber").val(response.faxNumber);
+                $("#BusinessContact").val(response.businessContact);
+            },
+            error: function () {
+                alert("Error while checking email.");
+            }
+        });
+    }
+</script>
