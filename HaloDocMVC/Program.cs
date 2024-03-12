@@ -19,6 +19,8 @@ builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddScoped<IAdminDashboardActions, AdminDashboardActions>();
 builder.Services.AddScoped<IDashboard, Dashboard>();
 builder.Services.AddScoped<IDropdown, Dropdown>();
+builder.Services.AddScoped<IJwt, Jwt>();
+builder.Services.AddScoped<ILogin, Login>();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 var app = builder.Build();
 

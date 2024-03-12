@@ -26,7 +26,7 @@ namespace HaloDocMVC.Controllers
             _notyf = notyf;
         }
 
-        [AdminAccess]
+        [ProviderAccess("Admin")]
         public IActionResult Index()
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
@@ -97,7 +97,8 @@ namespace HaloDocMVC.Controllers
                 if (result)
                 {
                     _notyf.Success("Notes Updated successfully...");
-                    return RedirectToAction("ViewNotes", new { id = RequestID });
+                    ViewDataViewNotes vdvn = _admindashboardactions.GetNotesByID(RequestID);
+                    return View("../Home/ViewNotes", vdvn);
                 }
                 else
                 {

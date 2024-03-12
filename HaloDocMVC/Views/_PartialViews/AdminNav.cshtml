@@ -1,4 +1,4 @@
-﻿﻿@{
+﻿@{
     string path = Context.Request.Path;
 }
 <nav class="navbar px-5 navbar-expand-lg shadow rounded d-none d-lg-block">
@@ -15,7 +15,7 @@
                 <li class="nav-item">
                     <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
                 </li>
-                @if (CredentialValue.RoleID() == "1")
+                @if (CredentialValue.role() == "1")
                 {
                     <li class="nav-item">
                         <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
@@ -33,7 +33,7 @@
                         <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Records") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Records">Records</a>
                     </li>
                 }
-                @if (CredentialValue.RoleID() == "2")
+                @if (CredentialValue.role() == "2")
                 {
                     <li class="nav-item me-3">
                         <a class="nav-link text-dark @(path.StartsWith("/Chat") ? "activesbnav" : "")" asp-action="" asp-controller="">Chat</a>
@@ -58,7 +58,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item h6"><a asp-controller="AdminDashboard" asp-action="Index" class="text-decoration-none text-dark">Dashboard</a></li>
             <li class="list-group-item h6"><a asp-controller="AdminProfile" asp-action="Index" class="text-decoration-none text-dark">My Profile</a></li>
-            @if (CredentialValue.RoleID() == "1")
+            @if (CredentialValue.role() == "1")
             {
                 <li class="list-group-item h6"><a asp-controller="ProviderLocation" asp-action="Index" class="text-decoration-none text-dark">Provider Location</a></li>
                 <li class="list-group-item h6"><a asp-controller="Providers" asp-action="Index" class="text-decoration-none text-dark">Providers</a></li>
@@ -66,7 +66,7 @@
                 <li class="list-group-item h6"><a asp-controller="Access" asp-action="Index" class="text-decoration-none text-dark">Access</a></li>
                 <li class="list-group-item h6"><a asp-controller="Records" asp-action="Index" class="text-decoration-none text-dark">Records</a></li>
             }
-            @if (CredentialValue.RoleID() == "2")
+            @if (CredentialValue.role() == "2")
             {
                 <li class="list-group-item h6"><a asp-controller="Partners" asp-action="Index" class="text-decoration-none text-dark">Chat</a></li>
                 <li class="list-group-item h6"><a asp-controller="Access" asp-action="Index" class="text-decoration-none text-dark">Invoicing</a></li>

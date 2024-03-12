@@ -1,38 +1,47 @@
-﻿using HaloDocMVC.Entity.DataModels;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HaloDocMVC.Entity.DataModels;
+using HaloDocMVC.Entity.Models;
+using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql;
-using System.Data;
 
 namespace HaloDocMVC.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IAdminDashboardActions _AdminDashBoardActions;
+        private readonly IDropdown _dropdown;
+        private readonly INotyfService _notyf;
+        private readonly ILogger<HomeController> _logger;
+        private readonly ILogin _login;
+        private readonly IJwt _jwt;
+        public LoginController(ILogger<HomeController> logger,
+                                      IDropdown dropdown,
+                                      IAdminDashboardActions AdminDashBoardActions,
+                                      INotyfService notyf,
+                                      ILogin login,
+                                      IJwt jwt)
+        {
+            _dropdown = dropdown;
+            _AdminDashBoardActions = AdminDashBoardActions;
+            _notyf = notyf;
+            _logger = logger;
+            _login = login;
+            _jwt = jwt;
+        }
         public IActionResult Index()
         {
-            return View();
+            return View("../Login/Index");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Validate(string Email, string Passwordhash)
+        public async Task<IActionResult> Validate(AspNetUser aspNetUser)
         {
-            NpgsqlConnection connection = new NpgsqlConnection("Server=localhost;Database=HaloDoc;User Id=postgres;Password=Krishn@1303;Include Error Detail=True");
-            string Query = "select * from \"AspNetUsers\" au inner join \"AspNetUserRoles\" aur on au.\"Id\" = aur.\"UserId\" inner join \"AspNetRoles\" roles on aur.\"RoleId\" = roles.\"Id\" where \"Email\"=@Email and \"PasswordHash\"=@Passwordhash";
-            connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand(Query, connection);
-            command.Parameters.AddWithValue("@Email", Email);
-            command.Parameters.AddWithValue("@Passwordhash", Passwordhash);
-            NpgsqlDataReader reader = command.ExecuteReader();
-            DataTable dataTable = new DataTable();
-            dataTable.Load(reader);
-            int numRows = dataTable.Rows.Count;
-            if (numRows > 0)
+            UserInfo u = await _login.CheckAccessLogin(aspNetUser);
+
+            if (u != null)
             {
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    HttpContext.Session.SetString("UserName", row["username"].ToString());
-                    HttpContext.Session.SetString("UserID", row["Id"].ToString());
-                    HttpContext.Session.SetString("RoleId", row["roleid"].ToString());
-                }
+                var jwttoken = _jwt.GenerateJWTAuthetication(u);
+                Response.Cookies.Append("jwt", jwttoken);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -41,10 +50,16 @@ namespace HaloDocMVC.Controllers
                 return View("../Login/Index");
             }
         }
-        public IActionResult Logout()
+        #region end_session
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+            Response.Cookies.Delete("jwt");
             return RedirectToAction("Index", "Login");
+        }
+        #endregion
+        public IActionResult AuthError()
+        {
+            return View("../Home/AuthError");
         }
     }
 }

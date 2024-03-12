@@ -277,7 +277,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             var model = _context.RequestNotes.FirstOrDefault(E => E.RequestId == id);
             ViewDataViewNotes vdvn = new();
             vdvn.RequestId = id;
-            vdvn.PatientNotes = symptoms.Notes;
+            /*vdvn.PatientNotes = symptoms.Notes;*/
             if (model == null)
             {
                 vdvn.PhysicianNotes = "-";
@@ -500,11 +500,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
         #endregion
 
+        #region SendOrderIndex
         public HealthProfessional SelectProfessionalByID(int VendorID)
         {
             return _context.HealthProfessionals.FirstOrDefault(e => e.VendorId == VendorID);
         }
+        #endregion
 
+        #region SendOrder
         public bool SendOrder(ViewDataViewOrders data)
         {
             try
@@ -531,5 +534,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
     }
 }
