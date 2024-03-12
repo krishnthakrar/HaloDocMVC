@@ -598,6 +598,5 @@ namespace HaloDocMVC.Repository.Admin.Repository
             return true;
         }
         #endregion
-
     }
 }
