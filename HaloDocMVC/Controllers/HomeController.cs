@@ -305,6 +305,19 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region SendAgreement
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendAgreementmail(int requestid)
+        {
+            if (_admindashboardactions.SendAgreement(requestid))
+            {
+                _notyf.Success("Mail Send  Successfully..!");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
         #region AuthError
         public IActionResult AuthError()
         {

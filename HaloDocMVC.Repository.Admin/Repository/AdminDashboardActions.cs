@@ -19,9 +19,11 @@ namespace HaloDocMVC.Repository.Admin.Repository
     public class AdminDashboardActions : IAdminDashboardActions
     {
         private readonly HaloDocContext _context;
-        public AdminDashboardActions(HaloDocContext context)
+        private readonly EmailConfiguration _emailConfig;
+        public AdminDashboardActions(HaloDocContext context, EmailConfiguration emailConfig)
         {
             _context = context;
+            _emailConfig = emailConfig;
         }
 
         #region ViewCase
@@ -535,5 +537,67 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
         }
         #endregion
+
+        #region SendAgreement
+        public Boolean SendAgreement(int requestid)
+        {
+            var res = _context.RequestClients.FirstOrDefault(e => e.RequestId == requestid);
+            var agreementUrl = "https://localhost:44348/Agreement?RequestID=" + requestid;
+            _emailConfig.SendMail(res.Email, "Agreement for your request", $"<a href='{agreementUrl}'>Link Containing Agreement Page</a>");
+            return true;
+        }
+        #endregion
+
+        #region SendAgreement_accept
+        public Boolean SendAgreement_accept(int RequestID)
+        {
+            var request = _context.Requests.Find(RequestID);
+            if (request != null)
+            {
+                request.Status = 4;
+                _context.Requests.Update(request);
+                _context.SaveChanges();
+
+                RequestStatusLog rsl = new();
+                rsl.RequestId = RequestID;
+
+                rsl.Status = 4;
+
+                rsl.CreatedDate = DateTime.Now;
+
+                _context.RequestStatusLogs.Add(rsl);
+                _context.SaveChanges();
+
+            }
+            return true;
+        }
+        #endregion
+
+        #region SendAgreement_Reject
+        public Boolean SendAgreement_Reject(int RequestID, string Notes)
+        {
+            var request = _context.Requests.Find(RequestID);
+            if (request != null)
+            {
+                request.Status = 7;
+                _context.Requests.Update(request);
+                _context.SaveChanges();
+
+                RequestStatusLog rsl = new();
+                rsl.RequestId = RequestID;
+
+                rsl.Status = 7;
+                rsl.Notes = Notes;
+
+                rsl.CreatedDate = DateTime.Now;
+
+                _context.RequestStatusLogs.Add(rsl);
+                _context.SaveChanges();
+
+            }
+            return true;
+        }
+        #endregion
+
     }
 }

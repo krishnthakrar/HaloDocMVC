@@ -38,5 +38,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public HealthProfessional SelectProfessionalByID(int VendorID);
 
         public bool SendOrder(ViewDataViewOrders data);
+        
+        public Boolean SendAgreement(int requestid);
+
+        public Boolean SendAgreement_accept(int RequestID);
+        
+        public Boolean SendAgreement_Reject(int RequestID, string Notes);
     }
 }

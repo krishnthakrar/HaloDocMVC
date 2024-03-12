@@ -1,13 +1,17 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using HaloDocMVC.Entity.DataContext;
+using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var emailConfig = builder.Configuration
+        .GetSection("EmailConfiguration")
+        .Get<EmailConfiguration>();
+builder.Services.AddSingleton(emailConfig);
 // Add services to the container.
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();

@@ -138,7 +138,7 @@
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                                 <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#transfercase" data-bs-requestid="@item.RequestId" data-bs-patientname="@item.PatientName"><i class="fa-solid fa-list"></i> Transfer</a></li>
                                 <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#clearcase"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
-                                <li><a class="dropdown-item"><i class="fa-solid fa-paper-plane"></i> Send Agreement</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#sendagreement"><i class="fa-solid fa-paper-plane"></i> Send Agreement</a></li>
                             </ul>
                         </td>
                     </tr>
@@ -224,5 +224,8 @@
         var modeldata = @Html.Raw(Json.Serialize(Model))
         document.getElementById('RequestID_Input_ModelTransferCase').value = modeldata[id].requestId;
         document.getElementById('RequestID_Input_ModelClearCase').value = modeldata[id].requestId;
+        document.getElementById("RequestID_sendAgreement").value = modeldata[id].requestId;
+        document.getElementById("Phonenumber_sendAgreement").value = modeldata[id].patientPhoneNumber;
+        document.getElementById("Email_sendAgreement").value = modeldata[id].email;
     }
 </script>
