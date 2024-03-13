@@ -308,9 +308,9 @@ namespace HaloDocMVC.Controllers
         #region SendAgreement
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendAgreementmail(int requestid)
+        public async Task<IActionResult> SendAgreementmail(int requestid, string PatientName)
         {
-            if (_admindashboardactions.SendAgreement(requestid))
+            if (_admindashboardactions.SendAgreement(requestid, PatientName))
             {
                 _notyf.Success("Mail Send  Successfully..!");
             }

@@ -539,10 +539,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region SendAgreement
-        public Boolean SendAgreement(int requestid)
+        public Boolean SendAgreement(int requestid, string PatientName)
         {
             var res = _context.RequestClients.FirstOrDefault(e => e.RequestId == requestid);
-            var agreementUrl = "https://localhost:44348/Agreement?RequestID=" + requestid;
+            var agreementUrl = "https://localhost:44348/Agreement?RequestID=" + requestid + "&PatientName=" +  PatientName;
             _emailConfig.SendMail(res.Email, "Agreement for your request", $"<a href='{agreementUrl}'>Link Containing Agreement Page</a>");
             return true;
         }

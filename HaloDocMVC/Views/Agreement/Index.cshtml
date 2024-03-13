@@ -41,11 +41,12 @@
                 </div>
                 <form asp-action="Reject" asp-controller="Agreement">
                     <input type="hidden" value="@TempData["RequestID"]" name="RequestId" />
+                    <input type="hidden" value="@TempData["PatientName"]" name="PatientName" />
                     <div class="modal-body">
                         <h3 class="modal-title fs-5" id="exampleModalLabel">Patient Name : <span class="text-info"> @TempData["PatientName"] </span></h3>
                         <div class="inputs-control w-100 mt-2">
                             <textarea id="changenote" placeholder=" " name="Notes" rows="5" class="input-outline w-100  " type="text"></textarea>
-                            <label class="inputs-lable inputs-lable-textarea " id="notedata">Provide Brif Information why you want to Cancel</label>
+                            <label class="inputs-lable inputs-lable-textarea " id="notedata">Provide Brief Information why you want to Cancel</label>
                         </div>
                     </div>
                     <div class="modal-footer">

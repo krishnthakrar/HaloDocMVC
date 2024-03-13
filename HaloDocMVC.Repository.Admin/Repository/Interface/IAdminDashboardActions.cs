@@ -39,7 +39,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public bool SendOrder(ViewDataViewOrders data);
         
-        public Boolean SendAgreement(int requestid);
+        public Boolean SendAgreement(int requestid, string PatientName);
 
         public Boolean SendAgreement_accept(int RequestID);
         

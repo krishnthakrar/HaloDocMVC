@@ -13,10 +13,10 @@ namespace HaloDocMVC.Controllers
             _admindashboardactions = actionrepo;
             _notyf = notyf;
         }
-        public IActionResult Index(int RequestID)
+        public IActionResult Index(int RequestID, string PatientName)
         {
             TempData["RequestID"] = " " + RequestID;
-            TempData["PatientName"] = "Krishn Thakrar";
+            TempData["PatientName"] = "" + PatientName;
 
             return View();
         }
