@@ -114,6 +114,7 @@
                                 <li><a class="dropdown-item"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                                 <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                                 <li><a asp-action="Order" asp-controller="Home" asp-route-id="@item.RequestId" class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>
+                                <li><a class="dropdown-item"><i class="fa-regular fa-circle-xmark"></i> Close Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Doctor's Note</a></li>
                                 <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#clearcase"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>

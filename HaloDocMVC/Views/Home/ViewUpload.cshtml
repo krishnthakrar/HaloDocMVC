@@ -24,22 +24,20 @@
                 <a asp-controller="Home" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
             </div>
         </div>
-        <div class="card-body bg-white m-1 shadow" style="border-radius: 15px;">
-            <p class="doc-text-card text-secondary">Patient name</p>
+        <div class="card-body m-1 shadow" style="border-radius: 15px;">
+            <p class="doc-text-card">Patient name</p>
             <div class="d-flex align-items-center">
                 <h5 class="text-info"><b>@Model.FirstName @Model.LastName </b></h5>
-                <h6 class="doc-text-card mx-2 text-secondary">@Model.ConfirmationNumber</h6>
+                <h6 class="doc-text-card mx-2">@Model.ConfirmationNumber</h6>
             </div>
 
-            <div class="doc-text-card mt-2 text-secondary">
-                check here for any files that you or the
-                doctor of yours subsequents requestors have attached for yo to
-                review
+            <div class="doc-text-card mt-2">
+                check here for any files that you or the doctor of yours subsequents requestors have attached for you to review
             </div>
             <div class="col-md-12 mt-3">
-                <form method="post" id="myForm" asp-action="UploadDoc" asp-controller="Home" enctype="multipart/form-data">
-                    <div class="d-flex justify-content-between bg-light border border-secondary rounded">
-                        <button type="button" id="choosenfile" class="col btn text-start text-secondary" onclick="document.getElementById('file').click()">
+                <form method="post" id="myForm" asp-action="UploadDoc" asp-controller="Home" enctype="multipart/form-data" class="mt-2">
+                    <div class="d-flex justify-content-between border border-secondary rounded">
+                        <button type="button" id="choosenfile" class="col btn text-start fileSelect" onclick="document.getElementById('file').click()">
                             Select File
                         </button>
                         <input id="file" type="file" class="d-none form-control doc_uploder" name="file">
