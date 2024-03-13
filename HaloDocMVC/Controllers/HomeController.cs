@@ -38,6 +38,13 @@ namespace HaloDocMVC.Controllers
         #region DashStatus
         public async Task<IActionResult> _SearchResult(string Status)
         {
+            if (Status == null)
+            {
+                Status = CredentialValue.CurrentStatus();
+            }
+            Response.Cookies.Delete("Status");
+            Response.Cookies.Append("Status", Status);
+
             List<AdminDashboardList> contacts = _irequestRepository.GetRequests(Status);
 
             switch (Status)

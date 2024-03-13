@@ -14,14 +14,12 @@ namespace HaloDocMVC.Models
         {
             string cookieValue;
             string role = null;
-
             if (_httpContextAccessor.HttpContext.Request.Cookies["jwt"] != null)
             {
                 cookieValue = _httpContextAccessor.HttpContext.Request.Cookies["jwt"].ToString();
 
                 role = DecodedToken.DecodeJwt(DecodedToken.ConvertJwtStringToJwtSecurityToken(cookieValue)).claims.FirstOrDefault(t => t.Key == "Role").Value;
             }
-
             return role;
         }
 
@@ -30,14 +28,12 @@ namespace HaloDocMVC.Models
         {
             string cookieValue;
             string UserName = null;
-
             if (_httpContextAccessor.HttpContext.Request.Cookies["jwt"] != null)
             {
                 cookieValue = _httpContextAccessor.HttpContext.Request.Cookies["jwt"].ToString();
 
                 UserName = DecodedToken.DecodeJwt(DecodedToken.ConvertJwtStringToJwtSecurityToken(cookieValue)).claims.FirstOrDefault(t => t.Key == "Username").Value;
             }
-
             return UserName;
         }
 
@@ -45,14 +41,12 @@ namespace HaloDocMVC.Models
         {
             string cookieValue;
             string UserID = null;
-
             if (_httpContextAccessor.HttpContext.Request.Cookies["jwt"] != null)
             {
                 cookieValue = _httpContextAccessor.HttpContext.Request.Cookies["jwt"].ToString();
 
                 UserID = DecodedToken.DecodeJwt(DecodedToken.ConvertJwtStringToJwtSecurityToken(cookieValue)).claims.FirstOrDefault(t => t.Key == "UserID").Value;
             }
-
             return UserID;
         }
 
@@ -69,6 +63,12 @@ namespace HaloDocMVC.Models
             }
 
             return UserID;
+        }
+
+        public static string? CurrentStatus()
+        {
+            string? Status = _httpContextAccessor.HttpContext.Request.Cookies["Status"];
+            return Status;
         }
     }
 }

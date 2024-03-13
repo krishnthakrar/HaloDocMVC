@@ -20,13 +20,13 @@
         <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-user-nurse px-1"></i><span class="adminIcon">Request DIY Support</span></button>
     </div>
 </div>
-<div class="card border-1 rounded shadow mt-4">
+<div class="border-1 rounded shadow mt-4 pb-4">
     <div class="mt-2 mx-2">
         <div class="searchBar px-2">
             <div class="searchPatientRegion py-2">
                 <div class="search m-1">
                     <i class="fa fa-search"></i>
-                    <input type="text" class="form-control" placeholder="Search Patients">
+                    <input type="text" id="myInputTextField" class="form-control" placeholder="Search Patients">
                 </div>
                 <div class="search m-1">
                     <i class="fa fa-search"></i>
@@ -63,8 +63,8 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive m-2 mb-5 d-none d-sm-block">
-        <table class="w-100">
+    <div class="card table-responsive m-2 mb-5 d-none d-sm-block">
+        <table class="w-100 display" id="tableID">
             <thead class="theadbg py-2">
                 <tr>
                     <th scope="col">Name</th>
@@ -214,4 +214,12 @@
         document.getElementById('PatientName_ModelBlockCase').innerText = modeldata[id].patientName;
         console.log(document.getElementById('RequestID_Input_ModelBlockCase').value);
     }
+</script>
+<script>
+    oTable = $('#tableID').DataTable({
+        searching: true
+    });   
+    $('#myInputTextField').keyup(function () {
+        oTable.search($(this).val()).draw();
+    });
 </script>

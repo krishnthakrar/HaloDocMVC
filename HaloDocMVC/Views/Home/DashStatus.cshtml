@@ -2,10 +2,9 @@
 
 <form id="filterForm" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"
       asp-action="_SearchResult" asp-controller="Home" novalidate="novalidate">
-    <input type="hidden" name="Status" id="hiddenfirst" />
     <div class="row mt-3">
         <button type="submit" value="1" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
-            <div class="rounded p-3 s1 as text-start a-s1">
+            <div class="rounded p-3 s1 text-start a-s1 @{if(CredentialValue.CurrentStatus()=="1"){@Html.Raw("as")}}">
                 <div>
                     <i class="fa-solid fa-circle-plus"></i>
                     <span>New</span>
@@ -14,7 +13,7 @@
             </div>
         </button>
         <button type="submit" value="2" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
-            <div class="rounded p-3 s2 text-start a-s2">
+            <div class="rounded p-3 s2 text-start a-s2 @{if(CredentialValue.CurrentStatus()=="2"){@Html.Raw("as")}}">
                 <div>
                     <i class="fa-solid fa-user-doctor"></i>
                     <span>Pending</span>
@@ -23,7 +22,7 @@
             </div>
         </button>
         <button type="submit" value="4,5" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
-            <div class="rounded p-3 s3 text-start a-s3">
+            <div class="rounded p-3 s3 text-start a-s3 @{if(CredentialValue.CurrentStatus()=="4,5"){@Html.Raw("as")}}">
                 <div>
                     <i class="fa-solid fa-circle-check"></i>
                     <span>Active</span>
@@ -32,7 +31,7 @@
             </div>
         </button>
         <button type="submit" value="6" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
-            <div class="rounded p-3 s4 text-start a-s4">
+            <div class="rounded p-3 s4 text-start a-s4 @{if(CredentialValue.CurrentStatus()=="6"){@Html.Raw("as")}}">
                 <div>
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     <span>Conclude</span>
@@ -41,7 +40,7 @@
             </div>
         </button>
         <button type="submit" value="3,7,8" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
-            <div class="rounded p-3 s5 text-start a-s5">
+            <div class="rounded p-3 s5 text-start a-s5 @{if(CredentialValue.CurrentStatus()=="3,7,8"){@Html.Raw("as")}}">
                 <div>
                     <i class="fa-solid fa-user-clock"></i>
                     <span>To Close</span>
@@ -50,7 +49,7 @@
             </div>
         </button>
         <button type="submit" value="9" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative">
-            <div class="rounded p-3 s6 text-start a-s6">
+            <div class="rounded p-3 s6 text-start a-s6 @{if(CredentialValue.CurrentStatus()=="9"){@Html.Raw("as")}}">
                 <div>
                     <i class="fa-solid fa-circle-dollar-to-slot"></i>
                     <span>Unpaid</span>

@@ -103,66 +103,6 @@
     background-color: #be69f0;
 }
 
-/*.s1Btn {
-    color: #0c47b3;
-    background-color: #97bbfc;
-}
-
-.s1Btn:hover {
-    color: #ffffff;
-    background-color: #0c47b3;
-}
-
-.s2Btn {
-    color: #54b4d3;
-    background-color: #c5effc;
-}
-
-.s2Btn:hover {
-    color: #ffffff;
-    background-color: #54b4d3;
-}
-
-.s3Btn {
-    color: #14a44d;
-    background-color: #a9f5c7;
-}
-
-.s3Btn:hover {
-    color: #ffffff;
-    background-color: #14a44d;
-}
-
-.s4Btn {
-    color: #cf154c;
-    background-color: #fab6ca;
-}
-
-.s4Btn:hover {
-    color: #ffffff;
-    background-color: #cf154c;
-}
-
-.s5Btn {
-    color: #0761ab;
-    background-color: #a4c5e0;
-}
-
-.s5Btn:hover {
-    color: #ffffff;
-    background-color: #0761ab;
-}
-
-.s6Btn {
-    color: #be69f0;
-    background-color: #e4c6f5;
-}
-
-.s6Btn:hover {
-    color: #ffffff;
-    background-color: #be69f0;
-}*/
-
 .s7 {
     background-color: #e1f4fa;
 }
@@ -198,7 +138,7 @@
 
 .search .fa-search {
     position: absolute;
-    top: 20px;
+    top: 17px;
     left: 16px;
 }
 
@@ -207,20 +147,45 @@
     align-items: center;
 }
 
+table.dataTable.display tbody tr.odd > .sorting_1 {
+    background-color: inherit !important;
+}
+
+table.dataTable.display tbody tr.even > .sorting_1 {
+    background-color: inherit !important;
+}
+
+#tableID_filter {
+    display: none;
+}
+
+.dataTables_wrapper .dataTables_length {
+    position: absolute;
+    bottom: -33px;
+}
+
+.dataTables_wrapper {
+    margin-bottom: 2.5rem !important;
+}
+
+.card.table-responsive {
+    border: none !important;
+}
+
 .Patient {
-    background-color: #5fbc61;
+    background-color: #5fbc61 !important;
 }
 
 .Business {
-    background-color: #cd697b;
+    background-color: #cd697b !important;
 }
 
 .Family {
-    background-color: #ed9124;
+    background-color: #ed9124 !important;
 }
 
 .Concierge {
-    background-color: #0a7cb9;
+    background-color: #0a7cb9 !important;
 }
 
 .txt-Patient {
