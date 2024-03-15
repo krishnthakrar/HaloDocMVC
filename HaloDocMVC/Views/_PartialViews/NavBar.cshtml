@@ -12,7 +12,7 @@
                     <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Dashboard") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3 text-dark @(path.StartsWith("/Profile") ? "active" : "")" asp-action="Index" asp-controller="Profile">Profile</a>
+                    <a class="nav-link px-3 text-dark @(path.StartsWith("/PatientProfile") ? "active" : "")" asp-action="Index" asp-controller="PatientProfile">Profile</a>
                 </li>
             </ul>
         </div>
@@ -20,13 +20,13 @@
 </nav>
 <div class="offcanvas offcanvas-start w-50" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header bg-info text-white">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome @*<strong>@CredentialValue.UserName()</strong>*@</h5>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome <strong>@CredentialValue.UserName()</strong></h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <ul class="list-group list-group-flush">
             <li class="list-group-item h6"><a asp-controller="Dashboard" asp-action="Index" class="text-decoration-none text-dark">Dashboard</a></li>
-            <li class="list-group-item h6"><a asp-controller="Profile" asp-action="Index" class="text-decoration-none text-dark">Profile</a></li>
+            <li class="list-group-item h6"><a asp-controller="PatientProfile" asp-action="Index" class="text-decoration-none text-dark">Profile</a></li>
         </ul>
     </div>
 </div>
