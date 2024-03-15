@@ -21,5 +21,18 @@ namespace HaloDocMVC.Controllers
             var result = _dashboard.DashboardList(id);
             return View(result);
         }
+
+        public IActionResult ViewDoc(int id)
+        {
+            var DocList = _dashboard.ViewDocumentList(id);
+            return View(DocList);
+        }
+
+        [HttpPost]
+        public IActionResult ViewDoc(int id, IFormFile? UploadFile)
+        {
+            _dashboard.UploadDoc(id, UploadFile);
+            return RedirectToAction("ViewDoc", "Dashboard");
+        }
     }
 }

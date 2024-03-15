@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Entity.DataModels;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Microsoft.AspNetCore.Http;
 
 namespace HaloDocMVC.Repository.Admin.Repository
 {
@@ -73,6 +75,45 @@ namespace HaloDocMVC.Repository.Admin.Repository
             U.ModifiedDate = DateTime.Now;
             _context.Update(U);
             _context.SaveChanges();
+        }
+
+        public List<ViewDocument> ViewDocumentList(int? id)
+        {
+            var items = _context.RequestWiseFiles.Include(m => m.Request)
+                .Where(x => x.RequestId == id).Select(m => new ViewDocument
+                {
+                    CreatedDate = m.CreatedDate,
+                    RFirstName = m.Request.FirstName,
+                    FileName = m.FileName
+                }).ToList();
+            return items;
+        }
+
+        public void UploadDoc(int RequestId, IFormFile? UploadFile)
+        {
+            string UploadImage;
+            if (UploadFile != null)
+            {
+                string FilePath = "wwwroot\\Upload";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                string fileNameWithPath = Path.Combine(path, UploadFile.FileName);
+                UploadImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + UploadFile.FileName;
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    UploadFile.CopyTo(stream)
+;
+                }
+                var requestwisefile = new RequestWiseFile
+                {
+                    RequestId = RequestId,
+                    FileName = UploadFile.FileName,
+                    CreatedDate = DateTime.Now,
+                };
+                _context.RequestWiseFiles.Add(requestwisefile);
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<HaloDocMVC.Entity.Models.ViewDocument>;
+@{
     ViewData["Title"] = "ViewDoc";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
@@ -13,25 +14,22 @@
         <div class="card-body m-1 shadow" style="border-radius: 15px;">
             <div class="doc-text-card">
                 Patient name
-                @foreach (var item in ViewBag.requestinfo)
+                @*@foreach (var item in ViewBag.requestinfo)
                 {
                     <div class="Patient-name">@item.FirstName @item.LastName </div>
-                }
+                }*@
             </div>
             <div class="doc-text-card mt-2">
                 Here you can view all files that have been added by you or physician or anyone else.
             </div>
             <div class="col-md-12 mt-3">
-                @foreach (var item in ViewBag.requestinfo)
-                {
-                    <form method="post" asp-action="UploadDoc" asp-controller="Dashboard" enctype="multipart/form-data">
-                        <div class="d-flex">
-                            <input class="form-control doc_uploder" id="formFileSm" name="UploadFile" type="file">
-                            <input type="hidden" name="Requestid" value="@item.RequestId" />
-                            <input type="submit" class="btn btn-info btn-submit" value="Upload">
-                        </div>
-                    </form>
-                }
+                <form method="post" enctype="multipart/form-data">
+                    <div class="d-flex">
+                        <input class="form-control doc_uploder" id="formFileSm" name="UploadFile" type="file">
+                        @*<input type="hidden" name="Requestid" value="@item.RequestId" />*@
+                        <input type="submit" class="btn btn-info btn-submit" value="Upload">
+                    </div>
+                </form>
                 <div class="card-header-2 mt-3 d-flex justify-content-between  border-0  bg-transparent ">
                     <div class="mt-2">
                         <h6> Document</h6>
@@ -56,7 +54,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item2 in ViewBag.DocList)
+                            @foreach (var item2 in Model)
                             {
                                 <tr>
                                     <td class="table-text px-3">
@@ -65,17 +63,12 @@
                                         </div>
                                     </td>
                                     <td class="table-text px-3">@item2.FileName</td>
-                                    @foreach (var item3 in ViewBag.requestinfo)
-                                    {
-                                        <td class="table-text px-3">@item3.FirstName @item3.LastName</td>
-                                    }
+                                    <td class="table-text px-3">@item2.RFirstName</td>
                                     <td class="table-text px-3">@item2.CreatedDate</td>
-
-                                    <td class="table-text">
+                                    <td class="table-text ">
                                         <a class="btn btn-sm download-link  btn-outline-info document-button" download href="/Upload/@item2.FileName">
                                             <i class="fa fa-cloud-download"></i>
                                         </a>
-
                                     </td>
                                 </tr>
                             }

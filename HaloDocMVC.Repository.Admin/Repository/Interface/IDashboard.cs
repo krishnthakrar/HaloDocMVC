@@ -1,4 +1,5 @@
 ﻿using HaloDocMVC.Entity.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public ViewDataUserProfile UserProfile(int id);
 
         public void EditProfile(ViewDataUserProfile vdup, int id);
+
+        public List<ViewDocument> ViewDocumentList(int? id);
+
+        public void UploadDoc(int RequestId, IFormFile? UploadFile);
     }
 }
