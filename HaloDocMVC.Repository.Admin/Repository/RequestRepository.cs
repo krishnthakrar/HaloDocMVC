@@ -16,35 +16,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             _context = context;
         }
-        public List<AdminDashboardList> NewRequestData()
+
+        public PaginatedViewModel IndexData()
         {
-            var list = _context.Requests.Join
-                        (_context.RequestClients,
-                        requestclients => requestclients.RequestId, requests => requests.RequestId,
-                        (requests, requestclients) => new { Request = requests, Requestclient = requestclients }
-                        )
-                        .Where(req => req.Request.Status == 1)
-                        .Select(req => new AdminDashboardList()
-                        {
-                            RequestId = req.Request.RequestId,
-                            PatientName = req.Requestclient.FirstName + " " + req.Requestclient.LastName,
-                            Email = req.Requestclient.Email,
-                            DateOfBirth = new DateTime((int)req.Requestclient.IntYear, Convert.ToInt32(req.Requestclient.StrMonth.Trim()), (int)req.Requestclient.IntDate),
-                            RequestTypeId = req.Request.RequestTypeId,
-                            Requestor = req.Request.FirstName + " " + req.Request.LastName,
-                            RequestedDate = req.Request.CreatedDate,
-                            PatientPhoneNumber = req.Requestclient.PhoneNumber,
-                            RequestorPhoneNumber = req.Request.PhoneNumber,
-                            Notes = req.Requestclient.Notes,
-                            Address = req.Requestclient.Address
-                        })
-                        .OrderByDescending(req => req.RequestedDate)
-                        .ToList();
-            return list;
-        }
-        public CountStatusWiseRequestModel IndexData()
-        {
-            return new CountStatusWiseRequestModel
+            return new PaginatedViewModel
             {
                 NewRequest = _context.Requests.Where(r => r.Status == 1).Count(),
                 PendingRequest = _context.Requests.Where(r => r.Status == 2).Count(),
@@ -52,15 +27,16 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 ConcludeRequest = _context.Requests.Where(r => r.Status == 6).Count(),
                 ToCloseRequest = _context.Requests.Where(r => r.Status == 3 || r.Status == 7 || r.Status == 8).Count(),
                 UnpaidRequest = _context.Requests.Where(r => r.Status == 9).Count(),
-                adminDashboardList = NewRequestData()
             };
         }
 
-        public List<AdminDashboardList> GetRequests(string Status)
+        public PaginatedViewModel GetRequests(string Status, PaginatedViewModel data)
         {
-
+            if (data.SearchInput != null)
+            {
+                data.SearchInput = data.SearchInput.Trim();
+            }
             List<int> statusdata = Status.Split(',').Select(int.Parse).ToList();
-
             List<AdminDashboardList> allData = (from req in _context.Requests
                                                 join reqClient in _context.RequestClients
                                                 on req.RequestId equals reqClient.RequestId into reqClientGroup
@@ -71,7 +47,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                 join reg in _context.Regions
                                                 on rc.RegionId equals reg.RegionId into RegGroup
                                                 from rg in RegGroup.DefaultIfEmpty()
-                                                where statusdata.Contains((int)req.Status)
+                                                where statusdata.Contains((int)req.Status) && (data.SearchInput == null ||
+                                                         rc.FirstName.Contains(data.SearchInput) || rc.LastName.Contains(data.SearchInput) ||
+                                                         req.FirstName.Contains(data.SearchInput) || req.LastName.Contains(data.SearchInput) ||
+                                                         rc.Email.Contains(data.SearchInput) || rc.PhoneNumber.Contains(data.SearchInput) ||
+                                                         rc.Address.Contains(data.SearchInput) || rc.Notes.Contains(data.SearchInput) ||
+                                                         p.FirstName.Contains(data.SearchInput) || p.LastName.Contains(data.SearchInput) ||
+                                                         rg.Name.Contains(data.SearchInput)) && (data.RegionId == null || rc.RegionId == data.RegionId)
+                                                         && (data.RequestType == null || req.RequestTypeId == data.RequestType)
                                                 orderby req.CreatedDate descending
                                                 select new AdminDashboardList
                                                 {
@@ -90,7 +73,18 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                     ProviderId = req.PhysicianId,
                                                     RequestorPhoneNumber = req.PhoneNumber
                                                 }).ToList();
-            return allData;
+            int totalItemCount = allData.Count();
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)data.PageSize);
+            List<AdminDashboardList> list1 = allData.Skip((data.CurrentPage - 1) * data.PageSize).Take(data.PageSize).ToList();
+            PaginatedViewModel paginatedViewModel = new()
+            {
+                adl = list1,
+                CurrentPage = data.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = data.PageSize,
+                SearchInput = data.SearchInput
+            };
+            return paginatedViewModel;
         }
     }
 }

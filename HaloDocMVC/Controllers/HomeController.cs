@@ -31,12 +31,12 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewBag.CaseReason = _dropdown.CaseReason();
-            CountStatusWiseRequestModel cswr = _irequestRepository.IndexData();
-            return View(cswr);
+            PaginatedViewModel pvm = _irequestRepository.IndexData();
+            return View(pvm);
         }
 
-        #region DashStatus
-        public async Task<IActionResult> _SearchResult(string Status)
+        #region SearchResult
+        public async Task<IActionResult> _SearchResult(string Status, PaginatedViewModel data)
         {
             if (Status == null)
             {
@@ -45,7 +45,7 @@ namespace HaloDocMVC.Controllers
             Response.Cookies.Delete("Status");
             Response.Cookies.Append("Status", Status);
 
-            List<AdminDashboardList> contacts = _irequestRepository.GetRequests(Status);
+            PaginatedViewModel contacts = _irequestRepository.GetRequests(Status, data);
 
             switch (Status)
             {
