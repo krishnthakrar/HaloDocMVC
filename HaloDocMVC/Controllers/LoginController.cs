@@ -42,6 +42,7 @@ namespace HaloDocMVC.Controllers
             {
                 var jwttoken = _jwt.GenerateJWTAuthetication(u);
                 Response.Cookies.Append("jwt", jwttoken);
+                Response.Cookies.Append("Status", "1");
                 return RedirectToAction("Index", "Home");
             }
             else
