@@ -15,7 +15,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status);
 
-        public Task<bool> AssignProvider(int RequestId, int ProviderId, string notes);
+        public bool AssignProvider(int RequestId, int ProviderId, string notes);
 
         public bool CancelCase(int RequestID, string Note, string CaseTag);
         
@@ -31,7 +31,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public Task<ViewDataViewDocuments> GetDocumentByRequest(int? id);
 
-        public Boolean SaveDoc(int Requestid, IFormFile file);
+        public bool SaveDoc(int Requestid, IFormFile file);
 
         public Task<bool> DeleteDocumentByRequest(string ids);
 
@@ -44,5 +44,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public Boolean SendAgreement_accept(int RequestID);
         
         public Boolean SendAgreement_Reject(int RequestID, string Notes);
+
+        public ViewCloseCaseModel CloseCaseData(int RequestID);
+
+        public bool EditForCloseCase(ViewCloseCaseModel model);
+
+        public bool CloseCase(int RequestID);
     }
 }

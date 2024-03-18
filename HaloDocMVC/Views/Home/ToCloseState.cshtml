@@ -52,7 +52,7 @@
                             <li><a class="dropdown-item"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                             <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                             <li><a asp-action="Order" asp-controller="Home" asp-route-id="@item.RequestId" class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>
-                            <li><a class="dropdown-item"><i class="fa-regular fa-circle-xmark"></i> Close Case</a></li>
+                            <li><a class="dropdown-item" asp-action="CloseCase" asp-controller="Home" asp-route-RequestID="@item.RequestId"><i class="fa-regular fa-circle-xmark"></i> Close Case</a></li>
                             <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Doctor's Note</a></li>
                             <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#clearcase"><i class="fa-regular fa-circle-xmark"></i> Clear Case</a></li>
                             <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>
@@ -98,9 +98,9 @@
                     <p><i class="btn btn-outline-info rounded-pill fa-solid fa-location-dot me-2"></i>Region : GJ</p>
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <button class="btn btn-white bg-danger text-white rounded-pill 2px w-100">
+                            <a class="btn btn-white bg-danger text-white rounded-pill 2px w-100" asp-action="CloseCase" asp-controller="Home" asp-route-RequestID="@item.RequestId">
                                 <small>Close Case</small>
-                            </button>
+                            </a>
                         </div>
                         <div class="col-6 mb-3">
                             <a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="btn btn-white bg-success text-white rounded-pill 2px w-100">

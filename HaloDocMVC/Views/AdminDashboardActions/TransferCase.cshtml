@@ -11,7 +11,7 @@
                     <input type="hidden" name="requestid" id="RequestID_Input_ModelTransferCase" />
                     <div class="col my-3">
                         <div class="form-floating">
-                            <select class="form-select input-outline input-outline-select w-100" required aria-label="Phone" name="region" data-allow-clear="true" tabindex="-1" onchange="myFunction1()" id="region3" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                            <select class="form-select input-outline input-outline-select w-100" required aria-label="Phone" name="region" data-allow-clear="true" tabindex="-1" onchange="myFunction11()" id="region9" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
                                 <option>All Region</option>
                             </select>
                             <label for="region2">Region</label>
@@ -20,10 +20,10 @@
 
                     <div class="col mb-3">
                         <div class="form-floating">
-                            <select class="form-select input-outline input-outline-select w-100" required name="ProviderId" data-allow-clear="true" tabindex="-1" id="provider1" data-control="select2" data-placeholder="Select Level">
+                            <select class="form-select input-outline input-outline-select w-100" required name="ProviderId" data-allow-clear="true" tabindex="-1" id="provider11" data-control="select2" data-placeholder="Select Level">
                                 <option>Select Physician</option>
                             </select>
-                            <label for="provider1">Select Physician</label>
+                            <label for="provider11">Select Physician</label>
                         </div>
                     </div>
                     <div class="form-floating mb-3">
@@ -41,18 +41,20 @@
 </div>
 
 <script type="text/javascript">
-    function myFunction1() {
-        var region = $("#region3").val();
+    function myFunction11() {
+        var region = $('#region9').val();
         $.ajax({
             type: "POST",
             url: '@Url.Action("ProviderByRegion", "Home")?RegionId=' + region,
             cache: false,
             success: function (response) {
+                
+                
                 var s = '<option value="-1">Please Select</option>';
-                for (var i = 0; i < response.length; i++) {
-                    s += '<option value="' + response[i].physicianId + '">' + response[i].firstName + ' ' + response[i].lastName + '</option>';
+                for (var i = 0; i < response.length; i++) {console.log(response);
+                    s += '<option value="' + response[i].physicianId + '" class= "w-auto">' + response[i].firstName + ' ' + response[i].lastName + '</option>';
                 }
-                $("#provider1").html(s);
+                $('#provider11').html(s);
             },
             error: function () {
                 alert("Error while checking email.");

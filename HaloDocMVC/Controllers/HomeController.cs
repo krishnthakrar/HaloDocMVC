@@ -131,9 +131,9 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region AssignProvider
-        public async Task<IActionResult> AssignProvider(int requestid, int ProviderId, string Notes)
+        public IActionResult AssignProvider(int requestid, int ProviderId, string Notes)
         {
-            if (await _admindashboardactions.AssignProvider(requestid, ProviderId, Notes))
+            if (_admindashboardactions.AssignProvider(requestid, ProviderId, Notes) == true)
             {
                 _notyf.Success("Physician Assigned successfully...");
             }
@@ -324,6 +324,46 @@ namespace HaloDocMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+
+        #region CloseCase
+        public async Task<IActionResult> CloseCase(int RequestID)
+        {
+            ViewCloseCaseModel vc = _admindashboardactions.CloseCaseData(RequestID);
+            return View("../Home/CloseCase", vc);
+        }
+        public IActionResult CloseCaseUnpaid(int id)
+        {
+            bool sm = _admindashboardactions.CloseCase(id);
+            if (sm)
+            {
+                _notyf.Success("Case Closed...");
+                _notyf.Information("You can see Closed case in unpaid State...");
+
+            }
+            else
+            {
+                _notyf.Error("there is some error in CloseCase...");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+        public IActionResult EditForCloseCase(ViewCloseCaseModel sm)
+        {
+            bool result = _admindashboardactions.EditForCloseCase(sm);
+
+            if (result)
+            {
+                _notyf.Success("Case Edited Successfully..");
+                return RedirectToAction("CloseCase", new { sm.RequestId });
+            }
+            else
+            {
+                _notyf.Error("Case Not Edited...");
+                return RedirectToAction("CloseCase", new { sm.RequestId });
+            }
+
+        }
 
         #region AuthError
         public IActionResult AuthError()

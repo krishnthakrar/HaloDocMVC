@@ -4,9 +4,12 @@ using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -101,21 +104,23 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region AssignProvider
-        public async Task<bool> AssignProvider(int RequestId, int ProviderId, string notes)
+        public bool AssignProvider(int RequestId, int ProviderId, string notes)
         {
-            var request = await _context.Requests.FirstOrDefaultAsync(req => req.RequestId == RequestId);
+            var request = _context.Requests.FirstOrDefault(req => req.RequestId == RequestId);
             request.PhysicianId = ProviderId;
             request.Status = 2;
             _context.Requests.Update(request);
             _context.SaveChanges();
-
-            RequestStatusLog rsl = new();
-            rsl.RequestId = RequestId;
-            rsl.PhysicianId = ProviderId;
-            rsl.Notes = notes;
-            rsl.CreatedDate = DateTime.Now;
-            rsl.Status = 2;
-            _context.RequestStatusLogs.Update(rsl);
+            RequestStatusLog rsl = new RequestStatusLog
+            {
+                RequestId = RequestId,
+                PhysicianId = ProviderId,
+                Notes = notes,
+                CreatedDate = DateTime.Now,
+                Status = 2
+            };
+            
+            _context.RequestStatusLogs.Add(rsl);
             _context.SaveChanges();
             return true;
         }
@@ -137,7 +142,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     {
                         RequestId = RequestID,
                         Notes = Note,
-                        Status = 8,
+                        Status = 3,
                         CreatedDate = DateTime.Now
                     };
                     _context.RequestStatusLogs.Add(rsl);
@@ -167,7 +172,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     requestData.Status = 11;
                     _context.Requests.Update(requestData);
                     _context.SaveChanges();
-                    BlockRequest blc = new BlockRequest
+                    /*BlockRequest blc = new BlockRequest
                     {
                         RequestId = requestData.RequestId,
                         PhoneNumber = requestData.PhoneNumber,
@@ -175,8 +180,26 @@ namespace HaloDocMVC.Repository.Admin.Repository
                         Reason = Note,
                         CreatedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now
+                    };*/
+                    BlockRequest br = new BlockRequest
+                    {
+                        RequestId = RequestID,
+                        PhoneNumber = requestData.PhoneNumber,
+                        Email = requestData.Email,
+                        Reason = Note,
+                        CreatedDate = DateTime.Now
                     };
-                    _context.BlockRequests.Add(blc);
+                    _context.BlockRequests.Add(br);
+                    _context.SaveChanges();
+
+                    RequestStatusLog rsl = new RequestStatusLog
+                    {
+                        RequestId = RequestID,
+                        Notes = Note,
+                        CreatedDate = DateTime.Now,
+                        Status = 11
+                    };
+                    _context.RequestStatusLogs.Add(rsl);
                     _context.SaveChanges();
                     return true;
                 }
@@ -196,16 +219,20 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public async Task<bool> TransferProvider(int RequestId, int ProviderId, string notes)
         {
             var request = await _context.Requests.FirstOrDefaultAsync(req => req.RequestId == RequestId);
-            RequestStatusLog rsl = new();
-            rsl.RequestId = RequestId;
-            rsl.PhysicianId = request.PhysicianId;
-            rsl.Notes = notes;
-            rsl.CreatedDate = DateTime.Now;
-            rsl.TransToPhysicianId = ProviderId;
-            rsl.Status = 2;
-            _context.RequestStatusLogs.Update(rsl);
-            _context.SaveChanges();
+            
+            
+            RequestStatusLog rsl = new RequestStatusLog
+            {
+                RequestId = RequestId,
+                PhysicianId = request.PhysicianId,
+                Notes = notes,
+                CreatedDate = DateTime.Now,
+                TransToPhysicianId = ProviderId,
+                Status = 2
+            };
 
+            _context.RequestStatusLogs.Add(rsl);
+            _context.SaveChanges();
             request.PhysicianId = ProviderId;
             request.Status = 2;
             _context.Requests.Update(request);
@@ -225,12 +252,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     requestData.Status = 10;
                     _context.Requests.Update(requestData);
                     _context.SaveChanges();
+                    
                     RequestStatusLog rsl = new RequestStatusLog
                     {
                         RequestId = RequestID,
                         Status = 10,
                         CreatedDate = DateTime.Now
                     };
+                    
                     _context.RequestStatusLogs.Add(rsl);
                     _context.SaveChanges();
                     return true;
@@ -460,18 +489,18 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region SaveDocument
-        public Boolean SaveDoc(int Requestid, IFormFile file)
+        public bool SaveDoc(int Requestid, IFormFile file)
         {
             string UploadDoc = SaveFile.UploadDoc(file, Requestid);
-            var requestwisefile = new RequestWiseFile
+            RequestWiseFile rwf = new RequestWiseFile
             {
                 RequestId = Requestid,
                 FileName = UploadDoc,
                 CreatedDate = DateTime.Now,
                 IsDeleted = new BitArray(1),
-                /*AdminId = 1*/
+                AdminId = 1
             };
-            _context.RequestWiseFiles.Add(requestwisefile);
+            _context.RequestWiseFiles.Add(rwf);
             _context.SaveChanges();
             return true;
         }
@@ -598,5 +627,109 @@ namespace HaloDocMVC.Repository.Admin.Repository
             return true;
         }
         #endregion
+
+        public ViewCloseCaseModel CloseCaseData(int RequestID)
+        {
+            ViewCloseCaseModel alldata = new();
+
+            var result = from requestWiseFile in _context.RequestWiseFiles
+                         join request in _context.Requests on requestWiseFile.RequestId equals request.RequestId
+                         join physician in _context.Physicians on request.PhysicianId equals physician.PhysicianId into physicianGroup
+                         from phys in physicianGroup.DefaultIfEmpty()
+                         join admin in _context.Admins on requestWiseFile.AdminId equals admin.AdminId into adminGroup
+                         from adm in adminGroup.DefaultIfEmpty()
+                         where request.RequestId == RequestID
+                         select new
+                         {
+
+                             Uploader = requestWiseFile.PhysicianId != null ? phys.FirstName :
+                             (requestWiseFile.AdminId != null ? adm.FirstName : request.FirstName),
+                             requestWiseFile.FileName,
+                             requestWiseFile.CreatedDate,
+                             requestWiseFile.RequestWiseFileId
+
+                         };
+            List<Documents> doc = new();
+            foreach (var item in result)
+            {
+                doc.Add(new Documents
+                {
+                    CreatedDate = item.CreatedDate,
+                    FileName = item.FileName,
+                    Uploader = item.Uploader,
+                    RequestWiseFilesId = item.RequestWiseFileId
+                });
+
+            }
+            alldata.DocumentsList = doc;
+            Entity.DataModels.Request req = _context.Requests.FirstOrDefault(r => r.RequestId == RequestID);
+
+            alldata.FirstName = req.FirstName;
+            alldata.RequestId = req.RequestId;
+            alldata.ConfirmationNumber = req.ConfirmationNumber;
+            alldata.LastName = req.LastName;
+
+            var reqcl = _context.RequestClients.FirstOrDefault(e => e.RequestId == RequestID);
+
+            alldata.RC_Email = reqcl.Email;
+            //alldata.RC_DOB = new DateTime((int)reqcl.IntYear, DateTime.ParseExact(reqcl.StrMonth, "MMMM", new CultureInfo("en-US")).Month, (int)reqcl.IntDate);
+            alldata.RC_FirstName = reqcl.FirstName;
+            alldata.RC_LastName = reqcl.LastName;
+            alldata.RC_PhoneNumber = reqcl.PhoneNumber;
+            return alldata;
+        }
+        public bool EditForCloseCase(ViewCloseCaseModel model)
+        {
+            try
+            {
+                RequestClient client = _context.RequestClients.FirstOrDefault(E => E.RequestId == model.RequestId);
+                if (client != null)
+                {
+                    client.PhoneNumber = model.RC_PhoneNumber;
+                    client.Email = model.RC_Email;
+                    _context.RequestClients.Update(client);
+                    _context.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool CloseCase(int RequestID)
+        {
+            try
+            {
+                var requestData = _context.Requests.FirstOrDefault(e => e.RequestId == RequestID);
+                if (requestData != null)
+                {
+                    requestData.Status = 9;
+                    requestData.ModifiedDate = DateTime.Now;
+                    _context.Requests.Update(requestData);
+                    _context.SaveChanges();
+                    
+                    RequestStatusLog rsl = new RequestStatusLog
+                    {
+                        RequestId = RequestID,
+                        Status = 9,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _context.RequestStatusLogs.Add(rsl);
+                    _context.SaveChanges();
+                    return true;
+                }
+                else { return false; }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
