@@ -265,4 +265,11 @@
     <None Include="wwwroot\Upload\SRS-23-24-Trainees.pdf" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Home\Encounter.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

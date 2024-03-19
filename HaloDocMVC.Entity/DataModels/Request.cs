@@ -96,6 +96,9 @@ public partial class Request
     public virtual ICollection<EmailLog> EmailLogs { get; set; } = new List<EmailLog>();
 
     [InverseProperty("Request")]
+    public virtual ICollection<Encounter> Encounters { get; set; } = new List<Encounter>();
+
+    [InverseProperty("Request")]
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     [ForeignKey("PhysicianId")]

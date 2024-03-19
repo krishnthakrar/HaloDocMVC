@@ -50,5 +50,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool EditForCloseCase(ViewCloseCaseModel model);
 
         public bool CloseCase(int RequestID);
+
+        public ViewEncounter EncounterIndex(int? RId);
+
+        public ViewEncounter EncounterSave(int? RId, ViewEncounter ve);
     }
 }

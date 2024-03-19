@@ -348,6 +348,7 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region EditCloseCase
         public IActionResult EditForCloseCase(ViewCloseCaseModel sm)
         {
             bool result = _admindashboardactions.EditForCloseCase(sm);
@@ -364,6 +365,24 @@ namespace HaloDocMVC.Controllers
             }
 
         }
+        #endregion
+
+        #region Encounter
+        public IActionResult Encounter(int? RId)
+        {
+            ViewEncounter ve = _admindashboardactions.EncounterIndex(RId);
+            return View(ve);
+        }
+        #endregion
+
+        #region EncounterSave
+        [HttpPost]
+        public IActionResult Encounter(int? RequestId, ViewEncounter ve)
+        {
+            ViewEncounter ven = _admindashboardactions.EncounterSave(RequestId, ve);
+            return View("../Home/Encounter", ven);
+        }
+        #endregion
 
         #region AuthError
         public IActionResult AuthError()

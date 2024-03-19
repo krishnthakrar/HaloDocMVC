@@ -36,6 +36,8 @@ public partial class HaloDocContext : DbContext
 
     public virtual DbSet<EmailLog> EmailLogs { get; set; }
 
+    public virtual DbSet<Encounter> Encounters { get; set; }
+
     public virtual DbSet<HealthProfessional> HealthProfessionals { get; set; }
 
     public virtual DbSet<HealthProfessionalType> HealthProfessionalTypes { get; set; }
@@ -196,6 +198,17 @@ public partial class HaloDocContext : DbContext
             entity.HasOne(d => d.Request).WithMany(p => p.EmailLogs).HasConstraintName("RequestId");
 
             entity.HasOne(d => d.Role).WithMany(p => p.EmailLogs).HasConstraintName("RoleId");
+        });
+
+        modelBuilder.Entity<Encounter>(entity =>
+        {
+            entity.HasKey(e => e.EncounterId).HasName("Encounter_pkey");
+
+            entity.Property(e => e.EncounterId).HasIdentityOptions(null, null, null, null, true, null);
+
+            entity.HasOne(d => d.Request).WithMany(p => p.Encounters)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Encounter_requestId");
         });
 
         modelBuilder.Entity<HealthProfessional>(entity =>

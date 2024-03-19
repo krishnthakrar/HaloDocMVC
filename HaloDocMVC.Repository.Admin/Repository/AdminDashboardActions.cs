@@ -5,6 +5,7 @@ using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Ocsp;
 using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static HaloDocMVC.Entity.Models.Constant;
 using static HaloDocMVC.Entity.Models.ViewDataViewDocuments;
 
 namespace HaloDocMVC.Repository.Admin.Repository
@@ -172,15 +174,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     requestData.Status = 11;
                     _context.Requests.Update(requestData);
                     _context.SaveChanges();
-                    /*BlockRequest blc = new BlockRequest
-                    {
-                        RequestId = requestData.RequestId,
-                        PhoneNumber = requestData.PhoneNumber,
-                        Email = requestData.Email,
-                        Reason = Note,
-                        CreatedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now
-                    };*/
                     BlockRequest br = new BlockRequest
                     {
                         RequestId = RequestID,
@@ -628,6 +621,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
         #endregion
 
+        #region CloseCaseData
         public ViewCloseCaseModel CloseCaseData(int RequestID)
         {
             ViewCloseCaseModel alldata = new();
@@ -672,12 +666,15 @@ namespace HaloDocMVC.Repository.Admin.Repository
             var reqcl = _context.RequestClients.FirstOrDefault(e => e.RequestId == RequestID);
 
             alldata.RC_Email = reqcl.Email;
-            //alldata.RC_DOB = new DateTime((int)reqcl.IntYear, DateTime.ParseExact(reqcl.StrMonth, "MMMM", new CultureInfo("en-US")).Month, (int)reqcl.IntDate);
+            alldata.RC_DOB = new DateTime((int)reqcl.IntYear, Convert.ToInt32(reqcl.StrMonth.Trim()), (int)reqcl.IntDate);
             alldata.RC_FirstName = reqcl.FirstName;
             alldata.RC_LastName = reqcl.LastName;
             alldata.RC_PhoneNumber = reqcl.PhoneNumber;
             return alldata;
         }
+        #endregion
+
+        #region EditCloseCase
         public bool EditForCloseCase(ViewCloseCaseModel model)
         {
             try
@@ -701,6 +698,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
+
+        #region CloseCase
         public bool CloseCase(int RequestID)
         {
             try
@@ -731,5 +731,103 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
+
+        #region EncounterIndex
+        public ViewEncounter EncounterIndex(int? RId)
+        {
+            if (RId == null) return null;
+            var encounter = (from rc in _context.RequestClients
+                             join en in _context.Encounters on rc.RequestId equals en.RequestId into renGroup
+                             from subEn in renGroup.DefaultIfEmpty()
+                             where rc.RequestId == RId
+                             select new ViewEncounter
+                             {
+                                 RequestId = rc.RequestId,
+                                 FirstName = rc.FirstName,
+                                 LastName = rc.LastName,
+                                 Location = rc.Address,
+                                 DOB = new DateTime((int)rc.IntYear, Convert.ToInt32(rc.StrMonth.Trim()), (int)rc.IntDate),
+                                 DOS = (DateTime)subEn.DateOfService,
+                                 Mobile = rc.PhoneNumber,
+                                 Email = rc.Email,
+                                 Injury = subEn.Injury,
+                                 History = subEn.MedicalHistory,
+                                 Medications = subEn.Medications,
+                                 Allergies = subEn.Allergies,
+                                 Temp = subEn.Temp,
+                                 HR = subEn.Hr,
+                                 RR = subEn.Rr,
+                                 Bp = subEn.BloodPressure,
+                                 O2 = subEn.O2,
+                                 Pain = subEn.Pain,
+                                 Heent = subEn.Heent,
+                                 CV = subEn.Cv,
+                                 Chest = subEn.Chest,
+                                 ABD = subEn.Abd,
+                                 Extr = subEn.Extr,
+                                 Skin = subEn.Skin,
+                                 Neuro = subEn.Neuro,
+                                 Other = subEn.Other,
+                                 Diagnosis = subEn.Diagnosis,
+                                 Treatment = subEn.Treatment,
+                                 MDispensed = subEn.MedicationsDispensed,
+                                 Procedures = subEn.Procedures,
+                                 Followup = subEn.Followup
+                             }).FirstOrDefault();
+
+            return encounter;
+        }
+
+        #endregion
+
+        #region EncounterSave
+        public ViewEncounter EncounterSave(int? RId, ViewEncounter ve)
+        {
+            var RC = _context.RequestClients.FirstOrDefault(rc => rc.RequestId == RId);
+            if (RC == null) return null;
+            RC.FirstName = ve.FirstName;
+            RC.LastName = ve.LastName;
+            RC.Address = ve.Location;
+            RC.StrMonth = ve.DOB.Month.ToString();
+            RC.IntDate = ve.DOB.Day;
+            RC.IntYear = ve.DOB.Year;
+            RC.PhoneNumber = ve.Mobile;
+            RC.Email = ve.Email;
+            _context.Update(RC);
+            var E = _context.Encounters.FirstOrDefault(e => e.RequestId == RId);
+            if (E == null)
+            {
+                E = new Encounter { RequestId = (int)RId };
+                _context.Encounters.Add(E);
+            }
+            E.DateOfService = ve.DOS;
+            E.MedicalHistory = ve.History;
+            E.Injury = ve.Injury;
+            E.Medications = ve.Medications;
+            E.Allergies = ve.Allergies;
+            E.Temp = ve.Temp;
+            E.Hr = ve.HR;
+            E.Rr = ve.RR;
+            E.BloodPressure = ve.Bp;
+            E.O2 = ve.O2;
+            E.Pain = ve.Pain;
+            E.Heent = ve.Heent;
+            E.Cv = ve.CV;
+            E.Chest = ve.Chest;
+            E.Abd = ve.ABD;
+            E.Extr = ve.Extr;
+            E.Skin = ve.Skin;
+            E.Neuro = ve.Neuro;
+            E.Other = ve.Other;
+            E.Diagnosis = ve.Diagnosis;
+            E.Treatment = ve.Treatment;
+            E.MedicationsDispensed = ve.MDispensed;
+            E.Procedures = ve.Procedures;
+            E.Followup = ve.Followup;
+            _context.SaveChanges();
+            return ve;
+        }
+        #endregion
     }
 }
