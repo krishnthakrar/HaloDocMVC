@@ -68,5 +68,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
                         }).ToList();
             return result;
         }
+
+        public List<UserRole> UserRole()
+        {
+            return _context.AspNetRoles.Select(req => new UserRole()
+            {
+                RoleId = req.Id,
+                RoleName = req.Name
+            }).ToList();
+        }
     }
 }
