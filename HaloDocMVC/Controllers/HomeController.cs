@@ -380,6 +380,7 @@ namespace HaloDocMVC.Controllers
         public IActionResult Encounter(int? RequestId, ViewEncounter ve)
         {
             ViewEncounter ven = _admindashboardactions.EncounterSave(RequestId, ve);
+            _notyf.Success("Updated Successfully.......");
             return View("../Home/Encounter", ven);
         }
         #endregion
