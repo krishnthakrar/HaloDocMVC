@@ -161,6 +161,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                         DataForChange.Address2 = _viewAdminProfile.Address2;
                         DataForChange.City = _viewAdminProfile.City;
                         DataForChange.Mobile = _viewAdminProfile.Mobile;
+                        DataForChange.Zip = _viewAdminProfile.ZipCode;
                         _context.Admins.Update(DataForChange);
                         _context.SaveChanges();
                         return true;

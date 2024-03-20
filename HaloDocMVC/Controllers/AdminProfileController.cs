@@ -61,7 +61,7 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
-        #region EditAdministratorInfo
+        #region EditBillingInfo
         [HttpPost]
         public IActionResult BillingInfoEdit(ViewAdminProfile _viewAdminProfile)
         {
