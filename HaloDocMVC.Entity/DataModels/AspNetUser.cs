@@ -37,6 +37,9 @@ public partial class AspNetUser
     [InverseProperty("AspNetUser")]
     public virtual ICollection<Admin> AdminAspNetUsers { get; set; } = new List<Admin>();
 
+    [InverseProperty("CreatedByNavigation")]
+    public virtual ICollection<Admin> AdminCreatedByNavigations { get; set; } = new List<Admin>();
+
     [InverseProperty("ModifiedByNavigation")]
     public virtual ICollection<Admin> AdminModifiedByNavigations { get; set; } = new List<Admin>();
 

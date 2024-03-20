@@ -19,6 +19,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             _context = context;
         }
+        #region CreatePatient
         public void CreatePatient(ViewDataCreatePatient vdcp)
         {
             AspNetUser A = new();
@@ -121,10 +122,12 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.SaveChanges();
             }
         }
+        #endregion
 
+        #region CreateFriend
         public void CreateFriend(ViewDataCreateFriend vdcf)
         {
-                        AspNetUser A = new();
+            AspNetUser A = new();
             User U = new();
             Request R = new();
             RequestClient RC = new();
@@ -226,7 +229,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
 
         }
+        #endregion
 
+        #region CreateConcierge
         public void CreateConcierge(ViewDataCreateConcierge vdcc)
         {
             AspNetUser A = new();
@@ -324,7 +329,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             _context.Add(RCO);
             _context.SaveChanges();
         }
+        #endregion
 
+        #region CreatePartner
         public void CreatePartner(ViewDataCreateBusiness vdcb)
         {
             AspNetUser A = new();
@@ -424,7 +431,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             _context.Add(RB);
             _context.SaveChanges();
         }
+        #endregion
 
+        #region CreateMeIndex
         public ViewDataCreatePatient ViewMe(int id)
         {
             var ViewMe = _context.Users.Where(r => (r.UserId) == id).Select(r => new ViewDataCreatePatient
@@ -437,7 +446,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }).FirstOrDefault();
             return ViewMe;
         }
+        #endregion
 
+        #region CreateMe
         public void CreateMe(ViewDataCreatePatient vdcp)
         {
             AspNetUser A = new();
@@ -540,7 +551,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.SaveChanges();
             }
         }
+        #endregion
 
+        #region CreateSomeOneElse
         public void CreateSomeOneElse(ViewDataCreateSomeOneElse vdcs)
         {
             var R = new Request();
@@ -591,5 +604,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
 
         }
+        #endregion
     }
 }

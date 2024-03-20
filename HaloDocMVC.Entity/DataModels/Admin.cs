@@ -71,6 +71,10 @@ public partial class Admin
     [InverseProperty("AdminAspNetUsers")]
     public virtual AspNetUser AspNetUser { get; set; } = null!;
 
+    [ForeignKey("CreatedBy")]
+    [InverseProperty("AdminCreatedByNavigations")]
+    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
+
     [InverseProperty("Admin")]
     public virtual ICollection<EmailLog> EmailLogs { get; set; } = new List<EmailLog>();
 
@@ -87,6 +91,10 @@ public partial class Admin
 
     [InverseProperty("Admin")]
     public virtual ICollection<RequestWiseFile> RequestWiseFiles { get; set; } = new List<RequestWiseFile>();
+
+    [ForeignKey("RoleId")]
+    [InverseProperty("Admins")]
+    public virtual Role? Role { get; set; }
 
     [InverseProperty("Admin")]
     public virtual ICollection<Smslog> Smslogs { get; set; } = new List<Smslog>();

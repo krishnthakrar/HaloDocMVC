@@ -142,6 +142,17 @@
     left: 16px;
 }
 
+.search .pagesize {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+}
+
+.search .pagesizeselect {
+    text-indent: 95px;
+    min-width: 170px;
+}
+
 .requestType {
     display: inline-flex;
     align-items: center;

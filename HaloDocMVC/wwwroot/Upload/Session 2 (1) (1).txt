@@ -18,7 +18,7 @@ Example:
 Scaffold-DbContext "User ID = postgres;Password=Tatva@123;Server=localhost;Port=5432;Database=EFCoreTestDB1;Integrated Security=true;Pooling=true;" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir "DataModels" –context "ApplicationDbContext" –contextDir "DataContext" -f;
 
 // DataAnnotations
-Scaffold-DbContext "User ID = postgres;Password=Tatva@123;Server=localhost;Port=5432;Database=EFCoreTestDB1;Integrated Security=true;Pooling=true;" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir "DataModels" –context "ApplicationDbContext" –contextDir "DataContext" -f -DataAnnotations;
+Scaffold-DbContext "User ID = postgres;Password=Krishn@1303;Server=localhost;Port=5432;Database=HaloDoc;Integrated Security=true;Pooling=true;" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir "DataModels" –context "HaloDocContext" –contextDir "DataContext" -f -DataAnnotations;
 
 // Tables
 Scaffold-DbContext "User ID = postgres;Password=Tatva@123;Server=localhost;Port=5432;Database=EFCoreTestDB1;Integrated Security=true;Pooling=true;" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir "DataModels" –context "ApplicationDbContext" –contextDir "DataContext" -f -DataAnnotations -Tables contacts, contacttypes;
