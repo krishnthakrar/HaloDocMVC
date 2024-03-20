@@ -94,6 +94,15 @@
                             <option>All Region</option>
                         </select>
                     </div>
+                    <div class="search m-1 d-flex justify-content-between">
+                        <span class="pagesize">Page Size</span>
+                        <select class="form-select pagesizeselect" asp-for="PageSize" data-allow-clear="true" tabindex="-1" id="pagesizedropdown" data-control="select2" data-placeholder="Page Size">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="requestType">
                     <input type="hidden" asp-for="RequestType" id="requesttypevalue" class="form-control" placeholder="Search Patients">
@@ -128,6 +137,10 @@
             $(".row > .btn > .rounded").removeClass("as");
             $(this).addClass("as");
         });
+        $(".requestType > .btn ").click(function () {
+            $(".requestType > .btn").removeClass("filterborder");
+            $(this).addClass("filterborder");
+        });
     });
 </script>
 <script>
@@ -155,6 +168,11 @@
     });
     $(function () {
         $('#regiondropdown').on('change', function () {
+            $('#filterForm').submit();
+        });
+    });
+    $(function () {
+        $('#pagesizedropdown').on('change', function () {
             $('#filterForm').submit();
         });
     });

@@ -147,27 +147,6 @@
     align-items: center;
 }
 
-table.dataTable.display tbody tr.odd > .sorting_1 {
-    background-color: inherit !important;
-}
-
-table.dataTable.display tbody tr.even > .sorting_1 {
-    background-color: inherit !important;
-}
-
-#tableID_filter {
-    display: none;
-}
-
-.dataTables_wrapper .dataTables_length {
-    position: absolute;
-    bottom: -33px;
-}
-
-.dataTables_wrapper {
-    margin-bottom: 2.5rem !important;
-}
-
 .card.table-responsive {
     border: none !important;
 }
@@ -398,4 +377,15 @@ label {
         transform: rotate(179deg);
         transition: 1s;
     }
+}
+
+.filterborder {
+    border: 1px solid #0dcaf0 !important;
+}
+
+/*Pagination CSS*/
+.activepagebtn,
+.page-item:hover {
+    background-color: #0dcaf0;
+    border-radius: 5px;
 }

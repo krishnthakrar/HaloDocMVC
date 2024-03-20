@@ -141,24 +141,7 @@
         </div>
     }
 </div>
-<div class="m-2 d-flex justify-content-between">
-    <div>
-        <form id="pagesizeform" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"
-                asp-action="_SearchResult" asp-controller="Home" novalidate="novalidate" class="mt-0 d-flex">
-            <input type="hidden" asp-for="RegionId" />
-            <input type="hidden" asp-for="RequestType" />
-            <input type="hidden" asp-for="SearchInput" />
-            <input type="hidden" asp-for="CurrentPage" />
-            <select class="form-select" asp-for="PageSize" onchange="subsubmit()">
-                <option value="5" selected>5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-        </form>
-
-        <p>Select Page Size</p>
-    </div>
+<div class="m-2 d-flex justify-content-end">
     <nav aria-label="Page navigation example">
         <ul class="pagination pagination-container">
             @{
@@ -220,8 +203,5 @@
         document.getElementById('RequestID_Input_ModelCancelCase').value = modeldata[id].requestId;
         document.getElementById('RequestID_Input_ModelBlockCase').value = modeldata[id].requestId;
         document.getElementById('PatientName_ModelBlockCase').innerText = modeldata[id].patientName;
-    }
-    function subsubmit() {
-        $('#pagesizeform').submit();
     }
 </script>
