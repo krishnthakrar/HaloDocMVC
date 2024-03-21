@@ -1,0 +1,31 @@
+﻿<div class="modal fade" id="requestSupport" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header  bg-info text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Request Support</h1>
+                <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
+            </div>
+            <form method="post" class="mt-0 needs-validation" novalidate>
+                <div class="modal-body">
+                    <p class="text-center fs-7 pt-2 text-secondary">
+                        To all unscheduled Physicians: We are short on coverage and need additional support on Call to respond to Requests.
+                    </p>
+                    <div class="col my-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-none" id="message" name="Message" placeholder="Message" required>
+                            <label for="message" class="form-label">Message</label>
+                            <div class="invalid-feedback">
+                                Please provide Message.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class=" btn btn-info text-white" value="Assign">Send</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/js/phone.js"></script>

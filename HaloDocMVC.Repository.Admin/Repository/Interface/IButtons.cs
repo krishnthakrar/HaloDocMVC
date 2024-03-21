@@ -10,5 +10,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
     public interface IButtons
     {
         public void CreateRequest(ViewDataCreatePatient vdcp);
+
+        public Boolean SendLink(string FirstName, string LastName, string Email);
     }
 }

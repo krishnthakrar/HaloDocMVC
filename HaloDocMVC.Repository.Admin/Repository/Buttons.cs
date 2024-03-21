@@ -2,6 +2,7 @@
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,20 @@ namespace HaloDocMVC.Repository.Admin.Repository
     public class Buttons : IButtons
     {
         private readonly HaloDocContext _context;
+        private readonly EmailConfiguration _emailConfig;
 
-        public Buttons(HaloDocContext context)
+        public Buttons(HaloDocContext context, EmailConfiguration emailConfig)
         {
             _context = context;
+            _emailConfig = emailConfig;
         }
 
+        #region CreateRequest
         public void CreateRequest(ViewDataCreatePatient vdcp)
         {
             AspNetUser A = new();
             User U = new();
-            Request R = new();
+            Entity.DataModels.Request R = new();
             RequestClient RC = new();
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcp.Email);
             if (isexist == null)
@@ -97,6 +101,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.ZipCode = vdcp.ZipCode;
             _context.Add(RC);
             _context.SaveChanges();
+        }
+        #endregion
+
+        public Boolean SendLink(string FirstName, string LastName, string Email)
+        {
+            var agreementUrl = "https://localhost:44348/PatientHome/RequestLanding?Name=" + FirstName + " " + LastName + "&Email=" + Email;
+            _emailConfig.SendMail(Email, "Link to Request", $"<a href='{agreementUrl}'>Request Page Link</a>");
+            return true;
         }
     }
 }
