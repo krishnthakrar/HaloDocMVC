@@ -194,6 +194,12 @@
     color: #0a7cb9;
 }
 
+.horRule,
+.viewCaseMobile {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
 @media (max-width : 925px) {
     .searchBar {
         display: flex;

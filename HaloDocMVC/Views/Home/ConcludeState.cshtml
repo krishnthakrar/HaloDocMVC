@@ -107,6 +107,16 @@
             </div>
             <div id="flush-@item.RequestId" class="accordion-collapse collapse mb-3 border-bottom" data-bs-parent="#accordionExample">
                 <div class="accordion-body container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-10 horRule">
+                            <hr>
+                        </div>
+                        <div class="col-2 viewCaseMobile">
+                            <a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" asp-route-Status="1" class="btn btn-sm rounded-pill 2px" style="border-color: #A020F0; color: #A020F0">
+                                <small>View Case</small>
+                            </a>
+                        </div>
+                    </div>
                     <p><i class="btn btn-outline-info rounded-pill fa-solid fa-calendar-days me-2"></i>Date of Birth: @item.DateOfBirth.ToString()</p>
                     <p><i class="btn btn-outline-info rounded-pill fa-solid fa-envelope me-2"></i>Email : @item.Email</p>
                     <p><i class="btn btn-outline-info rounded-pill fa-solid fa-phone me-2"></i>Patient : @item.PatientPhoneNumber</p>
