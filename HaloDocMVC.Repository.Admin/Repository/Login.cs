@@ -17,10 +17,12 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region Constructor
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly HaloDocContext _context;
-        public Login(HaloDocContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly EmailConfiguration _emailConfig;
+        public Login(HaloDocContext context, IHttpContextAccessor httpContextAccessor, EmailConfiguration emailConfig)
         {
             this.httpContextAccessor = httpContextAccessor;
             _context = context;
+            _emailConfig = emailConfig;
         }
         #endregion
 
@@ -60,5 +62,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
         }
         #endregion
+
+        public bool SendResetLink(String Email)
+        {
+            var agreementUrl = "https://localhost:44348/Login/ResetPassword?Email=" + Email;
+            _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
+            return true;
+        }
+
+        public bool SendResetLinkPatient(String Email)
+        {
+            var agreementUrl = "https://localhost:44348/PatientLogin/ResetPassword?Email=" + Email;
+            _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
+            return true;
+        }
     }
 }

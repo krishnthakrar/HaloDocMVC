@@ -1,6 +1,8 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
+using HaloDocMVC.Repository.Admin.Repository;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +16,14 @@ namespace HaloDocMVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ILogin _login;
         private readonly IJwt _jwt;
+        private readonly HaloDocContext _context;
         public LoginController(ILogger<HomeController> logger,
                                       IDropdown dropdown,
                                       IAdminDashboardActions AdminDashBoardActions,
                                       INotyfService notyf,
                                       ILogin login,
-                                      IJwt jwt)
+                                      IJwt jwt,
+                                      HaloDocContext context)
         {
             _dropdown = dropdown;
             _AdminDashBoardActions = AdminDashBoardActions;
@@ -27,6 +31,7 @@ namespace HaloDocMVC.Controllers
             _logger = logger;
             _login = login;
             _jwt = jwt;
+            _context = context;
         }
         public IActionResult Index()
         {
@@ -66,10 +71,50 @@ namespace HaloDocMVC.Controllers
             return View();
         }
 
-        public IActionResult ResetPassword()
+        public IActionResult ResetEmail(string Email)
         {
+            if (_login.SendResetLink(Email))
+            {
+                _notyf.Success("Mail Send  Successfully..!");
+            }
+            return RedirectToAction("ForgotPassword", "Login");
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string email, string datetime)
+        {
+            TempData["email"] = email;
+            /*TimeSpan time = DateTime.Now - DateTime.Parse(datetime);
+            if (time.TotalHours > 24)
+            {
+                return View("LinkExpired");
+            }
+            else
+            {
+                return View();
+            }*/
             return View();
         }
+        [HttpPost]
+        public IActionResult SavePassword(ViewDataCreatePatient viewPatientReq)
+        {
+            var aspnetuser = _context.AspNetUsers.FirstOrDefault(m => m.Email == viewPatientReq.Email);
+            if (aspnetuser != null)
+            {
+                aspnetuser.PasswordHash = viewPatientReq.PasswordHash;
+                _context.AspNetUsers.Update(aspnetuser);
+                _context.SaveChanges();
+
+                TempData["emailmessage"] = "Your password is changed!!";
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                TempData["emailmessage"] = "Email is not registered!!";
+                return View("ResetPassword");
+            }
+        }
+
 
     }
 }

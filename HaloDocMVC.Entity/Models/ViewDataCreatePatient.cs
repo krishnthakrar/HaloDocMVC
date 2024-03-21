@@ -45,6 +45,7 @@ namespace HaloDocMVC.Entity.Models
         [Required(ErrorMessage = "PassWord is Required!")]
         public string PassWord { get; set; }
 
+        [Compare("PassWord", ErrorMessage = "Password doesn't match.")]
         public string PasswordHash { get; set; }
 
         public IFormFile? UploadFile { get; set; }

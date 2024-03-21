@@ -73,8 +73,8 @@
         <div class="linkButtons">
             <button type="button" class="btn btn-info mb-2 text-white" data-bs-toggle="modal" data-bs-target="#sendLink"><i class="fa-regular fa-paper-plane px-1"></i><span class="adminIcon">Send Link</span></button>
             <a asp-action="CreateRequest" asp-controller="Buttons" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-file-pen px-1"></i><span class="adminIcon">Create Requests</span></a>
-            <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-share px-1"></i><span class="adminIcon">Export</span></button>
-            <button type="button" class="btn btn-info mb-2 text-white"><i class="fa-regular fa-share-from-square px-1"></i><span class="adminIcon">Export All</span></button>
+            <button type="button" onclick="Export(@CredentialValue.CurrentStatus())" class="btn btn-info mb-2 text-white"><i class="fa-solid fa-share px-1"></i><span class="adminIcon">Export</span></button>
+            <button type="button" onclick="Export('1,2,3,4,5,6,7,8,9,10,11')" class="btn btn-info mb-2 text-white"><i class="fa-regular fa-share-from-square px-1"></i><span class="adminIcon">Export All</span></button>
             <button type="button" class="btn btn-info mb-2 text-white" data-bs-toggle="modal" data-bs-target="#requestSupport"><i class="fa-solid fa-user-nurse px-1"></i><span class="adminIcon">Request Support</span></button>
         </div>
     </div>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="search m-1">
                         <i class="fa fa-search"></i>
-                        <select class="form-select" asp-for="RegionId" data-allow-clear="true" tabindex="-1" id="regiondropdown" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                        <select class="form-select regionDropdown" asp-for="RegionId" data-allow-clear="true" tabindex="-1" id="regiondropdown" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
                             <option>All Region</option>
                         </select>
                     </div>
@@ -177,4 +177,34 @@
             $('#filterForm').submit();
         });
     });
+    function Export(status) {
+        console.log(status);
+        $.ajax({
+            method: "POST",
+            url: "/Home/Export",
+            data: { status: status},
+            xhrFields: {
+                responseType: 'blob'
+            },
+
+            success: function (result) {
+
+                var blob = new Blob([result], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'RequestData.xlsx';
+
+                document.body.appendChild(link);
+                link.click();
+
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(link.href);
+            },
+
+            error: function () {
+                console.log("error");
+            }
+        });
+    }
 </script>
