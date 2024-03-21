@@ -400,3 +400,10 @@ label {
     background-color: #0dcaf0;
     border-radius: 5px;
 }
+
+/*View Upload*/
+#downloadAll i,
+#delete i,
+#sendmail i {
+    margin-top: 4px;
+}

@@ -108,7 +108,6 @@
                                         <a class="btn btn-sm btn-outline-info " asp-action="DeleteFile" asp-controller="Home" asp-route-id="@item2.RequestWiseFilesId" asp-route-Requestid="@Model.RequestId">
                                             <i class="fa fa-trash" aria-hidden="true">  </i>
                                         </a>
-
                                     </td>
                                 </tr>
                             }
@@ -194,7 +193,6 @@
                         var deleteids = $('#mailids').val();
                         console.log(deleteids);
                         if (deleteids == '') {
-
                             $('#mailids').val(downloadLink);
                         } else {
                             $('#mailids').val(deleteids + ',' + downloadLink);

@@ -6,7 +6,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Send Agreement </h1>
                 <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
             </div>
-            <form asp-action="SendAgreementmail" asp-controller="Home" method="post" class="mt-0">
+            <form asp-action="SendAgreementmail" asp-controller="Home" method="post" class="mt-0 needs-validation" novalidate>
                 <div class="modal-body">
                     <span class="d-flex">
                         @* <i class="fa-solid fa-circle fa-xs @Enum.GetName(typeof(RequestType), Model.RequestTypeID)"></i>
@@ -17,14 +17,20 @@
                     <input id="Patientname_sendAgreement" placeholder=" " name="PatientName" type="hidden">
                     <div class="col my-3">
                         <div class="form-floating">
-                            <input id="Phonenumber_sendAgreement" name="PhoneNumber" type="text" class="form-control shadow-none inputs" placeholder="PhoneNumber">
+                            <input id="Phonenumber_sendAgreement" name="PhoneNumber" type="text" class="form-control shadow-none inputs" placeholder="PhoneNumber" required>
                             <label for="Phonenumber_sendAgreement">Phone Number</label>
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide phonenumber.
                         </div>
                     </div>
                     <div class="col mb-3">
                         <div class="form-floating">
-                            <input id="Email_sendAgreement" type="text" name="Email" class="form-control shadow-none inputs" placeholder="Email">
+                            <input id="Email_sendAgreement" type="text" name="Email" class="form-control shadow-none inputs" placeholder="Email" required>
                             <label for="Email_sendAgreement">Email</label>
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide email.
                         </div>
                     </div>
                 </div>

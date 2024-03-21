@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Concellation</h1>
                 <a class="text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
             </div>
-            <form asp-controller="Home" asp-action="CancelCase" class="mt-0">
+            <form asp-controller="Home" asp-action="CancelCase" class="mt-0 needs-validation" novalidate>
                 <input type="hidden" value="" id="RequestID_Input_ModelCancelCase" name="RequestId" />
 
                 <div class="modal-body">
@@ -14,14 +14,20 @@
                     <div class="col my-3">
                         <div class="form-floating">
                             <select class="form-select input-outline input-outline-select w-100" required name="CaseTag" data-allow-clear="true" tabindex="-1" id="Region" asp-items="@(new SelectList(ViewBag.CaseReason,"CaseReasonId","CaseReasonName"))" data-control="select2" data-placeholder="Cancel Reason">
-                                <option>Cancel Reason</option>
+                                <option value="">Cancel Reason</option>
                             </select>
                             <label for="region2">Reason For Cancelation</label>
+                            <div class="invalid-feedback">
+                                Please select valid reason.
+                            </div>
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea id="changenote" rows="4" name="Note" class="input-outline w-100 h-100 fs-6 form-control shadow-none" type="text"></textarea>
+                        <textarea id="changenote" rows="4" name="Note" class="input-outline w-100 h-100 fs-6 form-control shadow-none" type="text" required></textarea>
                         <label class="inputs-lable inputs-lable-textarea fs-6" id="notedata">Provide additional notes</label>
+                        <div class="invalid-feedback">
+                            Please provide notes.
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

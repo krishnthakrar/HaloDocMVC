@@ -45,12 +45,12 @@ namespace HaloDocMVC.Entity.Models
         }
         #endregion
 
-        #region SendMail
+        #region SendMailAsync
         public async Task<bool> SendMailAsync(string To, string Subject, string Body, List<string> Attachments)
         {
             MimeMessage message = new MimeMessage();
             message.From.Add(new MailboxAddress("", From));
-            message.To.Add(new MailboxAddress("", "pehek11482@fashlend.com"));
+            message.To.Add(new MailboxAddress("", To));
             message.Subject = Subject;
 
             // Create the multipart/mixed container to hold the message body and attachments

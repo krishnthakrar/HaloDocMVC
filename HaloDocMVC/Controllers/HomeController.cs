@@ -296,7 +296,7 @@ namespace HaloDocMVC.Controllers
                 if (data)
                 {
                     _notyf.Success("Order Created  successfully...");
-                    _notyf.Information("Mail is sended to Vendor successfully...");
+                    _notyf.Information("Mail is sent to Vendor successfully...");
                     return RedirectToAction("Index", "Home");
                 }
                 else
