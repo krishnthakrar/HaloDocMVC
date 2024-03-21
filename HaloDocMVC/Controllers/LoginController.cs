@@ -51,16 +51,25 @@ namespace HaloDocMVC.Controllers
                 return View("../Login/Index");
             }
         }
-        #region end_session
         public async Task<IActionResult> Logout()
         {
             Response.Cookies.Delete("jwt");
             return RedirectToAction("Index", "Login");
         }
-        #endregion
         public IActionResult AuthError()
         {
             return View("../Home/AuthError");
         }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
     }
 }
