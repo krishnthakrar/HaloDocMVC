@@ -1,5 +1,6 @@
 ﻿using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.Models;
+using HaloDocMVC.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -69,7 +70,7 @@ namespace HaloDocMVC.Controllers
 
         public IActionResult CreateMe()
         {
-            int id = (int)_httpContextAccessor.HttpContext.Session.GetInt32("id");
+            int id = Int32.Parse(CredentialValue.UserId());
             var ViewMe = _patientrequest.ViewMe(id);
             return View(ViewMe);
         }

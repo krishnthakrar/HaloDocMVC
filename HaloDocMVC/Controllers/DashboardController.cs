@@ -1,4 +1,5 @@
 ﻿using HaloDocMVC.Entity.DataContext;
+using HaloDocMVC.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace HaloDocMVC.Controllers
         }
         public IActionResult Index()
         {
-            int id = (int)_httpContextAccessor.HttpContext.Session.GetInt32("id");
+            int id = Int32.Parse(CredentialValue.UserId());
             var result = _dashboard.DashboardList(id);
             return View(result);
         }

@@ -1,4 +1,7 @@
 ﻿using HaloDocMVC.Entity.DataContext;
+using HaloDocMVC.Entity.DataModels;
+using HaloDocMVC.Entity.Models;
+using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -8,11 +11,13 @@ namespace HaloDocMVC.Controllers
     public class PatientLoginController : Controller
     {
         private readonly HaloDocContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public PatientLoginController(HaloDocContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IJwt _jwt;
+        private readonly ILogin _login;
+        public PatientLoginController(HaloDocContext context, IJwt jwt, ILogin login)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
+            _jwt = jwt;
+            _login = login;
         }
         public IActionResult Index()
         {
@@ -30,30 +35,26 @@ namespace HaloDocMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string Email, string PasswordHash)
+        public async Task<IActionResult> Index(AspNetUser aspNetUser)
         {
-            var user = await _context.AspNetUsers.FirstOrDefaultAsync(u => u.Email == Email && u.PasswordHash == PasswordHash);
+            UserInfo u = await _login.CheckAccessLogin(aspNetUser);
 
-            if (user == null)
+            if (u != null)
             {
-                ViewData["Error"] = " Your Username or password is incorrect. ";
-                return View("../PatientLogin/Index");
+                var jwttoken = _jwt.GenerateJWTAuthetication(u);
+                Response.Cookies.Append("jwt", jwttoken);
+                return RedirectToAction("Index", "Dashboard");
             }
             else
             {
-                int id = _context.Users.FirstOrDefault(u => u.AspNetUserId == user.Id).UserId;
-                string userName = _context.Users.Where(x => x.AspNetUserId == user.Id).Select(x => x.FirstName + " " + x.LastName).FirstOrDefault();
-
-                _httpContextAccessor.HttpContext.Session.SetInt32("id", id);
-                _httpContextAccessor.HttpContext.Session.SetString("Name", userName);
-
-                return RedirectToAction("Index", "Dashboard");
+                ViewData["error"] = "Invalid Id Pass";
+                return View("../PatientLogin/Index");
             }
         }
 
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear();
+            Response.Cookies.Delete("jwt");
             return RedirectToAction("Index");
         }
     }
