@@ -1,4 +1,6 @@
-﻿using HaloDocMVC.Entity.DataContext;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
+using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
@@ -551,6 +553,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.OrderDetails.Add(od);
                 _context.SaveChanges(true);
                 var req = _context.Requests.FirstOrDefault(e => e.RequestId == data.RequestId);
+                _emailConfig.SendMail(data.Email, "Order Details", "<p>Prescription:" + data.Prescription + "<br> No of Refills: " + data.NoOfRefill + "</p>");
                 return true;
             }
             catch (Exception ex)
