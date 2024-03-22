@@ -73,6 +73,30 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                     ProviderId = req.PhysicianId,
                                                     RequestorPhoneNumber = req.PhoneNumber
                                                 }).ToList();
+            if (data.IsAscending == true)
+            {
+                allData = data.SortedColumn switch
+                {
+                    "PatientName" => allData.OrderBy(x => x.PatientName).ToList(),
+                    "Requestor" => allData.OrderBy(x => x.Requestor).ToList(),
+                    "DateOfBirth" => allData.OrderBy(x => x.DateOfBirth).ToList(),
+                    "Address" => allData.OrderBy(x => x.Address).ToList(),
+                    "RequestedDate" => allData.OrderBy(x => x.RequestedDate).ToList(),
+                    _ => allData.OrderBy(x => x.RequestedDate).ToList()
+                };
+            }
+            else
+            {
+                allData = data.SortedColumn switch
+                {
+                    "PatientName" => allData.OrderByDescending(x => x.PatientName).ToList(),
+                    "Requestor" => allData.OrderByDescending(x => x.Requestor).ToList(),
+                    "DateOfBirth" => allData.OrderByDescending(x => x.DateOfBirth).ToList(),
+                    "Address" => allData.OrderByDescending(x => x.Address).ToList(),
+                    "RequestedDate" => allData.OrderByDescending(x => x.RequestedDate).ToList(),
+                    _ => allData.OrderByDescending(x => x.RequestedDate).ToList()
+                };
+            }
             int totalItemCount = allData.Count();
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)data.PageSize);
             List<AdminDashboardList> list1 = allData.Skip((data.CurrentPage - 1) * data.PageSize).Take(data.PageSize).ToList();
@@ -82,7 +106,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 CurrentPage = data.CurrentPage,
                 TotalPages = totalPages,
                 PageSize = data.PageSize,
-                SearchInput = data.SearchInput
+                SearchInput = data.SearchInput,
+                IsAscending = data.IsAscending,
+                SortedColumn = data.SortedColumn
             };
             return paginatedViewModel;
         }

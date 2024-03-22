@@ -48,7 +48,7 @@ namespace HaloDocMVC.Controllers
         public IActionResult Logout()
         {
             Response.Cookies.Delete("jwt");
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "PatientLogin");
         }
 
         public IActionResult ForgotPassword()
