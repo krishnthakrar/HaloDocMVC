@@ -99,18 +99,33 @@
                 </div>
                 @* dashboard view *@
                 <div class="table-responsive mt-3 d-none d-sm-block">
-                    <table class="table">
+                    <table class="table dataTable">
                         <thead class="border-0">
                             <tr class="table-secondary">
-                                <th scope="col" class="table-text-header px-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="topflexCheckDefault">
-                                    </div>
-                                </th>
-                                <th scope="col" class="table-text-header px-3">File Name</th>
-                                <th scope="col" class="table-text-header px-3">Uploder</th>
-                                <th scope="col" class="table-text-header ">Upload date</th>
-                                <th scope="col" class="table-text-header ">Action</th>
+                                @{
+                                    var i1 = @Model.SortedColumn;
+                                    var J1 = @Model.IsAscending;
+                                    <th scope="col" class="table-text-header px-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="topflexCheckDefault">
+                                        </div>
+                                    </th>
+                                    <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "FileName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('FileName')">
+                                        <small>File Name</small>
+                                        <span class="dt-column-order"></span>
+                                    </th>
+                                    <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "Uploader" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Uploader')">
+                                        <small>Uploader</small>
+                                        <span class="dt-column-order"></span>
+                                    </th>
+                                    <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "CreatedDate" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('CreatedDate')">
+                                        <small>Upload Date</small>
+                                        <span class="dt-column-order"></span>
+                                    </th>
+                                    <th scope="col">
+                                        <small>Action</small>
+                                    </th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -222,7 +237,11 @@
         </div>
     </div>
 </div>
-
+<form class="sortingform" 
+      asp-action="ViewUpload" asp-controller="Home" novalidate="novalidate">
+    <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
+    <input type="hidden" asp-for="IsAscending" id="isAsc" />
+</form>
 @section Scripts
     {
     <script>
@@ -243,8 +262,7 @@
         }
         function SetColumValue(e) {
             var modeldata = @Html.Raw(Json.Serialize(Model));
-            console.log(modeldata.sortedColumn)
-            console.log(modeldata.isAscending)
+            console.log(modeldata)
             if (modeldata.sortedColumn === e) {
                 if (modeldata.isAscending == true) {
                     document.getElementById('isAsc').value = false;

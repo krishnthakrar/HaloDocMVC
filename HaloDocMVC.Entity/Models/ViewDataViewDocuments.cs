@@ -31,6 +31,6 @@ namespace HaloDocMVC.Entity.Models
 
         public bool? IsAscending { get; set; } = true;
 
-        public string? SortedColumn { get; set; } = "RequestedDate";
+        public string? SortedColumn { get; set; } = "CreatedDate";
     }
 }

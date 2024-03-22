@@ -10,13 +10,13 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IDashboard
     {
-        public List<DashboardList> DashboardList(int ? id);
+        public DashboardList GetPatientRequest(string id, DashboardList listdata);
 
         public ViewDataUserProfile UserProfile(int id);
 
         public void EditProfile(ViewDataUserProfile vdup, int id);
 
-        public List<ViewDocument> ViewDocumentList(int? id);
+        public Task<ViewDocument> ViewDocumentList(int? id, ViewDocument viewDocument);
 
         public void UploadDoc(int RequestId, IFormFile? UploadFile);
     }

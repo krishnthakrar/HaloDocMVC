@@ -459,6 +459,26 @@ namespace HaloDocMVC.Repository.Admin.Repository
                              CreatedDate = requestWiseFile.CreatedDate,
                              FileName = requestWiseFile.FileName
                          }).ToList();
+            if (viewDocument.IsAscending == true)
+            {
+                result = viewDocument.SortedColumn switch
+                {
+                    "CreatedDate" => result.OrderBy(x => x.CreatedDate).ToList(),
+                    "Uploader" => result.OrderBy(x => x.Uploader).ToList(),
+                    "FileName" => result.OrderBy(x => x.FileName).ToList(),
+                    _ => result.OrderBy(x => x.CreatedDate).ToList()
+                };
+            }
+            else
+            {
+                result = viewDocument.SortedColumn switch
+                {
+                    "CreatedDate" => result.OrderByDescending(x => x.CreatedDate).ToList(),
+                    "Uploader" => result.OrderByDescending(x => x.Uploader).ToList(),
+                    "FileName" => result.OrderByDescending(x => x.FileName).ToList(),
+                    _ => result.OrderByDescending(x => x.CreatedDate).ToList()
+                };
+            }
             int totalItemCount = result.Count();
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)viewDocument.PageSize);
             List<Documents> list1 = result.Skip((viewDocument.CurrentPage - 1) * viewDocument.PageSize).Take(viewDocument.PageSize).ToList();
@@ -468,8 +488,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 CurrentPage = viewDocument.CurrentPage,
                 TotalPages = totalPages,
                 PageSize = viewDocument.PageSize,
-                SortedColumn = viewDocument.SortedColumn,
                 IsAscending = viewDocument.IsAscending,
+                SortedColumn = viewDocument.SortedColumn,
                 FirstName = req.FirstName,
                 LastName = req.LastName,
                 ConfirmationNumber = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002",

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HaloDocMVC.Entity.Models.DashboardList
+@{
     Layout = "_DashboardLayout";
     ViewData["Title"] = "Dashboard";
 }
@@ -42,16 +43,28 @@
             </div>
         </div>
         <div class="table-responsive dNone">
-            <table class="table table-responsive mt-3 p-3">
+            <table class="table table-responsive mt-3 p-3 dataTable">
                 <thead class="theadbg">
                     <tr class="table-secondary">
-                        <th class="px-3" width="30%" scope="col">Created Date <i class="bi bi-arrow-down"></i></th>
-                        <th width="40%" scope="col">Current Status</th>
-                        <th scope="col">Document</th>
+                        @{
+                            var i1 = @Model.SortedColumn;
+                            var J1 = @Model.IsAscending;
+                            <th scope="col" style="position:relative;" width="30%" class="px-3 dt-orderable-asc dt-orderable-desc @(i1 == "createdDate" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('createdDate')">
+                                <small>Created Date</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col" width="40%" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "Status" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Status')">
+                                <small>Current Status</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">
+                                <small>Document</small>
+                            </th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="table-group-divider mx-5">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.patientdata)
                     {
                         <tr>
                             <td class="px-3" scope="row"> @item.createdDate</td>
@@ -73,7 +86,7 @@
         </div>
         <div class="dBlock mt-3">
             <div class="accordion" id="accordionExample">
-                @foreach (var item in Model)
+                @foreach (var item in Model.patientdata)
                 {
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-heading-@item.RequestId">
@@ -107,3 +120,95 @@
         </div>
     </div>
 </div>
+<div class="d-flex justify-content-between">
+    <form id="documentformPagesize" asp-action="Index" asp-controller="Dashboard" asp-route-id="" novalidate="novalidate" class="d-flex mt-0">
+        <div class="search m-1 d-flex justify-content-between">
+            <input type="hidden" value="@Model.UserId" asp-for="UserId" />
+            <span class="pagesize">Page Size</span>
+            <select class="form-select pagesizeselect" asp-for="PageSize" data-allow-clear="true" tabindex="-1" id="pagesizedropdowndocument" data-control="select2" data-placeholder="Select Level">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </form>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-container">
+            @{
+                int i;
+                <form id="documentformpatient" asp-action="Index" asp-controller="Dashboard" asp-route-id="" novalidate="novalidate" class="d-flex mt-0">
+                    <input type="hidden" value="@Model.UserId" asp-for="UserId" />
+                    <input type="hidden" asp-for="CurrentPage" id="currentpagevaluedocumentpatient" />
+                    <input type="hidden" asp-for="SortedColumn" />
+                    <input type="hidden" asp-for="IsAscending" />
+                    <input type="hidden" asp-for="PageSize" />
+                    @if (@Model.CurrentPage > 1)
+                    {
+                    <li class="page-item me-2"><button class="btn shadow-none" onclick="setpagenumber('previous')">&lt;</button></li>
+                    }
+                    else
+                    {
+                    <li class="me-2 page-item"><a class="disabled btn">&lt;</a></li>
+                    }
+                    @for (i = 1; i <= @Model.TotalPages; i++)
+                    {
+                    <li class="page-item me-2"><button class="@(i == @Model.CurrentPage ? "activepagebtn" : "") btn shadow-none" onclick="setpagenumber(@i)">@i</button></li>
+                    }
+                    @if (@Model.TotalPages > @Model.CurrentPage)
+                    {
+                    <li class="page-item me-2"><button class="btn shadow-none" onclick="setpagenumber('next')">&gt;</button></li>
+                    }
+                    else
+                    {
+                    <li class="me-2 page-item"><a class="btn disabled">&gt;</a></li>
+                    }
+                </form>
+            }
+        </ul>
+    </nav>
+</div>
+<form class="sortingform" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"
+      asp-action="Index" asp-controller="Dashboard" novalidate="novalidate">
+    <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
+    <input type="hidden" asp-for="IsAscending" id="isAsc" />
+</form>
+<script>
+    function setpagenumber(e) {
+        console.log(e)
+        if (e == 'previous') {
+            var cp = @Model.CurrentPage-1;
+            $('#currentpagevaluedocumentpatient').val(cp);
+        }
+        else if (e == 'next') {
+            var cp = @Model.CurrentPage + 1;
+            $('#currentpagevaluedocumentpatient').val(cp);
+        }
+        else {
+            $('#currentpagevaluedocumentpatient').val(e);
+        }
+        $("#documentformpatient").submit();
+    }
+    function SetColumValue(e) {
+        var modeldata = @Html.Raw(Json.Serialize(Model));
+        console.log(modeldata.sortedColumn)
+        console.log(modeldata.isAscending)
+        if (modeldata.sortedColumn === e) {
+            if (modeldata.isAscending == true) {
+                document.getElementById('isAsc').value = false;
+            }
+            else {
+                document.getElementById('isAsc').value = true;
+            }
+            console.log(document.getElementById('isAsc').value);
+        }
+        else {
+            document.getElementById('sortedcol').value = e;
+            document.getElementById('isAsc').value = true;
+        }
+        $(".sortingform").submit();
+    }
+    $('#pagesizedropdowndocument').on('change', function () {
+        $('#documentformPagesize').submit();
+    });
+</script>
