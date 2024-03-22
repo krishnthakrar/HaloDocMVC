@@ -21,6 +21,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             _context = context;
         }
+
+        #region PatientDashboard
         public List<DashboardList> DashboardList(int? id)
         {
             var items = _context.Requests.Include(x => x.RequestWiseFiles).Where(x => x.UserId == id).Select(x => new DashboardList
@@ -33,7 +35,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }).ToList();
             return items;
         }
+        #endregion
 
+        #region PatientProfile
         public ViewDataUserProfile UserProfile(int id)
         {
             var UsersProfile = _context.Users
@@ -55,7 +59,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
 
             return UsersProfile;
         }
+        #endregion
 
+        #region EditProfile
         public void EditProfile(ViewDataUserProfile vdup, int id)
         {
             User U = _context.Users.Find(id);
@@ -76,7 +82,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             _context.Update(U);
             _context.SaveChanges();
         }
+        #endregion
 
+        #region ViewDoc
         public List<ViewDocument> ViewDocumentList(int? id)
         {
             var items = _context.RequestWiseFiles.Include(m => m.Request)
@@ -88,7 +96,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 }).ToList();
             return items;
         }
+        #endregion
 
+        #region UploadDoc
         public void UploadDoc(int RequestId, IFormFile? UploadFile)
         {
             string UploadImage;
@@ -115,5 +125,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.SaveChanges();
             }
         }
+        #endregion
     }
 }

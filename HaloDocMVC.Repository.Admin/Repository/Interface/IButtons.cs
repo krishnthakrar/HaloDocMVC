@@ -12,5 +12,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public void CreateRequest(ViewDataCreatePatient vdcp);
 
         public Boolean SendLink(string FirstName, string LastName, string Email);
+
+        List<AdminDashboardList> Export(string status);
     }
 }

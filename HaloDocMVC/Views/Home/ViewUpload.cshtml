@@ -64,7 +64,7 @@
                             </div>
                         </form>
                         <button id="sendmailmodel" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-info btn-back d-flex text-end mx-1">
-                            <i class="fa-solid fa-mail"></i>
+                            <i class="fa-regular fa-envelope me-1 mt-1"></i>
                             <span class="d-none d-sm-block">
                                 Send Mail
                             </span>
@@ -88,7 +88,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             <div id="sendmail" class="btn btn-outline-info btn-back text-end mx-1">
-                                                <i class="fa-solid fa-mail"></i> Send Mail
+                                                <i class="fa-regular fa-envelope me-1 mt-1"></i> Send Mail
                                             </div>
                                         </div>
                                     </form>
@@ -171,12 +171,96 @@
                 </div>
                 <!--End Mobile screen View-->
             </div>
+            <div class="m-2 d-flex justify-content-between">
+                <form id="documentformPagesize" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0">
+                    <div class="search m-1 d-flex justify-content-between">
+                        <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
+                        <span class="pagesize">Page Size</span>
+                        <select class="form-select pagesizeselect" asp-for="PageSize" data-allow-clear="true" tabindex="-1" id="pagesizedropdowndocument" data-control="select2" data-placeholder="Select Level">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </form>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-container">
+                        @{
+                            int i;
+                            <form id="documentform" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0">
+                                <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
+                                <input type="hidden" asp-for="CurrentPage" id="currentpagevaluedocument" />
+                                <input type="hidden" asp-for="SortedColumn" />
+                                <input type="hidden" asp-for="IsAscending" />
+                                <input type="hidden" asp-for="PageSize" />
+                                @if (@Model.CurrentPage > 1)
+                                {
+                                <li class="page-item me-2"><button class="btn shadow-none" onclick="setpagenumber('previous')">&lt;</button></li>
+                                }
+                                else
+                                {
+                                <li class="me-2 page-item"><a class="disabled btn">&lt;</a></li>
+                                }
+                                @for (i = 1; i <= @Model.TotalPages; i++)
+                                {
+                                <li class="page-item me-2"><button class="@(i == @Model.CurrentPage ? "activepagebtn" : "") btn shadow-none" onclick="setpagenumber(@i)">@i</button></li>
+                                }
+                                @if (@Model.TotalPages > @Model.CurrentPage)
+                                {
+                                <li class="page-item me-2"><button class="btn shadow-none" onclick="setpagenumber('next')">&gt;</button></li>
+                                }
+                                else
+                                {
+                                <li class="me-2 page-item"><a class="btn disabled">&gt;</a></li>
+                                }
+                            </form>
+                        }
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts
     {
+    <script>
+        function setpagenumber(e) {
+            console.log(e)
+            if (e == 'previous') {
+                var cp = @Model.CurrentPage-1;
+                $('#currentpagevaluedocument').val(cp);
+            }
+            else if (e == 'next') {
+                var cp = @Model.CurrentPage + 1;
+                $('#currentpagevaluedocument').val(cp);
+            }
+            else {
+                $('#currentpagevaluedocument').val(e);
+            }
+            $("#documentform").submit();
+        }
+        function SetColumValue(e) {
+            var modeldata = @Html.Raw(Json.Serialize(Model));
+            console.log(modeldata.sortedColumn)
+            console.log(modeldata.isAscending)
+            if (modeldata.sortedColumn === e) {
+                if (modeldata.isAscending == true) {
+                    document.getElementById('isAsc').value = false;
+                }
+                else {
+                    document.getElementById('isAsc').value = true;
+                }
+                console.log(document.getElementById('isAsc').value);
+            }
+            else {
+                document.getElementById('sortedcol').value = e;
+                document.getElementById('isAsc').value = true;
+            }
+            $(".sortingform").submit();
+        }
+    </script>
     <script type="text/javascript">
         $("#file").change(function () {
             filename = this.files[0].name;
@@ -337,6 +421,11 @@
                     $('#myForm').submit();
                 }
             })
+            $(function () {
+                $('#pagesizedropdowndocument').on('change', function () {
+                    $('#documentformPagesize').submit();
+                });
+            });
         });
     </script>
 }

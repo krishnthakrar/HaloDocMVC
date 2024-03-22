@@ -20,6 +20,7 @@ namespace HaloDocMVC.Controllers
             _patientrequest = patientrequest;
             _httpContextAccessor = httpContextAccessor;
         }
+        #region CreatePatient
         public IActionResult CreatePatient()
         {
             return View();
@@ -31,7 +32,9 @@ namespace HaloDocMVC.Controllers
             _patientrequest.CreatePatient(vdcp);
             return View("../PatientHome/RequestLanding");
         }
+        #endregion
 
+        #region CreateFriend
         public IActionResult CreateFriend()
         {
             return View();
@@ -43,7 +46,9 @@ namespace HaloDocMVC.Controllers
             _patientrequest.CreateFriend(vdcf);
             return View("../PatientHome/RequestLanding");
         }
+        #endregion
 
+        #region CreateConcierge
         public IActionResult CreateConcierge()
         {
             return View();
@@ -55,7 +60,9 @@ namespace HaloDocMVC.Controllers
             _patientrequest.CreateConcierge(vdcc);
             return View("../PatientHome/RequestLanding");
         }
+        #endregion
 
+        #region CreatePartner
         public IActionResult CreatePartner()
         {
             return View();
@@ -67,7 +74,9 @@ namespace HaloDocMVC.Controllers
             _patientrequest.CreatePartner(vdcb);
             return View("../PatientHome/RequestLanding");
         }
+        #endregion
 
+        #region CreateMe
         public IActionResult CreateMe()
         {
             int id = Int32.Parse(CredentialValue.UserId());
@@ -81,7 +90,9 @@ namespace HaloDocMVC.Controllers
             _patientrequest.CreateMe(vdcp);
             return RedirectToAction("Index", "Dashboard");
         }
+        #endregion
 
+        #region CreateSomeOneElse
         public IActionResult CreateSomeOneElse()
         {
             return View();
@@ -93,7 +104,9 @@ namespace HaloDocMVC.Controllers
             _patientrequest.CreateSomeOneElse(vdcs);
             return RedirectToAction("Index", "Dashboard");
         }
+        #endregion
 
+        #region CheckEmailAsync
         [HttpPost]
         public async Task<IActionResult> CheckEmailAsync(string email)
         {
@@ -114,6 +127,6 @@ namespace HaloDocMVC.Controllers
                 Message = message,
             });
         }
-
+        #endregion
     }
 }

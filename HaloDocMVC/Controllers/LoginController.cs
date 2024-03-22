@@ -37,6 +37,8 @@ namespace HaloDocMVC.Controllers
         {
             return View("../Login/Index");
         }
+
+        #region Validate
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Validate(AspNetUser aspNetUser)
@@ -56,26 +58,36 @@ namespace HaloDocMVC.Controllers
                 return View("../Login/Index");
             }
         }
+        #endregion
+
+        #region Logout
         public async Task<IActionResult> Logout()
         {
             Response.Cookies.Delete("jwt");
             return RedirectToAction("Index", "Login");
         }
+        #endregion
+
+        #region AuthError
         public IActionResult AuthError()
         {
             return View("../Home/AuthError");
         }
+        #endregion
 
+        #region ForgotPassword
         public IActionResult ForgotPassword()
         {
             return View();
         }
+        #endregion
 
+        #region ResetPassword
         public IActionResult ResetEmail(string Email)
         {
             if (_login.SendResetLink(Email))
             {
-                _notyf.Success("Mail Send  Successfully..!");
+                _notyf.Success("Mail Send Successfully..!");
             }
             return RedirectToAction("ForgotPassword", "Login");
         }
@@ -84,7 +96,7 @@ namespace HaloDocMVC.Controllers
         public IActionResult ResetPassword(string email, string datetime)
         {
             TempData["email"] = email;
-            /*TimeSpan time = DateTime.Now - DateTime.Parse(datetime);
+            TimeSpan time = DateTime.Now - DateTime.Parse(datetime);
             if (time.TotalHours > 24)
             {
                 return View("LinkExpired");
@@ -92,8 +104,7 @@ namespace HaloDocMVC.Controllers
             else
             {
                 return View();
-            }*/
-            return View();
+            }
         }
         [HttpPost]
         public IActionResult SavePassword(ViewDataCreatePatient viewPatientReq)
@@ -114,7 +125,7 @@ namespace HaloDocMVC.Controllers
                 return View("ResetPassword");
             }
         }
-
+        #endregion
 
     }
 }

@@ -440,46 +440,42 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region GetDocumentByRequest
-        public async Task<ViewDataViewDocuments> GetDocumentByRequest(int? id)
+        public async Task<ViewDataViewDocuments> GetDocumentByRequest(int? id, ViewDataViewDocuments viewDocument)
         {
             var req = _context.RequestClients.FirstOrDefault(r => r.RequestId == id);
-            ViewDataViewDocuments doc = new();
-            doc.ConfirmationNumber = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002";
-            doc.FirstName = req.FirstName;
-            doc.LastName = req.LastName;
-            doc.RequestId = req.RequestId;
-
-            var result = from requestWiseFile in _context.RequestWiseFiles
-                         join request in _context.Requests on requestWiseFile.RequestId equals request.RequestId
-                         join physician in _context.Physicians on request.PhysicianId equals physician.PhysicianId into physicianGroup
-                         from phys in physicianGroup.DefaultIfEmpty()
-                         join admin in _context.Admins on requestWiseFile.AdminId equals admin.AdminId into adminGroup
-                         from adm in adminGroup.DefaultIfEmpty()
-                         where request.RequestId == id && requestWiseFile.IsDeleted == new BitArray(1)
-                         select new
+            var result = (from requestWiseFile in _context.RequestWiseFiles
+                          join request in _context.Requests on requestWiseFile.RequestId equals request.RequestId
+                          join physician in _context.Physicians on request.PhysicianId equals physician.PhysicianId into physicianGroup
+                          from phys in physicianGroup.DefaultIfEmpty()
+                          join admin in _context.Admins on requestWiseFile.AdminId equals admin.AdminId into adminGroup
+                          from adm in adminGroup.DefaultIfEmpty()
+                          where request.RequestId == id && requestWiseFile.IsDeleted == new BitArray(1)
+                          select new Documents
                          {
                              Uploader = requestWiseFile.PhysicianId != null ? phys.FirstName : (requestWiseFile.AdminId != null ? adm.FirstName : request.FirstName),
-                             isDeleted = requestWiseFile.IsDeleted.ToString(),
-                             RequestwisefilesId = requestWiseFile.RequestWiseFileId,
+                             IsDeleted = requestWiseFile.IsDeleted.ToString(),
+                             RequestWiseFilesId = requestWiseFile.RequestWiseFileId,
                              Status = requestWiseFile.DocType,
-                             Createddate = requestWiseFile.CreatedDate,
-                             Filename = requestWiseFile.FileName
-                         };
-            List<Documents> doclist = new();
-            foreach (var item in result)
+                             CreatedDate = requestWiseFile.CreatedDate,
+                             FileName = requestWiseFile.FileName
+                         }).ToList();
+            int totalItemCount = result.Count();
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)viewDocument.PageSize);
+            List<Documents> list1 = result.Skip((viewDocument.CurrentPage - 1) * viewDocument.PageSize).Take(viewDocument.PageSize).ToList();
+            ViewDataViewDocuments vd = new()
             {
-                doclist.Add(new Documents
-                {
-                    Uploader = item.Uploader,
-                    IsDeleted = item.isDeleted,
-                    RequestWiseFilesId = item.RequestwisefilesId,
-                    Status = item.Status,
-                    CreatedDate = item.Createddate,
-                    FileName = item.Filename
-                });
-            }
-            doc.DocumentsList = doclist;
-            return doc;
+                DocumentsList = list1,
+                CurrentPage = viewDocument.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = viewDocument.PageSize,
+                SortedColumn = viewDocument.SortedColumn,
+                IsAscending = viewDocument.IsAscending,
+                FirstName = req.FirstName,
+                LastName = req.LastName,
+                ConfirmationNumber = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002",
+                RequestId = req.RequestId
+            };
+            return vd;
         }
         #endregion
 

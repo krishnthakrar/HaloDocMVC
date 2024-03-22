@@ -15,7 +15,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
 {
     public class Jwt : IJwt
     {
-        #region Constructor
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IConfiguration Configuration;
         public Jwt(IConfiguration Configuration, IHttpContextAccessor httpContextAccessor)
@@ -23,37 +22,27 @@ namespace HaloDocMVC.Repository.Admin.Repository
             this.httpContextAccessor = httpContextAccessor;
             this.Configuration = Configuration;
         }
-        #endregion
+
+        #region GenerateJWTAuthetication
         public string GenerateJWTAuthetication(UserInfo userinfo)
         {
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Email, userinfo.UserName),
-            new Claim(ClaimTypes.Role, userinfo.Role),
-            new Claim("FirstName", userinfo.FirstName),
-            new Claim("UserId", userinfo.UserId.ToString()),
-            new Claim("Username", userinfo.UserName.ToString())
-        };
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
-
+            {
+                new Claim(ClaimTypes.Email, userinfo.UserName),
+                new Claim(ClaimTypes.Role, userinfo.Role),
+                new Claim("FirstName", userinfo.FirstName),
+                new Claim("UserId", userinfo.UserId.ToString()),
+                new Claim("Username", userinfo.UserName.ToString())
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var expires =
-                DateTime.UtcNow.AddMinutes(60);
-
-            var token = new JwtSecurityToken(
-                Configuration["Jwt:Issuer"],
-                Configuration["Jwt:Audience"],
-                claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
+            var expires = DateTime.UtcNow.AddMinutes(60);
+            var token = new JwtSecurityToken(Configuration["Jwt:Issuer"], Configuration["Jwt:Audience"], claims, expires: expires, signingCredentials: creds);
             return new JwtSecurityTokenHandler().WriteToken(token);
-
-
         }
+        #endregion
+
+        #region ValidateToken
         public bool ValidateToken(string token, out JwtSecurityToken jwtSecurityTokenHandler)
         {
             jwtSecurityTokenHandler = null;
@@ -91,5 +80,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return false;
             }
         }
+        #endregion
     }
 }

@@ -17,13 +17,17 @@ namespace HaloDocMVC.Controllers
             _httpContextAccessor = httpContextAccessor;
             _dashboard = dashboard;
         }
+
+        #region Profile
         public IActionResult Index()
         {
             int id = Int32.Parse(CredentialValue.UserId());
             var UserProfile = _dashboard.UserProfile(id);
             return View(UserProfile);
         }
+        #endregion
 
+        #region EditProfile
         [HttpPost]
         public IActionResult Index(ViewDataUserProfile vdup)
         {
@@ -31,5 +35,6 @@ namespace HaloDocMVC.Controllers
             _dashboard.EditProfile(vdup, id);
             return RedirectToAction("Index", "PatientProfile");
         }
+        #endregion
     }
 }

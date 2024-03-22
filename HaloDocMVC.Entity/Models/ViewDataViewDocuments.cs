@@ -22,5 +22,15 @@ namespace HaloDocMVC.Entity.Models
             public string IsDeleted { get; set; }
         }
         public List<Documents>? DocumentsList { get; set; } = null;
+
+        public int CurrentPage { get; set; } = 1;
+
+        public int TotalPages { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
+
+        public bool? IsAscending { get; set; } = true;
+
+        public string? SortedColumn { get; set; } = "RequestedDate";
     }
 }

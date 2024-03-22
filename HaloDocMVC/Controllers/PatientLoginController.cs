@@ -24,9 +24,10 @@ namespace HaloDocMVC.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View("../PatientLogin/Index");
         }
 
+        #region PatientLogin
         [HttpPost]
         public async Task<IActionResult> Index(AspNetUser aspNetUser)
         {
@@ -44,18 +45,24 @@ namespace HaloDocMVC.Controllers
                 return View("../PatientLogin/Index");
             }
         }
+        #endregion
 
+        #region Logout
         public IActionResult Logout()
         {
             Response.Cookies.Delete("jwt");
-            return RedirectToAction("Index", "PatientLogin");
+            return View("../PatientLogin/Index");
         }
+        #endregion
 
+        #region ForgotPassword
         public IActionResult ForgotPassword()
         {
             return View();
         }
+        #endregion
 
+        #region ResetPassword
         public IActionResult ResetEmail(string Email)
         {
             if (_login.SendResetLinkPatient(Email))
@@ -66,10 +73,10 @@ namespace HaloDocMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(string email, string datetime)
+        public IActionResult ResetPassword(string email, string Datetime)
         {
             TempData["email"] = email;
-            /*TimeSpan time = DateTime.Now - DateTime.Parse(datetime);
+            TimeSpan time = DateTime.Now - DateTime.Parse(Datetime);
             if (time.TotalHours > 24)
             {
                 return View("LinkExpired");
@@ -77,8 +84,7 @@ namespace HaloDocMVC.Controllers
             else
             {
                 return View();
-            }*/
-            return View();
+            }
         }
         [HttpPost]
         public IActionResult SavePassword(ViewDataCreatePatient viewPatientReq)
@@ -99,5 +105,6 @@ namespace HaloDocMVC.Controllers
                 return View("ResetPassword");
             }
         }
+        #endregion
     }
 }

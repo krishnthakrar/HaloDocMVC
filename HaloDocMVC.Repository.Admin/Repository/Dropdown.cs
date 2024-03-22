@@ -20,6 +20,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             _context = context;
         }
 
+        #region RegionModel
         public List<AllRegion> AllRegion()
         {
             return _context.Regions.Select(req => new AllRegion()
@@ -28,7 +29,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 RegionName = req.Name
             }).ToList();
         }
+        #endregion
 
+        #region CaseReasonModel
         public List<CaseReason> CaseReason()
         {
             return _context.CaseTags.Select(req => new CaseReason()
@@ -37,7 +40,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 CaseReasonName = req.Name
             }).ToList();
         }
+        #endregion
 
+        #region ProviderByRegion
         public List<Physician> ProviderByRegion(int regionid)
         {
             var result = _context.Physicians
@@ -46,7 +51,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                             .ToList();
             return result;
         }
+        #endregion
 
+        #region HealthProfessionalType
         public List<HealthProfessionalTypes> HealthProfessionalType()
         {
             return _context.HealthProfessionalTypes.Select(req => new HealthProfessionalTypes()
@@ -56,7 +63,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             })
             .ToList();
         }
+        #endregion
 
+        #region ProfessionalByType
         public List<HealthProfessionals> ProfessionalByType(int? HealthProfessionalID)
         {
             var result = _context.HealthProfessionals
@@ -68,7 +77,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                         }).ToList();
             return result;
         }
+        #endregion
 
+        #region UserRole
         public List<UserRole> UserRole()
         {
             return _context.AspNetRoles.Select(req => new UserRole()
@@ -77,5 +88,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 RoleName = req.Name
             }).ToList();
         }
+        #endregion
     }
 }

@@ -12,7 +12,5 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         PaginatedViewModel IndexData();
 
         PaginatedViewModel GetRequests(string Status, PaginatedViewModel data);
-
-        List<AdminDashboardList> Export(string status);
     }
 }

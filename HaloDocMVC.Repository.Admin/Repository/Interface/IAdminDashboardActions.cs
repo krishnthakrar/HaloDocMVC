@@ -29,7 +29,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public Task<bool> TransferProvider(int RequestId, int ProviderId, string notes);
 
-        public Task<ViewDataViewDocuments> GetDocumentByRequest(int? id);
+        public Task<ViewDataViewDocuments> GetDocumentByRequest(int? id, ViewDataViewDocuments viewDocument);
 
         public bool SaveDoc(int Requestid, IFormFile file);
 

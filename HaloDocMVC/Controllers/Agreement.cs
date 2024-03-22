@@ -17,19 +17,23 @@ namespace HaloDocMVC.Controllers
         {
             TempData["RequestID"] = " " + RequestID;
             TempData["PatientName"] = "" + PatientName;
-
             return View();
         }
+
+        #region AcceptAgreement
         public IActionResult accept(int RequestID)
         {
             _admindashboardactions.SendAgreement_accept(RequestID);
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region RejectAgreement
         public IActionResult Reject(int RequestID, string Notes)
         {
             _admindashboardactions.SendAgreement_Reject(RequestID, Notes);
             return RedirectToAction("Index", "Home");
         }
+        #endregion
     }
 }
