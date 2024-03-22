@@ -35,6 +35,8 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public Task<bool> DeleteDocumentByRequest(string ids);
 
+        public Task<bool> SendFileEmail(string ids, int Requestid, string email);
+
         public HealthProfessional SelectProfessionalByID(int VendorID);
 
         public bool SendOrder(ViewDataViewOrders data);

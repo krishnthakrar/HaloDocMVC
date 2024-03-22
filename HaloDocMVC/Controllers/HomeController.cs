@@ -266,6 +266,22 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region SendFilEmail
+        public async Task<IActionResult> SendFileEmail(string mailids, int Requestid, string email)
+        {
+            if (await _admindashboardactions.SendFileEmail(mailids, Requestid, email))
+            {
+
+                _notyf.Success("Mail Send successfully");
+            }
+            else
+            {
+                _notyf.Error("Mail is not send successfully");
+            }
+            return RedirectToAction("ViewUpload", "Home", new { id = Requestid });
+        }
+        #endregion
+
         #region SendOrder
         public async Task<IActionResult> Order(int id)
         {
@@ -385,6 +401,7 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region Export
         public IActionResult Export(string status)
         {
             var requestData = _irequestRepository.Export(status);
@@ -427,6 +444,7 @@ namespace HaloDocMVC.Controllers
                 return File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             }
         }
+        #endregion
 
         #region AuthError
         public IActionResult AuthError()

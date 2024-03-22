@@ -526,6 +526,57 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
         #endregion
 
+        #region SendFileEmail
+        public async Task<bool> SendFileEmail(string ids, int Requestid, string email)
+        {
+            var v = await GetRequestDetails(Requestid);
+            List<int> priceList = ids.Split(',').Select(int.Parse).ToList();
+            List<string> files = new();
+            foreach (int price in priceList)
+            {
+                if (price > 0)
+                {
+                    var data = await _context.RequestWiseFiles.Where(e => e.RequestWiseFileId == price).FirstOrDefaultAsync();
+                    files.Add(Directory.GetCurrentDirectory() + "\\wwwroot\\Upload" + data.FileName.Replace("Upload/", "").Replace("/", "\\"));
+                }
+            }
+
+            if (await _emailConfig.SendMailAsync(email, "All Document Of Your Request " + v.PatientName, "Heyy " + v.PatientName + " Kindly Check your Attachments", files))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        #endregion
+
+        #region GetRequestDetails
+        public async Task<ViewActions> GetRequestDetails(int? id)
+        {
+
+            return await (from req in _context.Requests
+                          join reqClient in _context.RequestClients
+                          on req.RequestId equals reqClient.RequestId into reqClientGroup
+                          from rc in reqClientGroup.DefaultIfEmpty()
+                          join phys in _context.Physicians
+                          on req.PhysicianId equals phys.PhysicianId into physGroup
+                          from p in physGroup.DefaultIfEmpty()
+                          where req.RequestId == id
+                          select new ViewActions
+                          {
+                              PhoneNumber = rc.PhoneNumber,
+                              ProviderId = p.PhysicianId,
+                              PatientName = rc.FirstName + " " + rc.LastName,
+                              RequestID = req.RequestId,
+                              Email = rc.Email
+
+                          }).FirstAsync();
+        }
+        #endregion
+
         #region SendOrderIndex
         public HealthProfessional SelectProfessionalByID(int VendorID)
         {
