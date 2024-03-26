@@ -1,0 +1,217 @@
+<!DOCTYPE html5>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styleinner.css">
+    <title>Innerpage</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="main">
+            <div class="left">
+                <button onclick="sideBar()"><img src="images/menu-bar.svg" alt="Menu"></button>
+                <img class="collapse navbar-collapse" src="images/header-logo.svg" alt="Logo">
+            </div>
+            <div class="right">
+                <div class="searchbar">
+                    <img src="images/search-icon.svg" class="searchimg" alt="Search">
+                    <input type="text" name="search" placeholder="Search" class="search">
+                </div>
+                <div class="rightnav collapse navbar-collapse">
+                    <div class="notification">
+                        <img src="images/notification-icon.svg" alt="Notification">
+                    </div>
+                    <div class="profile">
+                        <img src="images/profile.png" alt="Profile Image">
+                        <span>
+                            John Doe
+                        </span>
+                        <img src="images/downward-arrow.svg" alt="Down Arrow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><img src="images/dashboard-default.svg" alt="Dashboard"><a href="dashboard.html">Dashboard</a></li>
+                <li class="active"><img src="images/graph-active.svg" alt="Graph"><a href="innerpage.html">Analysis</a></li>
+                <li><img src="images/inbox-default.svg" alt="Inbox"><a href="#">Inbox</a></li>
+                <li><img src="images/clock-default.svg" alt="History"><a href="#">History</a></li>
+                <li><img src="images/user-default.svg" alt="User"><a href="#">Users</a></li>
+                <li><img src="images/maintenance-default.svg" alt="Maintenance"><a href="#">Maintenance</a></li>
+                <li><img src="images/setting-default.svg" alt="Setting"><a href="#">Setting</a></li>
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <h1>Analysis</h1>
+            <div class="data">
+                <form>
+                    <div class="oneCol">
+                        <h4>One Column</h4><br>
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" id="name" placeholder="Name">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="mb-3">
+                            <select class="shadow-none form-select">
+                                <option selected>Dropdown</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="shadow-none form-control" placeholder="Multiple Line" rows="4"></textarea>
+                        </div>
+                    </div><br>
+                    <div class="twoCol">
+                        <h4>Two Column</h4><br>
+                        <div class="row">
+                            <div class="col-lg-6 form-floating">
+                                <input type="text" class="form-control" id="name" placeholder="Name">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="col-lg-6 form-floating">
+                                <input type="text" class="form-control" id="username" placeholder="Username">
+                                <label for="username">Username</label>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-lg-6 form-floating">
+                                <input type="password" class="shadow-none form-control" id="password" placeholder="Password">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select class="shadow-none form-select">
+                                    <option selected>Dropdown</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><br><br>
+                    <div class="threeCol">
+                        <h4>Three Column</h4><br>
+                        <div class="row">
+                            <div class="col-lg-4 form-floating">
+                                <input type="text" class="form-control" id="focus" placeholder="Focus">
+                                <label for="focus">Focus</label>
+                            </div>
+                            <div class="col-lg-4 form-floating">
+                                <input type="password" class="shadow-none form-control" id="password" placeholder="Password">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="col-lg-4 form-floating">
+                                <input type="text" class="form-control bg-white disabled" id="disabled" placeholder="Disabled" disabled>
+                                <label for="disabled">Disabled</label>
+                            </div>
+                        </div>
+                    </div><br><br>
+                    <div class="fourCol">
+                        <h4>Four Column</h4><br>
+                        <div class="row">
+                            <div class="col-lg-3 form-floating">
+                                <input type="text" class="form-control" id="designation" placeholder="Designation">
+                                <label for="designation">Designation</label>
+                            </div>
+                            <div class="col-lg-3 form-floating">
+                                <input type="text" class="form-control" id="name" placeholder="Name">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="col-lg-3 form-floating">
+                                <input type="text" class="form-control" id="username" placeholder="Username">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="shadow-none form-select">
+                                    <option selected>Dropdown</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><br><br>
+                    <div class="otherElem">
+                        <h4>Other Design Elements</h4><br>
+                        <h5>File Upload</h5><br>
+                        <div class="upload">
+                            <input type="file" id="myFile" name="filename" class="custom-file-input" onchange="displayFilename()">
+                            <label for="myFile" class="custom-button border border-danger rounded-pill text-danger"><img src="images/cloud-upload-icon.svg" alt="Upload">Upload</label>
+                            <p class="selected-filename" id="selectedFilename">No file choosen</p>
+                        </div>
+                        <br>
+                        <h5>Radio Button</h5><br>
+                        <div class="row button">
+                            <div class="form-check col-lg-1">
+                                <input class="form-check-input shadow-none" name="radio" type="radio">
+                                Option 1
+                            </div>
+                            <div class="form-check col-lg-11">
+                                <input class="form-check-input shadow-none" name="radio" type="radio">
+                                Option 2
+                            </div>
+                        </div><br>
+                        <h5>Checkbox</h5><br>
+                        <div class="row button">
+                            <div class="form-check col-lg-1">
+                                <input class="form-check-input shadow-none" type="checkbox" id="flexCheck">
+                                Option 1
+                            </div>
+                            <div class="form-check col-lg-11">
+                                <input class="form-check-input shadow-none" type="checkbox" id="flexCheck">
+                                Option 2
+                            </div>
+                        </div><br>
+                        <h5>Snackbar</h5><br>
+                        <div class="row snackbar">
+                            <div class="outline-danger col-lg-5 snackbarDiv border border-danger text-danger">
+                                <img src="images/error-icon.svg" alt="Error"><span>This is an error Message</span>
+                            </div>
+                            <div class="outline-info col-lg-5 snackbarDiv border border-info text-info">
+                                <img src="images/info-icon.svg" alt="Info"><span>This is an information Message!</span>
+                            </div>
+                        </div><br>
+                        <div class="row snackbar">
+                            <div class="outline-danger col-lg-5 snackbarDiv border border-warning text-warning">
+                                <img src="images/warning-icon.svg" alt="Warning"><span>This is an warning message!</span>
+                            </div>
+                            <div class="outline-info col-lg-5 snackbarDiv border border-success text-success">
+                                <img src="images/success-icon.svg" alt="Success"><span>This is an success message!</span>
+                            </div>
+                        </div><br>
+                        <h5>Call to Action</h5><br>
+                        <div class="row callToAction">
+                            <button class="btn btn-danger col-lg-1 rounded-pill">Primary</button>
+                            <button class="btn btn-outline-danger col-lg-1 rounded-pill">Secondary</button>
+                        </div><br>
+                        <h5>Tabs</h5><br>
+                        <div class="tab-container">
+                            <div class="tab" onclick="openTab('tab1')">Tab 1</div>
+                            <div class="tab" onclick="openTab('tab2')">Tab 2</div>
+                            <div class="tab" onclick="openTab('tab3')">Tab 3</div>
+                        </div>
+                        <hr>
+                        <div id="tab1" class="tab-content active-content">
+                            <p>Tab 1 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing</p>
+                        </div>
+                        <div id="tab2" class="tab-content">
+                            <p>Tab 2 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing</p>
+                        </div>
+                        <div id="tab3" class="tab-content">
+                            <p>Tab 3 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/custom.js"></script>
+</body>
+</html>

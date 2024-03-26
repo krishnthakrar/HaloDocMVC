@@ -1,0 +1,413 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* Navbar CSS */
+
+.main
+{
+    width: 100vw;
+    display: flex;
+}
+
+.left
+{
+    width: 16vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.left button
+{
+    border: none;
+    background-color: #FFFFFF;
+}
+
+.right
+{
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchbar
+{
+    width: 62vw;
+}
+
+.searchimg
+{
+    height: 20px;
+    width: 20px;
+}
+
+.search
+{
+    border: 0;
+    outline: none;
+}
+
+.rightnav
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 16vw;
+}
+
+.profile
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 9vw;
+}
+
+.profile span
+{
+    font: normal normal normal 16px/21px Roboto;
+}
+
+::placeholder
+{
+    font: normal normal normal 16px/21px Roboto;
+}
+
+/* Sidebar CSS */
+
+.sidebar
+{
+    margin-top: 40px;
+    width: 15vw;
+    display: block;
+    align-items: center;
+}
+
+.sidebar li{
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    width: 183px;
+    height: 43px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 13px;
+    border-radius: 5px;
+    font: 16px/21px Roboto;
+    font-weight: 500;
+}
+
+.sidebar img
+{
+    height: 15px;
+    width: 15px;
+}
+
+.sidebar a
+{
+    text-decoration: none;
+    color: #3E3E3E;
+    margin-left: 0.5vw;
+}
+
+.sidebar .active
+{
+    background-color: #FFF3F4;
+}
+
+.sidebar .active a
+{
+    color: #C8242F;
+}
+
+/* Dashboard CSS */
+
+.content
+{
+    width: 100%;
+    background-color: #FAFAFA;
+    padding: 2vw;
+}
+
+.dashboard
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.details
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1vw;
+    width: 219px;
+    height: 116px;
+    background-color: #FFFFFF;
+}
+
+.details img
+{
+    height: 45px;
+    width: 45px;
+}
+
+.stats span
+{
+    font: 20px Roboto;
+}
+
+.stats h4
+{
+    margin-bottom: -20px;
+}
+
+/* Sales CSS */
+
+.sales
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.salesLeft
+{
+    width: 55vw;
+    background-color: #FFFFFF;
+}
+
+.salesLeft img
+{
+    padding: 20px;
+    height: 470px;
+    width: 54vw;
+}
+
+.salesLeftContent
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 1vw;
+}
+
+.salesLeftContentRight
+{
+    display: flex;
+    justify-content: space-around;
+    width: 10vw;
+}
+
+.salesLeftContentRight span
+{
+    cursor: pointer;
+}
+
+.durationActive
+{
+    color: #C8242F;
+    text-decoration: underline;
+}
+
+.salesRight
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 23vw;
+    padding: 1vw;
+    background-color: #FFFFFF;
+}
+
+.salesRightTop img
+{
+    height: 400px;
+    width: 400px;
+}
+
+.salesRightBottom img
+{
+    height: 40px;
+    width: 40px;
+}
+
+.salesRightBottom1
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.salesRightBottom2
+{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Invoices CSS */
+
+.invoices
+{
+    margin-top: 40px;
+    background-color: #FFFFFF;
+}
+
+.invoicesTop
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 1vw;
+}
+
+.invoicesTop span
+{
+    color: #C8242F;
+    cursor: pointer;
+}
+
+.paid
+{
+    color: #3CDD5F;
+    background-color: #EBFFEF;
+}
+
+.failed
+{
+    color: #FF4545;
+    background-color: #FFF5F5;
+}
+
+.pending
+{
+    color: #BABABA;
+    background-color: #F8F8F8;
+}
+
+.invoices th
+{
+    color: #ADADAD;
+    padding: 10px;
+    border-bottom: 1px solid #ADADAD
+}
+
+.invoices td
+{
+    padding: 10px;
+    border-bottom: 1px solid #ADADAD
+}
+
+.invoices table
+{
+    width: 79vw;
+    margin: 1vw;
+}
+
+@media only screen and (max-width: 1640px){
+    .sales
+    {
+        justify-content: space-around;
+    }
+
+    .salesRightTop img
+    {
+        height: 200px;
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 1240px){
+    .left
+    {
+        width: 25vw;
+        justify-content: space-between;
+    }
+
+    .searchbar
+    {
+        width: 30vw;
+    }
+
+    .content
+    {
+        width: 190vw;
+    }
+
+    .dashboard
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .details
+    {
+        margin: 20px;
+        width: 55vw;
+    }
+
+    .sales
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .salesLeftContent
+    {
+        justify-content: space-around;
+    }
+
+    .salesRight
+    {
+        align-items: center;
+        margin-top: 20px;
+        width: 410px;
+    }
+}
+
+@media only screen and (max-width: 720px){
+    .content
+    {
+        width: 150vw;
+    }
+
+    .right
+    {
+        justify-content: space-evenly;
+    }
+
+    .searchbar
+    {
+        width: 62vw;
+    }
+
+    .searchimg
+    {
+        height: 10px;
+        width: 10px;
+    }
+    
+    .details
+    {
+        width: 400px;
+    }
+
+    .sales
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .salesRight
+    {
+        width: 400px;
+        align-items: center;
+    }
+
+    .salesLeft
+    {
+        width: 400px;
+    }
+
+    .salesLeft img
+    {
+        height: 225px;
+        width: 400px;
+    }
+}

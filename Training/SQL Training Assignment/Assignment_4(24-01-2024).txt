@@ -1,0 +1,110 @@
+--1. Create a stored procedure in the Northwind database that will calculate the average value of Freight for a specified customer.Then, a business rule will be added that will be triggered before every Update and Insert command in the Orders controller,and will use the stored procedure to verify that the Freight does not exceed the average freight. If it does, a message will be displayed and the command will be cancelled.
+CREATE PROCEDURE avgFreight
+    @CustomerID nvarchar(5)
+AS
+BEGIN
+   SELECT AVG(Freight) AS Avg_Freight
+   FROM Orders
+   WHERE CustomerID = @CustomerID
+END
+GO
+
+exec avgFreight @CustomerID=VICTE
+
+--2. write a SQL query to Create Stored procedure in the Northwind database to retrieve Employee Sales by Country
+create procedure byCountry 
+	@Country varchar(20)
+AS
+	select Salesperson, Country, sum(UnitPrice * Quantity) as Sales
+	from dbo.Invoices
+	WHERE Country=@Country
+	GROUP BY Salesperson, Country
+GO
+
+exec byCountry @Country=Sweden
+
+--3. write a SQL query to Create Stored procedure in the Northwind database to retrieve Sales by Year
+create procedure byYear
+	@Year int
+AS
+	select Salesperson,OrderDate, sum(UnitPrice * Quantity) as Sales
+	from dbo.Invoices
+	WHERE YEAR(OrderDate)=@Year
+	GROUP BY Salesperson, OrderDate
+GO
+
+exec byYear @Year='1998'
+
+--4. write a SQL query to Create Stored procedure in the Northwind database to retrieve Sales By Category
+create procedure byCategory
+AS
+    SELECT c.CategoryName, p.ProductName, sum(od.UnitPrice * Quantity) as Sales
+    FROM
+        Categories c
+        INNER JOIN Products p ON c.CategoryID = p.CategoryID
+        INNER JOIN [Order Details] od ON p.ProductID = od.ProductID
+    GROUP BY
+        c.CategoryName,
+        p.ProductName
+    ORDER BY
+        c.CategoryName,
+        Sales DESC
+GO
+
+exec byCategory
+
+--5. write a SQL query to Create Stored procedure in the Northwind database to retrieve Ten Most Expensive Products
+create procedure tenExpensive
+AS
+	SET ROWCOUNT 10
+	SELECT Products.ProductName AS TenMostExpensiveProducts, Products.UnitPrice
+	FROM Products
+	ORDER BY Products.UnitPrice DESC
+GO
+
+exec tenExpensive
+
+--6. write a SQL query to Create Stored procedure in the Northwind database to insert Customer Order Details 
+CREATE PROCEDURE insertOrderDetails
+    @OrderID INT,
+    @ProductID INT,
+    @UnitPrice MONEY,
+    @Quantity INT,
+    @Discount FLOAT
+AS
+    INSERT INTO [Order Details] (OrderID, ProductID, UnitPrice, Quantity, Discount)
+    VALUES (@OrderID, @ProductID, @UnitPrice, @Quantity, @Discount);
+GO
+
+exec insertOrderDetails
+    @OrderID = 10999,
+    @ProductID = 11,
+    @UnitPrice = 14.0,
+    @Quantity = 12,
+    @Discount = 0.05;
+
+--7. write a SQL query to Create Stored procedure in the Northwind database to update Customer Order Details
+CREATE PROCEDURE updateOrderDetails
+    @OrderID INT,
+    @ProductID INT,
+    @NewUnitPrice MONEY,
+    @NewQuantity INT,
+    @NewDiscount FLOAT
+AS
+    UPDATE [Order Details]
+    SET
+        UnitPrice = @NewUnitPrice,
+        Quantity = @NewQuantity,
+        Discount = @NewDiscount
+    WHERE
+        OrderID = @OrderID
+        AND ProductID = @ProductID;
+GO
+
+exec UpdateOrderDetails
+    @OrderID = 10999,
+    @ProductID = 11,
+    @NewUnitPrice = 16.0,
+    @NewQuantity = 25,
+    @NewDiscount = 0.2;
+    

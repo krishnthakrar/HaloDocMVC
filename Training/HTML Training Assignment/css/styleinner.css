@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* Navbar CSS */
+
+.main
+{
+    width: 100vw;
+    display: flex;
+}
+
+.left
+{
+    width: 16vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.left button
+{
+    border: none;
+    background-color: #FFFFFF;
+}
+
+.right
+{
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchbar
+{
+    width: 62vw;
+}
+
+.searchimg
+{
+    height: 20px;
+    width: 20px;
+}
+
+.search
+{
+    border: 0;
+    outline: none;
+}
+
+.rightnav
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 16vw;
+}
+
+.profile
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 9vw;
+}
+
+.profile span
+{
+    font: normal normal normal 16px/21px Roboto;
+}
+
+::placeholder
+{
+    font: normal normal normal 16px/21px Roboto;
+}
+
+/* Sidebar CSS */
+
+.sidebar
+{
+    margin-top: 40px;
+    width: 15vw;
+    display: block;
+    align-items: center;
+}
+
+.sidebar li{
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    width: 183px;
+    height: 43px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 13px;
+    border-radius: 5px;
+    font: 16px/21px Roboto;
+    font-weight: 500;
+}
+
+.sidebar img
+{
+    height: 15px;
+    width: 15px;
+}
+
+.sidebar a
+{
+    text-decoration: none;
+    color: #3E3E3E;
+    margin-left: 0.5vw;
+}
+
+.sidebar .active
+{
+    background-color: #FFF3F4;
+}
+
+.sidebar .active a
+{
+    color: #C8242F;
+}
+
+/* Content css */
+
+.content
+{
+    width: 85vw;
+    background-color: #FAFAFA;
+    padding: 2vw;
+}
+
+.data
+{
+    padding: 1vw;
+    background-color: #FFFFFF;
+}
+
+.threeCol input[type=text]:focus
+{
+    border: 1px solid #C8242F;
+}
+
+.fourCol input[type=text]:focus
+{
+    border: 1px solid #C8242F;
+}
+
+.content input[type=text]
+{
+    height: 58px;
+    border: 1px solid #ADADAD;
+}
+
+.content input[type=password]
+{
+    height: 58px;
+    border: 1px solid #ADADAD;
+}
+
+.form-floating .form-control:focus~label
+{
+    margin-top: -15px;
+    margin-left: 15px;
+}
+
+.form-floating label
+{
+    margin-left: 15px;
+}
+
+select
+{
+    height: 58px;
+}
+
+input[type=text]:focus
+{
+    border: 1px solid #ADADAD;
+    box-shadow: none;
+}
+
+input[type="radio"]:checked
+{
+    background-color: #C8242F;
+    border: 2px solid #C8242F;
+}
+
+input[type="checkbox"]:checked
+{
+    background-color: #C8242F;
+    border: 2px solid #C8242F;
+}
+
+::placeholder
+{
+    padding-left: 0.5vw;
+}
+
+label
+{
+    padding-left: 0.5vw;
+}
+
+.disabled
+{
+    border: 2px dashed #ADADAD;
+}
+
+.uploadText
+{
+    margin-left: 20px;
+    color: #ADADAD;
+}
+
+.upload img
+{
+    margin-right: 10px;
+}
+
+.button
+{
+    padding-left: 1vw;
+}
+
+.snackbarDiv img
+{
+    height: 20px;
+    width: 20px;
+}
+
+.snackbarDiv
+{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin: 10px 35px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.callToAction button
+{
+    margin: 0.5vw 0.5vw;
+    padding: 5px;
+}
+
+.bottomList
+{
+    display: flex;
+    column-gap: 2vw;
+}
+
+.bottomList li
+{
+    list-style-type: none;
+}
+
+.tab-container
+{
+    display: flex;
+    column-gap: 2vw;
+}
+
+.tab
+{
+    cursor: pointer;
+}
+
+.tab-content
+{
+    display: none;
+}
+
+.active-content
+{
+    display: block;
+}
+
+.custom-file-input 
+{
+    display: none;
+}
+
+.custom-button 
+{
+    padding: 10px 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.upload
+{
+    display: flex;
+}
+
+.selected-filename 
+{
+    margin-top: 6px;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 1240px){
+    .left
+    {
+        width: 25vw;
+        justify-content: space-between;
+    }
+
+    .searchbar
+    {
+        width: 30vw;
+    }
+
+    .content
+    {
+        width: 190vw;
+    }
+}
+
+@media only screen and (max-width: 720px){
+    .content
+    {
+        width: 150vw;
+    }
+
+    .right
+    {
+        justify-content: space-evenly;
+    }
+
+    .searchbar
+    {
+        width: 62vw;
+    }
+
+    .searchimg
+    {
+        height: 10px;
+        width: 10px;
+    }
+}

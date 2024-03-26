@@ -1,0 +1,19 @@
+Simple SQL Query with a single table with where clause
+
+--Write a query to get a Product list (id, name, unit price) where current products cost less than $20.
+select ProductID, ProductName, UnitPrice from Products where UnitPrice<20;
+
+--Write a query to get Product list (id, name, unit price) where products cost between $15 and $25
+select ProductID, ProductName, UnitPrice from Products where UnitPrice>15 and UnitPrice<25;
+
+--Write a query to get Product list (name, unit price) of above average price. 
+select ProductID, ProductName, UnitPrice from Products where UnitPrice>(select AVG(UnitPrice) from Products);
+
+--Write a query to get Product list (name, unit price) of ten most expensive products
+select top 10 ProductName, UnitPrice from Products order by UnitPrice DESC;
+
+--Write a query to count current and discontinued products
+select Discontinued, COUNT(Discontinued) AS CurrentStatus from Products GROUP BY Discontinued;
+
+--Write a query to get Product list (name, units on order , units in stock) of stock is less than the quantity on order
+select ProductName, UnitsOnOrder, UnitsInStock from Products where UnitsInStock<UnitsOnOrder;

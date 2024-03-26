@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.main {
+    display: flex;
+    justify-content: center;
+    column-gap: 171px;
+    height: 100vh;
+    background: #FAFAFA;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.left img {
+    position: relative;
+    width: 576px;
+    height: 576px;
+    box-shadow: 0px 4px 31px #0000000A;
+    border: 20px solid #FFFFFF;
+    opacity: 1;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.right img {
+    position: relative;
+    height: 58px;
+    width: 272px;
+}
+
+.right .p1 {
+    position: relative;
+    font: normal normal 300 40px/47px Roboto;
+}
+
+.right .p1 span {
+    font-weight: bold;
+    color: #C8242F;
+}
+
+.right .p2 {
+    position: relative;
+    width: 261px;
+    font: normal normal normal 25px/33px Roboto;
+}
+
+.right form .inputField {
+    position: relative;
+    width: 429px;
+    height: 49px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+}
+
+.right form .loginBtn {
+    position: relative;
+    width: 138px;
+    height: 45px;
+    background: #C8242F 0% 0% no-repeat padding-box;
+    border-radius: 23px;
+    border: 0;
+}
+
+.right form a {
+    position: relative;
+    left: 169px;
+    font: normal normal normal 15px/20px Roboto;
+    color: #ADADAD;
+    text-decoration: none;
+}
+
+.right form button {
+    color: #FFFFFF;
+}
+
+.right .p3 {
+    position: relative;
+    font: normal normal normal 15px/20px Roboto;
+    color: #ADADAD;
+}
+
+.right .p3 a {
+    text-decoration: none;
+    color: #C8242F;
+}
+
+::placeholder
+{
+    padding-left: 1vw;
+}
+
+/* Media query */
+
+@media only screen and (max-width: 1240px){
+    .main
+    {
+        flex-direction: column;
+    }
+
+    .left
+    {
+        justify-content: center;
+    }
+
+    .right
+    {
+        align-items: center;
+        margin-top: 50px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .main
+    {
+        flex-direction: column;
+    }
+
+    .left
+    {
+        justify-content: center;
+    }
+
+    .left img
+    {
+        height: 330px;
+        width: 330px;
+    }
+
+    .right
+    {
+        align-items: center;
+        margin-top: 50px;
+        font-size: small;
+    }
+
+    .right .p1
+    {
+        font-size: x-large;
+    }
+
+    .right form a
+    {
+        left: 40px;
+    }
+
+    .right form .inputField
+    {
+        width: 250px;
+    }
+}
