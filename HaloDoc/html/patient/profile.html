@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="../../css/patient/dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/darkLight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="text-start d-flex justify-content-between pb-3">
+            <h5 class="mt-2">User Profile</h5>
+            <div class="backBtn">
+                <a asp-controller="Dashboard" asp-action="Index"><button class="float-right"><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
+            </div>
+        </div>
+        <div class="card border-0 shadow py-4 mb-5 mt-3 rounded">
+            <form class="bg-white p-3 rounded container">
+                <h4 class="mb-4">General Information</h4>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                        <input type="text" class="form-control shadow-none" id="fName">
+                        <label for="fName" class="form-label">First Name</label>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                        <input type="text" class="form-control shadow-none" id="lName">
+                        <label for="lName" class="form-label">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 dateInput">
+                        <input type="date" class="form-control shadow-none" id="date">
+                        <label for="date" class="form-label">Date of Birth</label>
+                    </div>
+                </div>
+                <h4 class="mb-4">Contact Information</h4>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 form-floating mb-4">
+                        <select class="shadow-none form-select">
+                            <option selected>Type</option>
+                            <option value="1">Phone</option>
+                            <option value="2">Mobile</option>
+                            <option value="3">Landline</option>
+                        </select>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-floating mb-4 phone">
+                        <input type="tel" class="form-control shadow-none" id="phone">
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                        <input type="email" class="form-control shadow-none" id="email">
+                        <label for="email" class="form-label">Email</label>
+                    </div>
+                </div>
+                <h4 class="mb-4">Location Information</h4>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                        <input type="text" class="form-control shadow-none" id="street">
+                        <label for="street" class="form-label">Street</label>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                        <input type="text" class="form-control shadow-none" id="city">
+                        <label for="city" class="form-label">City</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                        <input type="text" class="form-control shadow-none" id="state">
+                        <label for="state" class="form-label">State</label>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 form-floating mb-4">
+                        <input type="text" class="form-control shadow-none" id="zipCode">
+                        <label for="zipCode" class="form-label">Zip Code</label>
+                    </div>
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 form-floating mb-4 mapBtn">
+                        <button class="btn btn-outline-info text text-info"><i class="fa fa-map-marker px-2" aria-hidden="true"></i>Map</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-info text-white px-3 mx-2">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../../js/custom.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/patient/createFriend.css">
+    <link rel="stylesheet" href="../../css/darkLight.css">
+    <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <title>Create a request for Family/Friend</title>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="../../Images/Fig56._Patient_site_1.png" class="logoImg" alt="HalloDoc Logo">
+        </div>
+        <div>
+            <button class="darkBtn" onclick="darkLight()"><img src="../../Images/moon.svg" id="moonImg" alt="Dark Light Button"></button>
+        </div>
+    </header>
+    <div class="body pb-5">
+        <div class="backBtn">
+            <a href="../../html/patient/requestLanding.html"><button><span class="material-icons back" style="font-size:20px;color:#59A2A8"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
+        </div>
+        <form class="bg-white p-3 rounded container">
+            <h4 class="mb-4">Family/Friend Information</h4>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="ufName">
+                    <label for="ufName" class="form-label">Your First Name</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="ulName">
+                    <label for="ulName" class="form-label">Your Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 phone">
+                    <input type="tel" class="form-control shadow-none" id="uphone">
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="email" class="form-control shadow-none" id="uemail">
+                    <label for="uemail" class="form-label">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="relation">
+                    <label for="relation" class="form-label">Relation with Patient</label>
+                </div>
+            </div>
+            <h4 class="mb-4">Patient Information</h4>
+            <div class="form-floating">
+                <textarea class="form-control shadow-none mb-4" id="symptoms" rows="5"></textarea>
+                <label for="symptoms" class="form-label">Enter Brief Details of Symptoms (Optional)</label>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="fName">
+                    <label for="fName" class="form-label">First Name</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="lName">
+                    <label for="lName" class="form-label">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 dateInput">
+                    <input type="date" class="form-control shadow-none" id="date">
+                    <label for="date" class="form-label">Date of Birth</label>
+                </div>
+            </div>
+            <h4 class="mb-4">Patient Contact Information</h4>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="email" class="form-control shadow-none" id="email">
+                    <label for="email" class="form-label">Email</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 phone">
+                    <input type="tel" class="form-control shadow-none" id="phone">
+                </div>
+            </div>
+            <h4 class="mb-4">Patient Location</h4>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="street">
+                    <label for="street" class="form-label">Street</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="city">
+                    <label for="city" class="form-label">City</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="state">
+                    <label for="state" class="form-label">State</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="zipCode">
+                    <label for="zipCode" class="form-label">Zip Code</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
+                    <input type="text" class="form-control shadow-none" id="room">
+                    <label for="room" class="form-label">Room# / Suite</label>
+                </div>
+            </div>
+            <h4 class="mb-4">(Optional) Upload Photo or Document</h4>
+            <div class="row mb-4">
+                <div>
+                    <div class="col-12 d-flex justify-content-between border rounded">
+                        <span class="selected-filename " id="selectedFilename">No file chosen.</span>
+                        <input type="file" id="myFile" name="filename" class="custom-file-input"
+                            onchange="displayFilename()" style="display: none;">
+                        <label for="myFile" class="input-group-text bg-info text-white">Upload</label>                   
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-info text-white mx-2">Submit</button>
+                <button type="reset" class="btn btn-outline-info text-info">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="footer d-flex justify-content-end bg-dark text-white p-3">
+        <a href="#"><small class="text-white">Terms & Conditions</small></a> &nbsp; | &nbsp;<a href="#"><small class="text-white">Privacy Policy</small></a>
+    </div>
+</body>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="../../js/custom.js"></script>
+</html>
