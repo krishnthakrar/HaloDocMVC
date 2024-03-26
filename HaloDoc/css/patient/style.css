@@ -1,0 +1,102 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.main
+{
+    margin: 0 auto;
+    position: relative;
+}
+
+.darkBtn
+{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #fff;
+    border: 1px solid #59A2A8 ;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.darkBtn:hover
+{
+    box-shadow: 2px 2px 2px 1px #59A2A8;
+}
+
+.innerMain
+{
+    display: flex;
+    flex-direction: column;
+    /* z-index: 1; */
+    align-items: center;
+    height: 98vh;
+}
+
+/* HalloDoc Logo Design */
+
+.header
+{
+    margin-top: 2vh;
+}
+
+/* Body class Design */
+
+.body
+{
+    margin-top: 16vh;
+    margin-bottom: 1vh;
+}
+
+.body button
+{
+    margin: 20px 0;
+    height: 55px;
+}
+
+button.btn
+{
+    height: 6vh;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.patient
+{
+    background-color: #0d1556;
+    border-color: #0d1556;
+    color: #ffffff ;
+}
+
+.patient:hover
+{
+    background-color: #212861;
+    color: #ffffff;
+}
+
+.subReq
+{
+    background-color: #01bce9;
+    border-color: #01bce9;
+    color: #ffffff ;
+}
+
+.subReq:hover
+{
+    background-color: #49c7e7;
+    color: #ffffff;
+}
+
+/* Footer Design */
+
+.footer
+{
+    margin-top: auto;
+    margin-bottom: 1vh;
+    background-color: #e4e4e4;
+}
+
+.footer a
+{
+    text-decoration: none;
+}
