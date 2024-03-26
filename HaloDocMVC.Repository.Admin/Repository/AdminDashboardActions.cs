@@ -34,7 +34,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
 
         #region ViewCase
-        public ViewDataViewCase NewRequestData(int? RId, int? RTId, int? Status)
+        public ViewDataViewCase NewRequestData(int RId, int RTId, int Status)
         {
             ViewDataViewCase caseList = _context.RequestClients
                                         .Where(r => r.Request.RequestId == RId)
@@ -59,7 +59,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region EditViewCase
-        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status)
+        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int RId, int RTId, int Status)
         {
             try
             {
@@ -158,7 +158,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     return false; 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -203,7 +203,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -264,7 +264,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     return false; 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -432,7 +432,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -440,7 +440,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region GetDocumentByRequest
-        public async Task<ViewDataViewDocuments> GetDocumentByRequest(int? id, ViewDataViewDocuments viewDocument)
+        public ViewDataViewDocuments GetDocumentByRequest(int? id, ViewDataViewDocuments viewDocument)
         {
             var req = _context.RequestClients.FirstOrDefault(r => r.RequestId == id);
             var result = (from requestWiseFile in _context.RequestWiseFiles
@@ -623,7 +623,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _emailConfig.SendMail(data.Email, "Order Details", "<p>Prescription:" + data.Prescription + "<br> No of Refills: " + data.NoOfRefill + "</p>");
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

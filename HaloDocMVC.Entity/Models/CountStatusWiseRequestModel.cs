@@ -14,8 +14,6 @@ namespace HaloDocMVC.Entity.Models
         public int ConcludeRequest { get; set; }
         public int ToCloseRequest { get; set; }
         public int UnpaidRequest { get; set; }
-        public List<AdminDashboardList> adminDashboardList { get; set; }
-
-        
+        public List<AdminDashboardList>? adminDashboardList { get; set; }
     }
 }

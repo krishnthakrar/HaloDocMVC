@@ -8,19 +8,19 @@ namespace HaloDocMVC.Entity.Models
 {
     public class AdminDashboardList
     {
-        public string PatientName { get; set; }
+        public string? PatientName { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
         
-        public string PatientId { get; set; }
+        public string? PatientId { get; set; }
        
-        public string Requestor { get; set; }
+        public string? Requestor { get; set; }
         
         public DateTime RequestedDate { get; set; }
         
-        public string PatientPhoneNumber { get; set; }
+        public string? PatientPhoneNumber { get; set; }
        
-        public string Email { get; set; }
+        public string? Email { get; set; }
         
         public string? RequestorPhoneNumber { get; set; }
        
@@ -38,7 +38,7 @@ namespace HaloDocMVC.Entity.Models
        
         public string? Region { get; set; }
         
-        public string ADStatus { get; set; }
+        public string? ADStatus { get; set; }
     }
 
     public class PaginatedViewModel

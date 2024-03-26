@@ -40,13 +40,13 @@ namespace HaloDocMVC.Entity.Models
         public string? ZipCode { get; set; }
 
         [Required(ErrorMessage = "UserName is Required!")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required(ErrorMessage = "PassWord is Required!")]
-        public string PassWord { get; set; }
+        public string? PassWord { get; set; }
 
         [Compare("PassWord", ErrorMessage = "Password doesn't match.")]
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
 
         public IFormFile? UploadFile { get; set; }
 

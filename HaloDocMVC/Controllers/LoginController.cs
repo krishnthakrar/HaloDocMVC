@@ -61,7 +61,7 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region Logout
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
             Response.Cookies.Delete("jwt");
             return RedirectToAction("Index", "Login");

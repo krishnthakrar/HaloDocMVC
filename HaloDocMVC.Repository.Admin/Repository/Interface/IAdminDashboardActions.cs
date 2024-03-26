@@ -11,9 +11,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IAdminDashboardActions
     {
-        public ViewDataViewCase NewRequestData(int? RId, int? RTId, int? Status);
+        public ViewDataViewCase NewRequestData(int RId, int RTId, int Status);
 
-        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status);
+        public ViewDataViewCase Edit(ViewDataViewCase vdvc, int RId, int RTId, int Status);
 
         public bool AssignProvider(int RequestId, int ProviderId, string notes);
 
@@ -29,7 +29,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public Task<bool> TransferProvider(int RequestId, int ProviderId, string notes);
 
-        public Task<ViewDataViewDocuments> GetDocumentByRequest(int? id, ViewDataViewDocuments viewDocument);
+        public ViewDataViewDocuments GetDocumentByRequest(int? id, ViewDataViewDocuments viewDocument);
 
         public bool SaveDoc(int Requestid, IFormFile file);
 

@@ -9,6 +9,6 @@ namespace HaloDocMVC.Entity.Models
     public class AllRegion
     {
         public int RegionId { get; set; }
-        public string RegionName { get; set; }
+        public string? RegionName { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace HaloDocMVC.Entity.Models
 
         [Required(ErrorMessage = "Email is Required!")]
         [EmailAddress(ErrorMessage = "Please Enter Valid Email Address!")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required(ErrorMessage = "Mobile Number is Required!")]
         [StringLength(10, MinimumLength = 10, ErrorMessage = "Mobile Number must be of 10 digits!")]

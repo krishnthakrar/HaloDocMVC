@@ -15,10 +15,18 @@
                     <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
                 </li>
                 <li class="nav-item">
+                    
                     <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Providers") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Providers">Providers</a>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown px-2 text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Providers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" asp-action="Index" asp-controller="">Provider</a>
+                        <a class="dropdown-item" href="#">Scheduling</a>
+                        <a class="dropdown-item" href="#"> Invoicing</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Partners") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Partners">Partners</a>

@@ -28,7 +28,7 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region ViewDoc
-        public async Task<IActionResult> ViewDoc(int id, ViewDocument viewDocument)
+        public async Task<IActionResult> ViewDoc(int? id, ViewDocument viewDocument)
         {
             if (id == null)
             {

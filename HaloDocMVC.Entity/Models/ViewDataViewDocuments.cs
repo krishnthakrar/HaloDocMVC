@@ -8,8 +8,8 @@ namespace HaloDocMVC.Entity.Models
 {
     public class ViewDataViewDocuments
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
         public string? ConfirmationNumber { get; set; }
         public int RequestId { get; set; }
         public class Documents
@@ -19,7 +19,7 @@ namespace HaloDocMVC.Entity.Models
             public string? FileName { get; set; }
             public DateTime CreatedDate { get; set; }
             public int? RequestWiseFilesId { get; set; }
-            public string IsDeleted { get; set; }
+            public string? IsDeleted { get; set; }
         }
         public List<Documents>? DocumentsList { get; set; } = null;
 

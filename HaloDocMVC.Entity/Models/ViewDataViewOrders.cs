@@ -13,13 +13,13 @@ namespace HaloDocMVC.Entity.Models
 
         public int RequestId { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
-        public string BusinessContact { get; set; }
+        public string? BusinessContact { get; set; }
         
         public string? FaxNumber { get; set; }
         
-        public string Prescription { get; set; }
+        public string? Prescription { get; set; }
         
         [Range(0, 15)]
         public int? NoOfRefill { get; set; }

@@ -9,11 +9,11 @@ namespace HaloDocMVC.Entity.Models
 {
     public class EmailConfiguration
     {
-        public string From { get; set; }
-        public string SmtpServer { get; set; }
+        public string? From { get; set; }
+        public string? SmtpServer { get; set; }
         public int Port { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string? UserName { get; set; }
+        public string? Password { get; set; }
 
         #region SendMail
         public async Task<bool> SendMail(String To, String Subject, String Body)
@@ -37,11 +37,10 @@ namespace HaloDocMVC.Entity.Models
                 }
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
-            return false;
         }
         #endregion
 

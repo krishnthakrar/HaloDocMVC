@@ -10,6 +10,6 @@ namespace HaloDocMVC.Entity.Models
     {
         public int HealthProfessionalId { get; set; }
 
-        public string ProfessionName { get; set; }
+        public string? ProfessionName { get; set; }
     }
 }

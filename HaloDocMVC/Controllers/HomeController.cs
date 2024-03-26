@@ -36,7 +36,7 @@ namespace HaloDocMVC.Controllers
         }
 
         #region SearchResult
-        public async Task<IActionResult> _SearchResult(string Status, PaginatedViewModel data)
+        public IActionResult _SearchResult(string Status, PaginatedViewModel data)
         {
             if (Status == null)
             {
@@ -69,7 +69,7 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region ViewCase
-        public IActionResult ViewCase(int? RId, int? RTId, int? Status)
+        public IActionResult ViewCase(int RId, int RTId, int Status)
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewDataViewCase vdvc = _admindashboardactions.NewRequestData(RId, RTId, Status);
@@ -79,7 +79,7 @@ namespace HaloDocMVC.Controllers
 
         #region EditViewCase
         [HttpPost]
-        public IActionResult ViewCase(ViewDataViewCase vdvc, int? RId, int? RTId, int? Status)
+        public IActionResult ViewCase(ViewDataViewCase vdvc, int RId, int RTId, int Status)
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewDataViewCase vc = _admindashboardactions.Edit(vdvc, RId, RTId, Status);
@@ -213,14 +213,13 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region ViewUploadIndex
-        public async Task<IActionResult> ViewUpload(int? id, ViewDataViewDocuments viewDocument)
+        public IActionResult ViewUpload(int? id, ViewDataViewDocuments viewDocument)
         {
             if (id == null)
             {
                 id = viewDocument.RequestId;
-
             }
-            ViewDataViewDocuments v = await _admindashboardactions.GetDocumentByRequest(id, viewDocument);
+            ViewDataViewDocuments v = _admindashboardactions.GetDocumentByRequest(id, viewDocument);
             return View("../Home/ViewUpload", v);
         }
         #endregion
@@ -287,7 +286,7 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region SendOrder
-        public async Task<IActionResult> Order(int id)
+        public IActionResult Order(int id)
         {
             List<HealthProfessionalTypes> cs = _dropdown.HealthProfessionalType();
             ViewBag.ProfessionType = cs;
@@ -335,7 +334,7 @@ namespace HaloDocMVC.Controllers
         #region SendAgreement
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendAgreementmail(int requestid, string PatientName)
+        public IActionResult SendAgreementmail(int requestid, string PatientName)
         {
             if (_admindashboardactions.SendAgreement(requestid, PatientName))
             {
@@ -346,7 +345,7 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region CloseCase
-        public async Task<IActionResult> CloseCase(int RequestID)
+        public IActionResult CloseCase(int RequestID)
         {
             ViewCloseCaseModel vc = _admindashboardactions.CloseCaseData(RequestID);
             return View("../Home/CloseCase", vc);
