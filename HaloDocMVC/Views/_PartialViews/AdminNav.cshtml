@@ -19,11 +19,11 @@
                     <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
                 </li>
                 <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown px-2 text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Providers
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="Index" asp-controller="">Provider</a>
+                        <a class="dropdown-item @(path.StartsWith("/Providers") ? "active" : "")" asp-action="Index" asp-controller="Providers">Provider</a>
                         <a class="dropdown-item" href="#">Scheduling</a>
                         <a class="dropdown-item" href="#"> Invoicing</a>
                     </div>

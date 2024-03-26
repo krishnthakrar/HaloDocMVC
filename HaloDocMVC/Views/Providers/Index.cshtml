@@ -1,4 +1,83 @@
 ﻿@{
     Layout = "_Layout";
+    ViewData["Title"] = "Providers Menu";
 }
-<h1>Providers</h1>
+<div class="body">
+    <div class="container">
+        <div class="d-flex justify-content-between mt-3">
+            <div class="d-flex align-items-center">
+                <h4 class="pt-2">Provider Information</h4>
+            </div>
+        </div>
+        <div class="card border-0 shadow py-4 mb-5 mt-3 rounded p-3 rounded container">
+            <div class="d-flex justify-content-between">
+                <div class="search m-1">
+                    <i class="fa fa-search"></i>
+                    <select class="form-select regionDropdown" data-allow-clear="true" tabindex="-1" id="regiondropdown" data-control="select2" data-placeholder="Select Level">
+                        <option>All Region</option>
+                    </select>
+                </div>
+                <a asp-controller="" asp-action="" class="btn btn-info rounded mt-3 mb-1 align-self-center">
+                    <span class="text-white">
+                        <b>Create Provider Account</b>
+                    </span>
+                </a>
+            </div>
+            <table class="w-100 mt-3 dataTable">
+                <thead class="theadbg py-2">
+                    <tr>
+                        @{
+            //var i1 = @Model.SortedColumn;
+            //var J1 = @Model.IsAscending;
+                            <th scope="col">
+                                <small>Stop Notifications</small>
+                            </th>
+                            <th scope="col">
+                                <small>Provider Name</small>
+                            </th>
+            //<th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "PatientName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('PatientName')">
+                            //    <small>Provider Name</small>
+                            //    <span class="dt-column-order"></span>
+                            //</th>
+                            <th scope="col">
+                                <small>Role</small>
+                            </th>
+                            <th scope="col">
+                                <small>On Call Status</small>
+                            </th>
+                            <th scope="col">
+                                <small>Status</small>
+                            </th>
+                            <th scope="col">
+                                <small>Actions</small>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody class="mb-5">
+                    <tr>
+                        <td class="table-text px-3">
+                            <div class="form-check d-flex justify-content-center align-items-center">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <input class="form-check-input RequestwisefilesId" type="hidden">
+                            </div>
+                        </td>
+                        <td>Jenil Tank</td>
+                        <td>Doctor</td>
+                        <td>Avilable</td>
+                        <td>Active</td>
+                        <td>
+                            <button class="btn btn-outline-info my-2" data-bs-toggle="modal" data-bs-target="#contactprovider">
+                                <small>Contact</small>
+                            </button>
+                            <a class="btn btn-outline-info my-2" asp-action="EditProvider" asp-controller="Providers">
+                                <small>Edit</small>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<partial name="../Providers/ContactProvider.cshtml" />

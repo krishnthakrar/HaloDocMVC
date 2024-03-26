@@ -8,5 +8,10 @@ namespace HaloDocMVC.Controllers
         {
             return View();
         }
+
+        public IActionResult EditProvider()
+        {
+            return View();
+        }
     }
 }

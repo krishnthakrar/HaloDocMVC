@@ -29,8 +29,17 @@
     border-bottom: 2px solid #8dcaf0;
 }
 
-/*Status css*/
+.dropdown-item.active {
+    background: unset !important;
+    border-bottom: none;
+}
 
+.dropdown-item:hover {
+    color: #8dcaf0;
+    background: unset;
+}
+
+/*Status css*/
 .s1 {
     border: 2px solid #0c47b3;
     color: #0c47b3;
@@ -398,6 +407,11 @@ label {
 
 .filterborder {
     border: 1px solid #0dcaf0 !important;
+}
+
+.providerSet:checked {
+    background-color: #0dcaf0 !important;
+    border-color: #0dcaf0 !important;
 }
 
 /*Pagination CSS*/
