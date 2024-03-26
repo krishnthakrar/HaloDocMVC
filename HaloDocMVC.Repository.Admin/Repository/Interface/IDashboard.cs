@@ -17,7 +17,5 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public void EditProfile(ViewDataUserProfile vdup, int id);
 
         public Task<ViewDocument> ViewDocumentList(int? id, ViewDocument viewDocument);
-
-        public void UploadDoc(int RequestId, IFormFile? UploadFile);
     }
 }

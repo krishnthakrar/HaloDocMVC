@@ -104,20 +104,19 @@ namespace HaloDocMVC.Controllers
                 if (result)
                 {
                     _notyf.Success("Notes Updated successfully...");
-                    ViewDataViewNotes vdvn = _admindashboardactions.GetNotesByID(RequestID);
-                    return View("../Home/ViewNotes", vdvn);
+                    return RedirectToAction("ViewNotes", "Home", new { RId = RequestID });
                 }
                 else
                 {
                     _notyf.Error("Notes Not Updated");
-                    return View("../Home/ViewNotes");
+                    return RedirectToAction("ViewNotes", "Home", new { RId = RequestID });
                 }
             }
             else
             {
-                _notyf.Information("Please Select one of the note!!");
-                TempData["Errormassage"] = "Please Select one of the note!!";
-                return RedirectToAction("ViewNotes", new { id = RequestID });
+                _notyf.Information("Notes can't be empty");
+                TempData["Errormassage"] = "Notes can't be empty";
+                return RedirectToAction("ViewNotes", "Home", new { RId = RequestID });
             }
         }
         #endregion

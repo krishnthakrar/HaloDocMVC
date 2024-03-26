@@ -12,13 +12,9 @@
             </div>
         </div>
         <div class="card-body m-1 shadow" style="border-radius: 15px;">
-            <div class="doc-text-card">
-                Patient name
-                @*@foreach (var item in ViewBag.requestinfo)
-                {
-                    <div class="Patient-name">@item.FirstName @item.LastName </div>
-                }*@
-            </div>
+            <h3 class="fw-bolder">
+                Patient Name :  @CredentialValue.UserName()
+            </h3>
             <div class="doc-text-card mt-2">
                 Here you can view all files that have been added by you or physician or anyone else.
             </div>
@@ -26,11 +22,11 @@
                 <form method="post" enctype="multipart/form-data">
                     <div class="d-flex">
                         <input class="form-control doc_uploder" id="formFileSm" name="UploadFile" type="file">
-                        @*<input type="hidden" name="Requestid" value="@item.RequestId" />*@
+                        <input type="hidden" name="Requestid" value="@Model.RequestId" />
                         <input type="submit" class="btn btn-info btn-submit" value="Upload">
                     </div>
                 </form>
-                <div class="card-header-2 mt-3 d-flex justify-content-between  border-0  bg-transparent ">
+                <div class="card-header-2 mt-3 d-flex justify-content-between border-0 bg-transparent">
                     <div class="mt-2">
                         <h6> Document</h6>
                     </div>
@@ -145,6 +141,7 @@
       asp-action="ViewDoc" asp-controller="Dashboard" novalidate="novalidate">
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
+    <input type="hidden" asp-for="PageSize" id="isAsc" />
 </form>
 <script>
     function setpagenumber(e) {
@@ -180,6 +177,9 @@
         }
         $(".sortingform").submit();
     }
+    $('#pagesizedropdowndocument').on('change', function () {
+        $('#documentformPagesize').submit();
+    });
 </script>
 <script>
     function statusselectall() {

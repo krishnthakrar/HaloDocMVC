@@ -51,7 +51,7 @@ namespace HaloDocMVC.Controllers
         public IActionResult Logout()
         {
             Response.Cookies.Delete("jwt");
-            return View("../PatientLogin/Index");
+            return RedirectToAction("Index", "PatientLogin");
         }
         #endregion
 
