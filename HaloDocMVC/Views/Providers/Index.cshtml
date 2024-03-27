@@ -31,34 +31,34 @@
                     </a>
                 </div>
             </div>
-            <table class="w-100 mt-3 dataTable">
+            <table class="w-100 mt-3 table dataTable">
                 <thead class="theadbg py-2">
                     <tr>
                         @{
                             // var J1 = @Model.IsAscending;
-                            <th scope="col">
+                            <th scope="col" style="width:13%">
                                 <small>Stop Notifications</small>
                             </th>
-                            <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc" onclick="SetColumValue('PatientName')">
+                            <th scope="col" style="position:relative;width:22%" class="dt-orderable-asc dt-orderable-desc" onclick="SetColumValue('PatientName')">
                                 <small>Provider Name</small>
                                 <span class="dt-column-order"></span>
                             </th>
-                            <th scope="col">
+                            <th scope="col" style="width:25%">
                                 <small>Role</small>
                             </th>
-                            <th scope="col">
+                            <th scope="col" style="width:15%">
                                 <small>On Call Status</small>
                             </th>
-                            <th scope="col">
+                            <th scope="col" style="width:10%">
                                 <small>Status</small>
                             </th>
-                            <th scope="col">
+                            <th scope="col" style="width:15%">
                                 <small>Actions</small>
                             </th>
                         }
                     </tr>
                 </thead>
-                <tbody class="mb-5">
+                <tbody class="mb-5" id="tableBody">
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -69,7 +69,7 @@
                                     {
                                         check = item.Notification[0];
                                     }
-                                    <input class="form-check-input form-check-inputs" id="@item.PhysicianId" type="checkbox" value="" @(check ? "checked" : "")>
+                                    <input class="form-check-input form-check-inputs ms-5" id="@item.PhysicianId" type="checkbox" value="" @(check ? "checked" : "")>
                                 }
                                 <input class="NotificationId" type="hidden" value="@item.PhysicianId">
                             </td>
@@ -82,10 +82,10 @@
                                 @Enum.GetName(typeof(AdminStatus), item.Status)
                             </td>
                             <td>
-                                <button class="btn btn-outline-info my-2" data-bs-toggle="modal" data-bs-target="#contactprovider" data-bs-id="@item.PhysicianId" data-bs-email="@item.Email">
+                                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#contactprovider" data-bs-id="@item.PhysicianId" data-bs-email="@item.Email" style="padding-top: 0.1rem !important; padding-bottom: 0.1rem !important;">
                                     <small>Contact</small>
                                 </button>
-                                <a class="btn btn-outline-info my-2" asp-action="EditProvider" asp-controller="Providers" asp-route-id="@item.PhysicianId">
+                                <a class="btn btn-outline-info" asp-action="EditProvider" asp-controller="Providers" asp-route-id="@item.PhysicianId" style="padding-top: 0.1rem !important; padding-bottom: 0.1rem !important;">
                                     <small>Edit</small>
                                 </a>
                             </td>
@@ -100,13 +100,15 @@
 <script>
     function regChange() {
         var region = $("#regiondropdown").val();
+        console.log(region);
         $.ajax({
             method: "POST",
             url: "/Providers/Index?region=" + region,
             cache: false,
             success: function (response) {
                 console.log(response);
-                location.reload();
+                var bodyContent = $(response).find('tbody').html();
+                $('#tableBody').html(bodyContent);
             },
             error: function () {
                 alert("Error while Loading data.");
@@ -115,6 +117,11 @@
     }
 
     $(document).ready(function () {
+        $('[data-bs-toggle="modal"][data-bs-target="#contactprovider"]').click(function () {
+            var email = $(this).attr('data-bs-email');
+            $('#contactprovider').find('#emailInput').val(email);
+        });
+
         $('#saveChangesButton').click(function () {
             $('#saveChangesForm').submit();
         });

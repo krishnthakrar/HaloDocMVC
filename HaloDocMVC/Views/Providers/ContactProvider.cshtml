@@ -5,26 +5,27 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Contact Your Provider</h1>
                 <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
             </div>
-            <form asp-action="" asp-controller="" method="post" class="mt-0 needs-validation" novalidate>
+            <form asp-action="SendMessage" asp-controller="Providers" method="post" class="mt-0 needs-validation" novalidate>
                 <div class="modal-body">
+                    <input type="hidden" name="email" id="emailInput" />
                     <p class="fs-7 pt-2 text-secondary">
                         Choose communication to send message
                     </p>
-                    <div class="form-check">
-                        <input class="form-check-input providerSet" type="radio" name="Email" id="email" checked>
-                        <label class="form-check-label" for="email">
-                            Email
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input providerSet" type="radio" name="SMS" id="sms">
-                        <label class="form-check-label" for="sms">
+                    <div class="form-check p-2 fs-6">
+                        <input class="form-check-input ms-0" value="1" type="radio" name="contactProviderRadioSet" id="flexRadioDefault1">
+                        <label class="form-check-label ms-1" for="flexRadioDefault1">
                             SMS
                         </label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input providerSet" type="radio" name="Both" id="both">
-                        <label class="form-check-label" for="both">
+                    <div class="form-check p-2 fs-6">
+                        <input class="form-check-input ms-0" value="2" type="radio" name="contactProviderRadioSet" id="flexRadioDefault2" checked>
+                        <label class="form-check-label ms-1" for="flexRadioDefault2">
+                            Email
+                        </label>
+                    </div>
+                    <div class="form-check p-2 fs-6">
+                        <input class="form-check-input ms-0" value="3" type="radio" name="contactProviderRadioSet" id="flexRadioDefault3">
+                        <label class="form-check-label ms-1" for="flexRadioDefault2">
                             Both
                         </label>
                     </div>

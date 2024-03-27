@@ -30,7 +30,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                             Longitude = r.Longitude,
                             Latitude = r.Latitude,
                             PhysicianName = r.PhysicianName
-
                         }).ToList();
             return pl;
         }
