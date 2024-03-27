@@ -31,7 +31,15 @@ namespace HaloDocMVC.Entity.Models
         }
         public enum AdminStatus
         {
-            Active = 1, Pending, NotActive
+            Active = 1, 
+            Pending, 
+            NotActive
+        }
+
+        public enum OnCallStatus
+        {
+            UnAvailable = 0,
+            Available
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<HaloDocMVC.Entity.Models.ProviderMenu>;
+﻿@using static HaloDocMVC.Entity.Models.Constant;
+@{
     Layout = "_Layout";
     ViewData["Title"] = "Providers Menu";
 }
@@ -13,32 +15,34 @@
             <div class="d-flex justify-content-between">
                 <div class="search m-1">
                     <i class="fa fa-search"></i>
-                    <select class="form-select regionDropdown" data-allow-clear="true" tabindex="-1" id="regiondropdown" data-control="select2" data-placeholder="Select Level">
+                    <select class="form-select" data-allow-clear="true" tabindex="-1" id="regiondropdown" onchange="regChange()" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
                         <option>All Region</option>
                     </select>
                 </div>
-                <a asp-controller="" asp-action="" class="btn btn-info rounded mt-3 mb-1 align-self-center">
-                    <span class="text-white">
-                        <b>Create Provider Account</b>
-                    </span>
-                </a>
+                <div class="d-flex justify-content-between">
+                    <form asp-action="ChangeNotificationPhysician" asp-controller="Providers" class="mt-0" id="saveChangesForm">
+                        <input type="hidden" id="changedValuesInput" name="changedValues">
+                        <a class="btn text-info m-2 border border-info align-self-center" style="display:none;" id="saveChangesButton">Save Changes </a>
+                    </form>
+                    <a asp-controller="" asp-action="" class="btn btn-info rounded mb-1 align-self-center">
+                        <span class="text-white">
+                            <b>Create Provider Account</b>
+                        </span>
+                    </a>
+                </div>
             </div>
             <table class="w-100 mt-3 dataTable">
                 <thead class="theadbg py-2">
                     <tr>
                         @{
-            //var i1 = @Model.SortedColumn;
-            //var J1 = @Model.IsAscending;
+                            // var J1 = @Model.IsAscending;
                             <th scope="col">
                                 <small>Stop Notifications</small>
                             </th>
-                            <th scope="col">
+                            <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc" onclick="SetColumValue('PatientName')">
                                 <small>Provider Name</small>
+                                <span class="dt-column-order"></span>
                             </th>
-            //<th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "PatientName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('PatientName')">
-                            //    <small>Provider Name</small>
-                            //    <span class="dt-column-order"></span>
-                            //</th>
                             <th scope="col">
                                 <small>Role</small>
                             </th>
@@ -55,29 +59,90 @@
                     </tr>
                 </thead>
                 <tbody class="mb-5">
-                    <tr>
-                        <td class="table-text px-3">
-                            <div class="form-check d-flex justify-content-center align-items-center">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <input class="form-check-input RequestwisefilesId" type="hidden">
-                            </div>
-                        </td>
-                        <td>Jenil Tank</td>
-                        <td>Doctor</td>
-                        <td>Avilable</td>
-                        <td>Active</td>
-                        <td>
-                            <button class="btn btn-outline-info my-2" data-bs-toggle="modal" data-bs-target="#contactprovider">
-                                <small>Contact</small>
-                            </button>
-                            <a class="btn btn-outline-info my-2" asp-action="EditProvider" asp-controller="Providers">
-                                <small>Edit</small>
-                            </a>
-                        </td>
-                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">
+                                @{
+                                    var check = false;
+                                    if (item.Notification != null)
+                                    {
+                                        check = item.Notification[0];
+                                    }
+                                    <input class="form-check-input form-check-inputs" id="@item.PhysicianId" type="checkbox" value="" @(check ? "checked" : "")>
+                                }
+                                <input class="NotificationId" type="hidden" value="@item.PhysicianId">
+                            </td>
+                            <td>@item.FirstName  @item.LastName</td>
+                            <td>@item.Role</td>
+                            <td>
+                                @Enum.GetName(typeof(OnCallStatus), item.IsNonDisclosureDoc)
+                            </td>
+                            <td>
+                                @Enum.GetName(typeof(AdminStatus), item.Status)
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-info my-2" data-bs-toggle="modal" data-bs-target="#contactprovider" data-bs-id="@item.PhysicianId" data-bs-email="@item.Email">
+                                    <small>Contact</small>
+                                </button>
+                                <a class="btn btn-outline-info my-2" asp-action="EditProvider" asp-controller="Providers" asp-route-id="@item.PhysicianId">
+                                    <small>Edit</small>
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 <partial name="../Providers/ContactProvider.cshtml" />
+<script>
+    function regChange() {
+        var region = $("#regiondropdown").val();
+        $.ajax({
+            method: "POST",
+            url: "/Providers/Index?region=" + region,
+            cache: false,
+            success: function (response) {
+                console.log(response);
+                location.reload();
+            },
+            error: function () {
+                alert("Error while Loading data.");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#saveChangesButton').click(function () {
+            $('#saveChangesForm').submit();
+        });
+        // Initialize an object to track the initial state of each checkbox
+        var initialState = {};
+
+        // Store the initial state of each checkbox when the page loads
+        $('.form-check-inputs').each(function () {
+            initialState[this.id] = this.checked;
+        });
+
+        $('.form-check-inputs').change(function () {
+            var changedValues = {};
+            // Check each checkbox for changes
+            $('.form-check-inputs').each(function () {
+                if (this.checked !== initialState[this.id]) {
+                    changedValues[this.id] = this.checked;
+                }
+            });
+            // Update the hidden input with the changed values
+            $('#changedValuesInput').val(JSON.stringify(changedValues));
+            console.log(changedValues);
+            // Show or hide the "Save Changes" button based on whether there are any changes
+            if (Object.keys(changedValues).length > 0) {
+                $('#saveChangesButton').show();
+            } else {
+                $('#saveChangesButton').hide();
+            }
+        });
+    });
+</script> 
