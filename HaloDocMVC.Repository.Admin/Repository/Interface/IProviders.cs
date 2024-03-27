@@ -14,5 +14,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool ChangeNotificationPhysician(Dictionary<int, bool> changedValuesDict);
 
         public List<ProviderMenu> PhysicianByRegion(int? region);
+
+        public ProviderMenu GetProfileDetails(int UserId);
+
+        public bool EditPassword(string password, int physId, ProviderMenu pm);
+
+        public bool EditPhysInfo(ProviderMenu pm);
     }
 }

@@ -1,5 +1,8 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using HaloDocMVC.Entity.Models;
+using HaloDocMVC.Models;
+using HaloDocMVC.Repository.Admin.Repository;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -71,9 +74,45 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
-        public IActionResult EditProvider()
+        #region EditProvider
+        public IActionResult EditProvider(int? PhysicianId)
         {
-            return View();
+            ViewBag.PhysRole = _dropdown.PhysRole();
+            ViewBag.AllRegion = _dropdown.AllRegion();
+            ProviderMenu p = _providers.GetProfileDetails((PhysicianId != null ? (int)PhysicianId : Convert.ToInt32(CredentialValue.UserId())));
+            return View("../Providers/EditProvider", p);
         }
+        #endregion
+
+        #region EditPassword
+        public IActionResult EditPassword(string password, ProviderMenu pm)
+        {
+            if (_providers.EditPassword(password, Convert.ToInt32(CredentialValue.UserId()), pm))
+            {
+                _notyf.Success("Account Information changed Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Account Information not Changed...");
+            }
+            return RedirectToAction("EditProvider", "Providers");
+        }
+        #endregion
+
+        #region EditPhysInfo
+        [HttpPost]
+        public IActionResult EditPhysInfo(int? PhysicianId, ProviderMenu pm)
+        {
+            if (_providers.EditPhysInfo(pm))
+            {
+                _notyf.Success("Physician Information changed Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Physician Information not Changed...");
+            }
+            return RedirectToAction("EditProvider", "Providers");
+        }
+        #endregion
     }
 }

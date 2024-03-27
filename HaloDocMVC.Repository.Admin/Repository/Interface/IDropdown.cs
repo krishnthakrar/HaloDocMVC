@@ -21,5 +21,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public List<HealthProfessionals> ProfessionalByType(int? HealthProfessionalID);
 
         public List<UserRole> UserRole();
+
+        public List<Role> PhysRole();
     }
 }

@@ -89,5 +89,16 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }).ToList();
         }
         #endregion
+
+        #region PhysRole
+        public List<Role> PhysRole()
+        {
+            return _context.Roles.Select(req => new Role()
+            {
+                RoleId = req.RoleId,
+                Name = req.Name
+            }).ToList();
+        }
+        #endregion
     }
 }
