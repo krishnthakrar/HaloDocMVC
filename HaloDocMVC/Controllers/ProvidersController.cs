@@ -87,7 +87,7 @@ namespace HaloDocMVC.Controllers
         #region EditPassword
         public IActionResult EditPassword(string password, ProviderMenu pm)
         {
-            if (_providers.EditPassword(password, Convert.ToInt32(CredentialValue.UserId()), pm))
+            if (_providers.EditPassword(password, pm))
             {
                 _notyf.Success("Account Information changed Successfully...");
             }
@@ -95,7 +95,7 @@ namespace HaloDocMVC.Controllers
             {
                 _notyf.Error("Account Information not Changed...");
             }
-            return RedirectToAction("EditProvider", "Providers");
+            return RedirectToAction("EditProvider", new { id = pm.PhysicianId });
         }
         #endregion
 
@@ -115,6 +115,36 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region EditBillingInfo
+        [HttpPost]
+        public IActionResult BillingInfoEdit(ProviderMenu pm)
+        {
+            if (_providers.BillingInfoEdit(pm))
+            {
+                _notyf.Success("Information changed Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Information not Changed...");
+            }
+            return RedirectToAction("EditProvider", new { id = pm.PhysicianId });
+        }
+        #endregion
 
+        #region EditProviderInfo
+        [HttpPost]
+        public IActionResult ProviderInfoEdit(ProviderMenu pm, IFormFile? file, IFormFile? file1)
+        {
+            if (_providers.ProviderInfoEdit(pm, file, file1))
+            {
+                _notyf.Success("Information changed Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Information not Changed...");
+            }
+            return RedirectToAction("EditProvider", new { id = pm.PhysicianId });
+        }
+        #endregion
     }
 }

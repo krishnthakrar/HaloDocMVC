@@ -163,5 +163,30 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
         #endregion
 
+        public void UploadDoc(int id, IFormFile? UploadFile)
+        {
+            string UploadImage;
+            if (UploadFile != null)
+            {
+                string FilePath = "wwwroot\\Upload";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                string fileNameWithPath = Path.Combine(path, UploadFile.FileName);
+                UploadImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + UploadFile.FileName;
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    UploadFile.CopyTo(stream);
+                }
+                var requestwisefile = new RequestWiseFile
+                {
+                    RequestId = id,
+                    FileName = UploadFile.FileName,
+                    CreatedDate = DateTime.Now,
+                };
+                _context.RequestWiseFiles.Add(requestwisefile);
+                _context.SaveChanges();
+            }
+        }
     }
 }

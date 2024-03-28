@@ -38,5 +38,12 @@ namespace HaloDocMVC.Controllers
             return View("../Dashboard/ViewDoc", v);
         }
         #endregion
+
+        [HttpPost]
+        public IActionResult UploadDoc(int id, IFormFile? UploadFile)
+        {
+            _dashboard.UploadDoc(id, UploadFile);
+            return RedirectToAction("ViewDoc", new { id });
+        }
     }
 }

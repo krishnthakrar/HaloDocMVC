@@ -1,7 +1,9 @@
-﻿using HaloDocMVC.Entity.DataContext;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -184,9 +186,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region EditPassword
-        public bool EditPassword(string password, int physId, ProviderMenu pm)
+        public bool EditPassword(string password, ProviderMenu pm)
         {
-            var req = _context.Physicians.Where(W => W.PhysicianId == physId).FirstOrDefault();
+            var req = _context.Physicians.Where(W => W.PhysicianId == pm.PhysicianId).FirstOrDefault();
             if (req != null)
             {
                 /*req.FirstName = pm.FirstName;
@@ -261,6 +263,87 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                 _context.SaveChanges();
                             }
                         }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region BillingInfoEdit
+        public bool BillingInfoEdit(ProviderMenu pm)
+        {
+            try
+            {
+                if (pm == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    var DataForChange = _context.Physicians.Where(W => W.PhysicianId == pm.PhysicianId).FirstOrDefault();
+                    if (DataForChange != null)
+                    {
+                        DataForChange.Address1 = pm.Address1;
+                        DataForChange.Address2 = pm.Address2;
+                        DataForChange.City = pm.City;
+                        DataForChange.Mobile = pm.Mobile;
+                        DataForChange.Zip = pm.ZipCode;
+                        _context.Physicians.Update(DataForChange);
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region ProviderInfoEdit
+        public bool ProviderInfoEdit(ProviderMenu pm, IFormFile? file, IFormFile? file1)
+        {
+            try
+            {
+                if (pm == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    var DataForChange = _context.Physicians.Where(W => W.PhysicianId == pm.PhysicianId).FirstOrDefault();
+                    if (DataForChange != null)
+                    {
+                        DataForChange.BusinessName = pm.BusinessName;
+                        DataForChange.BusinessWebsite = pm.BusinessWebsite;
+                        DataForChange.AdminNotes = pm.AdminNotes;
+                        int id = (int)pm.PhysicianId;
+                        if (file != null) 
+                        {
+                            string UploadPhoto = SaveFile.UploadDoc(file, id);
+                            DataForChange.Photo = UploadPhoto;
+                        }
+                        if (file1 != null)
+                        {
+                            string UploadSign = SaveFile.UploadDoc(file1, id);
+                            DataForChange.Signature = UploadSign;
+                        }
+                        _context.Physicians.Update(DataForChange);
+                        _context.SaveChanges();
                         return true;
                     }
                     else

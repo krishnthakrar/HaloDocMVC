@@ -1,4 +1,5 @@
 ﻿using HaloDocMVC.Entity.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,12 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public ProviderMenu GetProfileDetails(int UserId);
 
-        public bool EditPassword(string password, int physId, ProviderMenu pm);
+        public bool EditPassword(string password, ProviderMenu pm);
 
         public bool EditPhysInfo(ProviderMenu pm);
+
+        public bool BillingInfoEdit(ProviderMenu pm);
+
+        public bool ProviderInfoEdit(ProviderMenu pm, IFormFile? file, IFormFile? file1);
     }
 }

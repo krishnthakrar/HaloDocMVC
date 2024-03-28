@@ -19,7 +19,7 @@
                 Here you can view all files that have been added by you or physician or anyone else.
             </div>
             <div class="col-md-12 mt-3">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" asp-action="UploadDoc" asp-controller="Dashboard" enctype="multipart/form-data" class="mt-0">
                     <div class="d-flex">
                         <input class="form-control doc_uploder" id="formFileSm" name="UploadFile" type="file">
                         <input type="hidden" name="Requestid" value="@Model.RequestId" />
