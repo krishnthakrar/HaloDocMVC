@@ -75,11 +75,11 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region EditProvider
-        public IActionResult EditProvider(int? PhysicianId)
+        public IActionResult EditProvider(int? id)
         {
             ViewBag.PhysRole = _dropdown.PhysRole();
             ViewBag.AllRegion = _dropdown.AllRegion();
-            ProviderMenu p = _providers.GetProfileDetails((PhysicianId != null ? (int)PhysicianId : Convert.ToInt32(CredentialValue.UserId())));
+            ProviderMenu p = _providers.GetProfileDetails((int)id);
             return View("../Providers/EditProvider", p);
         }
         #endregion
@@ -101,7 +101,7 @@ namespace HaloDocMVC.Controllers
 
         #region EditPhysInfo
         [HttpPost]
-        public IActionResult EditPhysInfo(int? PhysicianId, ProviderMenu pm)
+        public IActionResult EditPhysInfo(ProviderMenu pm)
         {
             if (_providers.EditPhysInfo(pm))
             {
@@ -111,8 +111,10 @@ namespace HaloDocMVC.Controllers
             {
                 _notyf.Error("Physician Information not Changed...");
             }
-            return RedirectToAction("EditProvider", "Providers");
+            return RedirectToAction("EditProvider", new { id = pm.PhysicianId });
         }
         #endregion
+
+
     }
 }
