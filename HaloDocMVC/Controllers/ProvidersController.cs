@@ -74,6 +74,32 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region CreateProvider
+        public IActionResult CreateProvider()
+        {
+            ViewBag.PhysRole = _dropdown.PhysRole();
+            ViewBag.AllRegion = _dropdown.AllRegion();
+            return View();
+        }
+        #endregion
+
+        #region CreateProviderPost
+        [HttpPost]
+        public IActionResult CreateProviderPost(ProviderMenu pm)
+        {
+            string? id = CredentialValue.UserId();
+            if (_providers.CreateProvider(pm, id))
+            {
+                _notyf.Success("Provider created successfully....!!!!");
+            }
+            else
+            {
+                _notyf.Error("Provider already exists.....!!!!!!");
+            }
+            return RedirectToAction("Index", "Providers");
+        }
+        #endregion
+
         #region EditProvider
         public IActionResult EditProvider(int? id)
         {

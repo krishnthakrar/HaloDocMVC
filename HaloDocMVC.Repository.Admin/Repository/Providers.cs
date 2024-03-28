@@ -1,4 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
@@ -8,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static HaloDocMVC.Entity.Models.ProviderMenu;
@@ -353,6 +356,83 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 }
             }
             catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region CreateProvider
+        public bool CreateProvider(ProviderMenu pm, string? id)
+        {
+            AspNetUser A = new();
+            Physician p = new();
+            var isexist = _context.Physicians.FirstOrDefault(x => x.Email == pm.Email);
+            var asp = _context.AspNetUsers.FirstOrDefault(x => x.Email == pm.Email);
+            if (isexist == null) 
+            {
+                if (asp == null) 
+                {
+                    //AspNetUser Table
+                    Guid g = Guid.NewGuid();
+                    A.Id = g.ToString();
+                    A.UserName = pm.UserName;
+                    A.PasswordHash = pm.PassWord;
+                    A.Email = pm.Email;
+                    A.PhoneNumber = pm.AltPhone;
+                    A.CreatedDate = DateTime.Now;
+                    _context.Add(A);
+                    _context.SaveChanges();
+
+                    p.AspNetUserId = A.Id;
+                }
+
+                else
+                {
+                    p.AspNetUserId = asp.Id;
+                }
+                //Physician Table
+                p.FirstName = pm.FirstName;
+                p.LastName = pm.LastName;
+                p.Email = pm.Email;
+                p.Mobile = pm.AltPhone;
+                p.MedicalLicense = pm.MedicalLicense;
+                
+                p.AdminNotes = pm.AdminNotes;
+                //isagreement
+                //background
+                p.Address1 = pm.Address1;
+                p.Address2 = pm.Address2;
+                p.City = pm.City;
+                p.Zip = pm.ZipCode;
+                p.AltPhone = pm.AltPhone;
+                p.CreatedBy = id;
+                p.CreatedDate = DateTime.Now;
+                p.Status = 1;
+                p.BusinessName = pm.LastName + " Clinic";
+                p.BusinessWebsite = "dr" + pm.LastName + ".com";
+                p.IsDeleted = new BitArray(1);
+                p.RoleId = pm.RoleId;
+                p.Npinumber = pm.NpiNumber;
+                //credential
+                p.IsNonDisclosureDoc = true;
+                _context.Add(p);
+                _context.SaveChanges();
+
+                //PhysicianRegion Table
+                List<int> priceList = pm.RegionsId.Split(',').Select(int.Parse).ToList();
+                foreach (var item in priceList)
+                {
+                    PhysicianRegion pr = new();
+                    pr.PhysicianId = p.PhysicianId;
+                    pr.RegionId = item;
+                    _context.Add(pr);
+                    _context.SaveChanges();
+                }
+
+                return true;
+            }
+            else
             {
                 return false;
             }
