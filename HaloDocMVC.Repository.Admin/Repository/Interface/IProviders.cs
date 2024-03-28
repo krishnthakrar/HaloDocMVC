@@ -24,6 +24,6 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public bool BillingInfoEdit(ProviderMenu pm);
 
-        public bool ProviderInfoEdit(ProviderMenu pm, IFormFile? file, IFormFile? file1);
+        public bool ProviderInfoEdit(ProviderMenu pm);
     }
 }

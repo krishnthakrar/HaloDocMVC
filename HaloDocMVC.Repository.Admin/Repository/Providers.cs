@@ -315,7 +315,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region ProviderInfoEdit
-        public bool ProviderInfoEdit(ProviderMenu pm, IFormFile? file, IFormFile? file1)
+        public bool ProviderInfoEdit(ProviderMenu pm)
         {
             try
             {
@@ -332,14 +332,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
                         DataForChange.BusinessWebsite = pm.BusinessWebsite;
                         DataForChange.AdminNotes = pm.AdminNotes;
                         int id = (int)pm.PhysicianId;
-                        if (file != null) 
+                        if (pm.PhotoFile != null) 
                         {
-                            string UploadPhoto = SaveFile.UploadDoc(file, id);
+                            string UploadPhoto = SaveFile.UploadDoc(pm.PhotoFile, id);
                             DataForChange.Photo = UploadPhoto;
                         }
-                        if (file1 != null)
+                        if (pm.SignatureFile != null)
                         {
-                            string UploadSign = SaveFile.UploadDoc(file1, id);
+                            string UploadSign = SaveFile.UploadDoc(pm.SignatureFile, id);
                             DataForChange.Signature = UploadSign;
                         }
                         _context.Physicians.Update(DataForChange);

@@ -221,7 +221,7 @@
                                 <button type="button" id="choosenfile" class="col btn text-start fileSelect form-control" onclick="document.getElementById('file').click()">
                                     Select Photo
                                 </button>
-                                <input id="file" type="file" class="d-none form-control doc_uploder" name="file">
+                                <input id="file" asp-for="PhotoFile" type="file" class="d-none form-control doc_uploder">
                                 <div class="btn btn-info text-white py-2" value="Upload" id="fileupload">
                                     <i class="fa fa-cloud-upload"></i>
                                     <span class="d-none d-sm-inline">Upload</span>
@@ -233,7 +233,7 @@
                                 <button type="button" id="choosenfile1" class="col btn text-start fileSelect form-control" onclick="document.getElementById('file1').click()">
                                     Select Signature
                                 </button>
-                                <input id="file1" type="file" class="d-none form-control doc_uploder" name="file1">
+                                <input id="file1" asp-for="SignatureFile" type="file" class="d-none form-control doc_uploder">
                                 <div class="btn btn-info text-white py-2" value="Upload" id="fileupload1">
                                     <i class="fa fa-cloud-upload"></i>
                                     <span class="d-none d-sm-inline">Upload</span>

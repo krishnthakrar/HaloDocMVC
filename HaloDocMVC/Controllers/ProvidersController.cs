@@ -133,9 +133,9 @@ namespace HaloDocMVC.Controllers
 
         #region EditProviderInfo
         [HttpPost]
-        public IActionResult ProviderInfoEdit(ProviderMenu pm, IFormFile? file, IFormFile? file1)
+        public IActionResult ProviderInfoEdit(ProviderMenu pm)
         {
-            if (_providers.ProviderInfoEdit(pm, file, file1))
+            if (_providers.ProviderInfoEdit(pm))
             {
                 _notyf.Success("Information changed Successfully...");
             }
