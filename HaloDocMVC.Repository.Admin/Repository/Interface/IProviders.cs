@@ -26,6 +26,6 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public bool ProviderInfoEdit(ProviderMenu pm);
 
-        public bool CreateProvider(ProviderMenu pm, string? id);
+        public bool CreateProvider(ProviderMenu pm);
     }
 }

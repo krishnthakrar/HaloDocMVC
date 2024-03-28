@@ -22,6 +22,7 @@ namespace HaloDocMVC.Controllers
             _emailConfiguration = emailConfiguration;
             _notyf = notyf;
         }
+        [ProviderAccess("Admin")]
         public IActionResult Index(int? region)
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
@@ -87,8 +88,7 @@ namespace HaloDocMVC.Controllers
         [HttpPost]
         public IActionResult CreateProviderPost(ProviderMenu pm)
         {
-            string? id = CredentialValue.UserId();
-            if (_providers.CreateProvider(pm, id))
+            if (_providers.CreateProvider(pm))
             {
                 _notyf.Success("Provider created successfully....!!!!");
             }

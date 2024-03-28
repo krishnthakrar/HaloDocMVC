@@ -363,7 +363,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region CreateProvider
-        public bool CreateProvider(ProviderMenu pm, string? id)
+        public bool CreateProvider(ProviderMenu pm)
         {
             AspNetUser A = new();
             Physician p = new();
@@ -406,11 +406,11 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 p.City = pm.City;
                 p.Zip = pm.ZipCode;
                 p.AltPhone = pm.AltPhone;
-                p.CreatedBy = id;
+                p.CreatedBy = "10d25ba5-69a7-4e20-85df-3e0d1c4f96l2";
                 p.CreatedDate = DateTime.Now;
                 p.Status = 1;
-                p.BusinessName = pm.LastName + " Clinic";
-                p.BusinessWebsite = "dr" + pm.LastName + ".com";
+                p.BusinessName = pm.BusinessName;
+                p.BusinessWebsite = pm.BusinessWebsite;
                 p.IsDeleted = new BitArray(1);
                 p.RoleId = pm.RoleId;
                 p.Npinumber = pm.NpiNumber;
@@ -418,6 +418,15 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 p.IsNonDisclosureDoc = true;
                 _context.Add(p);
                 _context.SaveChanges();
+
+                if (pm.PhotoFile != null)
+                {
+                    int PhysId = p.PhysicianId;
+                    string UploadPhoto = SaveFile.UploadDoc(pm.PhotoFile, PhysId);
+                    p.Photo = UploadPhoto;
+                    _context.Update(p);
+                    _context.SaveChanges();
+                }
 
                 //PhysicianRegion Table
                 List<int> priceList = pm.RegionsId.Split(',').Select(int.Parse).ToList();
