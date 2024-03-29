@@ -1,4 +1,63 @@
-﻿@{
+﻿@model List<HaloDocMVC.Entity.Models.AccessMenu>;
+﻿@using static HaloDocMVC.Entity.Models.Constant;
+@{
     Layout = "_Layout";
+    ViewData["Title"] = "Access";
 }
-<h1>Access</h1>
+<div class="body">
+    <div class="container">
+        <div class="d-flex justify-content-between mt-3">
+            <div class="d-flex align-items-center">
+                <h4 class="pt-2">Account Access</h4>
+            </div>
+        </div>
+        <div class="card border-0 shadow py-4 mb-5 mt-3 rounded p-3 rounded container">
+            <div class="d-flex justify-content-end">
+                <a asp-controller="Access" asp-action="CreateAccess" class="btn btn-outline-info rounded mb-1 align-self-center">
+                    <span>
+                        <b>Create Access</b>
+                    </span>
+                </a>
+            </div>
+            <table class="w-100 mt-3 table dataTable">
+                <thead class="theadbg py-2">
+                    <tr>
+                        <th scope="col" style="width:40%">
+                            <small>Name</small>
+                        </th>
+                        <th scope="col" style="width:45%">
+                            <small>Account Type</small>
+                        </th>
+                        <th scope="col" style="width:15%">
+                            <small>Actions</small>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="mb-5" id="tableBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.RoleName
+                            </td>
+                            <td>
+                                @Enum.GetName(typeof(AccountType), item.AccountType)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-info">
+                                    <small>Edit</small>
+                                </a>
+                                <a class="btn btn-outline-info" asp-action="" asp-controller="">
+                                    <small>Delete</small>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+
+</script> 

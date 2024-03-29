@@ -763,7 +763,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -796,7 +796,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 }
                 else { return false; }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

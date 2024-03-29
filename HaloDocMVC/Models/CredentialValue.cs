@@ -32,7 +32,7 @@ namespace HaloDocMVC.Models
             {
                 cookieValue = _httpContextAccessor.HttpContext.Request.Cookies["jwt"].ToString();
 
-                UserName = DecodedToken.DecodeJwt(DecodedToken.ConvertJwtStringToJwtSecurityToken(cookieValue)).claims.FirstOrDefault(t => t.Key == "Username").Value;
+                UserName = DecodedToken.DecodeJwt(DecodedToken.ConvertJwtStringToJwtSecurityToken(cookieValue)).claims.FirstOrDefault(t => t.Key == "UserName").Value;
             }
             return UserName;
         }

@@ -140,7 +140,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
         #endregion
 
-        #region GetProfile
+        #region GetProfileDetails
         public ProviderMenu GetProfileDetails(int UserId)
         {
             ProviderMenu? v = (from r in _context.Physicians
@@ -274,7 +274,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -310,7 +310,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -355,7 +355,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -392,7 +392,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
 
                     p.AspNetUserId = A.Id;
                 }
-
                 else
                 {
                     p.AspNetUserId = asp.Id;

@@ -41,5 +41,11 @@ namespace HaloDocMVC.Entity.Models
             UnAvailable = 0,
             Available
         }
+        public enum AccountType
+        {
+            Admin = 1,
+            Provider,
+            Patient,
+        }
     }
 }

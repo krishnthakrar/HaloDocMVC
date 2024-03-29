@@ -23,5 +23,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public List<UserRole> UserRole();
 
         public List<Role> PhysRole();
+
+        public List<AspNetRole> AccType();
+
+        public List<Menu> AccessByType(int AccountType);
     }
 }

@@ -100,5 +100,28 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }).ToList();
         }
         #endregion
+
+        #region AccType
+        public List<AspNetRole> AccType()
+        {
+            return _context.AspNetRoles.Select(req => new AspNetRole()
+            {
+                Id = req.Id,
+                Name = req.Name
+            }).ToList();
+        }
+        #endregion
+
+        #region HealthProfessionalType
+        public List<Menu> AccessByType(int AccountType)
+        {
+            return _context.Menus.Where(r => r.AccountType == (short)AccountType).Select(req => new Menu()
+            {
+                MenuId = req.MenuId,
+                Name = req.Name
+            })
+            .ToList();
+        }
+        #endregion
     }
 }
