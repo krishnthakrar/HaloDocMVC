@@ -88,7 +88,8 @@ namespace HaloDocMVC.Controllers
         [HttpPost]
         public IActionResult CreateProviderPost(ProviderMenu pm)
         {
-            if (_providers.CreateProvider(pm))
+            string? id = CredentialValue.ID();
+            if (_providers.CreateProvider(pm, id))
             {
                 _notyf.Success("Provider created successfully....!!!!");
             }

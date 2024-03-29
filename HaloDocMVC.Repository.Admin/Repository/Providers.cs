@@ -363,9 +363,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region CreateProvider
-        public bool CreateProvider(ProviderMenu pm)
+        public bool CreateProvider(ProviderMenu pm, string? id)
         {
             AspNetUser A = new();
+            AspNetUserRole AUR = new();
             Physician p = new();
             var isexist = _context.Physicians.FirstOrDefault(x => x.Email == pm.Email);
             var asp = _context.AspNetUsers.FirstOrDefault(x => x.Email == pm.Email);
@@ -382,6 +383,11 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     A.PhoneNumber = pm.AltPhone;
                     A.CreatedDate = DateTime.Now;
                     _context.Add(A);
+                    _context.SaveChanges();
+
+                    AUR.UserId = A.Id;
+                    AUR.RoleId = "2";
+                    _context.Add(AUR);
                     _context.SaveChanges();
 
                     p.AspNetUserId = A.Id;

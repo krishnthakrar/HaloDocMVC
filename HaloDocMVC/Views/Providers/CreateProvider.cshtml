@@ -13,6 +13,7 @@
         </div>
     </div>
     <form method="post" asp-controller="Providers" asp-action="CreateProviderPost" id="CreateProviderForm" enctype="multipart/form-data" class="mt-0">
+        <input type="hidden" asp-for="PhysicianId" />
         @* Profile Information *@
         <div class="bg-white rounded shadow mt-3">
             <div class="p-4">
@@ -98,7 +99,6 @@
 
                 @* Mailing/Billing Information *@
                 <h5><strong>Mailing & Billing Information</strong></h5>
-                <input type="hidden" asp-for="PhysicianId" />
                 <div class="col-xl-12">
                     <div class="row pb-4">
                         <div class="col-md-6 pb-3">
@@ -142,7 +142,6 @@
 
                 @* Provider Profile *@
                 <h5><strong>Provider Profile</strong></h5>
-                <input type="hidden" asp-for="PhysicianId" />
                 <div class="col-xl-12">
                     <div class="row pb-4">
                         <div class="col-md-6 pb-3">

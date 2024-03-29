@@ -32,13 +32,28 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 new Claim(ClaimTypes.Role, userinfo.Role),
                 new Claim("FirstName", userinfo.FirstName),
                 new Claim("UserId", userinfo.UserId.ToString()),
-                new Claim("Username", userinfo.UserName.ToString())
+                new Claim("UserName", userinfo.UserName.ToString()),
+                new Claim("AspNetUserId", userinfo.AspNetUserId.ToString())
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
+
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.UtcNow.AddMinutes(60);
-            var token = new JwtSecurityToken(Configuration["Jwt:Issuer"], Configuration["Jwt:Audience"], claims, expires: expires, signingCredentials: creds);
+
+            var expires =
+                DateTime.UtcNow.AddMinutes(60);
+
+            var token = new JwtSecurityToken(
+                Configuration["Jwt:Issuer"],
+                Configuration["Jwt:Audience"],
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
             return new JwtSecurityTokenHandler().WriteToken(token);
+
+
         }
         #endregion
 
