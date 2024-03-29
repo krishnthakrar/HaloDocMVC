@@ -173,5 +173,21 @@ namespace HaloDocMVC.Controllers
             return RedirectToAction("EditProvider", new { id = pm.PhysicianId });
         }
         #endregion
+
+        #region ProviderEditSubmit
+        [HttpPost]
+        public IActionResult ProviderEditSubmit(ProviderMenu pm)
+        {
+            if (_providers.ProviderEditSubmit(pm))
+            {
+                _notyf.Success("Information edited Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Information not edited...");
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }

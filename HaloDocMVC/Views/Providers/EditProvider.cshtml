@@ -123,7 +123,7 @@
                                 @if (Model != null && Model.RegionIds.Count > 0 && Model.RegionIds.Exists(id => id.RegionId == cb.RegionId))
                                 {
                                     <div class="form-check mx-2">
-                                        <input class="form-check-input input2" value="@cb.RegionId" type="checkbox" name="Region" id="flexCheckDefault" checked>
+                                        <input class="form-check-input cb1" value="@cb.RegionId" type="checkbox" name="Region" id="flexCheckDefault" checked>
                                         <label class="form-check-label" for="flexCheckDefault">
                                             @cb.RegionName
                                         </label>
@@ -132,7 +132,7 @@
                                 else
                                 {
                                     <div class="form-check mx-2">
-                                        <input class="form-check-input input2" value="@cb.RegionId" type="checkbox" name="Region" id="flexCheckDefault">
+                                        <input class="form-check-input cb1" value="@cb.RegionId" type="checkbox" name="Region" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             @cb.RegionName
                                         </label>
@@ -260,191 +260,193 @@
                 </div>
             </form>
             <hr class="mb-4" />
-            <div class="p-4">
-                <h5><strong>Onboarding</strong></h5>
-                <div class="col-md-12 mb-2">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check mx-2">
-                                <input class="form-check-input agreement-checkbox " asp-for="IsAgreementDoc" name="Isagreementdoc" type="checkbox" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Independent Contractor Agreement
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex">
-                            <div>
-                                @{
-                                    var isChecked = Model != null ? Model.IsAgreementDoc : false;
-                                }
+            <form method="post" asp-controller="Providers" asp-action="ProviderEditSubmit" id="formSubmit" enctype="multipart/form-data" class="mt-0">
+                <input type="hidden" asp-for="PhysicianId" />
+                <div class="p-4">
+                    <h5><strong>Onboarding</strong></h5>
 
-                                <input id="filebtn1" type="file" class="d-none form-control doc_uploder file " asp-for="AgreementDoc" disabled>
-                                <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn1').click()" disabled>
-                                    <span class="d-none d-sm-inline">Upload</span>
-                                </button>
+                    <div class="col-md-12 mb-2 mt-3">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input agreement-checkbox " asp-for="IsAgreementDoc" name="Isagreementdoc" type="checkbox" id="flexCheckDefault">
+                                    <label class="form-check-label ms-4" for="flexCheckDefault">
+                                        Independent Contractor Agreement
+                                    </label>
+                                </div>
                             </div>
-                            @{
-                                if (Model != null && Model.IsAgreementDoc)
-                                {
-                                    <a href="~/Upload/Physician/@Model.PhysicianId/Agreementdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
-                                }
-                            }
-                            <a class="btn btn-info mx-2 text-white view-button" style="display:none;">View</a>
-
-                            <!-- Display uploaded file details -->
-                            <div class="file-details" style="display:none;">
-                                <p><span class="file-name"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               
-
-
-                <div class="col-md-12 mb-2">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check mx-2">
-                                <input class="form-check-input agreement-checkbox" asp-for="IsBackgroundDoc" type="checkbox" id="Isbackgrounddoc">
-                                <label class="form-check-label" for="Isbackgrounddoc">
-                                    Background Check
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex">
-                            <div>
-                                @{
-                                    isChecked = Model != null ? Model.IsBackgroundDoc : false;
-                                }
-                                <input id="filebtn2" type="file" class="d-none form-control doc_uploder file" asp-for="BackGroundDoc" disabled>
-                                <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn2').click()" disabled>
-                                    <span class="d-none d-sm-inline">Upload</span>
-                                </button>
-                            </div>
-                            @{
-                                if (Model != null && Model.IsBackgroundDoc)
-                                {
-                                    <a href="~/Upload/Physician/@Model.PhysicianId/BackGrounddoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
-                                }
-                            }
-                            <!-- Display uploaded file details -->
-                            <div class="file-details" style="display:none;">
-                                <p><span class="file-name"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 mb-2">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check mx-2">
-                                <input class="form-check-input agreement-checkbox" asp-for="IsTrainingDoc" type="checkbox" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    HIPAA Compliance
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex">
-                            <div>
-                                @{
-                                    isChecked = Model != null ? Model.IsTrainingDoc : false;
-                                }
-                                <input id="filebtn3" type="file" class="d-none form-control doc_uploder file" asp-for="TrainingDoc" disabled>
-                                <button type="button" class="btn btn-info text-white upload-button me-2" value="Upload" onclick="document.getElementById('filebtn3').click()" disabled>
-                                    <span class="d-none d-sm-inline">Upload</span>
-                                </button>
-
-                                @{
-                                    if (Model != null && Model.IsTrainingDoc)
-                                    {
-                                        <a href="~/Upload/Physician/@Model.PhysicianId/Trainingdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
+                            <div class="col-md-4 d-flex">
+                                <div class="me-3">
+                                    @{
+                                        var isChecked = Model != null ? Model.IsAgreementDoc : false;
                                     }
-                                }
-                            </div>
 
-                            <!-- Display uploaded file details -->
-                            <div class="file-details" style="display:none;">
-                                <p><span class="file-name"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 mb-2">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check mx-2">
-                                <input class="form-check-input agreement-checkbox" asp-for="IsNonDisclosureDoc" type="checkbox" id="Isnondisclosuredoc">
-                                <label class="form-check-label" for="Isnondisclosuredoc">
-                                    Non-disclosure Agreement
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex">
-                            <div>
+                                    <input id="filebtn1" type="file" class="d-none form-control doc_uploder file " asp-for="AgreementDoc" disabled>
+                                    <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn1').click()" disabled>
+                                        <span class="d-none d-sm-inline">Upload</span>
+                                    </button>
+                                </div>
                                 @{
-                                    isChecked = Model != null ? (bool)Model.IsNonDisclosureDoc : false;
-                                }
-                                <input id="filebtn4" type="file" class="d-none form-control doc_uploder file" asp-for="NonDisclosureDoc" disabled>
-                                <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn4').click()" disabled>
-                                    <span class="d-none d-sm-inline">Upload</span>
-                                </button>
-                            </div>
-                            @{
-                                if (Model != null && (bool)Model.IsNonDisclosureDoc)
-                                {
-                                    <a href="~/Upload/Physician/@Model.PhysicianId/NonDisclosuredoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
-                                }
-                            }
-                            <!-- Display uploaded file details -->
-                            <div class="file-details" style="display:none;">
-                                <p><span class="file-name"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 mb-2">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-check mx-2">
-                                <input class="form-check-input agreement-checkbox" asp-for="IsLicenseDoc" type="checkbox" id="Islicensedoc">
-                                <label class="form-check-label" for="Islicensedoc">
-                                    License Document
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-5 d-flex">
-                            <div>
-                                @{
-                                    isChecked = Model != null ? Model.IsLicenseDoc : false;
-                                }
-                                <input id="filebtn5" type="file" class="d-none form-control doc_uploder file" asp-for="LicenseDoc" disabled>
-                                <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn5').click()" disabled>
-                                    Upload
-                                </button>
-
-                                @{
-                                    if (Model != null && Model.IsLicenseDoc)
+                                    if (Model != null && Model.IsAgreementDoc)
                                     {
                                         <a href="~/Upload/Physician/@Model.PhysicianId/Agreementdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
                                     }
                                 }
+                                <a class="btn btn-info mx-2 text-white view-button" style="display:none;">View</a>
+
+                                <!-- Display uploaded file details -->
+                                <div class="file-details" style="display:none;">
+                                    <p><span class="file-name"></span></p>
+                                </div>
                             </div>
-                            <!-- Display uploaded file details -->
-                            <div class="file-details" style="display:none;">
-                                <p><span class="file-name"></span></p>
+                        </div>
+                    </div>
+               
+                    <div class="col-md-12 mb-2">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input agreement-checkbox" asp-for="IsBackgroundDoc" type="checkbox" id="Isbackgrounddoc">
+                                    <label class="form-check-label ms-4" for="Isbackgrounddoc">
+                                        Background Check
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex">
+                                <div class="me-3">
+                                    @{
+                                        isChecked = Model != null ? Model.IsBackgroundDoc : false;
+                                    }
+                                    <input id="filebtn2" type="file" class="d-none form-control doc_uploder file" asp-for="BackGroundDoc" disabled>
+                                    <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn2').click()" disabled>
+                                        <span class="d-none d-sm-inline">Upload</span>
+                                    </button>
+                                </div>
+                                @{
+                                    if (Model != null && Model.IsBackgroundDoc)
+                                    {
+                                        <a href="~/Upload/Physician/@Model.PhysicianId/BackGrounddoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
+                                    }
+                                }
+                                <!-- Display uploaded file details -->
+                                <div class="file-details" style="display:none;">
+                                    <p><span class="file-name"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input agreement-checkbox" asp-for="IsTrainingDoc" type="checkbox" id="flexCheckDefault">
+                                    <label class="form-check-label ms-4" for="flexCheckDefault">
+                                        HIPAA Compliance
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex">
+                                <div class="me-3">
+                                    @{
+                                        isChecked = Model != null ? Model.IsTrainingDoc : false;
+                                    }
+                                    <input id="filebtn3" type="file" class="d-none form-control doc_uploder file" asp-for="TrainingDoc" disabled>
+                                    <button type="button" class="btn btn-info text-white upload-button me-2" value="Upload" onclick="document.getElementById('filebtn3').click()" disabled>
+                                        <span class="d-none d-sm-inline">Upload</span>
+                                    </button>
+
+                                    @{
+                                        if (Model != null && Model.IsTrainingDoc)
+                                        {
+                                            <a href="~/Upload/Physician/@Model.PhysicianId/Trainingdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
+                                        }
+                                    }
+                                </div>
+
+                                <!-- Display uploaded file details -->
+                                <div class="file-details" style="display:none;">
+                                    <p><span class="file-name"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input agreement-checkbox" asp-for="IsNonDisclosureDoc" type="checkbox" id="Isnondisclosuredoc">
+                                    <label class="form-check-label ms-4" for="Isnondisclosuredoc">
+                                        Non-disclosure Agreement
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex">
+                                <div class="me-3">
+                                    @{
+                                        isChecked = Model != null ? (bool)Model.IsNonDisclosureDoc : false;
+                                    }
+                                    <input id="filebtn4" type="file" class="d-none form-control doc_uploder file" asp-for="NonDisclosureDoc" disabled>
+                                    <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn4').click()" disabled>
+                                        <span class="d-none d-sm-inline">Upload</span>
+                                    </button>
+                                </div>
+                                @{
+                                    if (Model != null && (bool)Model.IsNonDisclosureDoc)
+                                    {
+                                        <a href="~/Upload/Physician/@Model.PhysicianId/NonDisclosuredoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
+                                    }
+                                }
+                                <!-- Display uploaded file details -->
+                                <div class="file-details" style="display:none;">
+                                    <p><span class="file-name"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input agreement-checkbox" asp-for="IsLicenseDoc" type="checkbox" id="Islicensedoc">
+                                    <label class="form-check-label ms-4" for="Islicensedoc">
+                                        License Document
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-5 d-flex">
+                                <div class="me-3">
+                                    @{
+                                        isChecked = Model != null ? Model.IsLicenseDoc : false;
+                                    }
+                                    <input id="filebtn5" type="file" class="d-none form-control doc_uploder file" asp-for="LicenseDoc" disabled>
+                                    <button type="button" class="btn btn-info text-white upload-button" value="Upload" onclick="document.getElementById('filebtn5').click()" disabled>
+                                        Upload
+                                    </button>
+
+                                    @{
+                                        if (Model != null && Model.IsLicenseDoc)
+                                        {
+                                            <a href="~/Upload/Physician/@Model.PhysicianId/Agreementdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
+                                        }
+                                    }
+                                </div>
+                                <!-- Display uploaded file details -->
+                                <div class="file-details" style="display:none;">
+                                    <p><span class="file-name"></span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr />
-            <div class=" d-flex justify-content-end">
-                <input type="button" class=" btn bg-info text-white rounded px-3 me-2" value="Save" />
-                <input type="button" class=" btn bg-danger text-white rounded px-3 " value="Delete Account">
-            </div>
+                <hr />
+                <div class=" d-flex justify-content-end">
+                    <input type="button" class="btn bg-info text-white rounded px-3 me-2" id="submitForm" value="Save" />
+                    <input type="button" class="btn bg-danger text-white rounded px-3 " value="Delete Account">
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -454,7 +456,7 @@
         toggleFormElements2('true')
         toggleFormElements3('true')
         toggleFormElements4('true')
-        $(".form-check-input").prop("disabled", true);
+        $(".cb1").prop("disabled", true);
         $(".fileSelect").prop("disabled", true);
     }
     function toggleFormElements1(bDisabled) {
@@ -464,7 +466,6 @@
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].disabled = !inputs[i].disabled;
         }
-        $(".form-check-input").prop("disabled", false);
         if (inputs[0].disabled) {
             submit.style.display = "none";
             editprofile.style.display = "block";
@@ -480,6 +481,7 @@
         for (var i = 0; i < inputs2.length; i++) {
             inputs2[i].disabled = !inputs2[i].disabled;
         }
+        $(".cb1").prop("disabled", false);
         if (inputs2[0].disabled) {
             submit2.style.display = "none";
             editprofile2.style.display = "block";
@@ -614,11 +616,27 @@
             });
         });
     });
+
+    $(function () {
+        $('#submitForm').on('click', function () {
+            Swal.fire({
+                title: "Do you want to Submit the form ?",
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                denyButtonText: `Don't submit`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#formSubmit').submit();
+                }
+            });
+        });
+    });
+
     $(document).ready(function () {
         $(document).on('change', '.agreement-checkbox', function () {
             var checkbox = $(this);
             var row = checkbox.closest('.row');
-            console.log("123")
             var uploadBtn = row.find('.upload-button');
             var doc_uploder = row.find('.doc_uploder');
             uploadBtn.prop('disabled', !checkbox.prop('checked'));

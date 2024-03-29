@@ -175,7 +175,12 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                        SyncEmailAddress = r.SyncEmailAddress,
                                        BusinessName = r.BusinessName,
                                        BusinessWebsite = r.BusinessWebsite,
-                                       AdminNotes = r.AdminNotes
+                                       AdminNotes = r.AdminNotes,
+                                       IsAgreementDoc = r.IsAgreementDoc[0],
+                                       IsNonDisclosureDoc = r.IsNonDisclosureDoc == false ? false : true,
+                                       IsBackgroundDoc = r.IsBackgroundDoc[0],
+                                       IsLicenseDoc = r.IsLicenseDoc[0],
+                                       IsTrainingDoc = r.IsTrainingDoc[0],
                                    }).FirstOrDefault();
             List<Regions> regions = new();
             regions = _context.PhysicianRegions
@@ -346,6 +351,53 @@ namespace HaloDocMVC.Repository.Admin.Repository
                             string UploadSign = SaveFile.UploadDoc(pm.SignatureFile, id);
                             DataForChange.Signature = UploadSign;
                         }
+                        _context.Physicians.Update(DataForChange);
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region ProviderEditSubmit
+        public bool ProviderEditSubmit(ProviderMenu pm)
+        {
+            try
+            {
+                if (pm == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    var DataForChange = _context.Physicians.Where(W => W.PhysicianId == pm.PhysicianId).FirstOrDefault();
+                    if (DataForChange != null)
+                    {
+                        SaveFile.UploadProviderDoc(pm.AgreementDoc, (int)pm.PhysicianId, "Agreementdoc.pdf");
+                        SaveFile.UploadProviderDoc(pm.BackGroundDoc, (int)pm.PhysicianId, "BackGrounddoc.pdf");
+                        SaveFile.UploadProviderDoc(pm.NonDisclosureDoc, (int)pm.PhysicianId, "NonDisclosuredoc.pdf");
+                        SaveFile.UploadProviderDoc(pm.LicenseDoc, (int)pm.PhysicianId, "Agreementdoc.pdf");
+                        SaveFile.UploadProviderDoc(pm.TrainingDoc, (int)pm.PhysicianId, "Trainingdoc.pdf");
+                        DataForChange.IsAgreementDoc = new BitArray(1);
+                        DataForChange.IsBackgroundDoc = new BitArray(1);
+                        DataForChange.IsNonDisclosureDoc = false;
+                        DataForChange.IsLicenseDoc = new BitArray(1);
+                        DataForChange.IsTrainingDoc = new BitArray(1);
+
+                        DataForChange.IsAgreementDoc[0] = pm.IsAgreementDoc;
+                        DataForChange.IsBackgroundDoc[0] = pm.IsBackgroundDoc;
+                        DataForChange.IsNonDisclosureDoc = pm.IsNonDisclosureDoc;
+                        DataForChange.IsLicenseDoc[0] = pm.IsLicenseDoc;
+                        DataForChange.IsTrainingDoc[0] = pm.IsTrainingDoc;
                         _context.Physicians.Update(DataForChange);
                         _context.SaveChanges();
                         return true;
