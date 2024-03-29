@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -31,7 +32,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region PhysicianAll
         public List<ProviderMenu> PhysicianAll()
         {
-            List<ProviderMenu> data = (from r in _context.Physicians
+            List<ProviderMenu>? data = (from r in _context.Physicians
                                        join Notifications in _context.PhysicianNotifications
                                        on r.PhysicianId equals Notifications.PhysicianId into aspGroup
                                        from nof in aspGroup.DefaultIfEmpty()
@@ -57,7 +58,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                            Role = roles.Name,
                                            Status = r.Status,
                                            Email = r.Email,
-                                           IsNonDisclosureDoc = r.IsNonDisclosureDoc
+                                           IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
                                        }).ToList();
             return data;
         }
@@ -134,7 +135,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                             Role = roles.Name,
                                             Status = r.Status,
                                             Email = r.Email,
-                                            IsNonDisclosureDoc = r.IsNonDisclosureDoc
+                                            IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
                                         }).ToList();
             return data;
         }
@@ -419,10 +420,30 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 p.IsDeleted = new BitArray(1);
                 p.RoleId = pm.RoleId;
                 p.Npinumber = pm.NpiNumber;
+                p.IsAgreementDoc = new BitArray(1);
+                p.IsBackgroundDoc = new BitArray(1);
+                p.IsNonDisclosureDoc = false;
+                p.IsLicenseDoc = new BitArray(1);
+                p.IsTrainingDoc = new BitArray(1);
+
+                p.IsAgreementDoc[0] = pm.IsAgreementDoc;
+                p.IsBackgroundDoc[0] = pm.IsBackgroundDoc;
+                p.IsNonDisclosureDoc = pm.IsNonDisclosureDoc;
+                p.IsLicenseDoc[0] = pm.IsLicenseDoc;
+                p.IsTrainingDoc[0] = pm.IsTrainingDoc;
+                p.IsDeleted[0] = false;
                 //credential
                 p.IsNonDisclosureDoc = true;
                 _context.Add(p);
                 _context.SaveChanges();
+                SaveFile.UploadProviderDoc(pm.AgreementDoc, p.PhysicianId, "Agreementdoc.pdf");
+                SaveFile.UploadProviderDoc(pm.BackGroundDoc, p.PhysicianId, "BackGrounddoc.pdf");
+                SaveFile.UploadProviderDoc(pm.NonDisclosureDoc, p.PhysicianId, "NonDisclosuredoc.pdf");
+                SaveFile.UploadProviderDoc(pm.LicenseDoc, p.PhysicianId, "Agreementdoc.pdf");
+                SaveFile.UploadProviderDoc(pm.TrainingDoc, p.PhysicianId, "Trainingdoc.pdf");
+
+                SaveFile.UploadProviderDoc(pm.SignatureFile, p.PhysicianId, p.FirstName + "-" + DateTime.Now.ToString("yyyyMMddhhmmss") + "-Signature.png");
+                SaveFile.UploadProviderDoc(pm.PhotoFile, p.PhysicianId, p.FirstName + "-" + DateTime.Now.ToString("yyyyMMddhhmmss") + "-Photo." + Path.GetExtension(pm.PhotoFile.FileName).Trim('.'));
 
                 if (pm.PhotoFile != null)
                 {

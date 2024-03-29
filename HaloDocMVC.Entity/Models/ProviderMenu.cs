@@ -52,7 +52,7 @@ namespace HaloDocMVC.Entity.Models
         
         public bool IsTrainingDoc { get; set; }
         
-        public bool? IsNonDisclosureDoc { get; set; }
+        public bool IsNonDisclosureDoc { get; set; }
         
         public bool IsLicenseDoc { get; set; }
         
