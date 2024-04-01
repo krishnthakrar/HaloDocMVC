@@ -75,10 +75,10 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region EditAccess
-        public IActionResult EditAccess(int? id)
+        public IActionResult EditAccess(int? id, int AccountType)
         {
             ViewBag.AccType = _dropdown.AccType();
-            ViewBag.AccessRole = _dropdown.AccessRole();
+            ViewBag.AccessByType = _dropdown.AccessByType(AccountType);
             AccessMenu am = _access.EditAccess(id);
             return View(am);
         }

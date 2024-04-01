@@ -49,6 +49,9 @@
     </form>
 </div>
 <script>
+    window.onload = function (e) {
+        AccessCheckbox();
+    }
     function AccessCheckbox() {
         var user = $("#acctype").val();
         $.ajax({

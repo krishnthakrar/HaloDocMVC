@@ -57,16 +57,23 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     _context.Roles.Add(R);
                     _context.SaveChanges();
 
-                    List<int> priceList = am.AccessId.Split(',').Select(int.Parse).ToList();
-                    foreach (var item in priceList)
+                    if (am.AccessId != null)
                     {
-                        RoleMenu RM = new();
-                        RM.RoleId = R.RoleId;
-                        RM.MenuId = item;
-                        _context.RoleMenus.Add(RM);
-                        _context.SaveChanges();
+                        List<int>? priceList = am.AccessId.Split(',').Select(int.Parse).ToList();
+                        foreach (var item in priceList)
+                        {
+                            RoleMenu RM = new();
+                            RM.RoleId = R.RoleId;
+                            RM.MenuId = item;
+                            _context.RoleMenus.Add(RM);
+                            _context.SaveChanges();
+                        }
+                        return true;
                     }
-                    return true;
+                    else 
+                    {
+                        return true; 
+                    }
                 }
             }
             catch (Exception)

@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
-                                <select class="form-select form-control shadow-none" required onchange="AccessCheckbox()" id="acctype" asp-for="AccountType" data-allow-clear="true" tabindex="-1" asp-items="@(new SelectList(ViewBag.AccType, "Id", "Name"))" data-control="select2" data-placeholder="Select Account Type" disabled>
+                                <select class="form-select form-control shadow-none" required id="acctype" asp-for="AccountType" data-allow-clear="true" tabindex="-1" asp-items="@(new SelectList(ViewBag.AccType, "Id", "Name"))" data-control="select2" data-placeholder="Select Account Type" disabled>
                                 </select>
                                 <label for="acctype">Account Type</label>
                             </div>
@@ -38,7 +38,7 @@
                 </div>
                 <input asp-for="AccessId" type="hidden" id="accessids" />
                 <div class="col-md-12 d-flex flex-wrap pb-3" id="checkboxes">
-                    @foreach (var cb in ViewBag.AccessRole)
+                    @foreach (var cb in ViewBag.AccessByType)
                     {
                         @if (Model != null && Model.RoleMenuList.Count > 0 && Model.RoleMenuList.Exists(id => id.MenuId == cb.MenuId))
                         {

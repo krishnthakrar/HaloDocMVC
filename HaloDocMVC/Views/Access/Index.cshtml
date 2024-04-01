@@ -44,7 +44,7 @@
                                 @Enum.GetName(typeof(AccountType), item.AccountType)
                             </td>
                             <td>
-                                <a class="btn btn-outline-info" asp-action="EditAccess" asp-controller="Access" asp-route-id="@item.RoleId">
+                                <a class="btn btn-outline-info" asp-action="EditAccess" asp-controller="Access" asp-route-id="@item.RoleId" asp-route-AccountType="@item.AccountType">
                                     <small>Edit</small>
                                 </a>
                                 <a class="btn btn-outline-info" asp-action="DeleteAccess" asp-controller="Access" asp-route-id="@item.RoleId">

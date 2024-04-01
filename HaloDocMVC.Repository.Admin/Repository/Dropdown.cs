@@ -112,25 +112,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
         #endregion
 
-        #region AccessRole
-        public List<Menu> AccessRole()
-        {
-            return _context.Menus.Select(req => new Menu()
-            {
-                MenuId = req.MenuId,
-                Name = req.Name,
-                AccountType = req.AccountType,
-            }).ToList();
-        }
-        #endregion
-
-        #region HealthProfessionalType
+        #region AccessByType
         public List<Menu> AccessByType(int AccountType)
         {
             return _context.Menus.Where(r => r.AccountType == (short)AccountType).Select(req => new Menu()
             {
                 MenuId = req.MenuId,
-                Name = req.Name
+                Name = req.Name,
+                AccountType = req.AccountType,
             })
             .ToList();
         }
