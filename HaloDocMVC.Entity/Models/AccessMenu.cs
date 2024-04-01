@@ -13,5 +13,7 @@ namespace HaloDocMVC.Entity.Models
         public string? RoleName { get; set; }
 
         public int AccountType { get; set;}
+
+        public string? AccessId { get; set;}
     }
 }

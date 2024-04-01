@@ -46,6 +46,7 @@ namespace HaloDocMVC.Entity.Models
             Admin = 1,
             Provider,
             Patient,
+            All
         }
     }
 }

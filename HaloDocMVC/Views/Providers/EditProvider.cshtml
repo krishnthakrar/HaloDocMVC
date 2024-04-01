@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <input asp-for="RegionsId" type="hidden" id="regionids" />
-                        <div class="col-md-6 d-flex pb-3">
+                        <div class="col-md-6 d-flex flex-wrap pb-3">
                             @foreach (var cb in ViewBag.AllRegion)
                             {
                                 @if (Model != null && Model.RegionIds.Count > 0 && Model.RegionIds.Exists(id => id.RegionId == cb.RegionId))
@@ -287,7 +287,7 @@
                                     </button>
                                 </div>
                                 @{
-                                    if (Model != null && Model.IsAgreementDoc)
+                                    if (Model != null && (bool)Model.IsAgreementDoc)
                                     {
                                         <a href="~/Upload/Physician/@Model.PhysicianId/Agreementdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
                                     }
@@ -323,7 +323,7 @@
                                     </button>
                                 </div>
                                 @{
-                                    if (Model != null && Model.IsBackgroundDoc)
+                                    if (Model != null && (bool)Model.IsBackgroundDoc)
                                     {
                                         <a href="~/Upload/Physician/@Model.PhysicianId/BackGrounddoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
                                     }
@@ -357,7 +357,7 @@
                                     </button>
 
                                     @{
-                                        if (Model != null && Model.IsTrainingDoc)
+                                        if (Model != null && (bool)Model.IsTrainingDoc)
                                         {
                                             <a href="~/Upload/Physician/@Model.PhysicianId/Trainingdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
                                         }
@@ -427,7 +427,7 @@
                                     </button>
 
                                     @{
-                                        if (Model != null && Model.IsLicenseDoc)
+                                        if (Model != null && (bool)Model.IsLicenseDoc)
                                         {
                                             <a href="~/Upload/Physician/@Model.PhysicianId/Agreementdoc.pdf" target="_blank" class="btn btn-info text-white">View</a>
                                         }

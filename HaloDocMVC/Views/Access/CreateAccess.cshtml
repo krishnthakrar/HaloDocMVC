@@ -12,8 +12,7 @@
             <a asp-controller="Access" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
         </div>
     </div>
-    <form method="post" asp-controller="Access" asp-action="" id="CreateAccessForm"class="mt-0">
-        <input type="hidden" asp-for="RoleId" />
+    <form method="post" asp-controller="Access" asp-action="CreateAccessPost" id="CreateAccessForm" class="mt-0">
         @* Profile Information *@
         <div class="bg-white rounded shadow mt-3">
             <div class="p-4">
@@ -30,26 +29,15 @@
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
                                 <select class="form-select form-control shadow-none" required onchange="AccessCheckbox()" id="acctype" asp-for="RoleId" data-allow-clear="true" tabindex="-1" asp-items="@(new SelectList(ViewBag.AccType, "Id", "Name"))" data-control="select2" data-placeholder="Select Account Type">
-                                    <option>All</option>
                                 </select>
                                 <label for="acctype">Account Type</label>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                @*<input asp-for="RegionsId" type="hidden" id="regionids" />*@
-                <div class="col-md-12 d-flex pb-3">
-                    checkbox
-                    @*@foreach (var cb in ViewBag.AllRegion)
-                    {
-                        <div class="form-check mx-2">
-                            <input class="form-check-input input2" value="@cb.RegionId" type="checkbox" name="Region" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                @cb.RegionName
-                            </label>
-                        </div>
-                    }*@
+                <input asp-for="AccessId" type="hidden" id="accessids" />
+                <div class="col-md-12 d-flex flex-wrap pb-3" id="checkboxes">
+                    
                 </div>
                     
                 <div class=" d-flex justify-content-end">
@@ -68,7 +56,11 @@
             url: '@Url.Action("AccessByType", "Access")?AccountType=' + user,
             cache: false,
             success: function (response) {
-                console.log(response);
+                var check = "";
+                for (var i = 0; i < response.length; i++) {
+                    check += '<div class="form-check ms-2"><input class="form-check-input" type = "checkbox" name="access" value = "' + response[i].menuId + '" ><label class="form-check-label">' + response[i].name + '</label></div>';
+                }
+                $("#checkboxes").html(check)
             },
             error: function () {
                 alert("Error while fetching access data.");
@@ -77,12 +69,12 @@
     }
     $(function () {
         $('#add').on('click', function () {
-            let checkboxes = document.querySelectorAll('input[name="Region"]:checked');
-            let regionIds = [];
+            let checkboxes = document.querySelectorAll('input[name="access"]:checked');
+            let accessIds = [];
             checkboxes.forEach((checkbox) => {
-                regionIds.push(checkbox.value);
+                accessIds.push(checkbox.value);
             });
-            document.querySelector('#regionids').value = regionIds.join(',');
+            document.querySelector('#accessids').value = accessIds.join(',');
             $('#CreateAccessForm').submit();
         });
     });
