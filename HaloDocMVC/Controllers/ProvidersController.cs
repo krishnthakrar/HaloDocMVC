@@ -189,5 +189,20 @@ namespace HaloDocMVC.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
+        #region DeleteAccount
+        public IActionResult DeleteAccount(int? id)
+        {
+            if (_providers.DeleteAccount(id))
+            {
+                _notyf.Success("Account Deleted Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Account can't be Deleted...");
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }

@@ -33,33 +33,33 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public List<ProviderMenu> PhysicianAll()
         {
             List<ProviderMenu>? data = (from r in _context.Physicians
-                                       join Notifications in _context.PhysicianNotifications
-                                       on r.PhysicianId equals Notifications.PhysicianId into aspGroup
-                                       from nof in aspGroup.DefaultIfEmpty()
-                                       join role in _context.Roles
-                                       on r.RoleId equals role.RoleId into roleGroup
-                                       from roles in roleGroup.DefaultIfEmpty()
-                                       where r.IsDeleted == new BitArray(1)
-                                       select new ProviderMenu
-                                       {
-                                           NotificationId = nof.Id,
-                                           CreatedDate = r.CreatedDate,
-                                           PhysicianId = r.PhysicianId,
-                                           Address1 = r.Address1,
-                                           Address2 = r.Address2,
-                                           AdminNotes = r.AdminNotes,
-                                           AltPhone = r.AltPhone,
-                                           BusinessName = r.BusinessName,
-                                           BusinessWebsite = r.BusinessWebsite,
-                                           City = r.City,
-                                           FirstName = r.FirstName,
-                                           LastName = r.LastName,
-                                           Notification = nof.IsNotificationStopped,
-                                           Role = roles.Name,
-                                           Status = r.Status,
-                                           Email = r.Email,
-                                           IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
-                                       }).ToList();
+                                        join Notifications in _context.PhysicianNotifications
+                                        on r.PhysicianId equals Notifications.PhysicianId into aspGroup
+                                        from nof in aspGroup.DefaultIfEmpty()
+                                        join role in _context.Roles
+                                        on r.RoleId equals role.RoleId into roleGroup
+                                        from roles in roleGroup.DefaultIfEmpty()
+                                        where r.IsDeleted == new BitArray(1)
+                                        select new ProviderMenu
+                                        {
+                                            NotificationId = nof.Id,
+                                            CreatedDate = r.CreatedDate,
+                                            PhysicianId = r.PhysicianId,
+                                            Address1 = r.Address1,
+                                            Address2 = r.Address2,
+                                            AdminNotes = r.AdminNotes,
+                                            AltPhone = r.AltPhone,
+                                            BusinessName = r.BusinessName,
+                                            BusinessWebsite = r.BusinessWebsite,
+                                            City = r.City,
+                                            FirstName = r.FirstName,
+                                            LastName = r.LastName,
+                                            Notification = nof.IsNotificationStopped,
+                                            Role = roles.Name,
+                                            Status = r.Status,
+                                            Email = r.Email,
+                                            IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
+                                        }).ToList();
             return data;
         }
         #endregion
@@ -108,35 +108,35 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public List<ProviderMenu> PhysicianByRegion(int? region)
         {
             List<ProviderMenu> data = (from pr in _context.PhysicianRegions
-                                        join ph in _context.Physicians
-                                        on pr.PhysicianId equals ph.PhysicianId into rGroup
-                                        from r in rGroup.DefaultIfEmpty()
-                                        join Notifications in _context.PhysicianNotifications
-                                        on r.PhysicianId equals Notifications.PhysicianId into aspGroup
-                                        from nof in aspGroup.DefaultIfEmpty()
-                                        join role in _context.Roles
-                                        on r.RoleId equals role.RoleId into roleGroup
-                                        from roles in roleGroup.DefaultIfEmpty()
-                                        where pr.RegionId == region
-                                        select new ProviderMenu
-                                        {
-                                            CreatedDate = r.CreatedDate,
-                                            PhysicianId = r.PhysicianId,
-                                            Address1 = r.Address1,
-                                            Address2 = r.Address2,
-                                            AdminNotes = r.AdminNotes,
-                                            AltPhone = r.AltPhone,
-                                            BusinessName = r.BusinessName,
-                                            BusinessWebsite = r.BusinessWebsite,
-                                            City = r.City,
-                                            FirstName = r.FirstName,
-                                            LastName = r.LastName,
-                                            Notification = nof.IsNotificationStopped,
-                                            Role = roles.Name,
-                                            Status = r.Status,
-                                            Email = r.Email,
-                                            IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
-                                        }).ToList();
+                                       join ph in _context.Physicians
+                                       on pr.PhysicianId equals ph.PhysicianId into rGroup
+                                       from r in rGroup.DefaultIfEmpty()
+                                       join Notifications in _context.PhysicianNotifications
+                                       on r.PhysicianId equals Notifications.PhysicianId into aspGroup
+                                       from nof in aspGroup.DefaultIfEmpty()
+                                       join role in _context.Roles
+                                       on r.RoleId equals role.RoleId into roleGroup
+                                       from roles in roleGroup.DefaultIfEmpty()
+                                       where pr.RegionId == region
+                                       select new ProviderMenu
+                                       {
+                                           CreatedDate = r.CreatedDate,
+                                           PhysicianId = r.PhysicianId,
+                                           Address1 = r.Address1,
+                                           Address2 = r.Address2,
+                                           AdminNotes = r.AdminNotes,
+                                           AltPhone = r.AltPhone,
+                                           BusinessName = r.BusinessName,
+                                           BusinessWebsite = r.BusinessWebsite,
+                                           City = r.City,
+                                           FirstName = r.FirstName,
+                                           LastName = r.LastName,
+                                           Notification = nof.IsNotificationStopped,
+                                           Role = roles.Name,
+                                           Status = r.Status,
+                                           Email = r.Email,
+                                           IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
+                                       }).ToList();
             return data;
         }
         #endregion
@@ -145,43 +145,43 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public ProviderMenu GetProfileDetails(int UserId)
         {
             ProviderMenu? v = (from r in _context.Physicians
-                                   join Aspnetuser in _context.AspNetUsers
-                                   on r.AspNetUserId equals Aspnetuser.Id into aspGroup
-                                   from asp in aspGroup.DefaultIfEmpty()
-                                   where r.PhysicianId == UserId
-                                   select new ProviderMenu
-                                   {
-                                       RoleId = r.RoleId,
-                                       PhysicianId = r.PhysicianId,
-                                       UserName = r.FirstName + " " + r.LastName,
-                                       Address1 = r.Address1,
-                                       Address2 = r.Address2,
-                                       AltPhone = r.AltPhone,
-                                       City = r.City,
-                                       AspNetUserId = r.AspNetUserId,
-                                       CreatedBy = r.CreatedBy,
-                                       Email = r.Email,
-                                       CreatedDate = r.CreatedDate,
-                                       Mobile = r.Mobile,
-                                       ModifiedBy = r.ModifiedBy,
-                                       ModifiedDate = r.ModifiedDate,
-                                       RegionId = r.RegionId,
-                                       LastName = r.LastName,
-                                       FirstName = r.FirstName,
-                                       Status = r.Status,
-                                       ZipCode = r.Zip,
-                                       MedicalLicense = r.MedicalLicense,
-                                       NpiNumber = r.Npinumber,
-                                       SyncEmailAddress = r.SyncEmailAddress,
-                                       BusinessName = r.BusinessName,
-                                       BusinessWebsite = r.BusinessWebsite,
-                                       AdminNotes = r.AdminNotes,
-                                       IsAgreementDoc = r.IsAgreementDoc[0],
-                                       IsNonDisclosureDoc = r.IsNonDisclosureDoc == false ? false : true,
-                                       IsBackgroundDoc = r.IsBackgroundDoc[0],
-                                       IsLicenseDoc = r.IsLicenseDoc[0],
-                                       IsTrainingDoc = r.IsTrainingDoc[0],
-                                   }).FirstOrDefault();
+                               join Aspnetuser in _context.AspNetUsers
+                               on r.AspNetUserId equals Aspnetuser.Id into aspGroup
+                               from asp in aspGroup.DefaultIfEmpty()
+                               where r.PhysicianId == UserId
+                               select new ProviderMenu
+                               {
+                                   RoleId = r.RoleId,
+                                   PhysicianId = r.PhysicianId,
+                                   UserName = r.FirstName + " " + r.LastName,
+                                   Address1 = r.Address1,
+                                   Address2 = r.Address2,
+                                   AltPhone = r.AltPhone,
+                                   City = r.City,
+                                   AspNetUserId = r.AspNetUserId,
+                                   CreatedBy = r.CreatedBy,
+                                   Email = r.Email,
+                                   CreatedDate = r.CreatedDate,
+                                   Mobile = r.Mobile,
+                                   ModifiedBy = r.ModifiedBy,
+                                   ModifiedDate = r.ModifiedDate,
+                                   RegionId = r.RegionId,
+                                   LastName = r.LastName,
+                                   FirstName = r.FirstName,
+                                   Status = r.Status,
+                                   ZipCode = r.Zip,
+                                   MedicalLicense = r.MedicalLicense,
+                                   NpiNumber = r.Npinumber,
+                                   SyncEmailAddress = r.SyncEmailAddress,
+                                   BusinessName = r.BusinessName,
+                                   BusinessWebsite = r.BusinessWebsite,
+                                   AdminNotes = r.AdminNotes,
+                                   IsAgreementDoc = r.IsAgreementDoc[0],
+                                   IsNonDisclosureDoc = r.IsNonDisclosureDoc == false ? false : true,
+                                   IsBackgroundDoc = r.IsBackgroundDoc[0],
+                                   IsLicenseDoc = r.IsLicenseDoc[0],
+                                   IsTrainingDoc = r.IsTrainingDoc[0],
+                               }).FirstOrDefault();
             List<Regions> regions = new();
             regions = _context.PhysicianRegions
                   .Where(r => r.PhysicianId == UserId)
@@ -341,7 +341,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                         DataForChange.BusinessWebsite = pm.BusinessWebsite;
                         DataForChange.AdminNotes = pm.AdminNotes;
                         int id = (int)pm.PhysicianId;
-                        if (pm.PhotoFile != null) 
+                        if (pm.PhotoFile != null)
                         {
                             string UploadPhoto = SaveFile.UploadDoc(pm.PhotoFile, id);
                             DataForChange.Photo = UploadPhoto;
@@ -423,9 +423,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             Physician p = new();
             var isexist = _context.Physicians.FirstOrDefault(x => x.Email == pm.Email);
             var asp = _context.AspNetUsers.FirstOrDefault(x => x.Email == pm.Email);
-            if (isexist == null) 
+            if (isexist == null)
             {
-                if (asp == null) 
+                if (asp == null)
                 {
                     //AspNetUser Table
                     Guid g = Guid.NewGuid();
@@ -455,7 +455,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 p.Email = pm.Email;
                 p.Mobile = pm.AltPhone;
                 p.MedicalLicense = pm.MedicalLicense;
-                
+
                 p.AdminNotes = pm.AdminNotes;
                 //isagreement
                 //background
@@ -520,6 +520,39 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 return true;
             }
             else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region DeleteAccount
+        public bool DeleteAccount(int? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    var p = _context.Physicians.Where(W => W.PhysicianId == id).FirstOrDefault();
+                    if (p != null)
+                    {
+                        p.IsDeleted = new BitArray(1);
+                        p.IsDeleted[0] = true;
+                        _context.Physicians.Update(p);
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
             {
                 return false;
             }

@@ -442,9 +442,9 @@
                     </div>
                 </div>
                 <hr />
-                <div class=" d-flex justify-content-end">
+                <div class="d-flex flex-wrap justify-content-end">
                     <input type="button" class="btn bg-info text-white rounded px-3 me-2" id="submitForm" value="Save" />
-                    <input type="button" class="btn bg-danger text-white rounded px-3 " value="Delete Account">
+                    <a asp-controller="Providers" asp-action="DeleteAccount" asp-route-id="@Model.PhysicianId" class="btn btn-danger rounded px-3">Delete Account</a>
                 </div>
             </form>
         </div>

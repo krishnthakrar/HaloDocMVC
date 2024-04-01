@@ -29,5 +29,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool ProviderEditSubmit(ProviderMenu pm);
 
         public bool CreateProvider(ProviderMenu pm, string? id);
+
+        public bool DeleteAccount(int? id);
     }
 }
