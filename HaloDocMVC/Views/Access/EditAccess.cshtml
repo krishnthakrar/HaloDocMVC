@@ -1,0 +1,84 @@
+﻿﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create Access";
+}
+@model HaloDocMVC.Entity.Models.AccessMenu;
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex align-self-center">
+            <h4><strong>Create Role</strong></h4>
+        </div>
+        <div class="backBtn">
+            <a asp-controller="Access" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
+        </div>
+    </div>
+    <form method="post" asp-controller="Access" asp-action="EditAccessPost" id="EditAccessForm" class="mt-0">
+        <input asp-for="RoleId" type="hidden" />
+        @* Profile Information *@
+        <div class="bg-white rounded shadow mt-3">
+            <div class="p-4">
+                @* Account Information *@
+                <h5><strong>Details</strong></h5>
+                <div class="col-xl-12 mt-4">
+                    <div class="row pb-4">
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <input type="text" asp-for="RoleName" class="form-control shadow-none" id="rname" placeholder="Role Name" />
+                                <label for="rname">Role Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pb-3">
+                            <div class="form-floating">
+                                <select class="form-select form-control shadow-none" required onchange="AccessCheckbox()" id="acctype" asp-for="AccountType" data-allow-clear="true" tabindex="-1" asp-items="@(new SelectList(ViewBag.AccType, "Id", "Name"))" data-control="select2" data-placeholder="Select Account Type" disabled>
+                                </select>
+                                <label for="acctype">Account Type</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input asp-for="AccessId" type="hidden" id="accessids" />
+                <div class="col-md-12 d-flex flex-wrap pb-3" id="checkboxes">
+                    @foreach (var cb in ViewBag.AccessRole)
+                    {
+                        @if (Model != null && Model.RoleMenuList.Count > 0 && Model.RoleMenuList.Exists(id => id.MenuId == cb.MenuId))
+                        {
+                            <div class="form-check mx-2">
+                                <input class="form-check-input cb1" value="@cb.MenuId" type="checkbox" name="access" id="flexCheckDefault" checked>
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @cb.Name
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-check mx-2">
+                                <input class="form-check-input cb1" value="@cb.MenuId" type="checkbox" name="access" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @cb.Name
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class=" d-flex justify-content-end">
+                    <button type="button" class="btn btn-info text-white rounded px-3 me-2" id="add">Save</button>
+                    <button type="button" class="btn btn-outline-info rounded px-3 me-2">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(function () {
+        $('#add').on('click', function () {
+            let checkboxes = document.querySelectorAll('input[name="access"]:checked');
+            let accessIds = [];
+            checkboxes.forEach((checkbox) => {
+                accessIds.push(checkbox.value);
+            });
+            document.querySelector('#accessids').value = accessIds.join(',');
+            $('#EditAccessForm').submit();
+        });
+    });
+</script>

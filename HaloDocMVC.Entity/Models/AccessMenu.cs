@@ -15,5 +15,16 @@ namespace HaloDocMVC.Entity.Models
         public int AccountType { get; set;}
 
         public string? AccessId { get; set;}
+
+        public List<RoleMenus>? RoleMenuList { get; set; }
+
+        public class RoleMenus
+        {
+            public int? RoleMenuId { get; set; }
+
+            public int? RoleId { get; set; }
+
+            public int? MenuId { get; set; }
+        }
     }
 }

@@ -58,5 +58,46 @@ namespace HaloDocMVC.Controllers
             return Task.FromResult<IActionResult>(Json(v));
         }
         #endregion
+
+        #region DeleteAccess
+        public IActionResult DeleteAccess(int? id)
+        {
+            if (_access.DeleteAccess(id))
+            {
+                _notyf.Success("Role Deleted Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Role can't be Deleted...");
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region EditAccess
+        public IActionResult EditAccess(int? id)
+        {
+            ViewBag.AccType = _dropdown.AccType();
+            ViewBag.AccessRole = _dropdown.AccessRole();
+            AccessMenu am = _access.EditAccess(id);
+            return View(am);
+        }
+        #endregion
+
+        #region EditAccessPost
+        [HttpPost]
+        public IActionResult EditAccessPost(AccessMenu am)
+        {
+            if (_access.EditAccessPost(am))
+            {
+                _notyf.Success("Role edited Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Role can't be edited...");
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }

@@ -12,5 +12,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public List<AccessMenu> AccessIndex();
 
         public bool CreateAccessPost(AccessMenu am, string id);
+
+        public bool DeleteAccess(int? id);
+
+        public AccessMenu EditAccess(int? id);
+
+        public bool EditAccessPost(AccessMenu am);
     }
 }
