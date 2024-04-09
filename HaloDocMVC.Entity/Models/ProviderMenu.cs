@@ -105,7 +105,9 @@ namespace HaloDocMVC.Entity.Models
         public IFormFile? BackGroundDoc { get; set; }
         
         public IFormFile? LicenseDoc { get; set; }
-        
+
+        public int? OnCallStatus { get; set; } = 0;
+
         public List<Regions>? RegionIds { get; set; }
         
         public class Regions

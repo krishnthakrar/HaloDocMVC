@@ -29,6 +29,12 @@
     border-bottom: 2px solid #8dcaf0;
 }
 
+.active1 {
+    background-color: #0dcaf0 !important;
+    font-weight: 600;
+    border-bottom: 2px solid #8dcaf0;
+}
+
 .dropdown-item.active {
     background: unset !important;
     border-bottom: none;
