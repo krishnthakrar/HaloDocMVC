@@ -291,7 +291,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                 Status = r.Status,
                                 Email = r.Email,
                                 Photo = r.Photo
-
                             })
                             .ToListAsync();
             }

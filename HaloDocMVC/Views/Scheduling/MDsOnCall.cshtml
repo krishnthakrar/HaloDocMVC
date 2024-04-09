@@ -19,7 +19,7 @@
                     <i class="fa fa-search"></i>
                 </a>
                 <select class="form-select" data-allow-clear="true" tabindex="-1" id="schedulingregion" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level" style="padding-left:5px">
-                    <option value="0">All Region</option>
+                    <option value="-1">All Region</option>
                 </select>
             </div>
             <div class="btns">
@@ -28,17 +28,17 @@
             </div>
         </div>
     </div>
-    <div class="card border-0 shadow py-2 mb-5 mx-1 mt-3 rounded">
+    <div class="card border-0 shadow py-2 mb-5 mx-1 mt-3 rounded" id="MDS">
         <div class="p-3 ">
             <h4 class="fw-bold">MD's On Call</h4>
             <div class="container-fluid">
-                <div class="row my-4 oncall">
+                <div class="row my-4 oncall" id="oncall">
                     @foreach (var item in Model)
                     {
                         @if (item.OnCallStatus == 1)
                         {
                             <div class="col-md-4 my-2">
-                                <img src="/Upload/Physician/@item.PhysicianId/@item.Photo" style="height: 50px;">
+                                <img src="~/images/7774236_3736765.jpg" style="height: 50px;" />
                                 <span> @item.FirstName @item.LastName</span>
                             </div>
                         }
@@ -49,14 +49,14 @@
         <div class="p-3 ">
             <h4 class="fw-bold">Physicians off Duty</h4>
             <div class="container-fluid">
-                <div class="row my-4 offcall">
+                <div class="row my-4 offcall" id="offcall">
                     @foreach (var item in Model)
                     {
                         @if (item.OnCallStatus == 0)
                         {
                             <div class="col-md-4 my-2">
-                                <img src="/Upload/Physician/@item.PhysicianId/@item.Photo" style="height: 50px;">
-                                @item.FirstName @item.LastName
+                                <img src="~/images/7774236_3736765.jpg" style="height: 50px;" />
+                                <span> @item.FirstName @item.LastName</span>
                             </div>
                         }
                     }
@@ -68,17 +68,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 @section Scripts {
     <script>
-        // Change Physician according to Region
         $(document).ready(function () {
-
             $('#schedulingregion').on('change', function () {
-                regionid = $(this).val();
-                console.log(regionid);
+                var regionid = $(this).val();
+                if (regionid == -1) {
+                    location.reload();
+                }
                 $.ajax({
-                    url: '/Scheduling/LoadSchedulingPartial',
-                    data: { PartialName: currentPartial, date: filterDate.toISOString(), regionid: regionid },
-                    success: function (data) {
-                        $(".calander").html(data);
+                    url: '/Scheduling/MDSOnCall',
+                    data: { regionid: regionid },
+                    success: function (response) {
+                        console.log(response);
+                        $(".oncall").empty();
+                        $(".offcall").empty();
+
+                        response.forEach(function (item) {
+                            var div = document.createElement('div');
+                            div.className = 'col-md-4 my-2';
+                            var img = document.createElement('img');
+                            img.src = item.photo;
+                            img.style.height = '100px';
+                            var span = document.createElement('span');
+                            span.textContent = item.firstName + ' ' + item.lastName;
+                            span.classList = 'ms-4';
+                            div.appendChild(img);
+                            div.appendChild(span);
+                            if (item.onCallStatus === 1) {
+                                $(".oncall").append(div);
+                            } else if (item.onCallStatus === 0) {
+                                $(".offcall").append(div);
+                            }
+                        });
                     },
                     error: function (e) {
                         console.log(e);
