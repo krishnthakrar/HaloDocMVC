@@ -453,7 +453,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 p.FirstName = pm.FirstName;
                 p.LastName = pm.LastName;
                 p.Email = pm.Email;
-                p.Mobile = pm.AltPhone;
+                p.Mobile = pm.Mobile;
                 p.MedicalLicense = pm.MedicalLicense;
 
                 p.AdminNotes = pm.AdminNotes;
