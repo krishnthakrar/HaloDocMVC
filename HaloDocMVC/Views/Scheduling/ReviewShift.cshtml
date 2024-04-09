@@ -22,7 +22,7 @@
                         <a id="regionicon">
                             <i class="fa fa-search"></i>
                         </a>
-                        <select class="form-select" data-allow-clear="true" tabindex="-1" id="ShiftForReviewregion" onchange="getdatabyregion()" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level" style="padding-left:5px">
+                        <select class="form-select ms-2" data-allow-clear="true" tabindex="-1" id="ShiftForReviewregion" onchange="getdatabyregion()" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level" style="padding-left:5px">
                             <option value="-1">All Region</option>
                         </select>
                     </div>

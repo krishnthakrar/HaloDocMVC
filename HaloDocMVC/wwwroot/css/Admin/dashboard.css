@@ -12,13 +12,13 @@
     right: -40px;
     top: -3px;
     background-color: #fff;
-    border: 1px solid #59A2A8;
+    border: 1px solid #0dcaf0;
     border-radius: 8px;
     padding: 10px;
 }
 
 .darkBtn:hover {
-    box-shadow: 2px 2px 2px 1px #59A2A8;
+    box-shadow: 2px 2px 2px 1px #0dcaf0;
 }
 
 /*Tabs*/
@@ -246,7 +246,7 @@
 /*Back button css code*/
 .back {
     font-size: 20px;
-    color: #59A2A8;
+    color: #0dcaf0;
 }
 
 .backBtn {
@@ -257,27 +257,23 @@
 .backBtn button {
     margin-bottom: 5px;
     background-color: #ffffff;
-    border: 1px solid #59A2A8;
-    color: #59A2A8;
+    border: 1px solid #0dcaf0;
+    color: #0dcaf0;
     font-weight: bold;
     display: flex;
-    align-items: center;
     font-size: 18px;
-    padding: 10px;
+    padding: 5px;
     position: relative;
-}
-
-.backBtn button:hover {
-    color: #0d6efd;
-}
-
-backBtn button:hover span {
-    color: #0d6efd;
+    border-radius: 0.25rem;
 }
 
 .backBtn a {
     text-decoration: none;
     font-weight: bold
+}
+
+.back span {
+    font-size: 18px !important;
 }
 
 /*Form Design*/
