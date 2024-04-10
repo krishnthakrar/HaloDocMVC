@@ -70,12 +70,15 @@
                             <td>@item.PhoneNumber</td>
                             <td>@item.BusinessNumber</td>
                             <td class="d-flex justify-content-center">
-                                <a asp-action="AdminEdit" asp-controller="Access" asp-route-id="" class="btn btn-outline-info btn-sm document-button mx-1">
+                                <a asp-action="EditBusiness" asp-controller="Partners" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm document-button mx-1">
                                     Edit
                                 </a>
-                                <a asp-action="AdminEdit" asp-controller="Access" asp-route-id="" class="btn btn-outline-info btn-sm document-button mx-1">
-                                    Delete
-                                </a>
+                                <form method="post" id="deleteBusinessForm" asp-action="DeleteBusiness" asp-controller="Partners" class="mt-0">
+                                    <input type="hidden" value="@item.Id" name="BusinessId" />
+                                    <div class="btn btn-outline-info btn-sm mx-1 deleteBusiness">
+                                        <span>Delete</span>
+                                    </div>
+                                </form>
                             </td>
                         </tr>
                     }
@@ -134,4 +137,20 @@
             }
         });
     }
+</script>
+<script type="text/javascript">
+    $('.deleteBusiness').click(function () {
+        console.log("4867654");
+        Swal.fire({
+            text: "Do you want to Delete This Business?",
+            showDenyButton: false,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#deleteBusinessForm').submit();
+            }
+        });
+    })
 </script>

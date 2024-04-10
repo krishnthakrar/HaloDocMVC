@@ -12,5 +12,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public List<PartnersData> GetPartnersByProfession(string searchValue, int Profession);
 
         public bool AddBusiness(PartnersData pd);
+
+        public PartnersData EditBusiness(int id);
+
+        public bool EditBusinessSubmit(PartnersData pd);
+
+        public void DeleteBusiness(int BusinessId);
     }
 }

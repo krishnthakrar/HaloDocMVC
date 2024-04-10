@@ -1,4 +1,5 @@
-﻿using HaloDocMVC.Entity.DataContext;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
@@ -31,6 +32,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                              && (Profession == 0 || Hp.Profession == Profession)
                           select new PartnersData
                           {
+                              Id = Hp.VendorId,
                               Profession = asp.ProfessionName,
                               Business = Hp.VendorName,
                               Email = Hp.Email,
@@ -74,6 +76,62 @@ namespace HaloDocMVC.Repository.Admin.Repository
             catch(Exception)
             {
                 return false;
+            }
+        }
+        #endregion
+
+        #region EditBusiness
+        public PartnersData EditBusiness(int id)
+        {
+            PartnersData pd = (from hp in _context.HealthProfessionals
+                               where hp.VendorId == id
+                               select new PartnersData
+                               {
+                                   Id = hp.VendorId,
+                                   Profession = hp.Profession.ToString(),
+                                   Business = hp.VendorName,
+                                   Email = hp.Email,
+                                   FaxNumber = hp.FaxNumber,
+                                   PhoneNumber = hp.PhoneNumber,
+                                   BusinessNumber = hp.BusinessContact
+                               }).FirstOrDefault();
+            return pd;
+        }
+
+        public bool EditBusinessSubmit(PartnersData pd)
+        {
+            HealthProfessional HP = _context.HealthProfessionals.FirstOrDefault(m => m.VendorId == pd.Id);
+            if (HP != null)
+            {
+                HP.VendorName = pd.Business;
+                HP.Profession = Int32.Parse(pd.Profession);
+                HP.FaxNumber = pd.FaxNumber;
+                HP.City = pd.City != null ? pd.City : HP.City;
+                HP.State = pd.State != null ? pd.State : HP.State;
+                HP.Zip = pd.ZipCode != null ? pd.ZipCode : HP.Zip;
+                HP.Address = pd.Street + ", " + HP.City + ", " + HP.State + ", " + HP.Zip;
+                HP.ModifiedDate = DateTime.Now;
+                HP.PhoneNumber = pd.PhoneNumber;
+                HP.Email = pd.Email;
+                HP.BusinessContact = pd.BusinessNumber;
+                _context.Update(HP);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        #endregion
+
+        #region DeleteBusiness
+        public void DeleteBusiness(int BusinessId)
+        {
+            HealthProfessional HP = _context.HealthProfessionals.FirstOrDefault(m => m.VendorId == BusinessId);
+            if (HP != null)
+            {
+                HP.IsDeleted = new BitArray(1);
+                HP.IsDeleted[0] = true;
+                _context.Update(HP);
+                _context.SaveChanges();
             }
         }
         #endregion

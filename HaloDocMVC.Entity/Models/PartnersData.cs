@@ -8,6 +8,8 @@ namespace HaloDocMVC.Entity.Models
 {
     public class PartnersData
     {
+        public int Id { get; set; }
+
         public string? Profession { get; set; }
 
         public string? Business { get; set; }

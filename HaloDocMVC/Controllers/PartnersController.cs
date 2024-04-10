@@ -48,5 +48,38 @@ namespace HaloDocMVC.Controllers
             return RedirectToAction("Index", "Partners");
         }
         #endregion
+
+        #region EditBusiness
+        public IActionResult EditBusiness(int id)
+        {
+            ViewBag.Profession = _dropdown.HealthProfessionalType();
+            PartnersData pd = _partners.EditBusiness(id);
+            return View("../Partners/EditBusiness", pd);
+        }
+
+        [HttpPost]
+        public IActionResult EditBusiness(PartnersData pd)
+        {
+            if (_partners.EditBusinessSubmit(pd))
+            {
+                _notyf.Success("Information Updated Successfully.........");
+            }
+            else
+            {
+                _notyf.Error("Information cant be changed......");
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region DeleteBusiness
+        [HttpPost]
+        public IActionResult DeleteBusiness(int BusinessId)
+        {
+            _partners.DeleteBusiness(BusinessId);
+            _notyf.Success("User Deleted Successfully.........");
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }
