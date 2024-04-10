@@ -167,7 +167,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region EditShift
-        public void ViewShift(int shiftdetailid)
+        public SchedulingData ViewShift(int shiftdetailid)
         {
             SchedulingData modal = new SchedulingData();
             var shiftdetail = _context.ShiftDetails.FirstOrDefault(u => u.ShiftDetailId == shiftdetailid);
@@ -187,7 +187,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             modal.starttime = shiftdetail.StartTime;
             modal.endtime = shiftdetail.EndTime;
             modal.shiftdetailid = shiftdetailid;
-
+            return modal;
         }
 
         public void ViewShiftreturn(SchedulingData modal)

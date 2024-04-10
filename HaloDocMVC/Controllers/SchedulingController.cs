@@ -36,7 +36,6 @@ namespace HaloDocMVC.Controllers
         public IActionResult GetPhysicianByRegion(int regionid)
         {
             var PhysiciansByRegion = _dropdown.ProviderByRegion(regionid);
-
             return Json(PhysiciansByRegion);
         }
 
@@ -101,47 +100,19 @@ namespace HaloDocMVC.Controllers
             var chk = Request.Form["repeatdays"].ToList();
             _scheduling.AddShift(model, chk, adminId);
             return RedirectToAction("Index");
-
         }
         #endregion
 
         #region EditShift
         public SchedulingData viewshift(int shiftdetailid)
         {
-            SchedulingData modal = new SchedulingData();
-            var shiftdetail = _context.ShiftDetails.FirstOrDefault(u => u.ShiftDetailId == shiftdetailid);
-
-            if (shiftdetail != null)
-            {
-                _context.Entry(shiftdetail)
-                    .Reference(s => s.Shift)
-                    .Query()
-                    .Include(s => s.Physician)
-                    .Load();
-            }
-            modal.regionid = (int)shiftdetail.RegionId;
-            modal.physicianname = shiftdetail.Shift.Physician.FirstName + " " + shiftdetail.Shift.Physician.LastName;
-            modal.modaldate = shiftdetail.ShiftDate.ToString("yyyy-MM-dd");
-            modal.starttime = shiftdetail.StartTime;
-            modal.endtime = shiftdetail.EndTime;
-            modal.shiftdetailid = shiftdetailid;
+            SchedulingData modal = _scheduling.ViewShift(shiftdetailid);
             return modal;
         }
 
         public IActionResult ViewShiftreturn(SchedulingData modal)
         {
-            var shiftdetail = _context.ShiftDetails.FirstOrDefault(u => u.ShiftDetailId == modal.shiftdetailid);
-            if (shiftdetail.Status == 0)
-            {
-                shiftdetail.Status = 1;
-            }
-            else
-            {
-                shiftdetail.Status = 0;
-            }
-            _context.ShiftDetails.Update(shiftdetail);
-            _context.SaveChanges();
-
+            _scheduling.ViewShiftreturn(modal);
             return RedirectToAction("Index");
         }
 

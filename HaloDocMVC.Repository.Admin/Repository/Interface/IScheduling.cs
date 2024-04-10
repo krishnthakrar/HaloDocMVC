@@ -11,7 +11,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
     {
         public void AddShift(SchedulingData model, List<string?>? chk, string adminId);
         
-        public void ViewShift(int shiftdetailid);
+        public SchedulingData ViewShift(int shiftdetailid);
         
         public void ViewShiftreturn(SchedulingData modal);
         

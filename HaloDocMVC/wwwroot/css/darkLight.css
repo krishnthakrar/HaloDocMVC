@@ -16,6 +16,10 @@
     color: white;
 }
 
+.darkMode .form-check-input {
+    border: 1px solid white;
+}
+
 .darkMode .card input {
     background-color: #212529;
     color: white;
