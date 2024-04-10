@@ -17,13 +17,15 @@ namespace HaloDocMVC.Controllers
             _partners = partners;
             _notyf = notyf;
         }
-        
+
+        #region Vendors
         public IActionResult Index(string searchValue, int Profession)
         {
             ViewBag.Profession = _dropdown.HealthProfessionalType();
             List<PartnersData> data = _partners.GetPartnersByProfession(searchValue, Profession);
             return View("../Partners/Index", data);
         }
+        #endregion
 
         #region AddBusiness
         public IActionResult AddBusiness()
