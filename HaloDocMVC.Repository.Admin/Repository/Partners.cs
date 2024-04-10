@@ -28,8 +28,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
                           join Hpt in _context.HealthProfessionalTypes
                           on Hp.Profession equals Hpt.HealthProfessionalId into AdminGroup
                           from asp in AdminGroup.DefaultIfEmpty()
-                          where (searchValue == null || Hp.VendorName.Contains(searchValue))
+                          where (Hp.IsDeleted == new BitArray(1))
+                             && (searchValue == null || Hp.VendorName.Contains(searchValue))
                              && (Profession == 0 || Hp.Profession == Profession)
+                          orderby Hp.VendorId
                           select new PartnersData
                           {
                               Id = Hp.VendorId,

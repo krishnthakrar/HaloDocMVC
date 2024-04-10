@@ -73,7 +73,7 @@
                                 <a asp-action="EditBusiness" asp-controller="Partners" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm document-button mx-1">
                                     Edit
                                 </a>
-                                <form method="post" id="deleteBusinessForm" asp-action="DeleteBusiness" asp-controller="Partners" class="mt-0">
+                                <form method="post" asp-action="DeleteBusiness" asp-controller="Partners" class="mt-0 deleteBusinessForm">
                                     <input type="hidden" value="@item.Id" name="BusinessId" />
                                     <div class="btn btn-outline-info btn-sm mx-1 deleteBusiness">
                                         <span>Delete</span>
@@ -139,18 +139,27 @@
     }
 </script>
 <script type="text/javascript">
-    $('.deleteBusiness').click(function () {
-        console.log("4867654");
-        Swal.fire({
-            text: "Do you want to Delete This Business?",
-            showDenyButton: false,
-            showCancelButton: true,
-            confirmButtonText: "Yes",
-            denyButtonText: "Cancel"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $('#deleteBusinessForm').submit();
-            }
+    var deleteButton = document.querySelectorAll('.deleteBusiness');
+
+    deleteButton.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var form = button.closest('.deleteBusinessForm');
+            var vendorIdInput = form.querySelector('input[name="BusinessId"]');
+            var vendorId = vendorIdInput.value;
+
+            Swal.fire({
+                title: "Do you want to delete this partner?",
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                denyButtonText: "No"
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
         });
-    })
+    });
 </script>
