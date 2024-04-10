@@ -205,6 +205,8 @@ public partial class HaloDocContext : DbContext
         {
             entity.HasKey(e => e.VendorId).HasName("HealthProfessionals_pkey");
 
+            entity.Property(e => e.VendorId).HasIdentityOptions(21L, null, null, null, null, null);
+
             entity.HasOne(d => d.ProfessionNavigation).WithMany(p => p.HealthProfessionals).HasConstraintName("HealthProfessionals_Profession_fkey");
 
             entity.HasOne(d => d.Region).WithMany(p => p.HealthProfessionals).HasConstraintName("HealthProfessionals_RegionId_fkey");
