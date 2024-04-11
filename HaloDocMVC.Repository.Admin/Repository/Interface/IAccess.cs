@@ -18,5 +18,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public AccessMenu EditAccess(int? id);
 
         public bool EditAccessPost(AccessMenu am);
+
+        public List<UserAccess> GetAllUserDetails(int? User);
+
+        public bool CreateAdmin(ViewAdminProfile vap, string? id);
     }
 }

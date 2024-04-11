@@ -18,7 +18,7 @@
                     
                     <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
                 </li>
-                <li class="nav-item dropdown ">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") || path.StartsWith("/Scheduling") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Providers
                     </a>
@@ -31,8 +31,14 @@
                 <li class="nav-item">
                     <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Partners") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Partners">Partners</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Access") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Access">Access</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Access") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Access
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item @(path.EndsWith("/Access") ? "active" : "")" asp-action="Index" asp-controller="Access">Account Access</a>
+                        <a class="dropdown-item @(path.StartsWith("/Access/UserAccess") ? "active" : "")" asp-action="UserAccess" asp-controller="Access">User Access</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Records") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Records">Records</a>

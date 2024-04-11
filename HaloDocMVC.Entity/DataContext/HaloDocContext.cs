@@ -98,6 +98,8 @@ public partial class HaloDocContext : DbContext
         {
             entity.HasKey(e => e.AdminId).HasName("Admin_pkey");
 
+            entity.Property(e => e.AdminId).HasIdentityOptions(null, 2L, null, null, null, null);
+
             entity.HasOne(d => d.AspNetUser).WithMany(p => p.AdminAspNetUsers)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("AspNetUserId");
