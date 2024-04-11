@@ -33,6 +33,7 @@ builder.Services.AddScoped<IProviders, Providers>();
 builder.Services.AddScoped<IPartners, Partners>();
 builder.Services.AddScoped<IAccess, Access>();
 builder.Services.AddScoped<IScheduling, Scheduling>();
+builder.Services.AddScoped<IRecords, Records>();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 var app = builder.Build();
 

@@ -1,7 +1,7 @@
 ﻿@model HaloDocMVC.Entity.Models.PaginatedViewModel
 @using static HaloDocMVC.Entity.Models.Constant
 
-<form id="filterForm" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"
+<form class="card" id="filterForm" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"
       asp-action="_SearchResult" asp-controller="Home" novalidate="novalidate">
     <div class="row mt-3">
         <button value="1" name="Status" class="btn col-lg-2 col-md-4 col-sm-4 col-xs-4 col-4 shadow-none position-relative" onclick="changeStatus('1')">
@@ -61,14 +61,14 @@
     </div>
     <div class="d-flex justify-content-between mt-4 mx-2 searchPatientRegion">
         <div>
-            <strong class="d-flex align-items-center">
+            <span class="d-flex align-items-center">
                 <h5>
                     Patients
                 </h5>
                 <span>
                     (New)
                 </span>
-            </strong>
+            </span>
         </div>
         <div class="linkButtons">
             <button type="button" class="btn btn-info mb-2 text-white" data-bs-toggle="modal" data-bs-target="#sendLink"><i class="fa-regular fa-paper-plane px-1"></i><span class="adminIcon">Send Link</span></button>
@@ -107,23 +107,23 @@
                 <div class="requestType">
                     <input type="hidden" asp-for="RequestType" id="requesttypevalue" class="form-control" placeholder="Search Patients">
                     <button class="me-3 btn shadow-none filterborder" onclick="assignvalue()">
-                        <small>All</small>
+                        All
                     </button>
                     <button class="me-3 btn shadow-none" onclick="assignvalue(2)">
                         <i class="fa-solid fa-circle mx-1" style="color:#5fbc61;"></i>
-                        <small>Patient</small>
+                        Patient
                     </button>
                     <button class="me-3 btn shadow-none" onclick="assignvalue(3)">
                         <i class="fa-solid fa-circle mx-1" style="color:#ed9124;"></i>
-                        <small>Family / Friend</small>
+                        Family / Friend
                     </button>
                     <button class="me-3 btn shadow-none" onclick="assignvalue(1)">
                         <i class="fa-solid fa-circle mx-1" style="color:#cd697b;"></i>
-                        <small>Business</small>
+                        Business
                     </button>
                     <button class="me-3 btn shadow-none" onclick="assignvalue(4)">
                         <i class="fa-solid fa-circle mx-1" style="color:#0a7cb9;"></i>
-                        <small>Concierge</small>
+                        Concierge
                     </button>
                 </div>
             </div>

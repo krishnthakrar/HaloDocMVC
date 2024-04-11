@@ -40,8 +40,17 @@
                         <a class="dropdown-item @(path.StartsWith("/Access/UserAccess") ? "active" : "")" asp-action="UserAccess" asp-controller="Access">User Access</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Records") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Records">Records</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Records") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Records
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item @(path.EndsWith("/Records") ? "active" : "")" asp-action="Index" asp-controller="Records">Search Records</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/EmailLogs") ? "active" : "")" asp-action="Index" asp-controller="Records">Email Logs</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/SMSLogs") ? "active" : "")" asp-action="Index" asp-controller="Records">SMS Logs</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/Patient") ? "active" : "")" asp-action="Index" asp-controller="Records">Patient Records</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/Blocked") ? "active" : "")" asp-action="Index" asp-controller="Records">Blocked History</a>
+                    </div>
                 </li>
             </ul>
         </div>

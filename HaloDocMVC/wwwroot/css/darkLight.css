@@ -16,6 +16,22 @@
     color: white;
 }
 
+.darkMode #paginationform .page-item button {
+    color: white !important;
+}
+
+.darkMode .requestType button {
+    color: white !important;
+}
+
+.darkMode .show {
+    background-color: #212529;
+}
+
+.darkMode .card th {
+    color: white !important;
+}
+
 .darkMode .form-check-input {
     border: 1px solid white;
 }
