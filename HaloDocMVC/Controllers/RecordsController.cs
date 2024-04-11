@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HaloDocMVC.Entity.Models;
+using HaloDocMVC.Models;
 using HaloDocMVC.Repository.Admin.Repository;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,30 @@ namespace HaloDocMVC.Controllers
                 _notyf.Error("Request not deleted");
             }
             return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region BlockHistory
+        public IActionResult BlockedHistory(RecordsModel rm)
+        {
+            RecordsModel r = _records.BlockHistory(rm);
+            return PartialView("../Records/BlockedHistory", r);
+        }
+        #endregion
+
+        #region Unblock
+        public IActionResult Unblock(int RequestId)
+        {
+            if (_records.Unblock(RequestId, CredentialValue.ID()))
+            {
+                _notyf.Success("Case Unblocked Successfully.");
+            }
+            else
+            {
+                _notyf.Error("Case remains blocked.");
+            }
+
+            return RedirectToAction("BlockedHistory");
         }
         #endregion
     }

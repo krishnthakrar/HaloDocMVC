@@ -12,5 +12,8 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         RecordsModel GetFilteredSearchRecords(RecordsModel rm);
 
         bool DeleteRequest(int? RequestId);
+
+        RecordsModel BlockHistory(RecordsModel rm);
+        bool Unblock(int RequestId, string id);
     }
 }

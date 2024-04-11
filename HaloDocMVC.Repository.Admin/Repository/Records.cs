@@ -1,4 +1,5 @@
 ﻿using HaloDocMVC.Entity.DataContext;
+using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.IdentityModel.Tokens;
@@ -114,5 +115,77 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
         }
         #endregion DeleteRequest
+
+        #region BlockHistory
+        public RecordsModel BlockHistory(RecordsModel rm)
+        {
+            List<BlockRequests> data = (from req in _context.BlockRequests
+                                        where (!rm.StartDate.HasValue || req.CreatedDate.Value.Date == rm.StartDate.Value.Date) &&
+                                              (rm.PatientName.IsNullOrEmpty() || _context.Requests.FirstOrDefault(e => e.RequestId == Convert.ToInt32(req.RequestId)).FirstName.ToLower().Contains(rm.PatientName.ToLower())) &&
+                                              (rm.Email.IsNullOrEmpty() || req.Email.ToLower().Contains(rm.Email.ToLower())) &&
+                                              (rm.PhoneNumber.IsNullOrEmpty() || req.PhoneNumber.ToLower().Contains(rm.PhoneNumber.ToLower()))
+                                        select new BlockRequests
+                                        {
+                                            PatientName = _context.RequestClients.FirstOrDefault(e => e.RequestId == Convert.ToInt32(req.RequestId)).FirstName,
+                                            Email = req.Email,
+                                            CreatedDate = (DateTime)req.CreatedDate,
+                                            IsActive = req.IsActive,
+                                            RequestId = Convert.ToInt32(req.RequestId),
+                                            PhoneNumber = req.PhoneNumber,
+                                            Reason = req.Reason
+                                        }).ToList();
+
+            int totalItemCount = data.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)rm.PageSize);
+            List<BlockRequests> list = data.Skip((rm.CurrentPage - 1) * rm.PageSize).Take(rm.PageSize).ToList();
+
+            RecordsModel model = new()
+            {
+                BlockRequests = list,
+                CurrentPage = rm.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = rm.PageSize,
+            };
+
+            return model;
+        }
+        #endregion
+
+        #region Unblock
+        public bool Unblock(int RequestId, string id)
+        {
+            try
+            {
+                BlockRequest block = _context.BlockRequests.FirstOrDefault(e => e.RequestId == RequestId);
+                block.IsActive = new BitArray(1);
+                block.IsActive[0] = true;
+                _context.BlockRequests.Update(block);
+                _context.SaveChanges();
+
+                Request request = _context.Requests.FirstOrDefault(e => e.RequestId == RequestId);
+                request.Status = 1;
+                request.ModifiedDate = DateTime.Now;
+                _context.Requests.Update(request);
+                _context.SaveChanges();
+
+                var admindata = _context.Admins.FirstOrDefault(e => e.AspNetUserId == id);
+                RequestStatusLog rs = new()
+                {
+                    Status = 1,
+                    RequestId = RequestId,
+                    AdminId = admindata.AdminId,
+                    CreatedDate = DateTime.Now
+                };
+                _context.RequestStatusLogs.Add(rs);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }
