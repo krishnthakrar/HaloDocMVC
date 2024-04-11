@@ -63,5 +63,21 @@ namespace HaloDocMVC.Controllers
             return RedirectToAction("BlockedHistory");
         }
         #endregion
+
+        #region PatientHistory
+        public IActionResult PatientHistory(RecordsModel model)
+        {
+            RecordsModel rm = _records.GetFilteredPatientHistory(model);
+            return View("../Records/PatientHistory", rm);
+        }
+        #endregion
+
+        #region PatientRecords
+        public IActionResult PatientRecords(PaginatedViewModel data, int UserId)
+        {
+            var r = _records.PatientRecord(UserId, data);
+            return View("../Records/PatientRecords", r);
+        }
+        #endregion
     }
 }

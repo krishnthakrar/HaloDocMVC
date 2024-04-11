@@ -28,6 +28,10 @@
     background-color: #212529;
 }
 
+.darkMode .show li a {
+    color: white !important;
+}
+
 .darkMode .card th {
     color: white !important;
 }

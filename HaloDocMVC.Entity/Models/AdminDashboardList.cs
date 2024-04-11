@@ -11,9 +11,7 @@ namespace HaloDocMVC.Entity.Models
         public string? PatientName { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
-        
-        public string? PatientId { get; set; }
-       
+
         public string? Requestor { get; set; }
         
         public DateTime RequestedDate { get; set; }
@@ -38,7 +36,15 @@ namespace HaloDocMVC.Entity.Models
        
         public string? Region { get; set; }
         
-        public string? ADStatus { get; set; }
+        public string? ConfirmationNumber { get; set; }
+
+        public short Status { get; set; }
+
+        public DateTime ConcludedDate { get; set; }
+
+        public int? RequestClientId { get; set; }
+
+        public int? RegionId { get; set; }
     }
 
     public class PaginatedViewModel
@@ -61,8 +67,6 @@ namespace HaloDocMVC.Entity.Models
 
         public string? SortedColumn { get; set; } = "RequestedDate";
         
-        public string? Status { get; set; }
-        
         public int NewRequest { get; set; }
        
         public int PendingRequest { get; set; }
@@ -74,5 +78,7 @@ namespace HaloDocMVC.Entity.Models
         public int ToCloseRequest { get; set; }
         
         public int UnpaidRequest { get; set; }
+
+        public int? UserId { get; set; }
     }
 }

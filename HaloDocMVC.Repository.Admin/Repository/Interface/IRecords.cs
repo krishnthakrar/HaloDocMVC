@@ -14,6 +14,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         bool DeleteRequest(int? RequestId);
 
         RecordsModel BlockHistory(RecordsModel rm);
+
         bool Unblock(int RequestId, string id);
+
+        RecordsModel GetFilteredPatientHistory(RecordsModel rm);
+
+        PaginatedViewModel PatientRecord(int UserId, PaginatedViewModel data);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -185,6 +186,93 @@ namespace HaloDocMVC.Repository.Admin.Repository
             {
                 return false;
             }
+        }
+        #endregion
+
+        #region GetFilteredPatientHistory
+        public RecordsModel GetFilteredPatientHistory(RecordsModel rm)
+        {
+            List<User> allData = (from user in _context.Users
+                                  where (string.IsNullOrEmpty(rm.Email) || user.Email.ToLower().Contains(rm.Email.ToLower())) &&
+                                  (string.IsNullOrEmpty(rm.PhoneNumber) || user.Mobile.ToLower().Contains(rm.PhoneNumber.ToLower())) &&
+                                  (string.IsNullOrEmpty(rm.FirstName) || user.FirstName.ToLower().Contains(rm.FirstName.ToLower())) &&
+                                  (string.IsNullOrEmpty(rm.LastName) || user.LastName.ToLower().Contains(rm.LastName.ToLower()))
+                                  select new User
+                                  {
+                                      UserId = user.UserId,
+                                      FirstName = user.FirstName,
+                                      LastName = user.LastName,
+                                      Email = user.Email,
+                                      Mobile = user.Mobile,
+                                      Street = user.Street,
+                                      City = user.City,
+                                      State = user.State,
+                                      ZipCode = user.ZipCode
+                                  }).ToList();
+
+            int totalItemCount = allData.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)rm.PageSize);
+            List<User> list = allData.Skip((rm.CurrentPage - 1) * rm.PageSize).Take(rm.PageSize).ToList();
+
+            RecordsModel records = new()
+            {
+                Users = list,
+                CurrentPage = rm.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = rm.PageSize
+            };
+            return records;
+        }
+        #endregion
+
+        #region PatientRecord
+        public PaginatedViewModel PatientRecord(int UserId, PaginatedViewModel data)
+        {
+            List<AdminDashboardList> allData = (from req in _context.Requests
+                                                      join reqClient in _context.RequestClients
+                                                      on req.RequestId equals reqClient.RequestId into reqClientGroup
+                                                      from rc in reqClientGroup.DefaultIfEmpty()
+                                                      join phys in _context.Physicians
+                                                      on req.PhysicianId equals phys.PhysicianId into physGroup
+                                                      from p in physGroup.DefaultIfEmpty()
+                                                      join reg in _context.Regions
+                                                      on rc.RegionId equals reg.RegionId into RegGroup
+                                                      from rg in RegGroup.DefaultIfEmpty()
+                                                      where req.UserId == (UserId == null ? data.UserId : UserId)
+                                                      select new AdminDashboardList
+                                                      {
+                                                          ProviderName = p.FirstName + " " + p.LastName,
+                                                          RequestClientId = rc.RequestClientId,
+                                                          Status = (short)req.Status,
+                                                          RequestId = req.RequestId,
+                                                          RequestTypeId = req.RequestTypeId,
+                                                          Requestor = rc.FirstName + " " + rc.LastName,
+                                                          PatientName = req.FirstName + " " + req.LastName,
+                                                          RequestedDate = req.CreatedDate,
+                                                          PatientPhoneNumber = rc.PhoneNumber,
+                                                          Address = rc.Address + "," + rc.Street + "," + rc.City + "," + rc.State + "," + rc.ZipCode,
+                                                          Notes = rc.Notes,
+                                                          ProviderId = req.PhysicianId,
+                                                          RegionId = (int)rc.RegionId,
+                                                          RequestorPhoneNumber = req.PhoneNumber,
+                                                          ConcludedDate = req.CreatedDate,
+                                                          ConfirmationNumber = req.ConfirmationNumber
+                                                      }).ToList();
+
+            int totalItemCount = allData.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)data.PageSize);
+            List<AdminDashboardList> result = allData.Skip((data.CurrentPage - 1) * data.PageSize).Take(data.PageSize).ToList();
+
+            PaginatedViewModel model = new()
+            {
+                UserId = UserId,
+                adl = result,
+                CurrentPage = data.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = data.PageSize,
+                SearchInput = data.SearchInput
+            };
+            return model;
         }
         #endregion
     }
