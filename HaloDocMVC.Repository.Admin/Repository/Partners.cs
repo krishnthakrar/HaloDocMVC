@@ -22,9 +22,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
 
         #region PartnersIndex
-        public List<PartnersData> GetPartnersByProfession(string searchValue, int Profession)
+        public PartnersData GetPartnersByProfession(string searchValue, int Profession, PartnersData pd)
         {
-            var result = (from Hp in _context.HealthProfessionals
+            List<PartnersData> result = (from Hp in _context.HealthProfessionals
                           join Hpt in _context.HealthProfessionalTypes
                           on Hp.Profession equals Hpt.HealthProfessionalId into AdminGroup
                           from asp in AdminGroup.DefaultIfEmpty()
@@ -42,7 +42,41 @@ namespace HaloDocMVC.Repository.Admin.Repository
                               PhoneNumber = Hp.PhoneNumber,
                               BusinessNumber = Hp.BusinessContact
                           }).ToList();
-            return result;
+            if (pd.IsAscending == true)
+            {
+                result = pd.SortedColumn switch
+                {
+                    "Profession" => result.OrderBy(x => x.Profession).ToList(),
+                    "Business" => result.OrderBy(x => x.Business).ToList(),
+                    "Email" => result.OrderBy(x => x.Email).ToList(),
+                    _ => result.OrderBy(x => x.Business).ToList()
+                };
+            }
+            else
+            {
+                result = pd.SortedColumn switch
+                {
+                    "PhysicianName" => result.OrderByDescending(x => x.Profession).ToList(),
+                    "Business" => result.OrderByDescending(x => x.Business).ToList(),
+                    "Email" => result.OrderByDescending(x => x.Email).ToList(),
+                    _ => result.OrderByDescending(x => x.Business).ToList()
+                };
+            }
+            int totalItemCount = result.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)pd.PageSize);
+            List<PartnersData> list = result.Skip((pd.CurrentPage - 1) * pd.PageSize).Take(pd.PageSize).ToList();
+
+            PartnersData model = new()
+            {
+                PD = list,
+                CurrentPage = pd.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = pd.PageSize,
+                IsAscending = pd.IsAscending,
+                SortedColumn = pd.SortedColumn
+            };
+
+            return model;
         }
         #endregion
 

@@ -44,5 +44,18 @@ namespace HaloDocMVC.Entity.Models
         [StringLength(6, MinimumLength = 6, ErrorMessage = "ZipCode must be of 6 digits!")]
         [RegularExpression(@"^([0-9]{6})$", ErrorMessage = "ZipCode must contain digits!")]
         public string? ZipCode { get; set; }
+
+        public List<PartnersData>? PD { get; set; }
+
+        // Pagination
+        public int CurrentPage { get; set; } = 1;
+
+        public int TotalPages { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
+
+        public bool? IsAscending { get; set; } = true;
+
+        public string? SortedColumn { get; set; } = "Business";
     }
 }

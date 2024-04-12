@@ -9,7 +9,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IPartners
     {
-        public List<PartnersData> GetPartnersByProfession(string searchValue, int Profession);
+        public PartnersData GetPartnersByProfession(string searchValue, int Profession, PartnersData pd);
 
         public bool AddBusiness(PartnersData pd);
 

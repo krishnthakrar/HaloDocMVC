@@ -19,10 +19,10 @@ namespace HaloDocMVC.Controllers
         }
 
         #region Vendors
-        public IActionResult Index(string searchValue, int Profession)
+        public IActionResult Index(string searchValue, int Profession, PartnersData pd)
         {
             ViewBag.Profession = _dropdown.HealthProfessionalType();
-            List<PartnersData> data = _partners.GetPartnersByProfession(searchValue, Profession);
+            PartnersData data = _partners.GetPartnersByProfession(searchValue, Profession, pd);
             return View("../Partners/Index", data);
         }
         #endregion
