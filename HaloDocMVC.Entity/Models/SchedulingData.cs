@@ -42,7 +42,7 @@ namespace HaloDocMVC.Entity.Models
 
         public bool? IsAscending { get; set; } = true;
 
-        public string? SortedColumn { get; set; } = "PatientName";
+        public string? SortedColumn { get; set; } = "PhysicianName";
     }
     
     public class DayWiseScheduling
