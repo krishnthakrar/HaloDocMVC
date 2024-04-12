@@ -25,9 +25,9 @@ namespace HaloDocMVC.Controllers
         }
 
         #region Index
-        public IActionResult Index()
+        public IActionResult Index(AccessMenu am)
         {
-            var v = _access.AccessIndex();
+            AccessMenu v = _access.AccessIndex(am);
             return View("../Access/Index", v);
         }
         #endregion
@@ -106,12 +106,12 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region UserAccess
-        public IActionResult UserAccess(int? role)
+        public IActionResult UserAccess(int? role, UserAccess ua)
         {
-            List<UserAccess> data = _access.GetAllUserDetails(role);
+            UserAccess data = _access.GetAllUserDetails(role, ua);
             if (role != null)
             {
-                data = _access.GetAllUserDetails(role);
+                data = _access.GetAllUserDetails(role, ua);
             }
             return View("../Access/UserAccess", data);
         }

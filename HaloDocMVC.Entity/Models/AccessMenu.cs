@@ -28,5 +28,18 @@ namespace HaloDocMVC.Entity.Models
 
             public int? MenuId { get; set; }
         }
+
+        public List<AccessMenu>? AM { get; set; }
+
+        // Pagination
+        public int CurrentPage { get; set; } = 1;
+
+        public int TotalPages { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
+
+        public bool? IsAscending { get; set; } = true;
+
+        public string? SortedColumn { get; set; } = "RoleName";
     }
 }

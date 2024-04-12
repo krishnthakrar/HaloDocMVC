@@ -27,5 +27,18 @@ namespace HaloDocMVC.Entity.Models
         public bool IsAdmin { get; set; }
 
         public int? PhysicianId { get; set; }
+
+        public List<UserAccess>? UA { get; set; }
+
+        // Pagination
+        public int CurrentPage { get; set; } = 1;
+
+        public int TotalPages { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
+
+        public bool? IsAscending { get; set; } = true;
+
+        public string? SortedColumn { get; set; } = "FirstName";
     }
 }

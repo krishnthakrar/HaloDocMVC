@@ -22,7 +22,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
 
         #region Index
-        public List<AccessMenu> AccessIndex()
+        public AccessMenu AccessIndex(AccessMenu am)
         {
             List<AccessMenu> data = (from r in _context.Roles
                                      where r.IsDeleted == new BitArray(1)
@@ -32,7 +32,37 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                         RoleId = r.RoleId,
                                         AccountType = r.AccountType
                                      }).ToList();
-            return data;
+            if (am.IsAscending == true)
+            {
+                data = am.SortedColumn switch
+                {
+                    "PhysicianName" => data.OrderBy(x => x.RoleName).ToList(),
+                    _ => data.OrderBy(x => x.RoleName).ToList()
+                };
+            }
+            else
+            {
+                data = am.SortedColumn switch
+                {
+                    "PhysicianName" => data.OrderByDescending(x => x.RoleName).ToList(),
+                    _ => data.OrderByDescending(x => x.RoleName).ToList()
+                };
+            }
+            int totalItemCount = data.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)am.PageSize);
+            List<AccessMenu> list = data.Skip((am.CurrentPage - 1) * am.PageSize).Take(am.PageSize).ToList();
+
+            AccessMenu model = new()
+            {
+                AM = list,
+                CurrentPage = am.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = am.PageSize,
+                IsAscending = am.IsAscending,
+                SortedColumn = am.SortedColumn
+            };
+
+            return model;
         }
         #endregion
 
@@ -199,7 +229,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region GetAllUserDetails
-        public List<UserAccess> GetAllUserDetails(int? User)
+        public UserAccess GetAllUserDetails(int? User, UserAccess ua)
         {
             var userDetails = (from user in _context.AspNetUsers
                                  join admin in _context.Admins on user.Id equals admin.AspNetUserId into adminGroup
@@ -253,7 +283,39 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 }
             }
 
-            return result;
+            if (ua.IsAscending == true)
+            {
+                result = ua.SortedColumn switch
+                {
+                    "AccountType" => result.OrderBy(x => x.AccountType).ToList(),
+                    "FirstName" => result.OrderBy(x => x.FirstName).ToList(),
+                    _ => result.OrderBy(x => x.FirstName).ToList()
+                };
+            }
+            else
+            {
+                result = ua.SortedColumn switch
+                {
+                    "AccountType" => result.OrderByDescending(x => x.AccountType).ToList(),
+                    "FirstName" => result.OrderByDescending(x => x.FirstName).ToList(),
+                    _ => result.OrderByDescending(x => x.FirstName).ToList()
+                };
+            }
+            int totalItemCount = result.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)ua.PageSize);
+            List<UserAccess> list = result.Skip((ua.CurrentPage - 1) * ua.PageSize).Take(ua.PageSize).ToList();
+
+            UserAccess model = new()
+            {
+                UA = list,
+                CurrentPage = ua.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = ua.PageSize,
+                IsAscending = ua.IsAscending,
+                SortedColumn = ua.SortedColumn
+            };
+
+            return model;
         }
         #endregion
 

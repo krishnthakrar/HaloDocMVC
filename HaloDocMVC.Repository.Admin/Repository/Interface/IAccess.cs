@@ -9,7 +9,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IAccess
     {
-        public List<AccessMenu> AccessIndex();
+        public AccessMenu AccessIndex(AccessMenu am);
 
         public bool CreateAccessPost(AccessMenu am, string id);
 
@@ -19,7 +19,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public bool EditAccessPost(AccessMenu am);
 
-        public List<UserAccess> GetAllUserDetails(int? User);
+        public UserAccess GetAllUserDetails(int? User, UserAccess ua);
 
         public bool CreateAdmin(ViewAdminProfile vap, string? id);
     }
