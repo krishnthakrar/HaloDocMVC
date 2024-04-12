@@ -10,11 +10,11 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IProviders
     {
-        public List<ProviderMenu> PhysicianAll();
+        public ProviderMenu PhysicianAll(ProviderMenu pm);
 
         public bool ChangeNotificationPhysician(Dictionary<int, bool> changedValuesDict);
 
-        public List<ProviderMenu> PhysicianByRegion(int? region);
+        public ProviderMenu PhysicianByRegion(ProviderMenu pm, int? region);
 
         public ProviderMenu GetProfileDetails(int UserId);
 

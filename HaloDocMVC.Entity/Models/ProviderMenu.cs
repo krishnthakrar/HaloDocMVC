@@ -29,6 +29,8 @@ namespace HaloDocMVC.Entity.Models
         public string FirstName { get; set; } = null!;
         
         public string? LastName { get; set; }
+
+        public string? Name { get; set; }
         
         public string Email { get; set; } = null!;
         
@@ -109,6 +111,8 @@ namespace HaloDocMVC.Entity.Models
         public int? OnCallStatus { get; set; } = 0;
 
         public List<Regions>? RegionIds { get; set; }
+
+        public List<ProviderMenu>? ProviderData { get; set; }
         
         public class Regions
         {
@@ -116,5 +120,16 @@ namespace HaloDocMVC.Entity.Models
         
             public string? RegionName { get; set; }
         }
+
+        // Pagination
+        public int CurrentPage { get; set; } = 1;
+
+        public int TotalPages { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
+
+        public bool? IsAscending { get; set; } = true;
+
+        public string? SortedColumn { get; set; } = "PatientName";
     }
 }

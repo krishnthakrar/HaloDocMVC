@@ -30,7 +30,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
 
         #region PhysicianAll
-        public List<ProviderMenu> PhysicianAll()
+        public ProviderMenu PhysicianAll(ProviderMenu pm)
         {
             List<ProviderMenu>? data = (from r in _context.Physicians
                                         join Notifications in _context.PhysicianNotifications
@@ -52,15 +52,46 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                             BusinessName = r.BusinessName,
                                             BusinessWebsite = r.BusinessWebsite,
                                             City = r.City,
-                                            FirstName = r.FirstName,
-                                            LastName = r.LastName,
+                                            Name = r.FirstName + " " + r.LastName,
                                             Notification = nof.IsNotificationStopped,
                                             Role = roles.Name,
                                             Status = r.Status,
                                             Email = r.Email,
                                             IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
                                         }).ToList();
-            return data;
+            if (pm.IsAscending == true)
+            {
+                data = pm.SortedColumn switch
+                {
+                    "PatientName" => data.OrderBy(x => x.Name).ToList(),
+                    "Role" => data.OrderBy(x => x.Role).ToList(),
+                    _ => data.OrderBy(x => x.Name).ToList()
+                };
+            }
+            else
+            {
+                data = pm.SortedColumn switch
+                {
+                    "PatientName" => data.OrderByDescending(x => x.Name).ToList(),
+                    "Role" => data.OrderByDescending(x => x.Role).ToList(),
+                    _ => data.OrderByDescending(x => x.Name).ToList()
+                };
+            }
+            int totalItemCount = data.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)pm.PageSize);
+            List<ProviderMenu> list = data.Skip((pm.CurrentPage - 1) * pm.PageSize).Take(pm.PageSize).ToList();
+
+            ProviderMenu model = new()
+            {
+                ProviderData = list,
+                CurrentPage = pm.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = pm.PageSize,
+                IsAscending = pm.IsAscending,
+                SortedColumn = pm.SortedColumn
+            };
+
+            return model;
         }
         #endregion
 
@@ -105,7 +136,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #endregion
 
         #region PhysicianByRegion
-        public List<ProviderMenu> PhysicianByRegion(int? region)
+        public ProviderMenu PhysicianByRegion(ProviderMenu pm, int? region)
         {
             List<ProviderMenu> data = (from pr in _context.PhysicianRegions
                                        join ph in _context.Physicians
@@ -129,15 +160,45 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                            BusinessName = r.BusinessName,
                                            BusinessWebsite = r.BusinessWebsite,
                                            City = r.City,
-                                           FirstName = r.FirstName,
-                                           LastName = r.LastName,
+                                           Name = r.FirstName + " " + r.LastName,
                                            Notification = nof.IsNotificationStopped,
                                            Role = roles.Name,
                                            Status = r.Status,
                                            Email = r.Email,
                                            IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
                                        }).ToList();
-            return data;
+            if (pm.IsAscending == true)
+            {
+                data = pm.SortedColumn switch
+                {
+                    "PatientName" => data.OrderBy(x => x.Name).ToList(),
+                    _ => data.OrderBy(x => x.Name).ToList()
+                };
+            }
+            else
+            {
+                data = pm.SortedColumn switch
+                {
+                    "PatientName" => data.OrderByDescending(x => x.Name).ToList(),
+                    _ => data.OrderByDescending(x => x.Name).ToList()
+                };
+            }
+            int totalItemCount = data.Count;
+            int totalPages = (int)Math.Ceiling(totalItemCount / (double)pm.PageSize);
+            List<ProviderMenu> list = data.Skip((pm.CurrentPage - 1) * pm.PageSize).Take(pm.PageSize).ToList();
+
+            ProviderMenu model = new()
+            {
+                ProviderData = list,
+                CurrentPage = pm.CurrentPage,
+                TotalPages = totalPages,
+                PageSize = pm.PageSize,
+                RegionId = pm.RegionId,
+                IsAscending = pm.IsAscending,
+                SortedColumn = pm.SortedColumn
+            };
+
+            return model;
         }
         #endregion
 

@@ -23,17 +23,17 @@ namespace HaloDocMVC.Controllers
             _notyf = notyf;
         }
         [ProviderAccess("Admin")]
-        public IActionResult Index(int? region)
+        public IActionResult Index(ProviderMenu pm, int? region)
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             if (region == null)
             {
-                var v = _providers.PhysicianAll();
+                ProviderMenu v = _providers.PhysicianAll(pm);
                 return View("../Providers/Index", v);
             }
             else
             {
-                var v = _providers.PhysicianByRegion(region);
+                ProviderMenu v = _providers.PhysicianByRegion(pm, region);
                 return View("../Providers/Index", v);
             }
         }
