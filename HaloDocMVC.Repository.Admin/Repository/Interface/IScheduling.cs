@@ -21,7 +21,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         
         public Task<List<ProviderMenu>> PhysicianOnCall(int? region);
         
-        public Task<List<SchedulingData>> GetAllNotApprovedShift(int? regionId);
+        public SchedulingData GetAllNotApprovedShift(int? regionId, SchedulingData sd);
         
         public Task<bool> DeleteShift(string s, string AdminID);
         

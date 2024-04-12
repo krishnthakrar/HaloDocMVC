@@ -172,6 +172,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 data = pm.SortedColumn switch
                 {
                     "PatientName" => data.OrderBy(x => x.Name).ToList(),
+                    "Role" => data.OrderBy(x => x.Role).ToList(),
                     _ => data.OrderBy(x => x.Name).ToList()
                 };
             }
@@ -180,6 +181,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 data = pm.SortedColumn switch
                 {
                     "PatientName" => data.OrderByDescending(x => x.Name).ToList(),
+                    "Role" => data.OrderByDescending(x => x.Role).ToList(),
                     _ => data.OrderByDescending(x => x.Name).ToList()
                 };
             }

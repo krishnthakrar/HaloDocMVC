@@ -143,10 +143,10 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region RequestedShift
-        public async Task<IActionResult> RequestedShift(int? regionId)
+        public IActionResult RequestedShift(int? regionId, SchedulingData sd)
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
-            List<SchedulingData> v = await _scheduling.GetAllNotApprovedShift(regionId);
+            SchedulingData v = _scheduling.GetAllNotApprovedShift(regionId, sd);
             return View("../Scheduling/ReviewShift", v);
         }
         #endregion

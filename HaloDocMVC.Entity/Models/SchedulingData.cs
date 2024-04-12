@@ -30,6 +30,19 @@ namespace HaloDocMVC.Entity.Models
         public string? modaldate { get; set; }
         
         public int shiftdetailid { get; set; }
+
+        public List<SchedulingData>? SD { get; set; }
+
+        // Pagination
+        public int CurrentPage { get; set; } = 1;
+
+        public int TotalPages { get; set; } = 1;
+
+        public int PageSize { get; set; } = 5;
+
+        public bool? IsAscending { get; set; } = true;
+
+        public string? SortedColumn { get; set; } = "PatientName";
     }
     
     public class DayWiseScheduling
