@@ -61,8 +61,4 @@ public partial class EmailLog
     [ForeignKey("RequestId")]
     [InverseProperty("EmailLogs")]
     public virtual Request? Request { get; set; }
-
-    [ForeignKey("RoleId")]
-    [InverseProperty("EmailLogs")]
-    public virtual Role? Role { get; set; }
 }

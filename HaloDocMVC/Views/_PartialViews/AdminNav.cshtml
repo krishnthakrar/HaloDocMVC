@@ -46,8 +46,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item @(path.EndsWith("/Records") ? "active" : "")" asp-action="Index" asp-controller="Records">Search Records</a>
-                        <a class="dropdown-item @(path.StartsWith("/Records/EmailLogs") ? "active" : "")" asp-action="Index" asp-controller="Records">Email Logs</a>
-                        <a class="dropdown-item @(path.StartsWith("/Records/SMSLogs") ? "active" : "")" asp-action="Index" asp-controller="Records">SMS Logs</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/EmailLogs") ? "active" : "")" asp-action="EmailLogs" asp-controller="Records">Email Logs</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/SMSLogs") ? "active" : "")" asp-action="SMSLogs" asp-controller="Records">SMS Logs</a>
                         <a class="dropdown-item @(path.StartsWith("/Records/PatientHistory") ? "active" : "")" asp-action="PatientHistory" asp-controller="Records">Patient Records</a>
                         <a class="dropdown-item @(path.EndsWith("/Records/BlockedHistory") ? "active" : "")" asp-action="BlockedHistory" asp-controller="Records">Blocked History</a>
                     </div>

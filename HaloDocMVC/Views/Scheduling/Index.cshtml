@@ -130,22 +130,31 @@
                 <h1 class="modal-title fs-5" id="addShiftModal1Label">Create Shift</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="AddShift" asp-controller="Scheduling" class="mt-0">
+            <form asp-action="AddShift" asp-controller="Scheduling" class="mt-0 needs-validation" novalidate>
                 <div class="modal-body">
                     <div class="form-floating">
                         <select class="form-select form-select-sm mt-3 p-2" required data-allow-clear="true" tabindex="-1" onchange="myFunction()" id="region1" asp-for="regionid" asp-items="@(new SelectList(ViewBag.RegionComboBox,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
                             <option id="defaultreason" value="">All Region</option>
                         </select>
+                        <div class="invalid-feedback">
+                            Please select valid region.
+                        </div>
                     </div>
                     <div class="form-floating">
                         <select class="form-select form-select-sm mt-3 p-2" required asp-for="physicianid" data-allow-clear="true" tabindex="-1" id="Physician" data-control="select2" data-placeholder="Select Level">
-                            <option>Select Physician</option>
+                            <option value="">Select Physician</option>
                         </select>
+                        <div class="invalid-feedback">
+                            Please select one physician.
+                        </div>
                     </div>
                     @*<label for="region2">Select Physician</label>*@
                     <div class="form-floating mt-3">
-                        <input asp-for="shiftdate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" placeholder="Date">
+                        <input asp-for="shiftdate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" placeholder="Date" required>
                         <label for="floatingInput">Shift Date</label>
+                        <div class="invalid-feedback">
+                            Please select valid shift date.
+                        </div>
                     </div>
                     <div class="row row-cols-md-2 row-cols-sm-1 row-cols-1 mt-3">
                         <div class="col mb-3 mb-md-0">

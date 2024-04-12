@@ -190,8 +190,6 @@ public partial class HaloDocContext : DbContext
             entity.HasOne(d => d.Physician).WithMany(p => p.EmailLogs).HasConstraintName("EmailLog_PhysicianId_fkey");
 
             entity.HasOne(d => d.Request).WithMany(p => p.EmailLogs).HasConstraintName("EmailLog_RequestId_fkey");
-
-            entity.HasOne(d => d.Role).WithMany(p => p.EmailLogs).HasConstraintName("EmailLog_RoleId_fkey");
         });
 
         modelBuilder.Entity<Encounter>(entity =>
@@ -457,8 +455,6 @@ public partial class HaloDocContext : DbContext
             entity.HasOne(d => d.Physician).WithMany(p => p.Smslogs).HasConstraintName("SMSLog_PhysicianId_fkey");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Smslogs).HasConstraintName("SMSLog_RequestId_fkey");
-
-            entity.HasOne(d => d.Role).WithMany(p => p.Smslogs).HasConstraintName("SMSLog_RoleId_fkey");
         });
 
         modelBuilder.Entity<User>(entity =>

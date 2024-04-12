@@ -50,7 +50,7 @@ namespace HaloDocMVC.Controllers
             }
             else
             {
-                _notyf.Error("Role can't be added...");
+                _notyf.Error("Role cant be added...");
             }
             return RedirectToAction("Index", "Access");
         }
@@ -99,7 +99,7 @@ namespace HaloDocMVC.Controllers
             }
             else
             {
-                _notyf.Error("Role can't be edited...");
+                _notyf.Error("Role cant be edited...");
             }
             return RedirectToAction("Index");
         }

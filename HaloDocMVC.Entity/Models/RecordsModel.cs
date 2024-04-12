@@ -15,6 +15,14 @@ namespace HaloDocMVC.Entity.Models
 
         public List<BlockRequests>? BlockRequests { get; set; }
 
+        public List<EmailLogs>? EmailLogs { get; set; }
+
+        public List<SMSLogs>? SMSLogs { get; set; }
+
+        public int? AccountType { get; set; }
+
+        public string? ReceiverName { get; set; }
+
         // Extra Input Fields For Search Record
         public string? SearchInput { get; set; }
         

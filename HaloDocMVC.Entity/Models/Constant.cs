@@ -41,11 +41,23 @@ namespace HaloDocMVC.Entity.Models
             UnAvailable = 0,
             Available
         }
+
         public enum AccountType
         {
             Admin = 1,
             Provider,
             Patient,
+        }
+
+        public enum EmailAction
+        {
+            Sendorder = 1,
+            Request,
+            SendLink,
+            SendAgreement,
+            Forgot,
+            NewRegistration,
+            contact
         }
     }
 }

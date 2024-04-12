@@ -20,5 +20,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         RecordsModel GetFilteredPatientHistory(RecordsModel rm);
 
         PaginatedViewModel PatientRecord(int UserId, PaginatedViewModel data);
+
+        public RecordsModel GetFilteredSMSLogs(RecordsModel rm);
+
+        public RecordsModel GetFilteredEmailLogs(RecordsModel rm);
     }
 }

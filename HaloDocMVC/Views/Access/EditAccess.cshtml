@@ -23,8 +23,9 @@
                     <div class="row pb-4">
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
-                                <input type="text" asp-for="RoleName" class="form-control shadow-none" id="rname" placeholder="Role Name" />
+                                <input type="text" asp-for="RoleName" class="form-control shadow-none" id="rname" placeholder="Role Name" required />
                                 <label for="rname">Role Name</label>
+                                <span asp-validation-for="RoleName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6 pb-3">

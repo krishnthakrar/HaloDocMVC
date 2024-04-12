@@ -79,5 +79,21 @@ namespace HaloDocMVC.Controllers
             return View("../Records/PatientRecords", r);
         }
         #endregion
+
+        #region EmailLogs
+        public IActionResult EmailLogs(RecordsModel rm)
+        {
+            RecordsModel r = _records.GetFilteredEmailLogs(rm);
+            return View("../Records/EmailLogs", r);
+        }
+        #endregion EmailLogs
+
+        #region SMSLogs
+        public IActionResult SMSLogs(RecordsModel rm)
+        {
+            RecordsModel r = _records.GetFilteredSMSLogs(rm);
+            return PartialView("../Records/SMSLogs", r);
+        }
+        #endregion
     }
 }

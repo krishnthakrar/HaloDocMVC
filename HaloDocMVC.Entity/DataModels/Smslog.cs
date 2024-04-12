@@ -56,8 +56,4 @@ public partial class Smslog
     [ForeignKey("RequestId")]
     [InverseProperty("Smslogs")]
     public virtual Request? Request { get; set; }
-
-    [ForeignKey("RoleId")]
-    [InverseProperty("Smslogs")]
-    public virtual Role? Role { get; set; }
 }
