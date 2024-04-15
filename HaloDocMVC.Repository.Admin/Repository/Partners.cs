@@ -24,6 +24,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region PartnersIndex
         public PartnersData GetPartnersByProfession(string searchValue, int Profession, PartnersData pd)
         {
+            if (searchValue == null)
+            {
+                searchValue = pd.SearchData;
+            }
             List<PartnersData> result = (from Hp in _context.HealthProfessionals
                           join Hpt in _context.HealthProfessionalTypes
                           on Hp.Profession equals Hpt.HealthProfessionalId into AdminGroup
@@ -73,7 +77,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 TotalPages = totalPages,
                 PageSize = pd.PageSize,
                 IsAscending = pd.IsAscending,
-                SortedColumn = pd.SortedColumn
+                SortedColumn = pd.SortedColumn,
+                SearchData = searchValue
             };
 
             return model;

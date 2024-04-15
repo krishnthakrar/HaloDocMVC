@@ -41,6 +41,8 @@ namespace HaloDocMVC.Entity.Models
 
         public string? State { get; set; }
 
+        public string? SearchData { get; set;}
+
         [StringLength(6, MinimumLength = 6, ErrorMessage = "ZipCode must be of 6 digits!")]
         [RegularExpression(@"^([0-9]{6})$", ErrorMessage = "ZipCode must contain digits!")]
         public string? ZipCode { get; set; }

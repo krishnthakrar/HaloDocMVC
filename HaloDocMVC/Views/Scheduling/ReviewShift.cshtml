@@ -157,7 +157,7 @@
         </div>
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="RequestedShift" asp-controller="Scheduling" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="RequestedShift" asp-controller="Scheduling" id="sortingform" novalidate="novalidate">
     <input type="hidden" asp-for="regionid" />
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
@@ -260,8 +260,10 @@
                 success: function (response) {
                     console.log(response);
                     var bodyContent = $(response).find('tbody').html();
+                    var sorting = $(response).find('.sortingform').html();
                     var pagination = $(response).find('.pagenav').html();
                     $('#Pagination').html(pagination);
+                    $('#sortingform').html(sorting);
                     $('#shiftbody').html(bodyContent);
                 },
                 error: function () {
