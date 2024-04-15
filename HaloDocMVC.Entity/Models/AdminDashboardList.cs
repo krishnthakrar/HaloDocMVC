@@ -66,7 +66,9 @@ namespace HaloDocMVC.Entity.Models
         public bool? IsAscending { get; set; } = true;
 
         public string? SortedColumn { get; set; } = "RequestedDate";
-        
+
+        public string? SortedColumnPRecords { get; set; } = "PatientName";
+
         public int NewRequest { get; set; }
        
         public int PendingRequest { get; set; }

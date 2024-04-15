@@ -17,17 +17,33 @@
     <div class="card rounded shadow my-3">
         <!--List of Outcomes-->
         <div class="table-responsive">
-            <table id="PatientHistory" class="table table-responsive mt-3 p-3">
+            <table id="PatientHistory" class="table table-responsive mt-3 p-3 dataTable">
                 <thead class="theadbg">
                     <tr>
-                        <th scope="col">Client/Member</th>
-                        <th scope="col">Created Date</th>
-                        <th scope="col">Confirmation Number</th>
-                        <th scope="col">Provider Name</th>
-                        <th scope="col">Concluded Date</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Final Report</th>
-                        <th scope="col">Actions</th>
+                        @{
+                            var i1 = @Model.SortedColumnPRecords;
+                            var J1 = @Model.IsAscending;
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "PatientName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('PatientName')">
+                                <small>Client/Member</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "RequestedDate" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('RequestedDate')">
+                                <small>Created Date</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Confirmation Number</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "ProviderName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('ProviderName')">
+                                <small>Provider Name</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Concluded Date</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "Status" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Status')">
+                                <small>Status</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Final Report</th>
+                            <th scope="col">Actions</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="table-group-divider mx-5">
@@ -134,7 +150,11 @@
         <!--End Pagination-->
     </div>
 </div>
-
+<form class="mt-0 sortingform" asp-action="PatientRecords" id="sortingform" asp-controller="Records" novalidate="novalidate">
+    <input type="hidden" asp-for="SortedColumnPRecords" id="sortedcol" />
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="IsAscending" id="isAsc" />
+</form>
 <script>
     modeldata = @Html.Raw(Json.Serialize(Model))
 
@@ -153,4 +173,22 @@
             }
             $("#documentform").submit();
         }
+    function SetColumValue(e) {
+        var modeldata = @Html.Raw(Json.Serialize(Model));
+        console.log(modeldata)
+        if (modeldata.sortedColumnPRecords === e) {
+            if (modeldata.isAscending == true) {
+                document.getElementById('isAsc').value = false;
+            }
+            else {
+                document.getElementById('isAsc').value = true;
+            }
+            console.log(document.getElementById('isAsc').value);
+        }
+        else {
+            document.getElementById('sortedcol').value = e;
+            document.getElementById('isAsc').value = true;
+        }
+        $("#sortingform").submit();
+    }
 </script>

@@ -68,18 +68,37 @@
         <!-- End Filter Inputs -->
         <!--List of Outcomes-->
         <div class="table-responsive">
-            <table class="table table-responsive mt-3 mb-0">
+            <table class="table table-responsive mt-3 mb-0 dataTable">
                 <thead class="theadbg">
                     <tr>
-                        <th scope="col">Recipient</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">Role Name</th>
-                        <th scope="col">Email Id</th>
-                        <th scope="col">Created Date</th>
-                        <th scope="col">Sent Date</th>
-                        <th scope="col">Sent</th>
-                        <th scope="col">Sent Tries</th>
-                        <th scope="col">Confirmation Number</th>
+                        @{
+                            var i1 = @Model.SortedColumnEmail;
+                            var J1 = @Model.IsAscending;
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "Recipient" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Recipient')">
+                                <small>Recipient</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Action</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "RoleId" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('RoleId')">
+                                <small>Role Name</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "EmailId" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('EmailId')">
+                                <small>Email Id</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "CreateDate" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('CreateDate')">
+                                <small>Created Date</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Sent Date</th>
+                            <th scope="col">Sent</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "SentTries" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('SentTries')">
+                                <small>Sent Tries</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Confirmation Number</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="table-group-divider" id="EmailLogs">
@@ -163,7 +182,15 @@
         <!--End Pagination-->
     </div>
 </div>
-
+<form class="mt-0 sortingform" asp-action="EmailLogs" id="sortingform" asp-controller="Records" novalidate="novalidate">
+    <input type="hidden" asp-for="SortedColumnEmail" id="sortedcol" />
+    <input type="hidden" asp-for="IsAscending" id="isAsc" />
+    <input type="hidden" asp-for="AccountType" />
+    <input type="hidden" asp-for="ReceiverName" />
+    <input type="hidden" asp-for="Email" />
+    <input type="hidden" asp-for="StartDate" />
+    <input type="hidden" asp-for="EndDate" />
+</form>
 <script>
     modeldata = @Html.Raw(Json.Serialize(Model))
 
@@ -192,8 +219,10 @@
                     console.log(response);
                     var bodyContent = $(response).find('tbody').html();
                     var pagination = $(response).find('#Pagination').html();
+                    var sortingform = $(response).find('#sortingform').html();
                     $('#EmailLogs').html(bodyContent);
                     $('#Pagination').html(pagination);
+                    $('#sortingform').html(sortingform);
                 }
             });
         });
@@ -213,5 +242,23 @@
             $('#currentpagevalue').val(e);
         }
         $("#paginationform").submit();
+    }
+    function SetColumValue(e) {
+        var modeldata = @Html.Raw(Json.Serialize(Model));
+        console.log(modeldata)
+        if (modeldata.sortedColumnEmail === e) {
+            if (modeldata.isAscending == true) {
+                document.getElementById('isAsc').value = false;
+            }
+            else {
+                document.getElementById('isAsc').value = true;
+            }
+            console.log(document.getElementById('isAsc').value);
+        }
+        else {
+            document.getElementById('sortedcol').value = e;
+            document.getElementById('isAsc').value = true;
+        }
+        $("#sortingform").submit();
     }
 </script>

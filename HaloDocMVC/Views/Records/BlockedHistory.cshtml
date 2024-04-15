@@ -47,16 +47,29 @@
         <!-- End Filter Inputs -->
         <!--List of Outcomes-->
         <div class="table-responsive">
-            <table class="table table-responsive mt-3 mb-0">
+            <table class="table table-responsive mt-3 mb-0 dataTable">
                 <thead class="theadbg">
                     <tr>
-                        <th scope="col">Patient Name</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Created Date</th>
-                        <th scope="col">Notes</th>
-                        <th scope="col">IsActive</th>
-                        <th scope="col">Action</th>
+                        @{
+                            var i1 = @Model.SortedColumnBlock;
+                            var J1 = @Model.IsAscending;
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "PatientName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('PatientName')">
+                                <small>Patient Name</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "Email" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Email')">
+                                <small>Email</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "CreatedDate" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('CreatedDate')">
+                                <small>Created Date</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Notes</th>
+                            <th scope="col">IsActive</th>
+                            <th scope="col">Action</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="table-group-divider" id="BlockHistory">
@@ -103,7 +116,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="paginationform" asp-action="BlockHistory" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="paginationform" asp-action="BlockedHistory" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0">
                                 <input type="hidden" asp-for="PageSize" />
                                 <input type="hidden" asp-for="CurrentPage" id="currentpagevalue" />
                                 <input asp-for="PatientName" type="hidden" />
@@ -149,7 +162,14 @@
         <!--End Pagination-->
     </div>
 </div>
-
+<form class="mt-0 sortingform" asp-action="BlockedHistory" id="sortingform" asp-controller="Records" novalidate="novalidate">
+    <input type="hidden" asp-for="SortedColumnBlock" id="sortedcol" />
+    <input type="hidden" asp-for="IsAscending" id="isAsc" />
+    <input type="hidden" asp-for="Email" />
+    <input type="hidden" asp-for="PhoneNumber" />
+    <input type="hidden" asp-for="PatientName" />
+    <input type="hidden" asp-for="StartDate" />
+</form>
 <script>
     modeldata = @Html.Raw(Json.Serialize(Model))
 
@@ -177,8 +197,10 @@
                     console.log(response);
                     var bodyContent = $(response).find('tbody').html();
                     var pagination = $(response).find('.pagenav').html();
+                    var sortingform = $(response).find('.sortingform').html();
                     $('#BlockHistory').html(bodyContent);
                     $('#Pagination').html(pagination);
+                    $('#sortingform').html(sortingform);
                 }
             });
         });
@@ -197,5 +219,23 @@
             $('#currentpagevalue').val(e);
         }
         $("#documentform").submit();
+    }
+    function SetColumValue(e) {
+        var modeldata = @Html.Raw(Json.Serialize(Model));
+        console.log(modeldata)
+        if (modeldata.sortedColumnBlock === e) {
+            if (modeldata.isAscending == true) {
+                document.getElementById('isAsc').value = false;
+            }
+            else {
+                document.getElementById('isAsc').value = true;
+            }
+            console.log(document.getElementById('isAsc').value);
+        }
+        else {
+            document.getElementById('sortedcol').value = e;
+            document.getElementById('isAsc').value = true;
+        }
+        $("#sortingform").submit();
     }
 </script>

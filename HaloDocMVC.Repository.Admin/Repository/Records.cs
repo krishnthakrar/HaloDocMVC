@@ -169,7 +169,26 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                             PhoneNumber = req.PhoneNumber,
                                             Reason = req.Reason
                                         }).ToList();
-
+            if (rm.IsAscending == true)
+            {
+                data = rm.SortedColumn switch
+                {
+                    "PatientName" => data.OrderBy(x => x.PatientName).ToList(),
+                    "CreatedDate" => data.OrderBy(x => x.CreatedDate).ToList(),
+                    "Email" => data.OrderBy(x => x.Email).ToList(),
+                    _ => data.OrderBy(x => x.PatientName).ToList()
+                };
+            }
+            else
+            {
+                data = rm.SortedColumn switch
+                {
+                    "PatientName" => data.OrderByDescending(x => x.PatientName).ToList(),
+                    "CreatedDate" => data.OrderByDescending(x => x.CreatedDate).ToList(),
+                    "Email" => data.OrderByDescending(x => x.Email).ToList(),
+                    _ => data.OrderByDescending(x => x.PatientName).ToList()
+                };
+            }
             int totalItemCount = data.Count;
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)rm.PageSize);
             List<BlockRequests> list = data.Skip((rm.CurrentPage - 1) * rm.PageSize).Take(rm.PageSize).ToList();
@@ -180,6 +199,12 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 CurrentPage = rm.CurrentPage,
                 TotalPages = totalPages,
                 PageSize = rm.PageSize,
+                IsAscending = rm.IsAscending,
+                SortedColumnBlock = rm.SortedColumnBlock,
+                StartDate = rm.StartDate,
+                PatientName = rm.PatientName,
+                Email = rm.Email,
+                PhoneNumber = rm.PhoneNumber
             };
 
             return model;
@@ -243,7 +268,26 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                       State = user.State,
                                       ZipCode = user.ZipCode
                                   }).ToList();
-
+            if (rm.IsAscending == true)
+            {
+                allData = rm.SortedColumnEmail switch
+                {
+                    "FirstName" => allData.OrderBy(x => x.FirstName).ToList(),
+                    "LastName" => allData.OrderBy(x => x.LastName).ToList(),
+                    "Email" => allData.OrderBy(x => x.Email).ToList(),
+                    _ => allData.OrderBy(x => x.FirstName).ToList()
+                };
+            }
+            else
+            {
+                allData = rm.SortedColumnEmail switch
+                {
+                    "FirstName" => allData.OrderByDescending(x => x.FirstName).ToList(),
+                    "LastName" => allData.OrderByDescending(x => x.LastName).ToList(),
+                    "Email" => allData.OrderByDescending(x => x.Email).ToList(),
+                    _ => allData.OrderByDescending(x => x.FirstName).ToList()
+                };
+            }
             int totalItemCount = allData.Count;
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)rm.PageSize);
             List<User> list = allData.Skip((rm.CurrentPage - 1) * rm.PageSize).Take(rm.PageSize).ToList();
@@ -253,7 +297,13 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 Users = list,
                 CurrentPage = rm.CurrentPage,
                 TotalPages = totalPages,
-                PageSize = rm.PageSize
+                PageSize = rm.PageSize,
+                IsAscending = rm.IsAscending,
+                SortedColumnPHistory = rm.SortedColumnPHistory,
+                PhoneNumber = rm.PhoneNumber,
+                FirstName = rm.FirstName,
+                LastName = rm.LastName,
+                Email = rm.Email
             };
             return records;
         }
@@ -292,7 +342,28 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                           ConcludedDate = req.CreatedDate,
                                                           ConfirmationNumber = req.ConfirmationNumber
                                                       }).ToList();
-
+            if (data.IsAscending == true)
+            {
+                allData = data.SortedColumnPRecords switch
+                {
+                    "PatientName" => allData.OrderBy(x => x.PatientName).ToList(),
+                    "RequestedDate" => allData.OrderBy(x => x.RequestedDate).ToList(),
+                    "ProviderName" => allData.OrderBy(x => x.ProviderName).ToList(),
+                    "Status" => allData.OrderBy(x => x.Status).ToList(),
+                    _ => allData.OrderBy(x => x.PatientName).ToList()
+                };
+            }
+            else
+            {
+                allData = data.SortedColumnPRecords switch
+                {
+                    "PatientName" => allData.OrderByDescending(x => x.PatientName).ToList(),
+                    "RequestedDate" => allData.OrderByDescending(x => x.RequestedDate).ToList(),
+                    "ProviderName" => allData.OrderByDescending(x => x.ProviderName).ToList(),
+                    "Status" => allData.OrderByDescending(x => x.Status).ToList(),
+                    _ => allData.OrderByDescending(x => x.PatientName).ToList()
+                };
+            }
             int totalItemCount = allData.Count;
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)data.PageSize);
             List<AdminDashboardList> result = allData.Skip((data.CurrentPage - 1) * data.PageSize).Take(data.PageSize).ToList();
@@ -304,7 +375,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 CurrentPage = data.CurrentPage,
                 TotalPages = totalPages,
                 PageSize = data.PageSize,
-                SearchInput = data.SearchInput
+                IsAscending = data.IsAscending,
+                SortedColumnPRecords = data.SortedColumnPRecords
+
             };
             return model;
         }
@@ -333,7 +406,30 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                            SubjectName = req.SubjectName,
                                            Action = (int)req.Action
                                        }).ToList();
-
+            if (rm.IsAscending == true)
+            {
+                allData = rm.SortedColumnEmail switch
+                {
+                    "Recipient" => allData.OrderBy(x => x.Recipient).ToList(),
+                    "RoleId" => allData.OrderBy(x => x.RoleId).ToList(),
+                    "EmailId" => allData.OrderBy(x => x.EmailId).ToList(),
+                    "CreateDate" => allData.OrderBy(x => x.CreateDate).ToList(),
+                    "SentTries" => allData.OrderBy(x => x.SentTries).ToList(),
+                    _ => allData.OrderBy(x => x.Recipient).ToList()
+                };
+            }
+            else
+            {
+                allData = rm.SortedColumnEmail switch
+                {
+                    "Recipient" => allData.OrderByDescending(x => x.Recipient).ToList(),
+                    "RoleId" => allData.OrderByDescending(x => x.RoleId).ToList(),
+                    "EmailId" => allData.OrderByDescending(x => x.EmailId).ToList(),
+                    "CreateDate" => allData.OrderByDescending(x => x.CreateDate).ToList(),
+                    "SentTries" => allData.OrderByDescending(x => x.SentTries).ToList(),
+                    _ => allData.OrderByDescending(x => x.Recipient).ToList()
+                };
+            }
             int totalItemCount = allData.Count;
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)rm.PageSize);
             List<EmailLogs> list = allData.Skip((rm.CurrentPage - 1) * rm.PageSize).Take(rm.PageSize).ToList();
@@ -343,7 +439,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 EmailLogs = list,
                 CurrentPage = rm.CurrentPage,
                 TotalPages = totalPages,
-                PageSize = rm.PageSize
+                PageSize = rm.PageSize,
+                IsAscending = rm.IsAscending,
+                SortedColumnEmail = rm.SortedColumnEmail,
+                AccountType = rm.AccountType,
+                StartDate = rm.StartDate,
+                EndDate = rm.EndDate,
+                ReceiverName = rm.ReceiverName,
+                Email = rm.Email
             };
 
             return records;
@@ -371,7 +474,28 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                          SentTries = req.SentTries,
                                          Action = req.Action
                                      }).ToList();
-
+            if (rm.IsAscending == true)
+            {
+                allData = rm.SortedColumnEmail switch
+                {
+                    "Recipient" => allData.OrderBy(x => x.Recipient).ToList(),
+                    "RoleId" => allData.OrderBy(x => x.RoleId).ToList(),
+                    "CreateDate" => allData.OrderBy(x => x.CreateDate).ToList(),
+                    "SentTries" => allData.OrderBy(x => x.SentTries).ToList(),
+                    _ => allData.OrderBy(x => x.Recipient).ToList()
+                };
+            }
+            else
+            {
+                allData = rm.SortedColumnEmail switch
+                {
+                    "Recipient" => allData.OrderByDescending(x => x.Recipient).ToList(),
+                    "RoleId" => allData.OrderByDescending(x => x.RoleId).ToList(),
+                    "CreateDate" => allData.OrderByDescending(x => x.CreateDate).ToList(),
+                    "SentTries" => allData.OrderByDescending(x => x.SentTries).ToList(),
+                    _ => allData.OrderByDescending(x => x.Recipient).ToList()
+                };
+            }
             int totalItemCount = allData.Count;
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)rm.PageSize);
             List<SMSLogs> list = allData.Skip((rm.CurrentPage - 1) * rm.PageSize).Take(rm.PageSize).ToList();
@@ -381,7 +505,14 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 SMSLogs = list,
                 CurrentPage = rm.CurrentPage,
                 TotalPages = totalPages,
-                PageSize = rm.PageSize
+                PageSize = rm.PageSize,
+                IsAscending = rm.IsAscending,
+                SortedColumnEmail = rm.SortedColumnEmail,
+                AccountType = rm.AccountType,
+                StartDate = rm.StartDate,
+                EndDate = rm.EndDate,
+                ReceiverName = rm.ReceiverName,
+                PhoneNumber = rm.PhoneNumber
             };
             return records;
         }
