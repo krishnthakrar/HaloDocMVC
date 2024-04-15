@@ -1,4 +1,6 @@
-﻿@{
+﻿@using HaloDocMVC.Repository.Admin.Repository.Interface;
+@inject ILogin Login;
+@{
     string path = Context.Request.Path;
 }
 <nav class="navbar px-5 navbar-expand-lg shadow rounded d-none d-lg-block">
@@ -11,9 +13,12 @@
                 <li class="nav-item">
                     <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Home") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Home">Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
-                </li>
+                @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "MyProfile"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
+                    </li>
+                }
                 <li class="nav-item">
                     <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
                 </li>

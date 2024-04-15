@@ -39,7 +39,7 @@
                         <select asp-items="@(new SelectList(requestStaus, "ID", "Name"))" asp-for="Status" class="form-select form-control shadow-none" id="RequestStatusDropDown">
                             <option>Select Request Status</option>
                         </select>
-                        <label for="RequestStatusDropDown">Select Request Status</label>
+                        <label for="RequestStatusDropDown">Request Status</label>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-12">
@@ -53,7 +53,7 @@
                         <select asp-items="@(new SelectList(requestType, "ID", "Name"))" asp-for="RequestType" class="form-select form-control shadow-none" id="RequestStatusTypeDropDown">
                             <option>Select Request Type</option>
                         </select>
-                        <label for="RequestStatusTypeDropDown">Select Request Type</label>
+                        <label for="RequestStatusTypeDropDown">Request Type</label>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-12">
@@ -95,24 +95,40 @@
         <!-- End Filter Inputs -->
         <!--List of Outcomes-->
         <div class="table-responsive">
-            <table class="table table-responsive mt-3 mb-0">
+            <table class="table table-responsive mt-3 mb-0 dataTable">
                 <thead class="theadbg">
                     <tr>
-                        <th scope="col">Patient Name</th>
-                        <th scope="col">Requestor</th>
-                        <th scope="col">Date Of Service</th>
-                        <th scope="col">Close Case Date</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Zip</th>
-                        <th scope="col">Request Status</th>
-                        <th scope="col">Physician</th>
-                        <th scope="col">Physician Notes</th>
-                        <th scope="col">Cancelled By Provider Note</th>
-                        <th scope="col">Admin Note</th>
-                        <th scope="col">Patient Note</th>
-                        <th scope="col">Delete Permanently</th>
+                        @{
+                            var i1 = @Model.SortedColumn;
+                            var J1 = @Model.IsAscending;
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "PatientName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('PatientName')">
+                                <small>Patient Name</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Requestor</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "DateOfService" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('DateOfService')">
+                                <small>Date Of Service</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Close Case Date</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "Email" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Email')">
+                                <small>Email</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Zip</th>
+                            <th scope="col" class="dt-orderable-asc dt-orderable-desc @(i1 == "Status" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Status')">
+                                <small>Request Status</small>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th scope="col">Physician</th>
+                            <th scope="col">Physician Notes</th>
+                            <th scope="col">Cancelled By Provider Note</th>
+                            <th scope="col">Admin Note</th>
+                            <th scope="col">Patient Note</th>
+                            <th scope="col">Delete Permanently</th>
+                        }
                     </tr>
                 </thead>
                 <tbody class="table-group-divider" id="SearchRecords">
@@ -268,11 +284,22 @@
         <!--End Pagination-->
     </div>
 </div>
-
+<form class="mt-0 sortingform" asp-action="Index" id="sortingform" asp-controller="Records" novalidate="novalidate">
+    <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
+    <input type="hidden" asp-for="IsAscending" id="isAsc" />
+    <input type="hidden" asp-for="RequestType" />
+    <input type="hidden" asp-for="Status" />
+    <input type="hidden" asp-for="PhysicianName" />
+    <input type="hidden" asp-for="Email" />
+    <input type="hidden" asp-for="PhoneNumber" />
+    <input type="hidden" asp-for="PatientName" />
+    <input type="hidden" asp-for="StartDate" />
+    <input type="hidden" asp-for="EndDate" />
+</form>
 <script>
     modeldata = @Html.Raw(Json.Serialize(Model))
 
-            const clear = document.getElementById("Clear");
+    const clear = document.getElementById("Clear");
     const submit = document.getElementById("Submit");
 
     clear.addEventListener("click", function () {
@@ -301,8 +328,10 @@
                     console.log(response);
                     var bodyContent = $(response).find('tbody').html();
                     var pagination = $(response).find('.pagenav').html();
+                    var sortingform = $(response).find('.sortingform').html();
                     $('#SearchRecords').html(bodyContent);
                     $('#Pagination').html(pagination);
+                    $('#sortingform').html(sortingform);
                 }
             });
         });
@@ -345,5 +374,23 @@
             $('#currentpagevalue').val(e);
         }
         $("#documentform").submit();
+    }
+    function SetColumValue(e) {
+        var modeldata = @Html.Raw(Json.Serialize(Model));
+        console.log(modeldata)
+        if (modeldata.sortedColumn === e) {
+            if (modeldata.isAscending == true) {
+                document.getElementById('isAsc').value = false;
+            }
+            else {
+                document.getElementById('isAsc').value = true;
+            }
+            console.log(document.getElementById('isAsc').value);
+        }
+        else {
+            document.getElementById('sortedcol').value = e;
+            document.getElementById('isAsc').value = true;
+        }
+        $("#sortingform").submit();
     }
 </script>

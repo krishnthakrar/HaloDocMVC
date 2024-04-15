@@ -1,4 +1,5 @@
-﻿using HaloDocMVC.Entity.DataContext;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
@@ -10,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static HaloDocMVC.Entity.Models.Constant;
 
 namespace HaloDocMVC.Repository.Admin.Repository
 {
@@ -63,7 +65,28 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                PhysicianNote = nt != null ? nt.PhysicianNotes ?? "" : "",
                                                PatientNote = rc.Notes ?? ""
                                            }).ToList();
-
+            if (rm.IsAscending == true)
+            {
+                allData = rm.SortedColumn switch
+                {
+                    "PatientName" => allData.OrderBy(x => x.PatientName).ToList(),
+                    "DateOfService" => allData.OrderBy(x => x.DateOfService).ToList(),
+                    "Email" => allData.OrderBy(x => x.Email).ToList(),
+                    "Status" => allData.OrderBy(x => x.Status).ToList(),
+                    _ => allData.OrderBy(x => x.PatientName).ToList()
+                };
+            }
+            else
+            {
+                allData = rm.SortedColumn switch
+                {
+                    "PatientName" => allData.OrderByDescending(x => x.PatientName).ToList(),
+                    "DateOfService" => allData.OrderByDescending(x => x.DateOfService).ToList(),
+                    "Email" => allData.OrderByDescending(x => x.Email).ToList(),
+                    "Status" => allData.OrderByDescending(x => x.Status).ToList(),
+                    _ => allData.OrderByDescending(x => x.PatientName).ToList()
+                };
+            }
             int totalItemCount = allData.Count;
             int totalPages = (int)Math.Ceiling(totalItemCount / (double)rm.PageSize);
             List<SearchRecords> list = allData.Skip((rm.CurrentPage - 1) * rm.PageSize).Take(rm.PageSize).ToList();
@@ -74,6 +97,17 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 CurrentPage = rm.CurrentPage,
                 TotalPages = totalPages,
                 PageSize = rm.PageSize,
+                IsAscending = rm.IsAscending,
+                SortedColumn = rm.SortedColumn,
+                RequestType = rm.RequestType,
+                Status = rm.Status,
+                PhysicianName = rm.PhysicianName,
+                Email = rm.Email,
+                PhoneNumber = rm.PhoneNumber,
+                PatientName = rm.PatientName,
+                StartDate = rm.StartDate,
+                EndDate = rm.EndDate,
+
             };
 
             for (int i = 0; i < records.SearchRecords.Count; i++)

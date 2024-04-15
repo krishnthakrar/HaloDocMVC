@@ -42,6 +42,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 {
                     var admindata = _context.Admins.FirstOrDefault(u => u.AspNetUserId == user.Id);
                     admin.UserId = admindata.AdminId;
+                    admin.RoleId = (int)admindata.RoleId;
                 }
                 else if (admin.Role == "Patient")
                 {
@@ -52,6 +53,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 {
                     var admindata = _context.Physicians.FirstOrDefault(u => u.AspNetUserId == user.Id);
                     admin.UserId = admindata.PhysicianId;
+                    admin.RoleId = (int)admindata.RoleId;
                 }
                 return admin;
             }
@@ -59,6 +61,22 @@ namespace HaloDocMVC.Repository.Admin.Repository
             {
                 return null;
             }
+        }
+        #endregion
+
+        #region isAccessGranted
+        public bool isAccessGranted(int roleId, string menuName)
+        {
+            // Get the list of menu IDs associated with the role
+            IQueryable<int> menuIds = _context.RoleMenus
+                                            .Where(e => e.RoleId == roleId)
+                                            .Select(e => e.MenuId);
+
+            // Check if any menu with the given name exists in the list of menu IDs
+            bool accessGranted = _context.Menus
+                                         .Any(e => menuIds.Contains(e.MenuId) && e.Name == menuName);
+
+            return accessGranted;
         }
         #endregion
 

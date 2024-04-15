@@ -12,6 +12,8 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
     {
         Task<UserInfo> CheckAccessLogin(AspNetUser aspNetUser);
 
+        public bool isAccessGranted(int roleId, string menuName);
+
         public bool SendResetLink(String Email);
 
         public bool SendResetLinkPatient(String Email);

@@ -67,5 +67,18 @@ namespace HaloDocMVC.Models
             string? Status = _httpContextAccessor.HttpContext.Request.Cookies["Status"];
             return Status;
         }
+
+        public static int RoleId()
+        {
+            string cookieValue;
+            int RoleId = 0;
+            if (_httpContextAccessor.HttpContext.Request.Cookies["jwt"] != null)
+            {
+                cookieValue = _httpContextAccessor.HttpContext.Request.Cookies["jwt"].ToString();
+
+                RoleId = int.Parse(DecodedToken.DecodeJwt(DecodedToken.ConvertJwtStringToJwtSecurityToken(cookieValue)).claims.FirstOrDefault(t => t.Key == "RoleId").Value);
+            }
+            return RoleId;
+        }
     }
 }
