@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Dashboard") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Dashboard">Dashboard</a>
+                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Dashboard") || path.StartsWith("/PatientRequest/CreateMe") || path.StartsWith("/PatientRequest/CreateSomeOneElse") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3 text-dark @(path.StartsWith("/PatientProfile") ? "active" : "")" asp-action="Index" asp-controller="PatientProfile">Profile</a>

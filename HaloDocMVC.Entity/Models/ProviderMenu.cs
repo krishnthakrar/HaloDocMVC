@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,24 +21,35 @@ namespace HaloDocMVC.Entity.Models
 
         public string? AspNetUserId { get; set; }
 
+        [Required(ErrorMessage = "User Name is Required!")]
         public string? UserName { get; set; }
-        
+
+        [Required(ErrorMessage = "Password is Required!")]
         public string? PassWord { get; set; }
         
         public string? RegionsId { get; set; }
-        
+
+        [Required(ErrorMessage = "First Name is Required!")]
         public string FirstName { get; set; } = null!;
-        
+
+        [Required(ErrorMessage = "Last Name is Required!")]
         public string? LastName { get; set; }
 
         public string? Name { get; set; }
-        
+
+        [Required(ErrorMessage = "Email is Required!")]
+        [EmailAddress(ErrorMessage = "Please Enter Valid Email Address!")]
         public string Email { get; set; } = null!;
-        
+
+        [Required(ErrorMessage = "Phone Number is Required!")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone Number must be of 10 digits!")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Phone Number must contain digits!")]
         public string? Mobile { get; set; }
         
         public string? State { get; set; }
-        
+
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "ZipCode must be of 6 digits!")]
+        [RegularExpression(@"^([0-9]{6})$", ErrorMessage = "ZipCode must contain digits!")]
         public string? ZipCode { get; set; }
         
         public string? MedicalLicense { get; set; }
@@ -57,7 +69,8 @@ namespace HaloDocMVC.Entity.Models
         public bool IsNonDisclosureDoc { get; set; }
         
         public bool IsLicenseDoc { get; set; }
-        
+
+        [Required(ErrorMessage = "Address1 is Required!")]
         public string? Address1 { get; set; }
         
         public string? Address2 { get; set; }
@@ -65,7 +78,9 @@ namespace HaloDocMVC.Entity.Models
         public string? City { get; set; }
         
         public int? RegionId { get; set; }
-        
+
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone Number must be of 10 digits!")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Phone Number must contain digits!")]
         public string? AltPhone { get; set; }
         
         public string? CreatedBy { get; set; } = null!;
@@ -77,9 +92,11 @@ namespace HaloDocMVC.Entity.Models
         public DateTime? ModifiedDate { get; set; }
         
         public short? Status { get; set; }
-        
+
+        [Required(ErrorMessage = "Business Name is Required!")]
         public string BusinessName { get; set; } = null!;
-        
+
+        [Required(ErrorMessage = "Business Website is Required!")]
         public string BusinessWebsite { get; set; } = null!;
         
         public BitArray? IsDeleted { get; set; }
@@ -95,7 +112,8 @@ namespace HaloDocMVC.Entity.Models
         public BitArray? IsCredentialDoc { get; set; }
         
         public BitArray? IsTokenGenerate { get; set; }
-        
+
+        [EmailAddress(ErrorMessage = "Please Enter Valid Email Address!")]
         public string? SyncEmailAddress { get; set; }
         
         public IFormFile? AgreementDoc { get; set; }
@@ -109,6 +127,8 @@ namespace HaloDocMVC.Entity.Models
         public IFormFile? LicenseDoc { get; set; }
 
         public int? OnCallStatus { get; set; } = 0;
+
+        public int? Region { get; set; }
 
         public List<Regions>? RegionIds { get; set; }
 
@@ -130,6 +150,6 @@ namespace HaloDocMVC.Entity.Models
 
         public bool? IsAscending { get; set; } = true;
 
-        public string? SortedColumn { get; set; } = "PatientName";
+        public string? SortedColumn { get; set; } = "Name";
     }
 }

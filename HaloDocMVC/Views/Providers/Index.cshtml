@@ -15,7 +15,7 @@
             <div class="d-flex justify-content-between">
                 <div class="search m-1">
                     <i class="fa fa-search"></i>
-                    <select class="form-select" asp-for="RegionId" data-allow-clear="true" tabindex="-1" id="regiondropdown" onchange="regChange()" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                    <select class="form-select" asp-for="Region" data-allow-clear="true" tabindex="-1" id="regiondropdown" onchange="regChange()" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
                         <option>All Region</option>
                     </select>
                 </div>
@@ -31,8 +31,8 @@
                     </a>
                 </div>
             </div>
-            <table class="w-100 mt-3 table dataTable">
-                <thead class="theadbg py-2">
+            <table class="w-100 mt-3 table dataTable" id="fullTable">
+                <thead class="theadbg py-2" id="tableHead">
                     <tr>
                         @{
                             var i1 = @Model.SortedColumn;
@@ -40,7 +40,7 @@
                             <th scope="col" style="width:13%">
                                 <small>Stop Notifications</small>
                             </th>
-                            <th scope="col" style="position:relative;width:22%" class="dt-orderable-asc dt-orderable-desc @(i1 == "PatientName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('PatientName')">
+                            <th scope="col" style="position:relative;width:22%" class="dt-orderable-asc dt-orderable-desc @(i1 == "Name" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Name')">
                                 <small>Provider Name</small>
                                 <span class="dt-column-order"></span>
                             </th>
@@ -111,7 +111,7 @@
                                 int i;
                                 <form id="paginationform" asp-action="Index" asp-controller="Providers" novalidate="novalidate" class="d-flex mt-0">
                                     <input type="hidden" asp-for="PageSize" />
-                                    <input type="hidden" asp-for="RegionId" />
+                                    <input type="hidden" asp-for="Region" />
                                     <input type="hidden" asp-for="SortedColumn" />
                                     <input type="hidden" asp-for="IsAscending" />
                                     <input type="hidden" asp-for="CurrentPage" id="currentpagevalue" />
@@ -151,15 +151,15 @@
                     </div>
                 </div>
             </nav>
+            <form class="mt-0 sortingform" asp-action="Index" asp-controller="Providers" novalidate="novalidate" id="sortingForm">
+                <input type="hidden" asp-for="Region" />
+                <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
+                <input type="hidden" asp-for="IsAscending" id="isAsc" />
+            </form>
             <!--End Pagination-->
         </div>
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="Index" asp-controller="Providers" novalidate="novalidate">
-    <input type="hidden" asp-for="RegionId" />
-    <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
-    <input type="hidden" asp-for="IsAscending" id="isAsc" />
-</form>
 <partial name="../Providers/ContactProvider.cshtml" />
 <script>
     function regChange() {
@@ -167,14 +167,15 @@
         console.log(region);
         $.ajax({
             method: "POST",
-            url: "/Providers/Index?region=" + region,
+            url: "/Providers/Index?Region=" + region,
             cache: false,
             success: function (response) {
-                console.log(response);
                 var bodyContent = $(response).find('tbody').html();
                 var pagination = $(response).find('.pagenav').html();
+                var sorting = $(response).find('.sortingform').html();
                 $('#tableBody').html(bodyContent);
                 $('#Pagination').html(pagination);
+                $('#sortingForm').html(sorting);
             },
             error: function () {
                 alert("Error while Loading data.");
