@@ -114,7 +114,7 @@
                             int i;
                             <form id="paginationform" asp-action="UserAccess" asp-controller="Access" novalidate="novalidate" class="d-flex mt-0">
                                 <input type="hidden" asp-for="PageSize" />
-                                <input type="hidden" asp-for="AccountType" />
+                                <input type="hidden" asp-for="Role" />
                                 <input type="hidden" asp-for="SortedColumn" />
                                 <input type="hidden" asp-for="IsAscending" />
                                 <input type="hidden" asp-for="CurrentPage" id="currentpagevalue" />
@@ -157,8 +157,8 @@
         <!--End Pagination-->
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="UserAccess" asp-controller="Access" novalidate="novalidate">
-    <input type="hidden" asp-for="AccountType" />
+<form class="mt-0 sortingform" asp-action="UserAccess" id="sortingform" asp-controller="Access" novalidate="novalidate">
+    <input type="hidden" asp-for="Role" />
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
 </form>
@@ -174,11 +174,13 @@
             url: '@Url.Action("UserAccess", "Access")?role=' + role,
             cache: false,
             success: function (response) {
-                console.log(response);
                 var bodyContent = $(response).find('tbody').html();
                 var pagination = $(response).find('.pagenav').html();
+                var sortingform = $(response).find('.sortingform').html();
+                console.log(sortingform);
                 $('#Pagination').html(pagination);
                 $('#rolebody').html(bodyContent);
+                $('#sortingform').html(sortingform);
             },
             error: function () {
                 alert("Error while Loading data.");

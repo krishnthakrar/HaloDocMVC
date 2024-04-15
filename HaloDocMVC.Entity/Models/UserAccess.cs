@@ -22,6 +22,8 @@ namespace HaloDocMVC.Entity.Models
 
         public int? OpenRequest { get; set; }
 
+        public int? Role { get; set; }
+
         public string? Mobile { get; set; }
 
         public bool IsAdmin { get; set; }

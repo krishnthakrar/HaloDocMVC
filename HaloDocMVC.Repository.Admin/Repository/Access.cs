@@ -312,7 +312,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 TotalPages = totalPages,
                 PageSize = ua.PageSize,
                 IsAscending = ua.IsAscending,
-                SortedColumn = ua.SortedColumn
+                SortedColumn = ua.SortedColumn,
+                Role = User
             };
 
             return model;
