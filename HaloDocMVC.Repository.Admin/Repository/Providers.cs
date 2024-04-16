@@ -57,6 +57,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                             Role = roles.Name,
                                             Status = r.Status,
                                             Email = r.Email,
+                                            Mobile = r.Mobile,
                                             IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
                                         }).ToList();
             if (pm.IsAscending == true)
@@ -165,6 +166,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                            Role = roles.Name,
                                            Status = r.Status,
                                            Email = r.Email,
+                                           Mobile = r.Mobile,
                                            IsNonDisclosureDoc = r.IsNonDisclosureDoc == null ? false : true
                                        }).ToList();
             if (pm.IsAscending == true)
@@ -619,6 +621,15 @@ namespace HaloDocMVC.Repository.Admin.Repository
             {
                 return false;
             }
+        }
+        #endregion
+
+        #region SendMessage
+        public bool SendMessage(string? mobile, string? Message)
+        {
+            string contact = "+91" + mobile;
+            bool sms = _emailConfig.SendSMS(contact, Message).Result;
+            return sms;
         }
         #endregion
     }

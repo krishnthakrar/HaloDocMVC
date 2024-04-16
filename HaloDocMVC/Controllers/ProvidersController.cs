@@ -48,12 +48,13 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region SendMessage
-        public async Task<IActionResult> SendMessage(string? email, int? contactProviderRadioSet, string? Message)
+        public async Task<IActionResult> SendMessage(string? email, string? mobile, int? contactProviderRadioSet, string? Message)
         {
-            bool result;
+            bool result = false;
+            bool sms = false;
             if (contactProviderRadioSet == 1)
             {
-                result = false;
+                sms = _providers.SendMessage(mobile, Message);
             }
             else if (contactProviderRadioSet == 2)
             {
@@ -62,12 +63,13 @@ namespace HaloDocMVC.Controllers
             else
             {
                 result = await _emailConfiguration.SendMail(email, "Mail from Admin", Message);
+                sms = _providers.SendMessage(mobile, Message);
             }
-            if (result == true)
+            if (result)
             {
                 _notyf.Success("Mail Sent Successfully..!");
             }
-            else
+            if (sms)
             {
                 _notyf.Success("Message Sent Successfully..!");
             }
