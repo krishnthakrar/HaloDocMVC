@@ -1,0 +1,35 @@
+﻿<style>
+    /* Styles to center the loader and dim the background */
+    #loading {
+        position: fixed; /* Fixed positioning to keep the loader in the same place */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center; /* Centers the loader vertically */
+        justify-content: center; /* Centers the loader horizontally */
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 9999; /* High z-index to ensure it's on top of other content */    
+        display: none;
+    }
+
+    #loading img {
+        position: fixed;
+        top: 45%;
+        left: 45%;
+        width: 100px; /* Adjust size as necessary */
+        height: 100px; /* Adjust size as necessary */
+    }
+</style>
+<div class="d-flex justify-content-center">
+    <div role="status" id="loading">
+        <img src="~/images/loader.gif" alt="Loader" />
+    </div>
+</div>
+
+<script>
+    function displayBusyIndicator() {
+        document.getElementById("loading").style.display = "block";
+    }
+</script>

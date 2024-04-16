@@ -31,6 +31,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 new Claim(ClaimTypes.Email, userinfo.UserName),
                 new Claim(ClaimTypes.Role, userinfo.Role),
                 new Claim("FirstName", userinfo.FirstName),
+                new Claim("Role", userinfo.Role),
                 new Claim("UserId", userinfo.UserId.ToString()),
                 new Claim("UserName", userinfo.UserName.ToString()),
                 new Claim("AspNetUserId", userinfo.AspNetUserId.ToString()),

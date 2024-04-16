@@ -18,7 +18,8 @@
             <button type="button" onclick="pwdShowHide()"><img class="showImg" src="../../Images/eye.svg" alt="Password Show/Hide"><img class="hideImg" src="../../Images/hide-eye.png" alt="Password Show/Hide"></button>
             <span class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-info text-white w-100 mb-4" role="button">Login</button>
+        <button type="submit" onclick="displayBusyIndicator()" class="btn btn-info text-white w-100 mb-4" role="button">Login</button>
     </form>
     <a asp-controller="Login" asp-action="ForgotPassword" class="text-decoration-none d-flex justify-content-center"><strong class="text-info">Forgot Password?</strong></a>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

@@ -26,7 +26,6 @@ namespace HaloDocMVC.Controllers
             _notyf = notyf;
         }
 
-        [ProviderAccess("Admin")]
         public IActionResult Index()
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
