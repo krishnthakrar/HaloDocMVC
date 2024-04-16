@@ -9,9 +9,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IRequestRepository
     {
-        PaginatedViewModel IndexData(int ProviderId);
-
-        PaginatedViewModel GetRequests(string Status, PaginatedViewModel data, int ProviderId);
+        PaginatedViewModel IndexData();
 
         PaginatedViewModel GetRequests(string Status, PaginatedViewModel data);
     }

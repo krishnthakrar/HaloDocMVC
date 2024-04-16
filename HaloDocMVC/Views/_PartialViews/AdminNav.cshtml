@@ -11,63 +11,51 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Admin/DashBoard") || path.StartsWith("/Physician/DashBoard") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Home">Dashboard</a>
+                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Home") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Home">Dashboard</a>
                 </li>
-                @if(CredentialValue.role() == "Provider")
-                {
-                    <li class="nav-item">
-                        <a class="nav-link px-3 text-dark @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Invoicing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3 text-dark @(path.StartsWith("/MySchedule") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">My Schedule</a>
-                    </li>
-                }
                 @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "MyProfile"))
                 {
                     <li class="nav-item">
                         <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
                     </li>
                 }
-                @if(CredentialValue.role() == "Admin")
-                {
-                    <li class="nav-item">
-                        <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") || path.StartsWith("/Scheduling") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Providers
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item @(path.StartsWith("/Providers") ? "active" : "")" asp-action="Index" asp-controller="Providers">Provider</a>
-                            <a class="dropdown-item @(path.StartsWith("/Scheduling") ? "active" : "")" asp-action="Index" asp-controller="Scheduling">Scheduling</a>
-                            <a class="dropdown-item" href="#"> Invoicing</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Partners") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Partners">Partners</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Access") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Access
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item @(path.EndsWith("/Access") ? "active" : "")" asp-action="Index" asp-controller="Access">Account Access</a>
-                            <a class="dropdown-item @(path.StartsWith("/Access/UserAccess") ? "active" : "")" asp-action="UserAccess" asp-controller="Access">User Access</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Records") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Records
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item @(path.EndsWith("/Records") ? "active" : "")" asp-action="Index" asp-controller="Records">Search Records</a>
-                            <a class="dropdown-item @(path.StartsWith("/Records/EmailLogs") ? "active" : "")" asp-action="EmailLogs" asp-controller="Records">Email Logs</a>
-                            <a class="dropdown-item @(path.StartsWith("/Records/SMSLogs") ? "active" : "")" asp-action="SMSLogs" asp-controller="Records">SMS Logs</a>
-                            <a class="dropdown-item @(path.StartsWith("/Records/PatientHistory") ? "active" : "")" asp-action="PatientHistory" asp-controller="Records">Patient Records</a>
-                            <a class="dropdown-item @(path.EndsWith("/Records/BlockedHistory") ? "active" : "")" asp-action="BlockedHistory" asp-controller="Records">Blocked History</a>
-                        </div>
-                    </li>
-                }
+                <li class="nav-item">
+                    <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") || path.StartsWith("/Scheduling") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Providers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item @(path.StartsWith("/Providers") ? "active" : "")" asp-action="Index" asp-controller="Providers">Provider</a>
+                        <a class="dropdown-item @(path.StartsWith("/Scheduling") ? "active" : "")" asp-action="Index" asp-controller="Scheduling">Scheduling</a>
+                        <a class="dropdown-item" href="#"> Invoicing</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Partners") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Partners">Partners</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Access") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Access
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item @(path.EndsWith("/Access") ? "active" : "")" asp-action="Index" asp-controller="Access">Account Access</a>
+                        <a class="dropdown-item @(path.StartsWith("/Access/UserAccess") ? "active" : "")" asp-action="UserAccess" asp-controller="Access">User Access</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Records") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Records
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item @(path.EndsWith("/Records") ? "active" : "")" asp-action="Index" asp-controller="Records">Search Records</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/EmailLogs") ? "active" : "")" asp-action="EmailLogs" asp-controller="Records">Email Logs</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/SMSLogs") ? "active" : "")" asp-action="SMSLogs" asp-controller="Records">SMS Logs</a>
+                        <a class="dropdown-item @(path.StartsWith("/Records/PatientHistory") ? "active" : "")" asp-action="PatientHistory" asp-controller="Records">Patient Records</a>
+                        <a class="dropdown-item @(path.EndsWith("/Records/BlockedHistory") ? "active" : "")" asp-action="BlockedHistory" asp-controller="Records">Blocked History</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -80,63 +68,48 @@
     <div class="offcanvas-body">
         <ul class="list-group list-group-flush">
             <li class="list-group-item h6">
-                <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Admin/DashBoard") || path.StartsWith("/Physician/DashBoard") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Home">Dashboard</a>
+                <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Home") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Home">Dashboard</a>
             </li>
-            @if(CredentialValue.role() == "Provider")
-            {
-                <li class="list-group-item h6">
-                    <a class="nav-link px-3 text-dark @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Invoicing</a>
-                </li>
-                <li class="list-group-item h6">
-                    <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
-                </li>
-            }
-            @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "MyProfile"))
-            {
-                <li class="list-group-item h6">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
-                </li>
-            }
-            @if (CredentialValue.role() == "Admin")
-            {
-                <li class="list-group-item h6">
-                    <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
-                </li>
-                <li class="list-group-item h6 dropdown">
-                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") || path.StartsWith("/Scheduling") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Providers
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item @(path.StartsWith("/Providers") ? "active" : "")" asp-action="Index" asp-controller="Providers">Provider</a>
-                        <a class="dropdown-item @(path.StartsWith("/Scheduling") ? "active" : "")" asp-action="Index" asp-controller="Scheduling">Scheduling</a>
-                        <a class="dropdown-item" href="#"> Invoicing</a>
-                    </div>
-                </li>
-                <li class="list-group-item h6">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Partners") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Partners">Partners</a>
-                </li>
-                <li class="list-group-item h6 dropdown">
-                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Access") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Access
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item @(path.EndsWith("/Access") ? "active" : "")" asp-action="Index" asp-controller="Access">Account Access</a>
-                        <a class="dropdown-item @(path.StartsWith("/Access/UserAccess") ? "active" : "")" asp-action="UserAccess" asp-controller="Access">User Access</a>
-                    </div>
-                </li>
-                <li class="list-group-item h6 dropdown">
-                    <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Records") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Records
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item @(path.EndsWith("/Records") ? "active" : "")" asp-action="Index" asp-controller="Records">Search Records</a>
-                        <a class="dropdown-item @(path.StartsWith("/Records/EmailLogs") ? "active" : "")" asp-action="EmailLogs" asp-controller="Records">Email Logs</a>
-                        <a class="dropdown-item @(path.StartsWith("/Records/SMSLogs") ? "active" : "")" asp-action="SMSLogs" asp-controller="Records">SMS Logs</a>
-                        <a class="dropdown-item @(path.StartsWith("/Records/PatientHistory") ? "active" : "")" asp-action="PatientHistory" asp-controller="Records">Patient Records</a>
-                        <a class="dropdown-item @(path.EndsWith("/Records/BlockedHistory") ? "active" : "")" asp-action="BlockedHistory" asp-controller="Records">Blocked History</a>
-                    </div>
-                </li>
-            }
+            <li class="list-group-item h6">
+                <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
+            </li>
+            <li class="list-group-item h6">
+                <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
+            </li>
+            <li class="list-group-item h6 dropdown">
+                <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") || path.StartsWith("/Scheduling") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Providers
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item @(path.StartsWith("/Providers") ? "active" : "")" asp-action="Index" asp-controller="Providers">Provider</a>
+                    <a class="dropdown-item @(path.StartsWith("/Scheduling") ? "active" : "")" asp-action="Index" asp-controller="Scheduling">Scheduling</a>
+                    <a class="dropdown-item" href="#"> Invoicing</a>
+                </div>
+            </li>
+            <li class="list-group-item h6">
+                <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Partners") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Partners">Partners</a>
+            </li>
+            <li class="list-group-item h6 dropdown">
+                <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Access") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Access
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item @(path.EndsWith("/Access") ? "active" : "")" asp-action="Index" asp-controller="Access">Account Access</a>
+                    <a class="dropdown-item @(path.StartsWith("/Access/UserAccess") ? "active" : "")" asp-action="UserAccess" asp-controller="Access">User Access</a>
+                </div>
+            </li>
+            <li class="list-group-item h6 dropdown">
+                <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Records") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Records
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item @(path.EndsWith("/Records") ? "active" : "")" asp-action="Index" asp-controller="Records">Search Records</a>
+                    <a class="dropdown-item @(path.StartsWith("/Records/EmailLogs") ? "active" : "")" asp-action="EmailLogs" asp-controller="Records">Email Logs</a>
+                    <a class="dropdown-item @(path.StartsWith("/Records/SMSLogs") ? "active" : "")" asp-action="SMSLogs" asp-controller="Records">SMS Logs</a>
+                    <a class="dropdown-item @(path.StartsWith("/Records/PatientHistory") ? "active" : "")" asp-action="PatientHistory" asp-controller="Records">Patient Records</a>
+                    <a class="dropdown-item @(path.EndsWith("/Records/BlockedHistory") ? "active" : "")" asp-action="BlockedHistory" asp-controller="Records">Blocked History</a>
+                </div>
+            </li>
         </ul>
     </div>
 </div>

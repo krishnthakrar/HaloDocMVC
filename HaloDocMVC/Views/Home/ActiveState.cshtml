@@ -13,25 +13,22 @@
                         <span class="dt-column-order"></span>
                     </th>
                     <th></th>
-                    @if (CredentialValue.role() == "Admin")
-                    {
-                        <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "DateOfBirth" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('DateOfBirth')">
-                            <small>Date Of Birth</small>
-                            <span class="dt-column-order"></span>
-                        </th>
-                        <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "Requestor" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Requestor')">
-                            <small>Requestor</small>
-                            <span class="dt-column-order"></span>
-                        </th>
-                        <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "ProviderName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('ProviderName')">
-                            <small>Physician Name</small>
-                            <span class="dt-column-order"></span>
-                        </th>
-                        <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "RequestedDate" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('RequestedDate')">
-                            <small>Date of Service</small>
-                            <span class="dt-column-order"></span>
-                        </th>
-                    }
+                    <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "DateOfBirth" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('DateOfBirth')">
+                        <small>Date Of Birth</small>
+                        <span class="dt-column-order"></span>
+                    </th>
+                    <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "Requestor" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('Requestor')">
+                        <small>Requestor</small>
+                        <span class="dt-column-order"></span>
+                    </th>
+                    <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "ProviderName" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('ProviderName')">
+                        <small>Physician Name</small>
+                        <span class="dt-column-order"></span>
+                    </th>
+                    <th scope="col" style="position:relative;" class="dt-orderable-asc dt-orderable-desc @(i1 == "RequestedDate" ? (J1 == true ?"dt-ordering-asc" : "dt-ordering-desc" ) : "")" onclick="SetColumValue('RequestedDate')">
+                        <small>Date of Service</small>
+                        <span class="dt-column-order"></span>
+                    </th>
                     <th scope="col">
                         <small>Phone</small>
                     </th>
@@ -39,21 +36,12 @@
                         <small>Address</small>
                         <span class="dt-column-order"></span>
                     </th>
-                    @if (CredentialValue.role() == "Provider")
-                    {
-                        <th scope="col">
-                            <small>Status</small>
-                        </th>
-                    }
-                    @if (CredentialValue.role() == "Admin")
-                    {
-                        <th scope="col">
-                            <small>Notes</small>
-                        </th>
-                        <th scope="col">
-                            <small>Chat With</small>
-                        </th>
-                    }
+                    <th scope="col">
+                        <small>Notes</small>
+                    </th>
+                    <th scope="col">
+                        <small>Chat With</small>
+                    </th>
                     <th scope="col">
                         <small>Actions</small>
                     </th>
@@ -70,15 +58,12 @@
                             <i class="fa-regular fa-envelope"></i>
                         </button>
                     </td>
-                    @if (CredentialValue.role() == "Admin")
-                    {
-                        <td>
-                            <small>@item.DateOfBirth.ToString()</small>
-                        </td>
-                        <td><small>@item.Requestor</small></td>
-                        <td><small>Dr. @item.ProviderName</small></td>
-                        <td><small>@item.RequestedDate.ToString("MMM d , yyyy")</small></td>
-                    }
+                    <td>
+                        <small>@item.DateOfBirth.ToString()</small>
+                    </td>
+                    <td><small>@item.Requestor</small></td>
+                    <td><small>Dr. @item.ProviderName</small></td>
+                    <td><small>@item.RequestedDate.ToString("MMM d , yyyy")</small></td>
                     <td>
                         <button class="btn border border-white text-white mt-2">
                             <i class="fa-solid fa-phone pe-2"></i>
@@ -102,22 +87,15 @@
                         }
                     </td>
                     <td><small>@item.Address</small></td>
-                    @if (CredentialValue.role() == "Admin")
-                    {
-                        <td><small>@item.Notes</small></td>
-                        <td>
-                            <button class="btn border border-white text-white my-2">
-                                <small>Patient</small>
-                            </button>
-                            <button class="btn border border-white text-white my-2">
-                                <small>Provider</small>
-                            </button>
-                        </td>
-                    }
-                    @if (CredentialValue.role() == "Provider")
-                    {
-                        <td></td>
-                    }
+                    <td><small>@item.Notes</small></td>
+                    <td>
+                        <button class="btn border border-white text-white my-2">
+                            <small>Patient</small>
+                        </button>
+                        <button class="btn border border-white text-white my-2">
+                            <small>Provider</small>
+                        </button>
+                    </td>
                     <td>
                         <button class="btn border border-white text-white my-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <small>Actions</small>
@@ -127,10 +105,7 @@
                             <li><a class="dropdown-item" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@item.RequestId"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                             <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                             <li><a asp-action="Order" asp-controller="Home" asp-route-id="@item.RequestId" class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>
-                            @if (CredentialValue.role() == "Admin")
-                            {
-                                <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Doctor's Note</a></li>
-                            }
+                            <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Doctor's Note</a></li>
                             <li><a asp-action="Encounter" asp-controller="Home" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>
                         </ul>
                     </td>
@@ -176,33 +151,25 @@
                             </a>
                         </div>
                     </div>
-                    @if (CredentialValue.role() == "Admin")
-                    {
-                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-calendar-days me-2"></i>Date of Birth: @item.DateOfBirth.ToString()</p>
-                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-envelope me-2"></i>Email : @item.Email</p>
-                    }
+                    <p><i class="btn btn-outline-info rounded-pill fa-solid fa-calendar-days me-2"></i>Date of Birth: @item.DateOfBirth.ToString()</p>
+                    <p><i class="btn btn-outline-info rounded-pill fa-solid fa-envelope me-2"></i>Email : @item.Email</p>
                     <p><i class="btn btn-outline-info rounded-pill fa-solid fa-phone me-2"></i>Patient : @item.PatientPhoneNumber</p>
-                    @if (CredentialValue.role() == "Admin")
-                    {
-                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-note-sticky me-2"></i>Transfer Notes : @item.Notes</p>
-                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-calendar-days me-2"></i>Date of service : @item.RequestedDate.ToString("dd/MM/yyyy")</p>
-                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user-doctor me-2"></i>Physician : Dr. J K Shani</p>
-                        <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user me-2"></i>Requestor : @item.Requestor</p>
-                    }
+                    <p><i class="btn btn-outline-info rounded-pill fa-solid fa-note-sticky me-2"></i>Transfer Notes : @item.Notes</p>
+                    <p><i class="btn btn-outline-info rounded-pill fa-solid fa-calendar-days me-2"></i>Date of service : @item.RequestedDate.ToString("dd/MM/yyyy")</p>
+                    <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user-doctor me-2"></i>Physician : Dr. J K Shani</p>
+                    <p><i class="btn btn-outline-info rounded-pill fa-solid fa-user me-2"></i>Requestor : @item.Requestor</p>
                     <div class="row">
                         <div class="col-6 mb-3">
                             <a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="btn btn-white bg-success text-white rounded-pill 2px w-100">
                                 <small>View Notes</small>
                             </a>
                         </div>
-                        @if (CredentialValue.role() == "Admin")
-                        {
-                            <div class="col-6 mb-3">
-                                <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">
-                                    <small>Doctors Note</small>
-                                </button>
-                            </div>
-                        }
+                        <div class="col-6 mb-3">
+                            <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">
+                                <small>Doctors Note</small>
+                            </button>
+                        </div>
+
                         <div class="col-6 mb-3">
                             <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">
                                 <small>View Uploads</small>
@@ -218,29 +185,23 @@
                                 <small>Orders</small>
                             </a>
                         </div>
-                        @if (CredentialValue.role() == "Admin")
-                        {
-                            <div class="col-6 mb-3 ">
-                                <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">
-                                    <small>Email</small>
-                                </button>
-                            </div>
-                        }
-                    </div>
-                    @if (CredentialValue.role() == "Admin")
-                    {
-                        <div class="text-end d-md-flex justify-content-md-end">
-                            <span>Chat With:</span>
-                            <button class="btn btn-white border-info text-info me-md-2 mb-2" type="button">
-                                <i class="fa-regular fa-user me-1"></i>
-                                Patient
-                            </button>
-                            <button class="btn btn-white border-info text-info mb-2" type="button">
-                                <i class="fa-solid fa-user-doctor me-1"></i>
-                                Provider
+                        <div class="col-6 mb-3 ">
+                            <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">
+                                <small>Email</small>
                             </button>
                         </div>
-                    }
+                    </div>
+                    <div class="text-end d-md-flex justify-content-md-end">
+                        <span>Chat With:</span>
+                        <button class="btn btn-white border-info text-info me-md-2 mb-2" type="button">
+                            <i class="fa-regular fa-user me-1"></i>
+                            Patient
+                        </button>
+                        <button class="btn btn-white border-info text-info mb-2" type="button">
+                            <i class="fa-solid fa-user-doctor me-1"></i>
+                            Provider
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

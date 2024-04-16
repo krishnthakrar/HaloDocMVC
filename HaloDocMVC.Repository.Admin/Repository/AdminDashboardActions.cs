@@ -112,7 +112,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             var request = _context.Requests.FirstOrDefault(req => req.RequestId == RequestId);
             request.PhysicianId = ProviderId;
-            request.Status = 1;
+            request.Status = 2;
             _context.Requests.Update(request);
             _context.SaveChanges();
             RequestStatusLog rsl = new RequestStatusLog
@@ -121,7 +121,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 PhysicianId = ProviderId,
                 Notes = notes,
                 CreatedDate = DateTime.Now,
-                Status = 1
+                Status = 2
             };
             
             _context.RequestStatusLogs.Add(rsl);
@@ -897,50 +897,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
             E.Followup = ve.Followup;
             _context.SaveChanges();
             return ve;
-        }
-        #endregion
-
-        #region AcceptPhysician
-        public bool AcceptPhysician(int requestid, string note, int ProviderId)
-        {
-            var request = _context.Requests.FirstOrDefault(req => req.RequestId == requestid);
-            request.Status = 2;
-            request.AcceptedDate = DateTime.Now;
-            _context.Requests.Update(request);
-            _context.SaveChanges();
-
-            RequestStatusLog rsl = new();
-            rsl.RequestId = requestid;
-            rsl.CreatedDate = DateTime.Now;
-            rsl.Status = 2;
-            rsl.Notes = note;
-            rsl.TransToPhysicianId = ProviderId;
-            _context.RequestStatusLogs.Update(rsl);
-            _context.SaveChanges();
-            return true;
-        }
-        #endregion
-
-        #region TransToAdmin
-        public bool TransToAdmin(int RequestId, string Note, int ProviderId)
-        {
-            var request = _context.Requests.FirstOrDefault(req => req.RequestId == RequestId);
-            request.Status = 1;
-            request.PhysicianId = 0;
-            _context.Requests.Update(request);
-            _context.SaveChanges();
-
-            RequestStatusLog rsl = new();
-            rsl.RequestId = RequestId;
-            rsl.Notes = Note;
-            rsl.CreatedDate = DateTime.Now;
-            rsl.Status = 1;
-            rsl.PhysicianId = ProviderId;
-            rsl.TransToAdmin = new BitArray(1);
-            rsl.TransToAdmin[0] = true;
-            _context.RequestStatusLogs.Update(rsl);
-            _context.SaveChanges();
-            return true;
         }
         #endregion
     }

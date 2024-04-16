@@ -56,9 +56,5 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public ViewEncounter EncounterIndex(int? RId);
 
         public ViewEncounter EncounterSave(int? RId, ViewEncounter ve);
-
-        public bool AcceptPhysician(int requestid, string note, int ProviderId);
-
-        public bool TransToAdmin(int RequestId, string Note, int ProviderId);
     }
 }

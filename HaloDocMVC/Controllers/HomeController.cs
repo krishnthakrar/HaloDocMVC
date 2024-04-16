@@ -25,22 +25,14 @@ namespace HaloDocMVC.Controllers
             _dropdown = idropdown;
             _notyf = notyf;
         }
-        #region Index
-        [ProviderAccess("Admin,Provider")]
-        [Route("Physician/DashBoard")]
-        [Route("Admin/DashBoard")]
+
         public IActionResult Index()
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewBag.CaseReason = _dropdown.CaseReason();
-            PaginatedViewModel pvm = _irequestRepository.IndexData(-1);
-            if (CredentialValue.role() == "Provider")
-            {
-                pvm = _irequestRepository.IndexData(Convert.ToInt32(CredentialValue.UserId()));
-            }
+            PaginatedViewModel pvm = _irequestRepository.IndexData();
             return View(pvm);
         }
-        #endregion
 
         #region SearchResult
         public IActionResult _SearchResult(string Status, PaginatedViewModel data)
@@ -51,11 +43,9 @@ namespace HaloDocMVC.Controllers
             }
             Response.Cookies.Delete("Status");
             Response.Cookies.Append("Status", Status);
+
             PaginatedViewModel contacts = _irequestRepository.GetRequests(Status, data);
-            if (CredentialValue.role() == "Provider")
-            {
-                contacts = _irequestRepository.GetRequests(Status, data, Convert.ToInt32(CredentialValue.UserId()));
-            }
+
             switch (Status)
             {
                 case "1":
@@ -410,33 +400,6 @@ namespace HaloDocMVC.Controllers
             ViewEncounter ven = _admindashboardactions.EncounterSave(RequestId, ve);
             _notyf.Success("Updated Successfully.......");
             return View("../Home/Encounter", ven);
-        }
-        #endregion
-
-        #region AcceptCase
-        [HttpPost]
-        public IActionResult AcceptCase(int RequestId, string Note)
-        {
-            if (_admindashboardactions.AcceptPhysician(RequestId, Note, Convert.ToInt32(CredentialValue.UserId())))
-            {
-                _notyf.Success("Case Accepted...");
-            }
-            else
-            {
-                _notyf.Success("Case Not Accepted...");
-            }
-            return Redirect("~/Physician/DashBoard");
-        }
-        #endregion
-
-        #region TransToAdmin
-        public IActionResult TransToAdmin(int RequestId, string Note)
-        {
-            if (_admindashboardactions.TransToAdmin(RequestId, Note, Convert.ToInt32(CredentialValue.UserId())))
-            {
-                _notyf.Success("Request Successfully transfered to admin...");
-            }
-            return Redirect("~/Physician/DashBoard");
         }
         #endregion
 
