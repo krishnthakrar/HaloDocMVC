@@ -44,13 +44,21 @@ namespace HaloDocMVC.Controllers
         public async Task<IActionResult> Validate(AspNetUser aspNetUser)
         {
             UserInfo u = await _login.CheckAccessLogin(aspNetUser);
-
+            
             if (u != null)
             {
                 var jwttoken = _jwt.GenerateJWTAuthetication(u);
                 Response.Cookies.Append("jwt", jwttoken);
                 Response.Cookies.Append("Status", "1");
-                return RedirectToAction("Index", "Home");
+                if (u.Role == "Patient")
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else if (u.Role == "Provider")
+                {
+                    return Redirect("~/Physician/DashBoard");
+                }
+                return Redirect("~/Admin/DashBoard");
             }
             else
             {

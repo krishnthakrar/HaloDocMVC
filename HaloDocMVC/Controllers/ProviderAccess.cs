@@ -9,10 +9,10 @@ namespace HaloDocMVC.Controllers
     [AttributeUsage(AttributeTargets.All)]
     public class ProviderAccess : Attribute, IAuthorizationFilter
     {
-        private readonly string _role;
+        private readonly List<string> _role;
         public ProviderAccess(string role)
         {
-            _role = role;
+            _role = role.Split(',').ToList();
         }
         public void OnAuthorization(AuthorizationFilterContext filterContext)
         {
@@ -36,13 +36,24 @@ namespace HaloDocMVC.Controllers
                 filterContext.Result = new RedirectResult("../Login/Index");
                 return;
             }
-
-            if (string.IsNullOrWhiteSpace(_role) || roles.Value != _role)
+            var flag = false;
+            foreach (var role in _role)
+            {
+                if (string.IsNullOrWhiteSpace(role) || roles.Value != role)
+                {
+                    flag = false;
+                }
+                else
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
             {
                 filterContext.Result = new RedirectResult("../Home/AuthError");
-
             }
-
+            
         }
     }
 }
