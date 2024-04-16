@@ -84,7 +84,7 @@
                                 @Enum.GetName(typeof(AdminStatus), item.Status)
                             </td>
                             <td>
-                                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#contactprovider" data-bs-id="@item.PhysicianId" data-bs-email="@item.Email" data-bs-mobile="@item.Mobile" style="padding-top: 0.1rem !important; padding-bottom: 0.1rem !important;">
+                                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#contactprovider" data-bs-id="@item.PhysicianId" data-bs-email="@item.Email" style="padding-top: 0.1rem !important; padding-bottom: 0.1rem !important;">
                                     <small>Contact</small>
                                 </button>
                                 <a class="btn btn-outline-info" asp-action="EditProvider" asp-controller="Providers" asp-route-id="@item.PhysicianId" style="padding-top: 0.1rem !important; padding-bottom: 0.1rem !important;">
@@ -217,9 +217,7 @@
     $(document).ready(function () {
         $('[data-bs-toggle="modal"][data-bs-target="#contactprovider"]').click(function () {
             var email = $(this).attr('data-bs-email');
-            var mobile = $(this).attr('data-bs-mobile');
             $('#contactprovider').find('#emailInput').val(email);
-            $('#contactprovider').find('#mobileInput').val(mobile);
         });
 
         $('#saveChangesButton').click(function () {

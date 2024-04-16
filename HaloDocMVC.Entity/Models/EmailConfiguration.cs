@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
 
 namespace HaloDocMVC.Entity.Models
 {
@@ -109,34 +107,6 @@ namespace HaloDocMVC.Entity.Models
         {
             byte[] encoded = Convert.FromBase64String(decodeMe);
             return System.Text.Encoding.UTF8.GetString(encoded);
-        }
-        #endregion
-
-        #region SendSMS
-        public async Task<bool> SendSMS(string receiverPhoneNumber, string message)
-        {
-            string accountSid = "ACb392b446511c6c2da34ba0567a9da2d9";
-            string authToken = "6442402d302791c35f60fb6022a8893e";
-            string twilioPhoneNumber = "+12513195946";
-
-            TwilioClient.Init(accountSid, authToken);
-
-            try
-            {
-                var smsMessage = MessageResource.Create(
-                    body: message,
-                    from: new Twilio.Types.PhoneNumber(twilioPhoneNumber),
-                    to: new Twilio.Types.PhoneNumber(receiverPhoneNumber)
-                );
-
-                Console.WriteLine("SMS sent successfully. SID: " + smsMessage.Sid);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred while sending the SMS: " + ex.Message);
-            }
-            return false;
         }
         #endregion
     }

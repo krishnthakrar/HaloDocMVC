@@ -31,7 +31,5 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool CreateProvider(ProviderMenu pm, string? id);
 
         public bool DeleteAccount(int? id);
-
-        public bool SendMessage(string? mobile, string? Message);
     }
 }
