@@ -926,7 +926,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             var request = _context.Requests.FirstOrDefault(req => req.RequestId == RequestId);
             request.Status = 1;
-            request.PhysicianId = 0;
+            request.PhysicianId = null;
             _context.Requests.Update(request);
             _context.SaveChanges();
 

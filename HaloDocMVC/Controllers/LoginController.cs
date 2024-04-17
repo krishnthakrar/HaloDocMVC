@@ -56,9 +56,9 @@ namespace HaloDocMVC.Controllers
                 }
                 else if (u.Role == "Provider")
                 {
-                    return Redirect("~/Physician/DashBoard");
+                    return Redirect("~/DashBoard");
                 }
-                return Redirect("~/Admin/DashBoard");
+                return Redirect("~/DashBoard");
             }
             else
             {

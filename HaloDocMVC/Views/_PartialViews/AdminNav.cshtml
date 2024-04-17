@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Admin/DashBoard") || path.StartsWith("/Physician/DashBoard") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Home">Dashboard</a>
+                    <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/DashBoard") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Home">Dashboard</a>
                 </li>
                 @if(CredentialValue.role() == "Provider")
                 {
@@ -24,9 +24,18 @@
                 }
                 @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "MyProfile"))
                 {
-                    <li class="nav-item">
-                        <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
-                    </li>
+                    @if (CredentialValue.role() == "Admin")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/AdminProfile") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="AdminProfile">My Profile</a>
+                        </li>
+                    }
+                    @if (CredentialValue.role() == "Provider")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/ProviderProfile") ? "active" : "")" aria-current="page" asp-action="EditProvider" asp-controller="Access">My Profile</a>
+                        </li>
+                    }                        
                 }
                 @if(CredentialValue.role() == "Admin")
                 {
@@ -47,7 +56,7 @@
                         <a class="nav-link px-3 text-dark currentpage @(path.StartsWith("/Partners") ? "active" : "")" aria-current="page" asp-action="Index" asp-controller="Partners">Partners</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Access") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Access") || path.StartsWith("/ProviderProfile") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Access
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">

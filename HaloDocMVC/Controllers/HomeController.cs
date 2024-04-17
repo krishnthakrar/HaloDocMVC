@@ -27,8 +27,7 @@ namespace HaloDocMVC.Controllers
         }
         #region Index
         [ProviderAccess("Admin,Provider")]
-        [Route("Physician/DashBoard")]
-        [Route("Admin/DashBoard")]
+        [Route("DashBoard")]
         public IActionResult Index()
         {
             ViewBag.AllRegion = _dropdown.AllRegion();

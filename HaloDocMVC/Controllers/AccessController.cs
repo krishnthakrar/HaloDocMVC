@@ -144,10 +144,15 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region EditProvider
+        [Route("ProviderProfile")]
         public IActionResult EditProvider(int? id)
         {
             ViewBag.PhysRole = _dropdown.PhysRole();
             ViewBag.AllRegion = _dropdown.AllRegion();
+            if(CredentialValue.role() == "Provider")
+            {
+                id = Int32.Parse(CredentialValue.UserId());
+            }
             ProviderMenu p = _providers.GetProfileDetails((int)id);
             return View("../Access/EditProvider", p);
         }
