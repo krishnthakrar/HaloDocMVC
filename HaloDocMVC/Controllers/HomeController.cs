@@ -439,6 +439,22 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region RequestAdmin
+        public IActionResult RequestAdmin(string Note)
+        {
+            bool Contact = _admindashboardactions.RequestAdmin(Convert.ToInt32(CredentialValue.UserId()), Note);
+            if (Contact)
+            {
+                _notyf.Success("Mail Send Succesfully Successfully");
+            }
+            else
+            {
+                _notyf.Error("Mail Not Send Succesfully");
+            }
+            return RedirectToAction("EditProvider", "Access", new { id = Convert.ToInt32(CredentialValue.UserId()) });
+        }
+        #endregion
+
         #region AuthError
         public IActionResult AuthError()
         {

@@ -1,0 +1,26 @@
+﻿<div class="modal fade" id="requestadmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Request To Admin</h1>
+                <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
+            </div>
+            <form asp-action="RequestAdmin" asp-controller="Home" class="needs-validation mt-0" novalidate>
+                <div class="modal-body">
+                    <p>Need to send message to edit</p>
+                    <div class="form-floating mb-3">
+                        <textarea required id="changenote" rows="4" name="Note" class="input-outline w-100 h-100 fs-6 form-control shadow-none" type="text"></textarea>
+                        <label class="inputs-lable inputs-lable fs-6" for="changenote">Message</label>
+                        <div class="invalid-feedback">
+                            Enter Valid Changes for updating into your profile.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class=" btn btn-info text-white">Confirm</button>
+                    <a class="btn btn-outline-info" data-bs-dismiss="modal">Close</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -943,5 +943,21 @@ namespace HaloDocMVC.Repository.Admin.Repository
             return true;
         }
         #endregion
+
+        #region RequestAdmin
+        public bool RequestAdmin(int ProviderId, string Notes)
+        {
+            try
+            {
+                var res = _context.Physicians.FirstOrDefault(e => e.PhysicianId == ProviderId);
+                _emailConfig.SendMail(res.Email, "Request For Profile Chnges", Notes);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

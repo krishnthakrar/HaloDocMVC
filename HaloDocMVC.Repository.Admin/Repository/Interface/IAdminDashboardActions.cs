@@ -60,5 +60,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool AcceptPhysician(int requestid, string note, int ProviderId);
 
         public bool TransToAdmin(int RequestId, string Note, int ProviderId);
+
+        public bool RequestAdmin(int ProviderId, string Notes);
     }
 }
