@@ -45,6 +45,8 @@ namespace HaloDocMVC.Entity.Models
         public int? RequestClientId { get; set; }
 
         public int? RegionId { get; set; }
+
+        public bool? IsFinalized { get; set; }
     }
 
     public class PaginatedViewModel

@@ -959,5 +959,52 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
         }
         #endregion
+
+        #region HouseCall
+        public bool HouseCall(int RequestId)
+        {
+            var request = _context.Requests.FirstOrDefault(req => req.RequestId == RequestId);
+            request.Status = 5;
+            request.ModifiedDate = DateTime.Now;
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            return true;
+        }
+        #endregion
+
+        #region Consult
+        public bool Consult(int RequestId)
+        {
+            var request = _context.Requests.FirstOrDefault(req => req.RequestId == RequestId);
+            request.Status = 6;
+            request.ModifiedDate = DateTime.Now;
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            return true;
+        }
+        #endregion
+
+        #region HouseCallSubmit
+        public bool HouseCallSubmit(int RequestId)
+        {
+            var request = _context.Requests.FirstOrDefault(req => req.RequestId == RequestId);
+            request.Status = 6;
+            request.ModifiedDate = DateTime.Now;
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            return true;
+        }
+        #endregion
+
+        #region Finalize
+        public bool Finalize(int RequestId)
+        {
+            var encounter = _context.Encounters.FirstOrDefault(req => req.RequestId == RequestId);
+            encounter.IsFinalized = true;
+            _context.Encounters.Update(encounter);
+            _context.SaveChanges();
+            return true;
+        }
+        #endregion
     }
 }

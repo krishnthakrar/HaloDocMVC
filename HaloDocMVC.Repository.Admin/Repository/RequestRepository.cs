@@ -87,6 +87,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                     Address = rc.Address,
                                                     Notes = rc.Notes,
                                                     ProviderId = req.PhysicianId,
+                                                    IsFinalized = _context.Encounters.Any(ef => ef.RequestId == req.RequestId && (bool)ef.IsFinalized),
                                                     RequestorPhoneNumber = req.PhoneNumber
                                                 }).ToList();
             if (data.IsAscending == true)
@@ -172,6 +173,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                     Address = rc.Address,
                                                     Notes = rc.Notes,
                                                     ProviderId = req.PhysicianId,
+                                                    Status = (short)req.Status,
+                                                    IsFinalized = _context.Encounters.Any(ef => ef.RequestId == req.RequestId && (bool)ef.IsFinalized),
                                                     RequestorPhoneNumber = req.PhoneNumber
                                                 }).ToList();
             if (data.IsAscending == true)

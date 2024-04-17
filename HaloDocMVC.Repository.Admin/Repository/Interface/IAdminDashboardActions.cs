@@ -62,5 +62,13 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool TransToAdmin(int RequestId, string Note, int ProviderId);
 
         public bool RequestAdmin(int ProviderId, string Notes);
+
+        public bool HouseCall(int RequestId);
+
+        public bool Consult(int RequestId);
+
+        public bool HouseCallSubmit(int RequestId);
+
+        public bool Finalize(int RequestId);
     }
 }

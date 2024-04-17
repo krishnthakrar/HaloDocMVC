@@ -280,14 +280,14 @@
                                 <span class="d-none d-sm-inline">Create</span>
                             </div>
                         </div>
-                        <div class="col-md-12 pb-3">
-                            <div class="form-floating">
-                                <textarea type="text" asp-for="AdminNotes" class="form-control shadow-none input4" id="AdminNotes" rows="10" placeholder="Admin Notes"></textarea>
-                                <label for="AdminNotes" class="form-label">Admin Notes</label>
-                            </div>
-                        </div>
                         @if (CredentialValue.role() == "Admin")
                         {
+                            <div class="col-md-12 pb-3">
+                                <div class="form-floating">
+                                    <textarea type="text" asp-for="AdminNotes" class="form-control shadow-none input4" id="AdminNotes" rows="10" placeholder="Admin Notes"></textarea>
+                                    <label for="AdminNotes" class="form-label">Admin Notes</label>
+                                </div>
+                            </div>
                             <div class="d-flex justify-content-end">
                                 <input type="button" value="Edit" id="edit4" class="btn btn-info text-white" onclick="toggleFormElements4()" />
                                 <input type="button" value="Save" id="save4" class="btn btn-info text-white" />
@@ -481,7 +481,10 @@
                         </div>
                     }
                 </div>
-                <hr />
+                @if (CredentialValue.role() == "Admin")
+                {
+                    <hr />
+                }
                 <div class="d-flex flex-wrap justify-content-end">
                     @if (CredentialValue.role() == "Admin")
                     {

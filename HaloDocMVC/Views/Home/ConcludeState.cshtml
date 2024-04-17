@@ -104,7 +104,7 @@
                             <small>Actions</small>
                         </button>
                         <ul class="dropdown-menu">
-                            @if (CredentialValue.role() == "Provider")
+                            @if (CredentialValue.role() == "Provider" && item.IsFinalized == true)
                             {
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Conclude Care</a></li>
                             }
@@ -116,7 +116,14 @@
                                 <li><a asp-action="Order" asp-controller="Home" asp-route-id="@item.RequestId" class="dropdown-item"><i class="fa-solid fa-list-check"></i> Orders</a></li>
                                 <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Doctor's Note</a></li>
                             }
-                            <li><a class="dropdown-item" asp-action="Encounter" asp-controller="Home" asp-route-RId="@item.RequestId"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>
+                            @if (item.IsFinalized == false)
+                            {
+                                <li><a class="dropdown-item" asp-action="Encounter" asp-controller="Home" asp-route-RId="@item.RequestId"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>
+                            }
+                            else
+                            {
+                                <li><a onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#finalize" data-bs-requestid="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Encounter</a></li>
+                            }
                         </ul>
                     </td>
                 </tr>
@@ -276,6 +283,7 @@
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
 </form>
+<partial name="../AdminDashboardActions/Finalize.cshtml" />
 <script>
     function setpagenumber(e) {
         if (e == 'previous') {
@@ -308,5 +316,9 @@
             document.getElementById('isAsc').value = true;
         }
         $(".sortingform").submit();
+    }
+    function model_Case(id) {
+        var modeldata = @Html.Raw(Json.Serialize(Model.adl))
+        document.getElementById('RequestId_Input_ModelFinalize').value = modeldata[id].requestId;
     }
 </script>

@@ -167,9 +167,12 @@
                 </div>
             </div>
             <div class="row px-3 d-flex justify-content-end">
+                @if (CredentialValue.role() == "Provider")
+                {
+                    <button type="submit" asp-action="Finalize" asp-controller="Home" asp-route-id="@Model.RequestId" class="col-1 btn btn-success text-white rounded mx-2 p-2" value="Finalize">Finalize</button>
+                }
                 <button type="submit" class="col-1 btn btn-info text-white rounded mx-2 p-2">Save</button>
-                @*<input type="submit" class="col-1 btn btn-success text-white rounded mx-2 p-2" value="Finalize">*@
-                <a class="col-1 btn btn-outline-info text-info rounded mx-2 p-2">Cancel</a>
+                <button type="reset" class="col-1 btn btn-outline-info text-info rounded mx-2 p-2">Cancel</button>
             </div>
         </form>
     </div>

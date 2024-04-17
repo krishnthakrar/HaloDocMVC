@@ -90,6 +90,8 @@ public partial class Encounter
     [StringLength(100)]
     public string? Followup { get; set; }
 
+    public bool? IsFinalized { get; set; }
+
     [ForeignKey("RequestId")]
     [InverseProperty("Encounters")]
     public virtual Request Request { get; set; } = null!;

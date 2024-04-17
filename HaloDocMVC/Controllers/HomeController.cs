@@ -455,6 +455,72 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region HouseCall
+        [HttpPost]
+        public IActionResult HouseCall(int RequestId)
+        {
+            bool Status = _admindashboardactions.HouseCall(RequestId);
+            if (Status)
+            {
+                _notyf.Success("Status changed for HouseCall.....");
+            }
+            else
+            {
+                _notyf.Error("Status not changed.......");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+        #region Consult
+        [HttpPost]
+        public IActionResult Consult(int RequestId)
+        {
+            bool Status = _admindashboardactions.Consult(RequestId);
+            if (Status)
+            {
+                _notyf.Success("Status changed for Consult.....");
+            }
+            else
+            {
+                _notyf.Error("Status not changed.....");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+        #region HouseCallSubmit
+        public IActionResult HouseCallSubmit(int id)
+        {
+            bool Status = _admindashboardactions.HouseCallSubmit(id);
+            if (Status)
+            {
+                _notyf.Success("Status changed Successfully.....");
+            }
+            else
+            {
+                _notyf.Error("Status not changed.....");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+        #region Finalize
+        public IActionResult Finalize(int id)
+        {
+            bool Finalize = _admindashboardactions.Finalize(id);
+            if (Finalize)
+            {
+                _notyf.Success("Request Finalized.....");
+            }
+            else
+            {
+                _notyf.Error("Request not Finalized.....");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
         #region AuthError
         public IActionResult AuthError()
         {
