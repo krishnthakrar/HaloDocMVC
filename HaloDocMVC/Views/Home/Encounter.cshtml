@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="row px-3 d-flex justify-content-end">
-                @if (CredentialValue.role() == "Provider")
+                @if (CredentialValue.role() == "Provider" && CredentialValue.CurrentStatus() == "6")
                 {
                     <button type="submit" asp-action="Finalize" asp-controller="Home" asp-route-id="@Model.RequestId" class="col-1 btn btn-success text-white rounded mx-2 p-2" value="Finalize">Finalize</button>
                 }
