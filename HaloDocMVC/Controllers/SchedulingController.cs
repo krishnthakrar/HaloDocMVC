@@ -1,4 +1,5 @@
-﻿using HaloDocMVC.Entity.DataContext;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Models;
@@ -32,13 +33,17 @@ namespace HaloDocMVC.Controllers
             return View("../Scheduling/Index", modal);
 
         }
+        #endregion
 
+        #region GetPhysicianByRegion
         public IActionResult GetPhysicianByRegion(int regionid)
         {
             var PhysiciansByRegion = _dropdown.ProviderByRegion(regionid);
             return Json(PhysiciansByRegion);
         }
+        #endregion
 
+        #region LoadSchedulingPartial
         public IActionResult LoadSchedulingPartial(string PartialName, string date, int regionid)
         {
             var currentDate = DateTime.Parse(date);
@@ -93,11 +98,28 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region LoadSchedulingPartialProivder
+        public IActionResult LoadSchedulingPartialProivder(string date)
+        {
+            var currentDate = DateTime.Parse(date);
+            MonthWiseScheduling month = new MonthWiseScheduling
+            {
+                date = currentDate,
+                shiftdetails = _context.ShiftDetails.Include(u => u.Shift).Where(u => u.IsDeleted == new BitArray(new[] { false }) && u.Shift.PhysicianId == Int32.Parse(CredentialValue.UserId())).ToList()
+            };
+            return PartialView("../Scheduling/_MonthWise", month);
+        }
+        #endregion
+
         #region AddShift
         public IActionResult AddShift(SchedulingData model)
         {
             string adminId = CredentialValue.ID();
             var chk = Request.Form["repeatdays"].ToList();
+            if(CredentialValue.role() == "Provider")
+            {
+                model.regionid = _context.PhysicianRegions.Where(r => r.PhysicianId == Int32.Parse(CredentialValue.UserId())).Select(r => r.RegionId).FirstOrDefault();
+            }
             _scheduling.AddShift(model, chk, adminId);
             return RedirectToAction("Index");
         }

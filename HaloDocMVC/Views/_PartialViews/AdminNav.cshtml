@@ -19,7 +19,7 @@
                         <a class="nav-link px-3 text-dark @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Invoicing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3 text-dark @(path.StartsWith("/MySchedule") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">My Schedule</a>
+                        <a class="nav-link px-3 text-dark @(path.StartsWith("/Scheduling") ? "active" : "")" asp-action="Index" asp-controller="Scheduling">My Schedule</a>
                     </li>
                 }
                 @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "MyProfile"))

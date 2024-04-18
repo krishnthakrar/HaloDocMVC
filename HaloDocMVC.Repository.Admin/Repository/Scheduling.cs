@@ -65,7 +65,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
             _context.Shifts.Add(shift);
             _context.SaveChanges();
-
+            
             DateTime curdate = model.shiftdate;
             ShiftDetail shiftdetail = new ShiftDetail();
             shiftdetail.ShiftId = shift.ShiftId;

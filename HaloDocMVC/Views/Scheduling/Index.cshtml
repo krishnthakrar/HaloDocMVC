@@ -65,15 +65,24 @@
 <div class="container-fluid mt-3">
     <div class="d-flex justify-content-between">
         <div class="d-flex align-self-center mt-3">
-            <h4>Scheduling</h4>
+            @if (CredentialValue.role() == "Admin")
+            {
+                <h4>Scheduling</h4>
+            }
+            @if (CredentialValue.role() == "Provider")
+            {
+                <h4>My Schedule</h4>
+            }
         </div>
         <div class="backBtn mt-2">
             <a asp-controller="Home" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
         </div>
     </div>
     <div class="mt-3">
-        <div class="mt-3 d-flex justify-content-between">
-            <div class="search m-1">
+        @if (CredentialValue.role() == "Admin")
+        {
+            <div class="mt-3 d-flex justify-content-between">
+                <div class="search m-1">
                 <a id="regionicon">
                     <i class="fa fa-search"></i>
                 </a>
@@ -87,6 +96,8 @@
                 <button type="button" class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#addShiftModal">Add New Shifts</button>
             </div>
         </div>
+        }
+        
         <div class="d-none" id="currentDateValue">
             @DateTime.Now.Date.ToString("MM dd yyyy")
         </div>
@@ -112,11 +123,18 @@
                 </span>
                 <span class="dot bg-info text-center text-white ms-1" id="nextDateBtn" style="height:27px;width:27px"><i class="fa-solid fa-chevron-right"></i></span>
             </div>
-            <div class="d-flex">
-                <button type="button" onclick="loadSchedulingPartial('_DayWise')" class="btn btn-outline-info removeactive" id="Day">Day</button>
-                <button type="button" onclick="loadSchedulingPartial('_WeekWise')" class="btn btn-outline-info ms-2 removeactive" id="Week">Week</button>
-                <button type="button" onclick="loadSchedulingPartial('_MonthWise')" class="btn btn-outline-info ms-2 removeactive" id="Month">Month</button>
-            </div>
+            @if (CredentialValue.role() == "Provider")
+            {
+                <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#addShiftModal">Add New Shift</button>
+            }
+            @if (CredentialValue.role() == "Admin")
+            {
+                <div class="d-flex">
+                    <button type="button" onclick="loadSchedulingPartial('_DayWise')" class="btn btn-outline-info removeactive" id="Day">Day</button>
+                    <button type="button" onclick="loadSchedulingPartial('_WeekWise')" class="btn btn-outline-info ms-2 removeactive" id="Week">Week</button>
+                    <button type="button" onclick="loadSchedulingPartial('_MonthWise')" class="btn btn-outline-info ms-2 removeactive" id="Month">Month</button>
+                </div>
+            }
         </div>
         <div class="calander mt-4">
         </div>
@@ -132,22 +150,29 @@
             </div>
             <form asp-action="AddShift" asp-controller="Scheduling" class="mt-0 needs-validation" novalidate>
                 <div class="modal-body">
-                    <div class="form-floating">
-                        <select class="form-select form-select-sm mt-3 p-2" required data-allow-clear="true" tabindex="-1" onchange="myFunction()" id="region1" asp-for="regionid" asp-items="@(new SelectList(ViewBag.RegionComboBox,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
-                            <option id="defaultreason" value="">All Region</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select valid region.
+                    @if (CredentialValue.role() == "Admin")
+                    {
+                        <div class="form-floating">
+                            <select class="form-select form-select-sm mt-3 p-2" required data-allow-clear="true" tabindex="-1" onchange="myFunction()" id="region1" asp-for="regionid" asp-items="@(new SelectList(ViewBag.RegionComboBox,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                                <option id="defaultreason" value="">All Region</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select valid region.
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-floating">
-                        <select class="form-select form-select-sm mt-3 p-2" required asp-for="physicianid" data-allow-clear="true" tabindex="-1" id="Physician" data-control="select2" data-placeholder="Select Level">
-                            <option value="">Select Physician</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select one physician.
+                        <div class="form-floating">
+                            <select class="form-select form-select-sm mt-3 p-2" required asp-for="physicianid" data-allow-clear="true" tabindex="-1" id="Physician" data-control="select2" data-placeholder="Select Level">
+                                <option value="">Select Physician</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select one physician.
+                            </div>
                         </div>
-                    </div>
+                    }
+                    @if (CredentialValue.role() == "Provider")
+                    {
+                        <input type="hidden" asp-for="physicianid" value="@CredentialValue.UserId()" />
+                    }
                     @*<label for="region2">Select Physician</label>*@
                     <div class="form-floating mt-3">
                         <input asp-for="shiftdate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" placeholder="Date" required>
@@ -267,35 +292,45 @@
 @section Scripts{
     <script>
         // Load View according to day,month, week
-        var regionid;
-        var filterDate = new Date($('#currentDateValue').text());
-        loadSchedulingPartial('_DayWise');
-        var currentPartial = localStorage.getItem("currentPartial");
-        function loadSchedulingPartial(PartialName) {
-            currentPartial = PartialName;
-            $.ajax({
-                url: '@Url.Action("LoadSchedulingPartial", "Scheduling")',
-                data: { PartialName: PartialName, date: filterDate.toISOString(), regionid: regionid },
-                success: function (data) {
-                    $(".calander").html(data);
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
+        if ("@CredentialValue.role()" == "Admin") {
+            console.log(123);
+            var regionid;
+            var filterDate = new Date($('#currentDateValue').text());
+            loadSchedulingPartial('_MonthWise');
+            var currentPartial = localStorage.getItem("currentPartial");
+            function loadSchedulingPartial(PartialName) {
+                currentPartial = PartialName;
+
+                $.ajax({
+                    url: '@Url.Action("LoadSchedulingPartial", "Scheduling")',
+                    data: { PartialName: PartialName, date: filterDate.toISOString(), regionid: regionid },
+                    success: function (data) {
+                        $(".calander").html(data);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
         }
-        function regionScheduling() {
-            var region = $("#suggestions").val();
-            $.ajax({
-                url: '@Url.Action("LoadSchedulingPartial", "Scheduling")',
-                data: { PartialName: currentPartial, date: filterDate.toISOString(), regionid: region },
-                success: function (data) {
-                    $(".calander").html(data);
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
+        else {
+            var filterDate = new Date($('#currentDateValue').text());
+            loadSchedulingPartial('_MonthWise');
+            var currentPartial = localStorage.getItem("currentPartial");
+            function loadSchedulingPartial(PartialName) {
+                currentPartial = PartialName;
+
+                $.ajax({
+                    url: '@Url.Action("LoadSchedulingPartialProivder", "Scheduling")',
+                    data: { date: filterDate.toISOString() },
+                    success: function (data) {
+                        $(".calander").html(data);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
         }
         function myFunction() {
             var region = $("#region1").val();

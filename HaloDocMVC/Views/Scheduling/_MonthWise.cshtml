@@ -137,14 +137,20 @@
                                                                 {
                                                                     <div class="shiftdisplay shiftmodal" id="@obj.ShiftDetailId" data-bs-toggle="modal" data-bs-target="#viewShiftModal">
                                                                         @obj.StartTime-@obj.EndTime
-                                                                        @obj.Shift.Physician.FirstName @obj.Shift.Physician.LastName
+                                                                        @if (CredentialValue.role() == "Admin")
+                                                                        {
+                                                                            @obj.Shift.Physician.FirstName @obj.Shift.Physician.LastName
+                                                                        }
                                                                     </div>
                                                                 }
                                                                 else
                                                                 {
                                                                     <div class="shiftdisplay2 shiftmodal" id="@obj.ShiftDetailId" data-bs-toggle="modal" data-bs-target="#viewShiftModal">
                                                                         @obj.StartTime-@obj.EndTime
-                                                                        @obj.Shift.Physician.FirstName @obj.Shift.Physician.LastName
+                                                                        @if (CredentialValue.role() == "Admin")
+                                                                        {
+                                                                            @obj.Shift.Physician.FirstName @obj.Shift.Physician.LastName
+                                                                        }
                                                                     </div>
                                                                 }
 
