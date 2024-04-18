@@ -1006,5 +1006,28 @@ namespace HaloDocMVC.Repository.Admin.Repository
             return true;
         }
         #endregion
+
+        #region ConcludeCarePost
+        public bool ConcludeCarePost(int RequestId, string Notes)
+        {
+            var requestData = _context.Requests.FirstOrDefault(e => e.RequestId == RequestId);
+            requestData.Status = 8;
+            requestData.ModifiedDate = DateTime.Now;
+            _context.Requests.Update(requestData);
+            _context.SaveChanges();
+
+            RequestStatusLog rsl = new RequestStatusLog
+            {
+                RequestId = RequestId,
+                Notes = Notes,
+                Status = 8,
+                CreatedDate = DateTime.Now
+            };
+            _context.RequestStatusLogs.Add(rsl);
+            _context.SaveChanges();
+            return true;
+        }
+        #endregion
+
     }
 }

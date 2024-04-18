@@ -70,5 +70,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool HouseCallSubmit(int RequestId);
 
         public bool Finalize(int RequestId);
+
+        public bool ConcludeCarePost(int RequestId, string Notes);
     }
 }

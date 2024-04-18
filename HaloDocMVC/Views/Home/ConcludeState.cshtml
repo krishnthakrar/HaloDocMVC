@@ -106,7 +106,7 @@
                         <ul class="dropdown-menu">
                             @if (CredentialValue.role() == "Provider" && item.IsFinalized == true)
                             {
-                                <li><a class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Conclude Care</a></li>
+                                <li><a asp-action="ConcludeCare" asp-controller="Home" asp-route-id="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> Conclude Care</a></li>
                             }
                             <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" asp-route-Status="6" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                             <li><a class="dropdown-item" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@item.RequestId"><i class="fa-solid fa-upload"></i> View Uploads</a></li>

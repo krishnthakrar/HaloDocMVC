@@ -6,6 +6,7 @@ using HaloDocMVC.Repository.Admin.Repository;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var emailConfig = builder.Configuration
@@ -47,7 +48,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseRotativa();
 app.UseRouting();
 
 app.UseSession();

@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using OfficeOpenXml;
-
+using Rotativa;
+using ViewAsPdf = Rotativa.AspNetCore.ViewAsPdf;
 namespace HaloDocMVC.Controllers
 {
     public class HomeController : Controller
@@ -518,6 +519,56 @@ namespace HaloDocMVC.Controllers
                 _notyf.Error("Request not Finalized.....");
             }
             return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+        #region generatePDF
+        public IActionResult generatePDF(int RequestId)
+        {
+            var FormDetails = _admindashboardactions.EncounterIndex(RequestId);
+            return new ViewAsPdf("../Home/EncounterPDF", FormDetails);
+        }
+        #endregion
+
+        #region ConcludeCareIndex
+        public IActionResult ConcludeCare(int? id, ViewDataViewDocuments viewDocument)
+        {
+            if (id == null)
+            {
+                id = viewDocument.RequestId;
+            }
+            ViewDataViewDocuments v =  _admindashboardactions.GetDocumentByRequest(id, viewDocument);
+            return View("../Home/ConcludeCare", v);
+        }
+        #endregion
+
+        #region UploadDocProvider
+        public IActionResult UploadDocProvider(int Requestid, IFormFile file)
+        {
+            if (_admindashboardactions.SaveDoc(Requestid, file))
+            {
+                _notyf.Success("File Uploaded Successfully");
+            }
+            else
+            {
+                _notyf.Error("File Not Uploaded");
+            }
+            return RedirectToAction("ConcludeCare", "Home", new { id = Requestid });
+        }
+        #endregion
+
+        #region ConcludecarePost
+        public IActionResult ConcludeCarePost(int RequestId, string Notes)
+        {
+            if (_admindashboardactions.ConcludeCarePost(RequestId, Notes))
+            {
+                _notyf.Success("Case concluded...");
+            }
+            else
+            {
+                _notyf.Error("Error...");
+            }
+            return Redirect("~/DashBoard");
         }
         #endregion
 
