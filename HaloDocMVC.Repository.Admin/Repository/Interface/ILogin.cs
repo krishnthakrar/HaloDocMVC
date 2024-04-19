@@ -17,5 +17,7 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool SendResetLink(String Email);
 
         public bool SendResetLinkPatient(String Email);
+
+        public bool CreateAccount(string Email, string Password);
     }
 }

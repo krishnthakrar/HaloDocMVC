@@ -5,6 +5,7 @@ using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -95,6 +96,73 @@ namespace HaloDocMVC.Repository.Admin.Repository
             var agreementUrl = "https://localhost:44348/PatientLogin/ResetPassword?Email=" + Email + "&Datetime=" + DateTime.Now;
             _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
             return true;
+        }
+        #endregion
+
+        #region CreateAccount
+        public bool CreateAccount(string Email, string Password)
+        {
+            try
+            {
+                AspNetUser A = new();
+                //AspNetUser Table
+                Guid g = Guid.NewGuid();
+                A.Id = g.ToString();
+                A.UserName = Email;
+                A.PasswordHash = Password;
+                A.Email = Email;
+                A.CreatedDate = DateTime.Now;
+                _context.Add(A);
+
+                var U = _context.RequestClients.FirstOrDefault(m => m.Email == Email);
+                var User = new User
+                {
+                    AspNetUserId = A.Id,
+                    FirstName = U.FirstName,
+                    LastName = U.LastName,
+                    Mobile = U.PhoneNumber,
+                    IntDate = U.IntDate,
+                    IntYear = U.IntYear,
+                    StrMonth = U.StrMonth,
+                    Email = Email,
+                    CreatedBy = A.Id,
+                    CreatedDate = DateTime.Now,
+                    IsRequestWithEmail = new BitArray(1),
+                    Status = 1
+                };
+                _context.Users.Add(User);
+                _context.SaveChanges();
+
+                var aspnetuserroles = new AspNetUserRole();
+                aspnetuserroles.UserId = User.AspNetUserId;
+                aspnetuserroles.RoleId = "3";
+                _context.AspNetUserRoles.Add(aspnetuserroles);
+                _context.SaveChanges();
+
+                var rc = _context.RequestClients.Where(e => e.Email == Email).ToList();
+
+                foreach (var r in rc)
+                {
+                    _context.Requests.Where(n => n.RequestId == r.RequestId)
+                   .ExecuteUpdate(s => s.SetProperty(
+                       n => n.UserId,
+                       n => User.UserId));
+                }
+                if (rc.Count > 0)
+                {
+                    User.IntDate = rc[0].IntDate;
+                    User.IntYear = rc[0].IntYear;
+                    User.StrMonth = rc[0].StrMonth;
+                    _context.Users.Update(User);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return false;
         }
         #endregion
     }

@@ -20,6 +20,7 @@ namespace HaloDocMVC.Controllers
             _dashboard = dashboard;
         }
         #region Dashboard
+        [Route("PatientDashBoard/Index")]
         public IActionResult Index(DashboardList listdata)
         {
             DashboardList data = _dashboard.GetPatientRequest(CredentialValue.UserId(), listdata);
@@ -39,11 +40,13 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
+        #region UploadDoc
         [HttpPost]
         public IActionResult UploadDoc(int id, IFormFile? UploadFile)
         {
             _dashboard.UploadDoc(id, UploadFile);
             return RedirectToAction("ViewDoc", new { id });
         }
+        #endregion
     }
 }

@@ -14,10 +14,12 @@ namespace HaloDocMVC.Repository.Admin.Repository
     public class PatientRequest : IPatientRequest
     {
         private readonly HaloDocContext _context;
+        private readonly EmailConfiguration _emailConfig;
 
-        public PatientRequest(HaloDocContext context)
+        public PatientRequest(HaloDocContext context, EmailConfiguration emailConfig)
         {
             _context = context;
+            _emailConfig = emailConfig;
         }
         #region CreatePatient
         public void CreatePatient(ViewDataCreatePatient vdcp)
@@ -127,62 +129,26 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region CreateFriend
         public void CreateFriend(ViewDataCreateFriend vdcf)
         {
-            AspNetUser A = new();
-            User U = new();
             Request R = new();
             RequestClient RC = new();
 
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcf.pEmail);
             if (isexist == null)
             {
-                //AspNetUser Table
-                Guid g = Guid.NewGuid();
-                A.Id = g.ToString();
-                A.UserName = vdcf.pFirstName + vdcf.pLastName;
-                A.PasswordHash = vdcf.pFirstName + vdcf.pLastName;
-                A.Email = vdcf.pEmail;
-                A.PhoneNumber = vdcf.Mobile;
-                A.CreatedDate = DateTime.Now;
-                _context.Add(A);
-                _context.SaveChanges();
-                //User Table
-                U.AspNetUserId = A.Id;
-                U.FirstName = vdcf.pFirstName;
-                U.LastName = vdcf.pLastName;
-                U.Email = vdcf.pEmail;
-                U.Mobile = vdcf.Mobile;
-                U.Street = vdcf.Street;
-                U.City = vdcf.City;
-                U.State = vdcf.State;
-                U.ZipCode = vdcf.ZipCode;
-                U.StrMonth = (vdcf.DOB.Month).ToString();
-                U.IntDate = vdcf.DOB.Day;
-                U.IntYear = vdcf.DOB.Year;
-                U.CreatedBy = A.Id;
-                U.CreatedDate = DateTime.Now;
-                _context.Add(U);
-                _context.SaveChanges();
+                var Subject = "Create Account";
+                var agreementUrl = "https://localhost:44348/PatientHome/CreateAccount";
+                _emailConfig.SendMail(vdcf.pEmail, Subject, $"<a href='{agreementUrl}'>Create Account</a>");
             }
-
-            if (isexist == null)
-            {
-                R.UserId = U.UserId;
-            }
-            else
-            {
-                R.UserId = isexist.UserId;
-            }
-            U.Status = 1;            //Request Table
+            //Request Table
             R.RequestTypeId = 3; // 3 stands for Family/Friend in RequestType table
             R.CreatedDate = DateTime.Now;
             R.FirstName = vdcf.fFirstName;
             R.LastName = vdcf.fLastName;
             R.Email = vdcf.fEmail;
             R.PhoneNumber = vdcf.PhoneNumber;
-            R.Status = U.Status;
+            R.Status = 1;
             R.ConfirmationNumber = R.PhoneNumber;
             R.RelationName = vdcf.RelationName;
-            R.CreatedUserId = U.UserId;
             _context.Add(R);
             _context.SaveChanges();
             //RequestClient Table
