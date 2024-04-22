@@ -21,8 +21,6 @@ namespace HaloDocMVC.Entity.Models
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Mobile Number is Required!")]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Mobile Number must be of 10 digits!")]
-        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Mobile Number must contain digits!")]
         public string? Mobile { get; set; }
 
         [Required(ErrorMessage = "Street is Required!")]

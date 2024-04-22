@@ -18,8 +18,7 @@ namespace HaloDocMVC.Entity.Models
         [Required(ErrorMessage = "Last Name is Required!")]
         public string? pLastName { get; set; }
 
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Mobile Number must be of 10 digits!")]
-        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Mobile Number must contain digits!")]
+        [Required(ErrorMessage = "PhoneNumber is Required!")]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is Required!")]
@@ -33,8 +32,6 @@ namespace HaloDocMVC.Entity.Models
         public string? RelationName { get; set; }
 
         [Required(ErrorMessage = "Mobile Number is Required!")]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Mobile Number must be of 10 digits!")]
-        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Mobile Number must contain digits!")]
         public string? Mobile { get; set; }
 
         [Required(ErrorMessage = "Street is Required!")]
