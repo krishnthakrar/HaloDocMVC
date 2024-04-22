@@ -13,16 +13,18 @@ namespace HaloDocMVC.Controllers
         private readonly HaloDocContext _context;
         private readonly IPatientRequest _patientrequest;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public PatientRequestController(HaloDocContext context, IPatientRequest patientrequest, IHttpContextAccessor httpContextAccessor)
+        private readonly IDropdown _dropdown;
+        public PatientRequestController(HaloDocContext context, IPatientRequest patientrequest, IHttpContextAccessor httpContextAccessor, IDropdown idropdown)
         {
             _context = context;
             _patientrequest = patientrequest;
             _httpContextAccessor = httpContextAccessor;
+            _dropdown = idropdown;
         }
         #region CreatePatient
         public IActionResult CreatePatient()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
             return View();
         }
 

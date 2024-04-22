@@ -29,6 +29,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             Request R = new();
             RequestClient RC = new();
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcp.Email);
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdcp.State);
             if (isexist == null)
             {
                 //AspNetUser Table
@@ -49,7 +50,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 U.Mobile = vdcp.Mobile;
                 U.Street = vdcp.Street;
                 U.City = vdcp.City;
-                U.State = vdcp.State;
+                U.RegionId = vdcp.State;
+                U.State = statename.Name;
                 U.ZipCode = vdcp.ZipCode;
                 U.StrMonth = (vdcp.DOB.Month).ToString();
                 U.IntDate = vdcp.DOB.Day;
@@ -96,7 +98,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.IntYear = vdcp.DOB.Year;
             RC.Street = vdcp.Street;
             RC.City = vdcp.City;
-            RC.State = vdcp.State;
+            RC.RegionId = vdcp.State;
+            RC.State = statename.Name;
             RC.ZipCode = vdcp.ZipCode;
             _context.Add(RC);
             _context.SaveChanges();
@@ -348,6 +351,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             Request R = new();
             RequestClient RC = new();
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcp.Email);
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdcp.State);
             if (isexist == null)
             {
                 //AspNetUser Table
@@ -368,7 +372,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 U.Mobile = vdcp.Mobile;
                 U.Street = vdcp.Street;
                 U.City = vdcp.City;
-                U.State = vdcp.State;
+                U.RegionId = vdcp.State;
+                U.State = statename.Name;
                 U.ZipCode = vdcp.ZipCode;
                 U.StrMonth = (vdcp.DOB.Month).ToString();
                 U.IntDate = vdcp.DOB.Day;
@@ -415,7 +420,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.IntYear = vdcp.DOB.Year;
             RC.Street = vdcp.Street;
             RC.City = vdcp.City;
-            RC.State = vdcp.State;
+            RC.RegionId = vdcp.State;
+            RC.State = statename.Name;
             RC.ZipCode = vdcp.ZipCode;
             _context.Add(RC);
             _context.SaveChanges();

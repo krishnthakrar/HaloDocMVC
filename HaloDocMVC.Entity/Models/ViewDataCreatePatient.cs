@@ -30,7 +30,7 @@ namespace HaloDocMVC.Entity.Models
         public string? City { get; set; }
 
         [Required(ErrorMessage = "State is Required!")]
-        public string? State { get; set; }
+        public int? State { get; set; }
 
         [Required(ErrorMessage = "ZipCode is Required!")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "ZipCode must be of 6 digits!")]

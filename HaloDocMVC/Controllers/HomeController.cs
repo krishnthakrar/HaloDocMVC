@@ -82,6 +82,10 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewDataViewCase vdvc = _admindashboardactions.NewRequestData(RId, RTId, Status);
+            if (vdvc == null)
+            {
+                return NotFound();
+            }
             return View(vdvc);
         }
         #endregion
