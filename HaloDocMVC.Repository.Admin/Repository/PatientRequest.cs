@@ -200,8 +200,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region CreateConcierge
         public void CreateConcierge(ViewDataCreateConcierge vdcc)
         {
-            AspNetUser A = new();
-            User U = new();
             Request R = new();
             RequestClient RC = new();
             Concierge C = new();
@@ -210,44 +208,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcc.pEmail);
             if (isexist == null)
             {
-                //AspNetUser Table
-                Guid g = Guid.NewGuid();
-                A.Id = g.ToString();
-                A.UserName = vdcc.pFirstName + vdcc.pLastName;
-                A.PasswordHash = vdcc.pFirstName + vdcc.pLastName;
-                A.Email = vdcc.pEmail;
-                A.PhoneNumber = vdcc.Mobile;
-                A.CreatedDate = DateTime.Now;
-                _context.Add(A);
-                _context.SaveChanges();
-                //User Table
-                U.AspNetUserId = A.Id;
-                U.FirstName = vdcc.pFirstName;
-                U.LastName = vdcc.pLastName;
-                U.Email = vdcc.pEmail;
-                U.Mobile = vdcc.Mobile;
-                U.Street = vdcc.Street;
-                U.City = vdcc.City;
-                U.State = vdcc.State;
-                U.ZipCode = vdcc.ZipCode;
-                U.StrMonth = (vdcc.DOB.Month).ToString();
-                U.IntDate = vdcc.DOB.Day;
-                U.IntYear = vdcc.DOB.Year;
-                U.CreatedBy = A.Id;
-                U.CreatedDate = DateTime.Now;
-                _context.Add(U);
-                _context.SaveChanges();
+                var Subject = "Create Account";
+                var agreementUrl = "https://localhost:44348/PatientHome/CreateAccount";
+                _emailConfig.SendMail(vdcc.pEmail, Subject, $"<a href='{agreementUrl}'>Create Account</a>");
             }
-
-            if (isexist == null)
-            {
-                R.UserId = U.UserId;
-            }
-            else
-            {
-                R.UserId = isexist.UserId;
-            }
-            U.Status = 1;
             //Request Table
             R.RequestTypeId = 4; // 4 stands for Concierge in RequestType table
             R.CreatedDate = DateTime.Now;
@@ -255,9 +219,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.LastName = vdcc.cLastName;
             R.Email = vdcc.cEmail;
             R.PhoneNumber = vdcc.PhoneNumber;
-            R.Status = U.Status;
+            R.Status = 1;
             R.ConfirmationNumber = R.PhoneNumber;
-            R.CreatedUserId = U.UserId;
             _context.Add(R);
             _context.SaveChanges();
             //RequestClient Table
@@ -300,8 +263,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region CreatePartner
         public void CreatePartner(ViewDataCreateBusiness vdcb)
         {
-            AspNetUser A = new();
-            User U = new();
             Request R = new();
             RequestClient RC = new();
             Business B = new();
@@ -310,44 +271,11 @@ namespace HaloDocMVC.Repository.Admin.Repository
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcb.pEmail);
             if (isexist == null)
             {
-                //AspNetUser Table
-                Guid g = Guid.NewGuid();
-                A.Id = g.ToString();
-                A.UserName = vdcb.pFirstName + vdcb.pLastName;
-                A.PasswordHash = vdcb.pFirstName + vdcb.pLastName;
-                A.Email = vdcb.pEmail;
-                A.PhoneNumber = vdcb.Mobile;
-                A.CreatedDate = DateTime.Now;
-                _context.Add(A);
-                _context.SaveChanges();
-                //User Table
-                U.AspNetUserId = A.Id;
-                U.FirstName = vdcb.pFirstName;
-                U.LastName = vdcb.pLastName;
-                U.Email = vdcb.pEmail;
-                U.Mobile = vdcb.Mobile;
-                U.Street = vdcb.Street;
-                U.City = vdcb.City;
-                U.State = vdcb.State;
-                U.ZipCode = vdcb.ZipCode;
-                U.StrMonth = (vdcb.DOB.Month).ToString();
-                U.IntDate = vdcb.DOB.Day;
-                U.IntYear = vdcb.DOB.Year;
-                U.CreatedBy = A.Id;
-                U.CreatedDate = DateTime.Now;
-                _context.Add(U);
-                _context.SaveChanges();
+                var Subject = "Create Account";
+                var agreementUrl = "https://localhost:44348/PatientHome/CreateAccount";
+                _emailConfig.SendMail(vdcb.pEmail, Subject, $"<a href='{agreementUrl}'>Create Account</a>");
             }
 
-            if (isexist == null)
-            {
-                R.UserId = U.UserId;
-            }
-            else
-            {
-                R.UserId = isexist.UserId;
-            }
-            U.Status = 1;
             //Request Table
             R.RequestTypeId = 1; // 1 stands for Business in RequestType table
             R.CreatedDate = DateTime.Now;
@@ -355,10 +283,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.LastName = vdcb.bLastName;
             R.Email = vdcb.bEmail;
             R.PhoneNumber = vdcb.PhoneNumber;
-            R.Status = U.Status;
+            R.Status = 1;
             R.ConfirmationNumber = R.PhoneNumber;
             R.CaseNumber = vdcb.CaseNumber;
-            R.CreatedUserId = U.UserId;
             _context.Add(R);
             _context.SaveChanges();
             //RequestClient Table
@@ -387,7 +314,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
             B.City = vdcb.City;
             B.ZipCode = vdcb.ZipCode;
             B.PhoneNumber = vdcb.PhoneNumber;
-            B.CreatedBy = isexist.AspNetUserId;
             B.CreatedDate = DateTime.Now;
             _context.Add(B);
             _context.SaveChanges();

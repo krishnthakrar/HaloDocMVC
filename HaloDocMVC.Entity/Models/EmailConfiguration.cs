@@ -116,7 +116,7 @@ namespace HaloDocMVC.Entity.Models
         public async Task<bool> SendSMS(string receiverPhoneNumber, string message)
         {
             string accountSid = "ACb392b446511c6c2da34ba0567a9da2d9";
-            string authToken = "6442402d302791c35f60fb6022a8893e";
+            string authToken = "fd6cbab005b2aacdc408553f698a0a63";
             string twilioPhoneNumber = "+12513195946";
 
             TwilioClient.Init(accountSid, authToken);
