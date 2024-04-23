@@ -89,7 +89,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.FirstName = vdcp.FirstName;
             RC.LastName = vdcp.LastName;
             RC.PhoneNumber = vdcp.Mobile;
-            RC.Address = vdcp.Street + ", " + vdcp.City + ", " + vdcp.State + ", " + vdcp.ZipCode;
+            RC.Address = vdcp.Street + ", " + vdcp.City + ", " + statename.Name + ", " + vdcp.ZipCode;
             RC.NotiMobile = R.PhoneNumber;
             RC.NotiEmail = R.Email;
             RC.Notes = vdcp.Notes;
@@ -137,6 +137,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RequestClient RC = new();
 
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcf.pEmail);
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdcf.State);
             if (isexist == null)
             {
                 var Subject = "Create Account";
@@ -173,7 +174,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.FirstName = vdcf.pFirstName;
             RC.LastName = vdcf.pLastName;
             RC.PhoneNumber = vdcf.Mobile;
-            RC.Address = vdcf.Street + ", " + vdcf.City + ", " + vdcf.State + ", " + vdcf.ZipCode;
+            RC.Address = vdcf.Street + ", " + vdcf.City + ", " + statename.Name + ", " + vdcf.ZipCode;
             RC.NotiMobile = R.PhoneNumber;
             RC.NotiEmail = R.Email;
             RC.Notes = vdcf.Notes;
@@ -183,7 +184,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.IntYear = vdcf.DOB.Year;
             RC.Street = vdcf.Street;
             RC.City = vdcf.City;
-            RC.State = vdcf.State;
+            RC.RegionId = vdcf.State;
+            RC.State = statename.Name;
             RC.ZipCode = vdcf.ZipCode;
             _context.Add(RC);
             _context.SaveChanges();
@@ -223,6 +225,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RequestConcierge RCO = new();
 
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcc.pEmail);
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdcc.State);
             if (isexist == null)
             {
                 var Subject = "Create Account";
@@ -258,7 +261,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.FirstName = vdcc.pFirstName;
             RC.LastName = vdcc.pLastName;
             RC.PhoneNumber = vdcc.Mobile;
-            RC.Address = vdcc.Street + ", " + vdcc.City + ", " + vdcc.State + ", " + vdcc.ZipCode;
+            RC.Address = vdcc.Street + ", " + vdcc.City + ", " + statename.Name + ", " + vdcc.ZipCode;
             RC.NotiMobile = R.PhoneNumber;
             RC.NotiEmail = R.Email;
             RC.Notes = vdcc.Notes;
@@ -268,16 +271,18 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.IntYear = vdcc.DOB.Year;
             RC.Street = vdcc.Street;
             RC.City = vdcc.City;
-            RC.State = vdcc.State;
+            RC.RegionId = vdcc.State;
+            RC.State = statename.Name;
             RC.ZipCode = vdcc.ZipCode;
             _context.Add(RC);
             _context.SaveChanges();
             //Concierge Table
             C.ConciergeName = vdcc.cFirstName + " " + vdcc.cLastName;
-            C.Address = vdcc.Room + ", " + vdcc.pName + ", " + vdcc.Street + ", " + vdcc.City + ", " + vdcc.State + ", " + vdcc.ZipCode;
+            C.Address = vdcc.Room + ", " + vdcc.pName + ", " + vdcc.Street + ", " + vdcc.City + ", " + statename.Name + ", " + vdcc.ZipCode;
             C.Street = vdcc.Street;
             C.City = vdcc.City;
-            C.State = vdcc.State;
+            C.RegionId = vdcc.State;
+            C.State = statename.Name;
             C.ZipCode = vdcc.ZipCode;
             C.CreatedDate = DateTime.Now;
             _context.Add(C);
@@ -299,6 +304,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RequestBusiness RB = new();
 
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcb.pEmail);
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdcb.State);
             if (isexist == null)
             {
                 var Subject = "Create Account";
@@ -336,7 +342,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.FirstName = vdcb.pFirstName;
             RC.LastName = vdcb.pLastName;
             RC.PhoneNumber = vdcb.Mobile;
-            RC.Address = vdcb.Street + ", " + vdcb.City + ", " + vdcb.State + ", " + vdcb.ZipCode;
+            RC.Address = vdcb.Street + ", " + vdcb.City + ", " + statename.Name + ", " + vdcb.ZipCode;
             RC.NotiMobile = R.PhoneNumber;
             RC.NotiEmail = R.Email;
             RC.Notes = vdcb.Notes;
@@ -346,16 +352,18 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.IntYear = vdcb.DOB.Year;
             RC.Street = vdcb.Street;
             RC.City = vdcb.City;
-            RC.State = vdcb.State;
+            RC.RegionId = vdcb.State;
+            RC.State = statename.Name;
             RC.ZipCode = vdcb.ZipCode;
             _context.Add(RC);
             _context.SaveChanges();
             //Business Table
             B.Name = vdcb.Property;
             B.Address1 = vdcb.Property + ", " + vdcb.Street;
-            B.Address2 = vdcb.City + ", " + vdcb.State + ", " + vdcb.ZipCode;
+            B.Address2 = vdcb.City + ", " + statename.Name + ", " + vdcb.ZipCode;
             B.City = vdcb.City;
             B.ZipCode = vdcb.ZipCode;
+            B.RegionId = vdcb.State;
             B.PhoneNumber = vdcb.PhoneNumber;
             B.CreatedDate = DateTime.Now;
             _context.Add(B);
@@ -450,7 +458,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             RC.FirstName = vdcp.FirstName;
             RC.LastName = vdcp.LastName;
             RC.PhoneNumber = vdcp.Mobile;
-            RC.Address = vdcp.Street + ", " + vdcp.City + ", " + vdcp.State + ", " + vdcp.ZipCode;
+            RC.Address = vdcp.Street + ", " + vdcp.City + ", " + statename.Name + ", " + vdcp.ZipCode;
             RC.NotiMobile = R.PhoneNumber;
             RC.NotiEmail = R.Email;
             RC.Notes = vdcp.Notes;
@@ -496,6 +504,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             var R = new Request();
             var RC = new RequestClient();
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdcs.State);
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcs.Email);
             R.RequestTypeId = 3;
             R.FirstName = vdcs.FirstName;
@@ -509,7 +518,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
 
             RC.RequestId = R.RequestId;
             RC.FirstName = vdcs.FirstName;
-            RC.Address = vdcs.Street;
+            RC.Address = vdcs.Street + ", " + vdcs.City + ", " + statename.Name + ", " + vdcs.ZipCode;
             RC.LastName = vdcs.LastName;
             RC.Email = vdcs.Email;
             RC.PhoneNumber = vdcs.Mobile;

@@ -42,9 +42,12 @@ namespace HaloDocMVC.Controllers
 
         #region UploadDoc
         [HttpPost]
-        public IActionResult UploadDoc(int id, IFormFile? UploadFile)
+        public IActionResult UploadDoc(int id, IFormFile? UploadFile, ViewDocument viewDocument)
         {
-            _dashboard.UploadDoc(id, UploadFile);
+            if (UploadFile != null)
+            {
+                _dashboard.UploadDoc(id, UploadFile);
+            }
             return RedirectToAction("ViewDoc", new { id });
         }
         #endregion

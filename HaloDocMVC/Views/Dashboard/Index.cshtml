@@ -1,4 +1,5 @@
 ﻿@model HaloDocMVC.Entity.Models.DashboardList
+@using static HaloDocMVC.Entity.Models.Constant
 @{
     Layout = "_DashboardLayout";
     ViewData["Title"] = "Dashboard";
@@ -7,7 +8,7 @@
     <div class="d-flex container-fluid mt-3 position-relative ">
         <div class="">
             <h3 class="fw-bolder">
-                Medical History @CredentialValue.UserName();
+                Medical History
             </h3>
         </div>
     </div>
@@ -29,13 +30,13 @@
                         </div>
                         <div class="modal-body">
                             <p>Here, I want to create new request for...</p>
-                            <div>
+                            <div id="meElse">
                                 <button id="me" class="btn btn-outline-info mx-2">Me</button>
                                 <button id="else" class="btn btn-outline-info mx-2">Some One Else</button>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="cont" type="button" class="btn btn-primary">Continue</button>
+                            <button id="cont" type="button" class="btn btn-info text-white">Continue</button>
                             <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -68,7 +69,7 @@
                     {
                         <tr>
                             <td class="px-3" scope="row"> @item.createdDate</td>
-                            <td>@item.Status</td>
+                            <td>@Enum.GetName(typeof(Status), @item.Status)</td>
                             <td>
                                 @{
                                     if (item.Fcount != 0)

@@ -84,44 +84,53 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region ResetLink
         public bool SendResetLink(String Email)
         {
-            var agreementUrl = "https://localhost:44348/Login/ResetPassword?Email=" + Email + "&Datetime=" + DateTime.Now;
-            _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
+            var isexist = _context.Users.FirstOrDefault(x => x.Email == Email);
+            if (isexist != null) {
+                var agreementUrl = "https://localhost:44348/Login/ResetPassword?Email=" + Email + "&Datetime=" + DateTime.Now;
+                _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
 
-            EmailLog E = new();
-            E.SubjectName = "Reset your password";
-            E.EmailTemplate = "Reset your password";
-            E.EmailId = Email;
-            E.RoleId = 2;
-            E.CreateDate = DateTime.Now;
-            E.SentDate = DateTime.Now;
-            E.IsEmailSent = new BitArray(1);
-            E.IsEmailSent[0] = true;
-            E.Action = 5;
-            _context.EmailLogs.Add(E);
-            _context.SaveChanges();
-            return true;
+                EmailLog E = new();
+                E.SubjectName = "Reset your password";
+                E.EmailTemplate = "Reset your password";
+                E.EmailId = Email;
+                E.RoleId = 2;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 5;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
         #endregion
 
         #region ResetLinkPatient
         public bool SendResetLinkPatient(String Email)
         {
-            var agreementUrl = "https://localhost:44348/PatientLogin/ResetPassword?Email=" + Email + "&Datetime=" + DateTime.Now;
-            _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
+            var isexist = _context.Users.FirstOrDefault(x => x.Email == Email);
+            if (isexist != null)
+            {
+                var agreementUrl = "https://localhost:44348/PatientLogin/ResetPassword?Email=" + Email + "&Datetime=" + DateTime.Now;
+                _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
 
-            EmailLog E = new();
-            E.SubjectName = "Reset your password";
-            E.EmailTemplate = "Reset your password";
-            E.EmailId = Email;
-            E.RoleId = 3;
-            E.CreateDate = DateTime.Now;
-            E.SentDate = DateTime.Now;
-            E.IsEmailSent = new BitArray(1);
-            E.IsEmailSent[0] = true;
-            E.Action = 5;
-            _context.EmailLogs.Add(E);
-            _context.SaveChanges();
-            return true;
+                EmailLog E = new();
+                E.SubjectName = "Reset your password";
+                E.EmailTemplate = "Reset your password";
+                E.EmailId = Email;
+                E.RoleId = 3;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 5;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
         #endregion
 

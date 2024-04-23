@@ -69,6 +69,10 @@ namespace HaloDocMVC.Controllers
             {
                 _notyf.Success("Mail Send  Successfully..!");
             }
+            else
+            {
+                _notyf.Error("You are not registered user.....");
+            }
             return RedirectToAction("ForgotPassword", "PatientLogin");
         }
 

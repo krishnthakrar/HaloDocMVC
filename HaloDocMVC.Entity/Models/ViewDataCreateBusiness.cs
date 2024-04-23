@@ -43,7 +43,7 @@ namespace HaloDocMVC.Entity.Models
         public string City { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "State is Required!")]
-        public string State { get; set; } = string.Empty;
+        public int State { get; set; }
 
         [Required(ErrorMessage = "ZipCode is Required!")]
         public string ZipCode { get; set; } = string.Empty;

@@ -11,16 +11,19 @@ namespace HaloDocMVC.Controllers
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDashboard _dashboard;
+        private readonly IDropdown _dropdown;
 
-        public PatientProfileController(IHttpContextAccessor httpContextAccessor, IDashboard dashboard)
+        public PatientProfileController(IHttpContextAccessor httpContextAccessor, IDashboard dashboard, IDropdown dropdown)
         {
             _httpContextAccessor = httpContextAccessor;
             _dashboard = dashboard;
+            _dropdown = dropdown;
         }
 
         #region Profile
         public IActionResult Index()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
             int id = Int32.Parse(CredentialValue.UserId());
             var UserProfile = _dashboard.UserProfile(id);
             return View(UserProfile);

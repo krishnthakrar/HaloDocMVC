@@ -66,7 +66,9 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
-                        <input asp-for="State" type="text" class="form-control shadow-none" id="state" placeholder="State">
+                        <select class="form-select" asp-for="State" data-allow-clear="true" tabindex="-1" id="regiondropdown" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                            <option value="">Select State</option>
+                        </select>
                         <label for="state" class="form-label">State</label>
                         <span asp-validation-for="State" class="text-danger"></span>
                     </div>
@@ -80,9 +82,6 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
                         <input type="text" class="form-control shadow-none" id="room" placeholder="Room">
                         <label for="room" class="form-label">Room# / Suite</label>
-                    </div>
-                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 form-floating mb-4">
-                        <button class="btn btn-outline-info text text-info px-2 btnMap"><i class="fa fa-map-marker px-2" aria-hidden="true"></i>Map</button>
                     </div>
                 </div>
                 <h4 class="mb-4">(Optional) Upload Photo or Document</h4>

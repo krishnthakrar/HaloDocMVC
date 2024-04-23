@@ -90,12 +90,16 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
-        #region ResetPassword
+        #region ResetEmail
         public IActionResult ResetEmail(string Email)
         {
             if (_login.SendResetLink(Email))
             {
                 _notyf.Success("Mail Send Successfully..!");
+            }
+            else
+            {
+                _notyf.Error("You are not registered user.....");
             }
             return RedirectToAction("ForgotPassword", "Login");
         }

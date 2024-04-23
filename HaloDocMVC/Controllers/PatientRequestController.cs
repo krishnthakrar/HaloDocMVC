@@ -39,6 +39,7 @@ namespace HaloDocMVC.Controllers
         #region CreateFriend
         public IActionResult CreateFriend()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
             return View();
         }
 
@@ -53,6 +54,7 @@ namespace HaloDocMVC.Controllers
         #region CreateConcierge
         public IActionResult CreateConcierge()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
             return View();
         }
 
@@ -67,6 +69,7 @@ namespace HaloDocMVC.Controllers
         #region CreatePartner
         public IActionResult CreatePartner()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
             return View();
         }
 
@@ -81,6 +84,7 @@ namespace HaloDocMVC.Controllers
         #region CreateMe
         public IActionResult CreateMe()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
             int id = Int32.Parse(CredentialValue.UserId());
             var ViewMe = _patientrequest.ViewMe(id);
             return View(ViewMe);
@@ -97,6 +101,7 @@ namespace HaloDocMVC.Controllers
         #region CreateSomeOneElse
         public IActionResult CreateSomeOneElse()
         {
+            ViewBag.AllRegion = _dropdown.AllRegion();
             return View();
         }
 

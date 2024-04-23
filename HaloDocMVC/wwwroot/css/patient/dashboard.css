@@ -151,6 +151,12 @@ label {
     min-width: 170px;
 }
 
+#meElse button:focus {
+    color: #fff;
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+
 .activepagebtn,
 .page-item:hover {
     background-color: #0dcaf0;

@@ -19,11 +19,11 @@
                 Here you can view all files that have been added by you or physician or anyone else.
             </div>
             <div class="col-md-12 mt-3">
-                <form method="post" asp-action="UploadDoc" asp-controller="Dashboard" enctype="multipart/form-data" class="mt-0">
+                <form method="post" asp-action="UploadDoc" asp-controller="Dashboard" asp-route-id="@Model.RequestId" enctype="multipart/form-data" class="mt-0">
                     <div class="d-flex">
                         <input class="form-control doc_uploder" id="formFileSm" name="UploadFile" type="file">
                         <input type="hidden" name="Requestid" value="@Model.RequestId" />
-                        <input type="submit" class="btn btn-info btn-submit" value="Upload">
+                        <input type="submit" class="btn btn-info btn-submit text-white" value="Upload">
                     </div>
                 </form>
                 <div class="card-header-2 mt-3 d-flex justify-content-between border-0 bg-transparent">
