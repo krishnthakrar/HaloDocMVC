@@ -4,7 +4,6 @@ namespace HaloDocMVC.Entity.Models
 {
     public class ViewDataCreatePatient
     {
-        [Required(ErrorMessage = "Symptoms is Required!")]
         public string? Notes { get; set; }
 
         [Required(ErrorMessage = "First Name is Required!")]

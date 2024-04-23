@@ -54,14 +54,18 @@ namespace HaloDocMVC.Controllers
             bool sms = false;
             if (contactProviderRadioSet == 1)
             {
+                bool MessageLog = _providers.MessageLog(mobile, Message);
                 sms = _providers.SendMessage(mobile, Message);
             }
             else if (contactProviderRadioSet == 2)
             {
+                bool EmailLog = _providers.EmailLog(email, "Mail from Admin", Message);
                 result = await _emailConfiguration.SendMail(email, "Mail from Admin", Message);
             }
             else
             {
+                bool EmailLog = _providers.EmailLog(email, "Mail from Admin", Message);
+                bool MessageLog = _providers.MessageLog(mobile, Message);
                 result = await _emailConfiguration.SendMail(email, "Mail from Admin", Message);
                 sms = _providers.SendMessage(mobile, Message);
             }

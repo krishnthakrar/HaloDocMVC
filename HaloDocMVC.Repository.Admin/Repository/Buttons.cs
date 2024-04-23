@@ -4,6 +4,7 @@ using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -112,6 +113,20 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             var agreementUrl = "https://localhost:44348/PatientHome/RequestLanding?Name=" + FirstName + " " + LastName + "&Email=" + Email;
             _emailConfig.SendMail(Email, "Link to Request", $"<a href='{agreementUrl}'>Request Page Link</a>");
+
+            EmailLog E = new();
+            E.SubjectName = "Link to Request";
+            E.EmailTemplate = "Request Page Link";
+            E.EmailId = Email;
+            E.RoleId = 3;
+            E.CreateDate = DateTime.Now;
+            E.SentDate = DateTime.Now;
+            E.IsEmailSent = new BitArray(1);
+            E.IsEmailSent[0] = true;
+            E.Action = 3;
+            _context.EmailLogs.Add(E);
+            _context.SaveChanges();
+
             return true;
         }
         #endregion

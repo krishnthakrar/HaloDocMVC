@@ -18,6 +18,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using static HaloDocMVC.Entity.Models.Constant;
 using static HaloDocMVC.Entity.Models.ViewDataViewDocuments;
 
@@ -559,6 +560,21 @@ namespace HaloDocMVC.Repository.Admin.Repository
 
             if (await _emailConfig.SendMailAsync(email, "All Document Of Your Request " + v.PatientName, "Heyy " + v.PatientName + " Kindly Check your Attachments", files))
             {
+
+                EmailLog E = new();
+                E.SubjectName = "All Document Of Your Request";
+                E.EmailTemplate = "Kindly Check your Attachments";
+                E.EmailId = email;
+                E.ConfirmationNumber = v.PhoneNumber;
+                E.RoleId = 3;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 7;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
+
                 return true;
             }
             else
@@ -621,6 +637,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.SaveChanges(true);
                 var req = _context.Requests.FirstOrDefault(e => e.RequestId == data.RequestId);
                 _emailConfig.SendMail(data.Email, "Order Details", "<p>Prescription:" + data.Prescription + "<br> No of Refills: " + data.NoOfRefill + "</p>");
+
+                EmailLog E = new();
+                E.SubjectName = "Order Details";
+                E.EmailTemplate = data.Prescription;
+                E.EmailId = data.Email;
+                E.RoleId = 2;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 1;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception)
@@ -636,6 +665,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
             var res = _context.RequestClients.FirstOrDefault(e => e.RequestId == requestid);
             var agreementUrl = "https://localhost:44348/Agreement?RequestID=" + requestid + "&PatientName=" +  PatientName;
             _emailConfig.SendMail(res.Email, "Agreement for your request", $"<a href='{agreementUrl}'>Link Containing Agreement Page</a>");
+
+            EmailLog E = new();
+            E.SubjectName = "Agreement for your request";
+            E.EmailTemplate = "Link Containing Agreement Page";
+            E.EmailId = res.Email;
+            E.RoleId = 2;
+            E.CreateDate = DateTime.Now;
+            E.SentDate = DateTime.Now;
+            E.IsEmailSent = new BitArray(1);
+            E.IsEmailSent[0] = true;
+            E.Action = 4;
+            _context.EmailLogs.Add(E);
+            _context.SaveChanges();
             return true;
         }
         #endregion
@@ -951,6 +993,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
             {
                 var res = _context.Physicians.FirstOrDefault(e => e.PhysicianId == ProviderId);
                 _emailConfig.SendMail(res.Email, "Request For Profile Chnges", Notes);
+
+                EmailLog E = new();
+                E.SubjectName = "Request For Profile Chnges";
+                E.EmailTemplate = Notes;
+                E.EmailId = res.Email;
+                E.RoleId = 1;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 2;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)

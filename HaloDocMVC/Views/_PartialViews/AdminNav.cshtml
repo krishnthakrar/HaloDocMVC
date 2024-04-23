@@ -16,7 +16,7 @@
                 @if(CredentialValue.role() == "Provider")
                 {
                     <li class="nav-item">
-                        <a class="nav-link px-3 text-dark @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Invoicing</a>
+                        <a class="nav-link px-3 text-dark @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="Invoicing">Invoicing</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link px-3 text-dark @(path.StartsWith("/Scheduling") ? "active" : "")" asp-action="Index" asp-controller="Scheduling">My Schedule</a>
@@ -43,13 +43,13 @@
                         <a class="nav-link px-3 text-dark @(path.StartsWith("/ProviderLocation") ? "active" : "")" asp-action="Index" asp-controller="ProviderLocation">Provider Location</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") || path.StartsWith("/Scheduling") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown px-3 text-dark @(path.StartsWith("/Providers") || path.StartsWith("/Scheduling") || path.StartsWith("/Invoicing") ? "active" : "")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Providers
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item @(path.StartsWith("/Providers") ? "active" : "")" asp-action="Index" asp-controller="Providers">Provider</a>
                             <a class="dropdown-item @(path.StartsWith("/Scheduling") ? "active" : "")" asp-action="Index" asp-controller="Scheduling">Scheduling</a>
-                            <a class="dropdown-item" href="#"> Invoicing</a>
+                            <a class="dropdown-item @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="Invoicing"> Invoicing</a>
                         </div>
                     </li>
                     <li class="nav-item">

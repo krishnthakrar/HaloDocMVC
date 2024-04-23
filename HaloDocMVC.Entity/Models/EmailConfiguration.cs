@@ -99,19 +99,6 @@ namespace HaloDocMVC.Entity.Models
         }
         #endregion
 
-        #region Encode_Decode
-        public string Encode(string encodeMe)
-        {
-            byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
-            return Convert.ToBase64String(encoded);
-        }
-        public string Decode(string decodeMe)
-        {
-            byte[] encoded = Convert.FromBase64String(decodeMe);
-            return System.Text.Encoding.UTF8.GetString(encoded);
-        }
-        #endregion
-
         #region SendSMS
         public async Task<bool> SendSMS(string receiverPhoneNumber, string message)
         {

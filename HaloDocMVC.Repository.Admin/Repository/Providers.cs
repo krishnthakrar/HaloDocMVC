@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using static HaloDocMVC.Entity.Models.ProviderMenu;
 
 namespace HaloDocMVC.Repository.Admin.Repository
@@ -630,6 +631,44 @@ namespace HaloDocMVC.Repository.Admin.Repository
             string contact = "+91" + mobile;
             bool sms = _emailConfig.SendSMS(contact, Message).Result;
             return sms;
+        }
+        #endregion
+
+        #region EmailLog
+        public bool EmailLog(string? email, string? subject, string? Message)
+        {
+            EmailLog E = new();
+            E.SubjectName = subject;
+            E.EmailTemplate = Message;
+            E.EmailId = email;
+            E.RoleId = 2;
+            E.CreateDate = DateTime.Now;
+            E.SentDate = DateTime.Now;
+            E.IsEmailSent = new BitArray(1);
+            E.IsEmailSent[0] = true;
+            E.Action = 7;
+            _context.EmailLogs.Add(E);
+            _context.SaveChanges();
+            return true;
+        }
+        #endregion
+
+        #region MessageLog
+        public bool MessageLog(string? mobile, string? Message)
+        {
+            Smslog S = new();
+            S.Smstemplate = Message;
+            S.MobileNumber = mobile;
+            S.ConfirmationNumber = mobile;
+            S.RoleId = 2;
+            S.CreateDate = DateTime.Now;
+            S.SentDate = DateTime.Now;
+            S.IsSmssent = new BitArray(1);
+            S.IsSmssent[0] = true;
+            S.Action = 7;
+            _context.Smslogs.Add(S);
+            _context.SaveChanges();
+            return true;
         }
         #endregion
     }

@@ -4,6 +4,7 @@ using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -141,6 +142,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 var Subject = "Create Account";
                 var agreementUrl = "https://localhost:44348/PatientHome/CreateAccount";
                 _emailConfig.SendMail(vdcf.pEmail, Subject, $"<a href='{agreementUrl}'>Create Account</a>");
+
+                EmailLog E = new();
+                E.SubjectName = "Link to Request";
+                E.EmailTemplate = "Create Account";
+                E.EmailId = vdcf.pEmail;
+                E.RoleId = 3;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 2;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
             }
             //Request Table
             R.RequestTypeId = 3; // 3 stands for Family/Friend in RequestType table
@@ -214,6 +228,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 var Subject = "Create Account";
                 var agreementUrl = "https://localhost:44348/PatientHome/CreateAccount";
                 _emailConfig.SendMail(vdcc.pEmail, Subject, $"<a href='{agreementUrl}'>Create Account</a>");
+
+                EmailLog E = new();
+                E.SubjectName = "Link to Request";
+                E.EmailTemplate = "Create Account";
+                E.EmailId = vdcc.pEmail;
+                E.RoleId = 3;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 2;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
             }
             //Request Table
             R.RequestTypeId = 4; // 4 stands for Concierge in RequestType table
@@ -277,6 +304,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 var Subject = "Create Account";
                 var agreementUrl = "https://localhost:44348/PatientHome/CreateAccount";
                 _emailConfig.SendMail(vdcb.pEmail, Subject, $"<a href='{agreementUrl}'>Create Account</a>");
+
+                EmailLog E = new();
+                E.SubjectName = "Link to Request";
+                E.EmailTemplate = "Create Account";
+                E.EmailId = vdcb.pEmail;
+                E.RoleId = 3;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 2;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
             }
 
             //Request Table

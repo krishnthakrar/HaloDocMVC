@@ -33,5 +33,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool DeleteAccount(int? id);
 
         public bool SendMessage(string? mobile, string? Message);
+
+        public bool MessageLog(string? mobile, string? Message);
+
+        public bool EmailLog(string? email, string? subject, string? Message);
     }
 }

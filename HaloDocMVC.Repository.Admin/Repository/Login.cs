@@ -86,6 +86,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             var agreementUrl = "https://localhost:44348/Login/ResetPassword?Email=" + Email + "&Datetime=" + DateTime.Now;
             _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
+
+            EmailLog E = new();
+            E.SubjectName = "Reset your password";
+            E.EmailTemplate = "Reset your password";
+            E.EmailId = Email;
+            E.RoleId = 2;
+            E.CreateDate = DateTime.Now;
+            E.SentDate = DateTime.Now;
+            E.IsEmailSent = new BitArray(1);
+            E.IsEmailSent[0] = true;
+            E.Action = 5;
+            _context.EmailLogs.Add(E);
+            _context.SaveChanges();
             return true;
         }
         #endregion
@@ -95,6 +108,19 @@ namespace HaloDocMVC.Repository.Admin.Repository
         {
             var agreementUrl = "https://localhost:44348/PatientLogin/ResetPassword?Email=" + Email + "&Datetime=" + DateTime.Now;
             _emailConfig.SendMail(Email, "Reset your password", $"To reset your password <a href='{agreementUrl}'>Click here..</a>");
+
+            EmailLog E = new();
+            E.SubjectName = "Reset your password";
+            E.EmailTemplate = "Reset your password";
+            E.EmailId = Email;
+            E.RoleId = 3;
+            E.CreateDate = DateTime.Now;
+            E.SentDate = DateTime.Now;
+            E.IsEmailSent = new BitArray(1);
+            E.IsEmailSent[0] = true;
+            E.Action = 5;
+            _context.EmailLogs.Add(E);
+            _context.SaveChanges();
             return true;
         }
         #endregion
