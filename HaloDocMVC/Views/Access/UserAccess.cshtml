@@ -112,7 +112,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="paginationform" asp-action="UserAccess" asp-controller="Access" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="paginationform" asp-action="UserAccess" asp-controller="Access" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                 <input type="hidden" asp-for="PageSize" />
                                 <input type="hidden" asp-for="Role" />
                                 <input type="hidden" asp-for="SortedColumn" />
@@ -157,11 +157,12 @@
         <!--End Pagination-->
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="UserAccess" id="sortingform" asp-controller="Access" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="UserAccess" id="sortingform" asp-controller="Access" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="Role" />
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     function getdatabyrole() {
         var role = $("#roledropdown").val();

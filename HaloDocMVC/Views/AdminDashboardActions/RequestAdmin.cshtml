@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Request To Admin</h1>
                 <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
             </div>
-            <form asp-action="RequestAdmin" asp-controller="Home" class="needs-validation mt-0" novalidate>
+            <form asp-action="RequestAdmin" asp-controller="Home" class="needs-validation mt-0" novalidate onsubmit="displayBusyIndicator()">
                 <div class="modal-body">
                     <p>Need to send message to edit</p>
                     <div class="form-floating mb-3">
@@ -24,3 +24,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

@@ -19,7 +19,7 @@
                 Here you can view all files that have been added by you or physician or anyone else.
             </div>
             <div class="col-md-12 mt-3">
-                <form method="post" asp-action="UploadDoc" asp-controller="Dashboard" asp-route-id="@Model.RequestId" enctype="multipart/form-data" class="mt-0">
+                <form method="post" asp-action="UploadDoc" asp-controller="Dashboard" asp-route-id="@Model.RequestId" enctype="multipart/form-data" class="mt-0" onsubmit="displayBusyIndicator()">
                     <div class="d-flex">
                         <input class="form-control doc_uploder" id="formFileSm" name="UploadFile" type="file">
                         <input type="hidden" name="Requestid" value="@Model.RequestId" />
@@ -86,7 +86,7 @@
                     </table>
                 </div>
                 <div class="m-2 d-flex justify-content-between">
-                    <form id="documentformPagesize" asp-action="ViewDoc" asp-controller="Dashboard" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0">
+                    <form id="documentformPagesize" asp-action="ViewDoc" asp-controller="Dashboard" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                         <div class="search m-1 d-flex justify-content-between">
                             <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
                             <span class="pagesize">Page Size</span>
@@ -102,7 +102,7 @@
                         <ul class="pagination pagination-container">
                             @{
                                 int i;
-                                <form id="documentform" asp-action="ViewDoc" asp-controller="Dashboard" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0">
+                                <form id="documentform" asp-action="ViewDoc" asp-controller="Dashboard" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                     <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
                                     <input type="hidden" asp-for="CurrentPage" id="currentpagevaluedocument" />
                                     <input type="hidden" asp-for="SortedColumn" />
@@ -138,11 +138,12 @@
     </div>
 </div>
 <form class="sortingform"
-      asp-action="ViewDoc" asp-controller="Dashboard" novalidate="novalidate">
+      asp-action="ViewDoc" asp-controller="Dashboard" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
     <input type="hidden" asp-for="PageSize" id="isAsc" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     function setpagenumber(e) {
         console.log(e)

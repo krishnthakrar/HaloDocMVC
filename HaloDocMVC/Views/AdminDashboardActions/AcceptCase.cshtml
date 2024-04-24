@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Accept Case</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="AcceptCase" asp-controller="Home" class="mt-0 needs-validation" method="post" novalidate>
+            <form asp-action="AcceptCase" asp-controller="Home" class="mt-0 needs-validation" method="post" novalidate onsubmit="displayBusyIndicator()">
                 <input type="hidden" value="" id="RequestID_Input_ModelAcceptCase" name="RequestId" />
                 <div class="modal-body">
                     <p>For Accepting this Request Please click on the Accept Button and to Reject the Request Please click on the Reject Button.</p>
@@ -26,3 +26,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

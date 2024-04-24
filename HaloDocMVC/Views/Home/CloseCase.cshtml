@@ -110,7 +110,7 @@
                     <h6 class="mt-2"><strong>Patient Information</strong></h6>
                 </div>
             </div>
-            <form method="post" asp-controller="Home" asp-action="EditForCloseCase" asp-route-RequestID="@Model.RequestId" class="mt-0">
+            <form method="post" asp-controller="Home" asp-action="EditForCloseCase" asp-route-RequestID="@Model.RequestId" class="mt-0" onsubmit="displayBusyIndicator()">
                 <input type="hidden" asp-for="RequestId" class="inputs" />
                 <div class="row pb-4">
                     <div class="col-md-6 pb-3">
@@ -161,6 +161,7 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     window.onload = function (e) {
         toggleFormElements('true')

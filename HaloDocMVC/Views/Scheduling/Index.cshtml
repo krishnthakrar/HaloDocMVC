@@ -148,7 +148,7 @@
                 <h1 class="modal-title fs-5" id="addShiftModal1Label">Create Shift</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="AddShift" asp-controller="Scheduling" class="mt-0 needs-validation" novalidate>
+            <form asp-action="AddShift" asp-controller="Scheduling" class="mt-0 needs-validation" novalidate onsubmit="displayBusyIndicator()">
                 <div class="modal-body">
                     @if (CredentialValue.role() == "Admin")
                     {
@@ -238,7 +238,7 @@
                 <h1 class="modal-title fs-5" id="viewShiftModalLabel">View Shift</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="ViewShiftreturn" asp-controller="Scheduling" id="ViewShiftForm" class="mt-0">
+            <form asp-action="ViewShiftreturn" asp-controller="Scheduling" id="ViewShiftForm" class="mt-0" onsubmit="displayBusyIndicator()">
                 <input asp-for="shiftdetailid" type="hidden" id="shiftmodalid" />
                 <div class="modal-body">
                     <div class="form-floating">
@@ -288,6 +288,7 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 @section Scripts{
     <script>

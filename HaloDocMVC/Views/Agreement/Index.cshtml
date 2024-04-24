@@ -24,7 +24,7 @@
                 To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up until all care is completed. So with this points, if you like us to provide care to you click on "Agree" and we'll get started immediately, if you do not agree simply click "Cancel".
             </p>
             <div class="text-center d-flex">
-                <form asp-action="accept" asp-controller="Agreement">
+                <form asp-action="accept" asp-controller="Agreement" onsubmit="displayBusyIndicator()">
                     <input type="hidden" name="RequestID" value="@TempData["RequestID"]" />
                     <input type="submit" class=" btn btn-success text-white" value="IAgree" />
                     <button type="button" class="btn btn-danger text-white mx-3" data-bs-toggle="modal" data-bs-target="#Reject">Cancel</button>
@@ -39,7 +39,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Concellation</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form asp-action="Reject" asp-controller="Agreement">
+                <form asp-action="Reject" asp-controller="Agreement" onsubmit="displayBusyIndicator()">
                     <input type="hidden" value="@TempData["RequestID"]" name="RequestId" />
                     <input type="hidden" value="@TempData["PatientName"]" name="PatientName" />
                     <div class="modal-body">
@@ -57,6 +57,7 @@
             </div>
         </div>
     </div>
+    <partial name="../Shared/_Loader.cshtml" />
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
 </body>

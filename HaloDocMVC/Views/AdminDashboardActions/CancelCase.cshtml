@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Concellation</h1>
                 <a class="text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
             </div>
-            <form asp-controller="Home" asp-action="CancelCase" class="mt-0 needs-validation" novalidate>
+            <form asp-controller="Home" asp-action="CancelCase" class="mt-0 needs-validation" novalidate onsubmit="displayBusyIndicator()">
                 <input type="hidden" value="" id="RequestID_Input_ModelCancelCase" name="RequestId" />
 
                 <div class="modal-body">
@@ -38,3 +38,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

@@ -32,7 +32,7 @@
 
     <div class="card rounded shadow my-3">
         <!-- Filter Inputs -->
-        <form id="FilterForm" class="mt-0">
+        <form id="FilterForm" class="mt-0" onsubmit="displayBusyIndicator()">
             <div class="row p-2">
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="form-floating mb-3">
@@ -206,7 +206,7 @@
                                 <td>-</td>
                             }
                             <td>
-                                <form class="mt-0 DeleteForm" asp-controller="Records" asp-action="DeleteRequest">
+                                <form class="mt-0 DeleteForm" asp-controller="Records" asp-action="DeleteRequest" onsubmit="displayBusyIndicator()">
                                     <input type="hidden" name="RequestId" value="@item.RequestId" />
                                     <button type="button" class="btn btn-sm border-info text-info shadow-none mx-1 mb-2 Delete">
                                         Delete
@@ -233,7 +233,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="paginationform" asp-action="Index" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="paginationform" asp-action="Index" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                 <input type="hidden" asp-for="PageSize" />
                                 <input type="hidden" asp-for="CurrentPage" id="currentpagevalue" />
                                 <input type="hidden" asp-for="RequestType" />
@@ -284,7 +284,7 @@
         <!--End Pagination-->
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="Index" id="sortingform" asp-controller="Records" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="Index" id="sortingform" asp-controller="Records" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
     <input type="hidden" asp-for="RequestType" />
@@ -296,6 +296,7 @@
     <input type="hidden" asp-for="StartDate" />
     <input type="hidden" asp-for="EndDate" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     modeldata = @Html.Raw(Json.Serialize(Model))
 

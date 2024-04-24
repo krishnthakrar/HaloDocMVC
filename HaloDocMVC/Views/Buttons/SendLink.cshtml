@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Send Link</h1>
                 <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
             </div>
-            <form asp-action="SendLink" asp-controller="Buttons" method="post" class="mt-0 needs-validation" novalidate>
+            <form asp-action="SendLink" asp-controller="Buttons" method="post" class="mt-0 needs-validation" novalidate onsubmit="displayBusyIndicator()">
                 <div class="modal-body">
                     <div class="col my-3">
                         <div class="form-floating">
@@ -51,4 +51,5 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <script src="~/js/phone.js"></script>

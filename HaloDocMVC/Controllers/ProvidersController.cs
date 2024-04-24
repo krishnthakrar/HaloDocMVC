@@ -64,11 +64,13 @@ namespace HaloDocMVC.Controllers
             {
                 bool MessageLog = _providers.MessageLog(mobile, Message);
                 sms = _providers.SendMessage(mobile, Message);
+                _notyf.Success("Message Sent Successfully..!");
             }
             else if (contactProviderRadioSet == 2)
             {
                 bool EmailLog = _providers.EmailLog(email, "Mail from Admin", Message);
                 result = await _emailConfiguration.SendMail(email, "Mail from Admin", Message);
+                _notyf.Success("Mail Sent Successfully..!");
             }
             else
             {
@@ -76,14 +78,7 @@ namespace HaloDocMVC.Controllers
                 bool MessageLog = _providers.MessageLog(mobile, Message);
                 result = await _emailConfiguration.SendMail(email, "Mail from Admin", Message);
                 sms = _providers.SendMessage(mobile, Message);
-            }
-            if (result)
-            {
-                _notyf.Success("Mail Sent Successfully..!");
-            }
-            if (sms)
-            {
-                _notyf.Success("Message Sent Successfully..!");
+                _notyf.Success("Mail and Message Sent Successfully..!");
             }
             return RedirectToAction("Index");
         }

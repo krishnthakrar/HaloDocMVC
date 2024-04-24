@@ -5,7 +5,7 @@
                 <h1 class="modal-title" id="exampleModalLabel">Assign Physician</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="AssignProvider" asp-controller="Home" class="mt-0 needs-validation" novalidate>
+            <form asp-action="AssignProvider" asp-controller="Home" class="mt-0 needs-validation" novalidate onsubmit="displayBusyIndicator()">
                 <div class="modal-body">
                     <small class="modal-title">to assign this request,select and search another physician.</small>
                     <input type="hidden" name="requestid" id="RequestId_Input_ModelAssignCase" />
@@ -47,6 +47,7 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <script type="text/javascript">
     function myFunction2() {
         var region = $("#region2").val();

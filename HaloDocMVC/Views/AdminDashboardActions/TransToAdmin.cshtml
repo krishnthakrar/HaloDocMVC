@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Transfer To Admin</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="TransToAdmin" asp-controller="Home" class="mt-0 needs-validation" method="post" novalidate>
+            <form asp-action="TransToAdmin" asp-controller="Home" class="mt-0 needs-validation" method="post" novalidate onsubmit="displayBusyIndicator()">
                 <input type="hidden" value="" id="RequestID_Input_ModelTansCase" name="RequestId" />
                 <div class="modal-body">
                     <p>Please Provide reason for transfer back to admin.</p>
@@ -25,3 +25,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

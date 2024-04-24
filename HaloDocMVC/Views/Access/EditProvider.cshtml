@@ -38,7 +38,7 @@
                 }
             </div>
             @* Account Information *@
-            <form method="post" asp-controller="Access" asp-action="EditPassword" id="resetpassform" class="mt-0">
+            <form method="post" asp-controller="Access" asp-action="EditPassword" id="resetpassform" class="mt-0" onsubmit="displayBusyIndicator()">
                 <input type="hidden" asp-for="PhysicianId" />
                 <div class="col-xl-12">
                     <div class="row pb-4">
@@ -87,7 +87,7 @@
             </form>
 
             @* Physician Information *@
-            <form method="post" asp-controller="Access" asp-action="EditPhysInfo" id="PhysicianInfoForm" class="mt-0">
+            <form method="post" asp-controller="Access" asp-action="EditPhysInfo" id="PhysicianInfoForm" class="mt-0" onsubmit="displayBusyIndicator()">
                 <h5><strong>Physician Information</strong></h5>
                 <input type="hidden" asp-for="PhysicianId" />
                 <div class="col-xl-12">
@@ -175,7 +175,7 @@
             </form>
 
             @* Mailing/Billing Information *@
-            <form method="post" asp-controller="Access" asp-action="BillingInfoEdit" id="BillingInfoForm" class="mt-0">
+            <form method="post" asp-controller="Access" asp-action="BillingInfoEdit" id="BillingInfoForm" class="mt-0" onsubmit="displayBusyIndicator()">
                 <h5><strong>Mailing & Billing Information</strong></h5>
                 <input type="hidden" asp-for="PhysicianId" />
                 <div class="col-xl-12">
@@ -231,7 +231,7 @@
             </form>
 
             @* Provider Profile *@
-            <form method="post" asp-controller="Access" asp-action="ProviderInfoEdit" id="ProviderInfoForm" enctype="multipart/form-data" class="mt-0">
+            <form method="post" asp-controller="Access" asp-action="ProviderInfoEdit" id="ProviderInfoForm" enctype="multipart/form-data" class="mt-0" onsubmit="displayBusyIndicator()">
                 <h5><strong>Provider Profile</strong></h5>
                 <input type="hidden" asp-for="PhysicianId" />
                 <div class="col-xl-12">
@@ -297,7 +297,7 @@
                 </div>
             </form>
             <hr class="mb-4" />
-            <form method="post" asp-controller="Access" asp-action="ProviderEditSubmit" id="formSubmit" enctype="multipart/form-data" class="mt-0">
+            <form method="post" asp-controller="Access" asp-action="ProviderEditSubmit" id="formSubmit" enctype="multipart/form-data" class="mt-0" onsubmit="displayBusyIndicator()">
                 <input type="hidden" asp-for="PhysicianId" />
                 <div class="p-4">
                     <h5><strong>Onboarding</strong></h5>
@@ -496,6 +496,7 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     window.onload = function (e) {
         toggleFormElements1('true')

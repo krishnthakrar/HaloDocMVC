@@ -32,13 +32,13 @@
                                 View Current Month Shift
                             </div>
                         </div>
-                        <form asp-action="_ApprovedShifts" id="approvedform" asp-controller="Scheduling" class="mx-2 mt-0">
+                        <form asp-action="_ApprovedShifts" id="approvedform" asp-controller="Scheduling" class="mx-2 mt-0" onsubmit="displayBusyIndicator()">
                             <input type="hidden" id="approved" name="shiftids" />
                             <div class="btn btn-success shadow" id="approvedbtn">
                                 Approve Selected Shift
                             </div>
                         </form>
-                        <form asp-action="_DeleteShifts" id="deletedform" asp-controller="Scheduling" class="mx-2 mt-0">
+                        <form asp-action="_DeleteShifts" id="deletedform" asp-controller="Scheduling" class="mx-2 mt-0" onsubmit="displayBusyIndicator()">
                             <input type="hidden" id="deleted" name="shiftids" />
                             <div class="btn btn-danger shadow" id="deletedbtn">
                                 Delete Selected
@@ -111,7 +111,7 @@
                         <ul class="pagination pagination-container">
                             @{
                                 int i;
-                                <form id="paginationform" asp-action="RequestedShift" asp-controller="Scheduling" novalidate="novalidate" class="d-flex mt-0">
+                                <form id="paginationform" asp-action="RequestedShift" asp-controller="Scheduling" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                     <input type="hidden" asp-for="PageSize" />
                                     <input type="hidden" asp-for="regionid" />
                                     <input type="hidden" asp-for="SortedColumn" />
@@ -157,11 +157,12 @@
         </div>
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="RequestedShift" asp-controller="Scheduling" id="sortingform" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="RequestedShift" asp-controller="Scheduling" id="sortingform" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="regionid" />
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 @section Scripts
     {
     <script type="text/javascript">

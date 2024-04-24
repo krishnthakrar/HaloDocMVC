@@ -8,7 +8,7 @@
         <div class="backBtn1">
             <a asp-controller="PatientHome" asp-action="RequestLanding"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
         </div>
-        <form method="post" class="p-3 rounded container">
+        <form method="post" class="p-3 rounded container" onsubmit="displayBusyIndicator()">
             <h4 class="mb-4">Business Information</h4>
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
@@ -120,3 +120,4 @@
         </form>
     </div>
 </body>
+<partial name="../Shared/_Loader.cshtml" />

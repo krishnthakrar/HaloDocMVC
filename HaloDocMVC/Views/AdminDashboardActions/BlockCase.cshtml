@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Block</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="BlockCase" asp-controller="Home" class="mt-0 needs-validation" novalidate>
+            <form asp-action="BlockCase" asp-controller="Home" class="mt-0 needs-validation" novalidate onsubmit="displayBusyIndicator()">
                 <input type="hidden" value="" id="RequestID_Input_ModelBlockCase" name="RequestId" />
                 <div class="modal-body">
                     <h3 class="modal-title fs-5" id="exampleModalLabel">Patient Name : <span class="text-info" id="PatientName_ModelBlockCase"> </span></h3>
@@ -28,3 +28,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

@@ -6,7 +6,7 @@
 <div class="align-self-center min-vw-50">
     <h3 class="py-3">Create Account</h3>
     <strong class="text-danger">@ViewData["error"]</strong>
-    <form asp-action="CreateAccountPost" asp-controller="PatientHome" method="post" id="passwordform" class="mt-0">
+    <form asp-action="CreateAccountPost" asp-controller="PatientHome" method="post" id="passwordform" class="mt-0" onsubmit="displayBusyIndicator()">
         <div class="form-floating mb-4 email">
             <input type="email" class="form-control shadow-none" name="Email" id="loginemail" placeholder="name@example.com">
             <label class="bg-transparent" for="floatingInput">Email</label>
@@ -26,6 +26,7 @@
         <button type="button" class="btn btn-info text-white w-100 mb-4" onclick="submitform()" role="button">Save</button>
     </form>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <script>

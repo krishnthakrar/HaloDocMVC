@@ -18,7 +18,7 @@
     <div class="bg-white rounded shadow mt-3">
         <div class="p-4">
             @* Account Information *@
-            <form method="post" asp-controller="Access" asp-action="CreateAdminPost" id="createAdminForm" class="mt-0">
+            <form method="post" asp-controller="Access" asp-action="CreateAdminPost" id="createAdminForm" class="mt-0" onsubmit="displayBusyIndicator()">
                 <h5><strong>Account Information</strong></h5>
                 <div class="col-xl-12">
                     <div class="row pb-4">
@@ -155,7 +155,7 @@
         </div>
     </div>
 </div>
-
+<partial name="../Shared/_Loader.cshtml" />
 
 <script>
     $(function () {

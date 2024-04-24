@@ -35,7 +35,7 @@
                 check here for any files that you or the doctor of yours subsequents requestors have attached for you to review
             </div>
             <div class="col-md-12 mt-3">
-                <form method="post" id="myForm" asp-action="UploadDoc" asp-controller="Home" enctype="multipart/form-data" class="mt-2">
+                <form method="post" id="myForm" asp-action="UploadDoc" asp-controller="Home" enctype="multipart/form-data" class="mt-2" onsubmit="displayBusyIndicator()">
                     <div class="d-flex justify-content-between border border-secondary rounded">
                         <button type="button" id="choosenfile" class="col btn text-start fileSelect" onclick="document.getElementById('file').click()">
                             Select File
@@ -56,7 +56,7 @@
                         <div id="downloadAll" class="btn btn-outline-info btn-back text-end d-flex mx-1">
                             <i class="fa-solid fa-download me-1"></i><span class="d-none d-sm-block">Download all</span>
                         </div>
-                        <form method="post" id="deleted" asp-action="AllFilesDelete" asp-controller="Home" class="mt-0">
+                        <form method="post" id="deleted" asp-action="AllFilesDelete" asp-controller="Home" class="mt-0" onsubmit="displayBusyIndicator()">
                             <input type="hidden" id="deleteids" name="deleteids" />
                             <input type="hidden" value="@Model.RequestId" name="Requestid" />
                             <div id="delete" class="btn btn-outline-info d-flex btn-back text-end mx-1">
@@ -76,7 +76,7 @@
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Email Files</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form method="post" id="sendmails" asp-action="SendFileEmail" asp-controller="Home" class="mt-0">
+                                    <form method="post" id="sendmails" asp-action="SendFileEmail" asp-controller="Home" class="mt-0" onsubmit="displayBusyIndicator()">
                                         <div class="modal-body">
                                             <input type="hidden" value="@Model.RequestId" name="Requestid" />
                                             <input type="hidden" id="mailids" name="mailids" />
@@ -187,7 +187,7 @@
                 <!--End Mobile screen View-->
             </div>
             <div class="m-2 d-flex justify-content-between">
-                <form id="documentformPagesize" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0">
+                <form id="documentformPagesize" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                     <div class="search m-1 d-flex justify-content-between">
                         <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
                         <span class="pagesize">Page Size</span>
@@ -203,7 +203,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="documentform" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="documentform" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                 <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
                                 <input type="hidden" asp-for="CurrentPage" id="currentpagevaluedocument" />
                                 <input type="hidden" asp-for="SortedColumn" />
@@ -238,11 +238,12 @@
     </div>
 </div>
 <form class="sortingform" 
-      asp-action="ViewUpload" asp-controller="Home" novalidate="novalidate">
+      asp-action="ViewUpload" asp-controller="Home" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
     <input type="hidden" asp-for="PageSize" id="isAsc" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 @section Scripts
     {
     <script>

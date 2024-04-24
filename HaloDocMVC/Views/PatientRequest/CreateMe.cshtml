@@ -13,7 +13,7 @@
                     <a asp-controller="Dashboard" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
                 </div>
             </div>
-            <form method="post" class="p-3 rounded mt-0 container" enctype="multipart/form-data">
+            <form method="post" class="p-3 rounded mt-0 container" enctype="multipart/form-data" onsubmit="displayBusyIndicator()">
                 <h4 class="mb-4">Patient Information</h4>
                 <div class="form-floating">
                     <textarea asp-for="Notes" class="form-control shadow-none mb-4" id="symptoms" rows="5" placeholder="Enter Brief Details of Symptoms (Optional)"></textarea>
@@ -103,3 +103,4 @@
         </div>
     </div>
 </body>
+<partial name="../Shared/_Loader.cshtml" />

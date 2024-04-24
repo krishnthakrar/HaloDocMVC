@@ -74,7 +74,7 @@
                         <ul class="pagination pagination-container">
                             @{
                                 int i;
-                                <form id="paginationform" asp-action="Index" asp-controller="Access" novalidate="novalidate" class="d-flex mt-0">
+                                <form id="paginationform" asp-action="Index" asp-controller="Access" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                     <input type="hidden" asp-for="PageSize" />
                                     <input type="hidden" asp-for="SortedColumn" />
                                     <input type="hidden" asp-for="IsAscending" />
@@ -119,10 +119,11 @@
         </div>
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="Index" asp-controller="Access" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="Index" asp-controller="Access" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 <script type="text/javascript">
     function setpagenumber(e) {
         if (e == 'previous') {

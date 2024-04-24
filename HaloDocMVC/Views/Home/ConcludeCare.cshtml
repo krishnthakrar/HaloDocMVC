@@ -37,7 +37,7 @@
                 review
             </div>
             <div class="col-md-12 mt-3">
-                <form method="post" class="mt-0" id="myForm" asp-action="UploadDocProvider" asp-controller="Home" enctype="multipart/form-data">
+                <form method="post" class="mt-0" id="myForm" asp-action="UploadDocProvider" asp-controller="Home" enctype="multipart/form-data" onsubmit="displayBusyIndicator()">
                     <div class="d-flex justify-content-between bg-light border border-secondary rounded">
                         <button type="button" id="choosenfile" class="col btn text-start text-secondary" onclick="document.getElementById('file').click()">
                             Select File
@@ -145,7 +145,7 @@
             </div>
         
             <div class="m-2 mt-3 d-flex justify-content-between">
-                <form id="documentformPagesize" asp-action="ConcludeCare" asp-controller="Home" asp-route-id="" novalidate="novalidate" class="d-flex mt-0">
+                <form id="documentformPagesize" asp-action="ConcludeCare" asp-controller="Home" asp-route-id="" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                     <div class="search m-1 d-flex justify-content-between">
                         <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
                         <span class="pagesize">Page Size</span>
@@ -161,7 +161,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="documentform" asp-action="ConcludeCare" asp-controller="Home" asp-route-id="" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="documentform" asp-action="ConcludeCare" asp-controller="Home" asp-route-id="" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                 <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
                                 <input type="hidden" asp-for="CurrentPage" id="currentpagevaluedocument" />
                                 <input type="hidden" asp-for="SortedColumn" />
@@ -192,7 +192,7 @@
                     </ul>
                 </nav>
             </div>
-            <form method="post" asp-action="ConcludeCarePost" asp-controller="Home" class="mt-3">
+            <form method="post" asp-action="ConcludeCarePost" asp-controller="Home" class="mt-3" onsubmit="displayBusyIndicator()">
                 <input value="@Model.RequestId" name="RequestId" type="hidden">
                 <div class="col-12">
                     <div class="col-12">
@@ -210,12 +210,13 @@
     </div>
 </div>
 
-<form class="sortingform mt-0" asp-action="ConcludeCare" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate">
+<form class="sortingform mt-0" asp-action="ConcludeCare" asp-controller="Home" asp-route-id="@Model.RequestId" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
     <input type="hidden" asp-for="PageSize" />
     <input type="hidden" value="@Model.RequestId" asp-for="RequestId" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 @section Scripts
     {
     <script>

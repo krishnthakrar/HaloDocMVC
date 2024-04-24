@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Encouter Form</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="mt-0" asp-action="generatePDF" asp-controller="Home">
+            <form class="mt-0" asp-action="generatePDF" asp-controller="Home" onsubmit="displayBusyIndicator()">
                 <input type="hidden" value="" id="RequestId_Input_ModelFinalize" name="RequestId" />
                 <div class="modal-body">
                     <p>Encounter Form is finalized Successfully!!!!!</p>
@@ -17,3 +17,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

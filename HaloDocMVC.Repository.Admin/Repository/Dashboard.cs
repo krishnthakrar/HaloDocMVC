@@ -164,6 +164,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         }
         #endregion
 
+        #region UploadDoc
         public void UploadDoc(int id, IFormFile? UploadFile)
         {
             string UploadImage;
@@ -189,5 +190,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.SaveChanges();
             }
         }
+        #endregion
     }
 }

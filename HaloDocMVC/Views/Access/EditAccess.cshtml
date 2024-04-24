@@ -12,7 +12,7 @@
             <a asp-controller="Access" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
         </div>
     </div>
-    <form method="post" asp-controller="Access" asp-action="EditAccessPost" id="EditAccessForm" class="mt-0">
+    <form method="post" asp-controller="Access" asp-action="EditAccessPost" id="EditAccessForm" class="mt-0" onsubmit="displayBusyIndicator()">
         <input asp-for="RoleId" type="hidden" />
         @* Profile Information *@
         <div class="bg-white rounded shadow mt-3">
@@ -70,6 +70,7 @@
         </div>
     </form>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     $(function () {
         $('#add').on('click', function () {

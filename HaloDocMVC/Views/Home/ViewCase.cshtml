@@ -15,7 +15,7 @@
                 <a asp-controller="Home" asp-action="Index"><button><span class="material-icons back"><span class="material-symbols-outlined">arrow_back_ios</span></span>Back</button></a>
             </div>
         </div>
-        <form class="card border-0 shadow py-4 mb-5 mt-3 rounded p-3 rounded container" method="post">
+        <form class="card border-0 shadow py-4 mb-5 mt-3 rounded p-3 rounded container" method="post" onsubmit="displayBusyIndicator()">
             <input type="hidden" asp-for="UserId" />
             <h4 class="mb-4">Patient Information</h4>
             <input type="hidden" asp-for="RequestId" />
@@ -96,6 +96,7 @@
         </form>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <partial name="../AdminDashboardActions/AssignCase.cshtml" />
 <script src="~/js/phone.js"></script>
 <script>

@@ -84,7 +84,7 @@
                                 <a asp-action="EditBusiness" asp-controller="Partners" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm document-button mx-1">
                                     Edit
                                 </a>
-                                <form method="post" asp-action="DeleteBusiness" asp-controller="Partners" class="mt-0 deleteBusinessForm">
+                                <form method="post" asp-action="DeleteBusiness" asp-controller="Partners" class="mt-0 deleteBusinessForm" onsubmit="displayBusyIndicator()">
                                     <input type="hidden" value="@item.Id" name="BusinessId" />
                                     <div class="btn btn-outline-info btn-sm mx-1 deleteBusiness">
                                         <span>Delete</span>
@@ -110,7 +110,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="paginationform" asp-action="Index" asp-controller="Partners" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="paginationform" asp-action="Index" asp-controller="Partners" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                 <input type="hidden" asp-for="PageSize" />
                                 <input type="hidden" asp-for="Profession" />
                                 <input type="hidden" asp-for="SearchData" />
@@ -156,12 +156,13 @@
         <!--End Pagination-->
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="Index" id="sortingform" asp-controller="Partners" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="Index" id="sortingform" asp-controller="Partners" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="Profession" />
     <input type="hidden" asp-for="SearchData" />
     <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     function setpagenumber(e) {
         if (e == 'previous') {

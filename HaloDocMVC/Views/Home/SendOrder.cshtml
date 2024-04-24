@@ -16,7 +16,7 @@
     <div class="bg-white rounded shadow mt-3">
         <div class="p-4">
             @* data *@
-            <form method="post" asp-controller="Home" asp-action="SendOrder" class="mt-0">
+            <form method="post" asp-controller="Home" asp-action="SendOrder" class="mt-0 onsubmit=" displayBusyIndicator()"">
                 <input type="hidden" asp-for="RequestId" value="@Model.RequestId" class="inputs" />
                 <div class="col-xl-12">
                     <div class="row pb-4">
@@ -78,7 +78,7 @@
         </div>
     </div>
 </div>
-
+<partial name="../Shared/_Loader.cshtml" />
 <script type="text/javascript">
     function RetriveProfessions() {
         var id = $("#ProfessionType").val();

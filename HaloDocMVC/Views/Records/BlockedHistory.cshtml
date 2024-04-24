@@ -12,7 +12,7 @@
 
     <div class="card rounded shadow my-3">
         <!-- Filter Inputs -->
-        <form id="FilterForm" class="mt-0">
+        <form id="FilterForm" class="mt-0" onsubmit="displayBusyIndicator()">
             <div class="row p-2 py-4">
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="form-floating mb-3">
@@ -116,7 +116,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="paginationform" asp-action="BlockedHistory" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="paginationform" asp-action="BlockedHistory" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                 <input type="hidden" asp-for="PageSize" />
                                 <input type="hidden" asp-for="CurrentPage" id="currentpagevalue" />
                                 <input asp-for="PatientName" type="hidden" />
@@ -162,7 +162,7 @@
         <!--End Pagination-->
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="BlockedHistory" id="sortingform" asp-controller="Records" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="BlockedHistory" id="sortingform" asp-controller="Records" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="SortedColumnBlock" id="sortedcol" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
     <input type="hidden" asp-for="Email" />
@@ -170,6 +170,7 @@
     <input type="hidden" asp-for="PatientName" />
     <input type="hidden" asp-for="StartDate" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     modeldata = @Html.Raw(Json.Serialize(Model))
 

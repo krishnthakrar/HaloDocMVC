@@ -27,7 +27,7 @@
     <div class="bg-white rounded shadow mt-3">
         <div class="p-4">
             @* Account Information *@
-            <form method="post" asp-controller="AdminProfile" asp-action="EditPassword" id="resetpassform" class="mt-0">
+            <form method="post" asp-controller="AdminProfile" asp-action="EditPassword" id="resetpassform" class="mt-0" onsubmit="displayBusyIndicator()">
                 <h5><strong>Account Information</strong></h5>
                 <div class="col-xl-12">
                     <div class="row pb-4">
@@ -66,7 +66,7 @@
             </form>
 
             @* Administrator Information *@
-            <form method="post" asp-controller="AdminProfile" asp-action="EditAdministratorInfo" id="AdministratorInfoForm" class="mt-0">
+            <form method="post" asp-controller="AdminProfile" asp-action="EditAdministratorInfo" id="AdministratorInfoForm" class="mt-0" onsubmit="displayBusyIndicator()">
                 <h5><strong>Administrator Information</strong></h5>
                 <input type="hidden" asp-for="AdminId" />
                 <div class="col-xl-12">
@@ -139,7 +139,7 @@
             </form>
 
             @* Mailing/Billing Information *@
-            <form method="post" asp-controller="AdminProfile" asp-action="BillingInfoEdit" id="BillingInfoForm" class="mt-0">
+            <form method="post" asp-controller="AdminProfile" asp-action="BillingInfoEdit" id="BillingInfoForm" class="mt-0" onsubmit="displayBusyIndicator()">
                 <h5><strong>Mailing/Billing Information</strong></h5>
                 <input type="hidden" asp-for="AdminId" />
                 <div class="col-xl-12">
@@ -193,7 +193,7 @@
         </div>
     </div>
 </div>
-
+<partial name="../Shared/_Loader.cshtml" />
 
 <script>
     window.onload = function (e) {

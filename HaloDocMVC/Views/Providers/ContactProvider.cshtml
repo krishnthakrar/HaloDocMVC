@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Contact Your Provider</h1>
                 <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
             </div>
-            <form asp-action="SendMessage" asp-controller="Providers" method="post" class="mt-0 needs-validation" novalidate>
+            <form asp-action="SendMessage" asp-controller="Providers" method="post" class="mt-0 needs-validation" novalidate onsubmit="displayBusyIndicator()">
                 <div class="modal-body">
                     <input type="hidden" name="email" id="emailInput" />
                     <input type="hidden" name="mobile" id="mobileInput" />
@@ -48,3 +48,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

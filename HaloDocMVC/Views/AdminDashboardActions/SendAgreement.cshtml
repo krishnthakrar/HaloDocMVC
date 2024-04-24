@@ -6,12 +6,8 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Send Agreement </h1>
                 <i class="fa-solid fa-xmark" data-bs-dismiss="modal"></i>
             </div>
-            <form asp-action="SendAgreementmail" asp-controller="Home" method="post" class="mt-0 needs-validation" novalidate>
+            <form asp-action="SendAgreementmail" asp-controller="Home" method="post" class="mt-0 needs-validation" novalidate onsubmit="displayBusyIndicator()">
                 <div class="modal-body">
-                    <span class="d-flex">
-                        @* <i class="fa-solid fa-circle fa-xs @Enum.GetName(typeof(RequestType), Model.RequestTypeID)"></i>
-                        @Enum.GetName(typeof(RequestType), Model.RequestTypeID) *@
-                    </span>
                     <small class="modal-title">To send agreement please make sure you are updating correct contact information below for the responsible party.</small>
                     <input id="RequestID_sendAgreement" placeholder=" " name="RequestID" type="hidden">
                     <input id="Patientname_sendAgreement" placeholder=" " name="PatientName" type="hidden">
@@ -42,3 +38,4 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />

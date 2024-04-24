@@ -106,7 +106,7 @@
                     <ul class="pagination pagination-container">
                         @{
                             int i;
-                            <form id="paginationform" asp-action="PatientRecords" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0">
+                            <form id="paginationform" asp-action="PatientRecords" asp-controller="Records" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                 <input type="hidden" asp-for="PageSize" />
                                 <input type="hidden" asp-for="CurrentPage" id="currentpagevalue" />
                                 <input type="hidden" asp-for="UserId" />
@@ -150,11 +150,12 @@
         <!--End Pagination-->
     </div>
 </div>
-<form class="mt-0 sortingform" asp-action="PatientRecords" id="sortingform" asp-controller="Records" novalidate="novalidate">
+<form class="mt-0 sortingform" asp-action="PatientRecords" id="sortingform" asp-controller="Records" novalidate="novalidate" onsubmit="displayBusyIndicator()">
     <input type="hidden" asp-for="SortedColumnPRecords" id="sortedcol" />
     <input type="hidden" asp-for="UserId" />
     <input type="hidden" asp-for="IsAscending" id="isAsc" />
 </form>
+<partial name="../Shared/_Loader.cshtml" />
 <script>
     modeldata = @Html.Raw(Json.Serialize(Model))
 

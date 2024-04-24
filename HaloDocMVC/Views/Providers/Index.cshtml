@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <form asp-action="ChangeNotificationPhysician" asp-controller="Providers" class="mt-0" id="saveChangesForm">
+                    <form asp-action="ChangeNotificationPhysician" asp-controller="Providers" class="mt-0" id="saveChangesForm" onsubmit="displayBusyIndicator()">
                         <input type="hidden" id="changedValuesInput" name="changedValues">
                         <a class="btn text-info m-2 border border-info align-self-center" style="display:none;" id="saveChangesButton">Save Changes </a>
                     </form>
@@ -109,7 +109,7 @@
                         <ul class="pagination pagination-container">
                             @{
                                 int i;
-                                <form id="paginationform" asp-action="Index" asp-controller="Providers" novalidate="novalidate" class="d-flex mt-0">
+                                <form id="paginationform" asp-action="Index" asp-controller="Providers" novalidate="novalidate" class="d-flex mt-0" onsubmit="displayBusyIndicator()">
                                     <input type="hidden" asp-for="PageSize" />
                                     <input type="hidden" asp-for="Region" />
                                     <input type="hidden" asp-for="SortedColumn" />
@@ -151,7 +151,7 @@
                     </div>
                 </div>
             </nav>
-            <form class="mt-0 sortingform" asp-action="Index" asp-controller="Providers" novalidate="novalidate" id="sortingForm">
+            <form class="mt-0 sortingform" asp-action="Index" asp-controller="Providers" novalidate="novalidate" id="sortingForm" onsubmit="displayBusyIndicator()">
                 <input type="hidden" asp-for="Region" />
                 <input type="hidden" asp-for="SortedColumn" id="sortedcol" />
                 <input type="hidden" asp-for="IsAscending" id="isAsc" />
@@ -160,6 +160,7 @@
         </div>
     </div>
 </div>
+<partial name="../Shared/_Loader.cshtml" />
 <partial name="../Providers/ContactProvider.cshtml" />
 <script>
     function regChange() {
