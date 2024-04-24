@@ -96,6 +96,10 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewDataViewCase vc = _admindashboardactions.Edit(vdvc, RId, RTId, Status);
+            if (vc == null)
+            {
+                return NotFound();
+            }
             return View(vc);
         }
         #endregion
@@ -104,6 +108,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult ViewNotes(int RId)
         {
             ViewDataViewNotes vdvn = _admindashboardactions.GetNotesByID(RId);
+            if (vdvn == null)
+            {
+                return NotFound();
+            }
             return View("../Home/ViewNotes", vdvn);
         }
         #endregion
@@ -233,6 +241,10 @@ namespace HaloDocMVC.Controllers
                 id = viewDocument.RequestId;
             }
             ViewDataViewDocuments v = _admindashboardactions.GetDocumentByRequest(id, viewDocument);
+            if (v == null)
+            {
+                return NotFound();
+            }
             return View("../Home/ViewUpload", v);
         }
         #endregion
@@ -307,6 +319,10 @@ namespace HaloDocMVC.Controllers
             {
                 RequestId = id
             };
+            if (data == null)
+            {
+                return NotFound();
+            }
             return View("../Home/SendOrder", data);
         }
         public Task<IActionResult> ProfessionalByType(int HealthprofessionalID)
@@ -361,6 +377,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult CloseCase(int RequestID)
         {
             ViewCloseCaseModel vc = _admindashboardactions.CloseCaseData(RequestID);
+            if (vc == null)
+            {
+                return NotFound();
+            }
             return View("../Home/CloseCase", vc);
         }
         public IActionResult CloseCaseUnpaid(int id)
@@ -403,6 +423,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult Encounter(int? RId)
         {
             ViewEncounter ve = _admindashboardactions.EncounterIndex(RId);
+            if (ve == null)
+            {
+                return NotFound();
+            }
             return View(ve);
         }
         #endregion
@@ -412,6 +436,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult Encounter(int? RequestId, ViewEncounter ve)
         {
             ViewEncounter ven = _admindashboardactions.EncounterSave(RequestId, ve);
+            if (ven == null)
+            {
+                return NotFound();
+            }
             _notyf.Success("Updated Successfully.......");
             return View("../Home/Encounter", ven);
         }
@@ -542,6 +570,10 @@ namespace HaloDocMVC.Controllers
                 id = viewDocument.RequestId;
             }
             ViewDataViewDocuments v =  _admindashboardactions.GetDocumentByRequest(id, viewDocument);
+            if (v == null)
+            {
+                return NotFound();
+            }
             return View("../Home/ConcludeCare", v);
         }
         #endregion

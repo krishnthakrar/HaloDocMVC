@@ -26,7 +26,7 @@ namespace HaloDocMVC.Entity.Models
                     UploadFile.CopyTo(stream);
                 }
             }
-            return upload_path;
+            return UploadFile.FileName;
         }
         #region UploadFile
         public static string UploadProviderDoc(IFormFile UploadFile, int Physicianid, string FileName)
@@ -45,15 +45,12 @@ namespace HaloDocMVC.Entity.Models
                 string fileNameWithPath = Path.Combine(path, newfilename);
                 upload_path = FilePath.Replace("wwwroot\\Upload\\Physician\\", "/Upload/Physician/") + "/" + newfilename;
 
-
                 using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
                 {
                     UploadFile.CopyTo(stream);
                 }
-
-
             }
-            return upload_path;
+            return UploadFile.FileName;
         }
         #endregion
     }

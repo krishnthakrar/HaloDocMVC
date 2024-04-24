@@ -33,7 +33,7 @@ namespace HaloDocMVC.Entity.Models
         public string? City { get; set; }
 
         [Required(ErrorMessage = "State is Required!")]
-        public string? State { get; set; }
+        public int? State { get; set; }
 
         public int? RegionId { get; set; }
 

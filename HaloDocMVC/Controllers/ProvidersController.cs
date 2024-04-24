@@ -29,11 +29,19 @@ namespace HaloDocMVC.Controllers
             if (Region == null)
             {
                 ProviderMenu v = _providers.PhysicianAll(pm);
+                if (v == null)
+                {
+                    return NotFound();
+                }
                 return View("../Providers/Index", v);
             }
             else
             {
                 ProviderMenu v = _providers.PhysicianByRegion(pm, Region);
+                if (v == null)
+                {
+                    return NotFound();
+                }
                 return View("../Providers/Index", v);
             }
         }
@@ -113,6 +121,10 @@ namespace HaloDocMVC.Controllers
             ViewBag.PhysRole = _dropdown.PhysRole();
             ViewBag.AllRegion = _dropdown.AllRegion();
             ProviderMenu p = _providers.GetProfileDetails((int)id);
+            if (p == null)
+            {
+                return NotFound();
+            }
             return View("../Providers/EditProvider", p);
         }
         #endregion

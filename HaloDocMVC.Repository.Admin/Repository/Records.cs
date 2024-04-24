@@ -155,7 +155,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public RecordsModel BlockHistory(RecordsModel rm)
         {
             List<BlockRequests> data = (from req in _context.BlockRequests
-                                        where (!rm.StartDate.HasValue || req.CreatedDate.Value.Date == rm.StartDate.Value.Date) &&
+                                        where req.IsActive == new BitArray(1) &&
+                                              (!rm.StartDate.HasValue || req.CreatedDate.Value.Date == rm.StartDate.Value.Date) &&
                                               (rm.PatientName.IsNullOrEmpty() || _context.Requests.FirstOrDefault(e => e.RequestId == Convert.ToInt32(req.RequestId)).FirstName.ToLower().Contains(rm.PatientName.ToLower())) &&
                                               (rm.Email.IsNullOrEmpty() || req.Email.ToLower().Contains(rm.Email.ToLower())) &&
                                               (rm.PhoneNumber.IsNullOrEmpty() || req.PhoneNumber.ToLower().Contains(rm.PhoneNumber.ToLower()))

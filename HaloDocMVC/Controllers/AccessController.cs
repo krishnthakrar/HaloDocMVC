@@ -28,6 +28,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult Index(AccessMenu am)
         {
             AccessMenu v = _access.AccessIndex(am);
+            if (v == null)
+            {
+                return NotFound();
+            }
             return View("../Access/Index", v);
         }
         #endregion
@@ -85,6 +89,10 @@ namespace HaloDocMVC.Controllers
             ViewBag.AccType = _dropdown.AccType();
             ViewBag.AccessByType = _dropdown.AccessByType(AccountType);
             AccessMenu am = _access.EditAccess(id);
+            if (am == null)
+            {
+                return NotFound();
+            }
             return View(am);
         }
         #endregion
@@ -154,6 +162,10 @@ namespace HaloDocMVC.Controllers
                 id = Int32.Parse(CredentialValue.UserId());
             }
             ProviderMenu p = _providers.GetProfileDetails((int)id);
+            if (p == null)
+            {
+                return NotFound();
+            }
             return View("../Access/EditProvider", p);
         }
         #endregion
@@ -281,6 +293,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult EditAdmin(int? id)
         {
             ViewAdminProfile p = _adminprofile.GetProfileDetails((id != null ? (int)id : Convert.ToInt32(CredentialValue.UserId())));
+            if (p == null)
+            {
+                return NotFound();
+            }
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewBag.UserRole = _dropdown.UserRole();
             return View("../Access/EditAdmin", p);

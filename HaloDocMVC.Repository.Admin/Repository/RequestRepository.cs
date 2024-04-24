@@ -25,12 +25,12 @@ namespace HaloDocMVC.Repository.Admin.Repository
             {
                 return new PaginatedViewModel
                 {
-                    NewRequest = _context.Requests.Where(r => r.Status == 1).Count(),
-                    PendingRequest = _context.Requests.Where(r => r.Status == 2).Count(),
-                    ActiveRequest = _context.Requests.Where(r => r.Status == 4 || r.Status == 5).Count(),
-                    ConcludeRequest = _context.Requests.Where(r => r.Status == 6).Count(),
-                    ToCloseRequest = _context.Requests.Where(r => r.Status == 3 || r.Status == 7 || r.Status == 8).Count(),
-                    UnpaidRequest = _context.Requests.Where(r => r.Status == 9).Count(),
+                    NewRequest = _context.Requests.Where(r => r.Status == 1 && r.IsDeleted == new BitArray(1)).Count(),
+                    PendingRequest = _context.Requests.Where(r => r.Status == 2 && r.IsDeleted == new BitArray(1)).Count(),
+                    ActiveRequest = _context.Requests.Where(r => (r.Status == 4 || r.Status == 5) && r.IsDeleted == new BitArray(1)).Count(),
+                    ConcludeRequest = _context.Requests.Where(r => r.Status == 6 && r.IsDeleted == new BitArray(1)).Count(),
+                    ToCloseRequest = _context.Requests.Where(r => (r.Status == 3 || r.Status == 7 || r.Status == 8) && r.IsDeleted == new BitArray(1)).Count(),
+                    UnpaidRequest = _context.Requests.Where(r => r.Status == 9 && r.IsDeleted == new BitArray(1)).Count(),
                 };
             }
             return new PaginatedViewModel
@@ -63,7 +63,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                 join reg in _context.Regions
                                                 on rc.RegionId equals reg.RegionId into RegGroup
                                                 from rg in RegGroup.DefaultIfEmpty()
-                                                where statusdata.Contains((int)req.Status) && (data.SearchInput == null ||
+                                                where statusdata.Contains((int)req.Status) && (req.IsDeleted == new BitArray(1)) && (data.SearchInput == null ||
                                                          rc.FirstName.Contains(data.SearchInput) || rc.LastName.Contains(data.SearchInput) ||
                                                          req.FirstName.Contains(data.SearchInput) || req.LastName.Contains(data.SearchInput) ||
                                                          rc.Email.Contains(data.SearchInput) || rc.PhoneNumber.Contains(data.SearchInput) ||
@@ -149,7 +149,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                 join reg in _context.Regions
                                                 on rc.RegionId equals reg.RegionId into RegGroup
                                                 from rg in RegGroup.DefaultIfEmpty()
-                                                where statusdata.Contains((int)req.Status) && (data.SearchInput == null ||
+                                                where statusdata.Contains((int)req.Status) && (req.IsDeleted == new BitArray(1)) && (data.SearchInput == null ||
                                                          rc.FirstName.Contains(data.SearchInput) || rc.LastName.Contains(data.SearchInput) ||
                                                          req.FirstName.Contains(data.SearchInput) || req.LastName.Contains(data.SearchInput) ||
                                                          rc.Email.Contains(data.SearchInput) || rc.PhoneNumber.Contains(data.SearchInput) ||

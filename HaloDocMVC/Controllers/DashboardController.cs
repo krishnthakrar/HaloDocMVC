@@ -24,6 +24,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult Index(DashboardList listdata)
         {
             DashboardList data = _dashboard.GetPatientRequest(CredentialValue.UserId(), listdata);
+            if (data == null)
+            {
+                return NotFound();
+            }
             return View("../Dashboard/Index", data);
         }
         #endregion
@@ -36,6 +40,10 @@ namespace HaloDocMVC.Controllers
                 id = viewDocument.RequestId;
             }
             ViewDocument v = await _dashboard.ViewDocumentList(id, viewDocument);
+            if (v == null)
+            {
+                return NotFound();
+            }
             return View("../Dashboard/ViewDoc", v);
         }
         #endregion

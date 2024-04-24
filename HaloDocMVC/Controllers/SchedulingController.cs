@@ -30,6 +30,10 @@ namespace HaloDocMVC.Controllers
             ViewBag.RegionComboBox = _dropdown.AllRegion();
             ViewBag.PhysiciansByRegion = new SelectList(Enumerable.Empty<SelectListItem>());
             SchedulingData modal = new SchedulingData();
+            if (modal == null)
+            {
+                return NotFound();
+            }
             return View("../Scheduling/Index", modal);
 
         }
@@ -156,6 +160,10 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             List<ProviderMenu> v = await _scheduling.PhysicianOnCall(regionId);
+            if (v == null)
+            {
+                return NotFound();
+            }
             if (regionId != null)
             {
                 return Json(v);
@@ -169,6 +177,10 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             SchedulingData v = _scheduling.GetAllNotApprovedShift(regionId, sd);
+            if (v == null)
+            {
+                return NotFound();
+            }
             return View("../Scheduling/ReviewShift", v);
         }
         #endregion

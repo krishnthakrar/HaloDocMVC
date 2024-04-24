@@ -87,6 +87,10 @@ namespace HaloDocMVC.Controllers
             ViewBag.AllRegion = _dropdown.AllRegion();
             int id = Int32.Parse(CredentialValue.UserId());
             var ViewMe = _patientrequest.ViewMe(id);
+            if (ViewMe == null)
+            {
+                return NotFound();
+            }
             return View(ViewMe);
         }
 

@@ -82,7 +82,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                     Mobile = r.Mobile,
                                     Email = r.Email,
                                     Street = r.Street,
-                                    State = r.State,
+                                    State = r.RegionId,
                                     City = r.City,
                                     ZipCode = r.ZipCode,
                                     DOB = new DateTime((int)r.IntYear, Convert.ToInt32(r.StrMonth.Trim()), (int)r.IntDate),
@@ -97,12 +97,13 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public void EditProfile(ViewDataUserProfile vdup, int id)
         {
             User U = _context.Users.Find(id);
-
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdup.State);
             U.FirstName = vdup.FirstName;
             U.LastName = vdup.LastName;
             U.Mobile = vdup.Mobile;
             U.Email = vdup.Email;
-            U.State = vdup.State;
+            U.RegionId = vdup.State;
+            U.State = statename.Name;
             U.Street = vdup.Street;
             U.City = vdup.City;
             U.ZipCode = vdup.ZipCode;

@@ -24,6 +24,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult Index(int? id)
         {
             ViewAdminProfile p = _adminprofile.GetProfileDetails((id != null ? (int)id : Convert.ToInt32(CredentialValue.UserId())));
+            if (p == null)
+            {
+                return NotFound();
+            }
             ViewBag.AllRegion = _dropdown.AllRegion();
             ViewBag.UserRole = _dropdown.UserRole();
             return View("../AdminProfile/Index", p);

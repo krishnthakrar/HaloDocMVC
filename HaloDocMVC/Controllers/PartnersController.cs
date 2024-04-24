@@ -23,6 +23,10 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.Profession = _dropdown.HealthProfessionalType();
             PartnersData data = _partners.GetPartnersByProfession(searchValue, Profession, pd);
+            if (data == null)
+            {
+                return NotFound();
+            }
             return View("../Partners/Index", data);
         }
         #endregion
@@ -54,6 +58,10 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.Profession = _dropdown.HealthProfessionalType();
             PartnersData pd = _partners.EditBusiness(id);
+            if (pd == null)
+            {
+                return NotFound();
+            }
             return View("../Partners/EditBusiness", pd);
         }
 

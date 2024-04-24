@@ -21,6 +21,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult Index(RecordsModel rm)
         {
             RecordsModel model = _records.GetFilteredSearchRecords(rm);
+            if (model == null)
+            {
+                return NotFound();
+            }
             return View("../Records/Index", model);
         }
         #endregion
@@ -44,6 +48,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult BlockedHistory(RecordsModel rm)
         {
             RecordsModel r = _records.BlockHistory(rm);
+            if (r == null)
+            {
+                return NotFound();
+            }
             return PartialView("../Records/BlockedHistory", r);
         }
         #endregion
@@ -68,6 +76,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult PatientHistory(RecordsModel model)
         {
             RecordsModel rm = _records.GetFilteredPatientHistory(model);
+            if (rm == null)
+            {
+                return NotFound();
+            }
             return View("../Records/PatientHistory", rm);
         }
         #endregion
@@ -76,6 +88,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult PatientRecords(PaginatedViewModel data, int UserId)
         {
             var r = _records.PatientRecord(UserId, data);
+            if (r == null)
+            {
+                return NotFound();
+            }
             return View("../Records/PatientRecords", r);
         }
         #endregion
@@ -84,6 +100,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult EmailLogs(RecordsModel rm)
         {
             RecordsModel r = _records.GetFilteredEmailLogs(rm);
+            if (r == null)
+            {
+                return NotFound();
+            }
             return View("../Records/EmailLogs", r);
         }
         #endregion EmailLogs
@@ -92,6 +112,10 @@ namespace HaloDocMVC.Controllers
         public IActionResult SMSLogs(RecordsModel rm)
         {
             RecordsModel r = _records.GetFilteredSMSLogs(rm);
+            if (r == null)
+            {
+                return NotFound();
+            }
             return PartialView("../Records/SMSLogs", r);
         }
         #endregion

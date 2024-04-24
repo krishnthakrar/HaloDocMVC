@@ -25,7 +25,15 @@ namespace HaloDocMVC.Controllers
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
             int id = Int32.Parse(CredentialValue.UserId());
+            if (id == null)
+            {
+                return NotFound();
+            }
             var UserProfile = _dashboard.UserProfile(id);
+            if (UserProfile == null)
+            {
+                return NotFound();
+            }
             return View(UserProfile);
         }
         #endregion
