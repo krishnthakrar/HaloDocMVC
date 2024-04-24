@@ -1,0 +1,29 @@
+.header {
+    background-color: #592c58;
+}
+
+.container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.subnav {
+    background-color: #a680a5;
+}
+
+label {
+    margin-left: 15px;
+    color: #6c757d;
+}
+
+.editBtn {
+    background-color: #592c58 !important;
+}
+
+.activepagebtn, .page-item:hover {
+    background-color: #a680a5 !important;
+}
+
+.modal-header {
+    background-color: #592c58;
+}
