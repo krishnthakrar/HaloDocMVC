@@ -1,0 +1,17 @@
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\bin\Debug\net7.0\Assignment.Repository.deps.json
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\bin\Debug\net7.0\Assignment.Repository.runtimeconfig.json
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\bin\Debug\net7.0\Assignment.Repository.dll
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\bin\Debug\net7.0\Assignment.Repository.pdb
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\bin\Debug\net7.0\Assignment.Entity.dll
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\bin\Debug\net7.0\Assignment.Entity.pdb
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.csproj.AssemblyReference.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.AssemblyInfoInputs.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.AssemblyInfo.cs
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.csproj.CoreCompileInputs.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.csproj.CopyComplete
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.dll
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\refint\Assignment.Repository.dll
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.pdb
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\Assignment.Repository.genruntimeconfig.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Repository\obj\Debug\net7.0\ref\Assignment.Repository.dll

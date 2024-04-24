@@ -1,0 +1,14 @@
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\bin\Debug\net7.0\Assignment.Entity.deps.json
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\bin\Debug\net7.0\Assignment.Entity.runtimeconfig.json
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\bin\Debug\net7.0\Assignment.Entity.dll
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\bin\Debug\net7.0\Assignment.Entity.pdb
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.csproj.AssemblyReference.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.AssemblyInfoInputs.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.AssemblyInfo.cs
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.csproj.CoreCompileInputs.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.dll
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\refint\Assignment.Entity.dll
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.pdb
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\Assignment.Entity.genruntimeconfig.cache
+C:\Users\pca115\source\repos\Assignment\Assignment.Entity\obj\Debug\net7.0\ref\Assignment.Entity.dll
