@@ -23,9 +23,8 @@
             </div>
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 phone">
-                    <input asp-for="PhoneNumber" type="tel" class="form-control shadow-none" id="phone">
+                    <input asp-for="PhoneNumber" type="tel" class="form-control shadow-none" id="uphone">
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    <span id="error-msg" class="text-danger"></span>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4">
                     <input asp-for="fEmail" type="email" class="form-control shadow-none" id="uemail" placeholder="Family Friend Email">
@@ -72,9 +71,8 @@
                     <span asp-validation-for="pEmail" class="text-danger"></span>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 phone">
-                    <input asp-for="Mobile" type="tel" class="form-control shadow-none" id="uphone">
+                    <input asp-for="Mobile" type="tel" class="form-control shadow-none" id="phone">
                     <span asp-validation-for="Mobile" class="text-danger"></span>
-                    <span id="error-msg1" class="text-danger"></span>
                 </div>
             </div>
             <h4 class="mb-4">Patient Location</h4>
