@@ -28,7 +28,8 @@ namespace HaloDocMVC.Controllers
         public async Task<IActionResult> Index(int? region)
         {
             ViewBag.RegionComboBox = _dropdown.AllRegion();
-            ViewBag.PhysiciansByRegion = new SelectList(Enumerable.Empty<SelectListItem>());
+            int id = Int32.Parse(CredentialValue.UserId());
+            ViewBag.PhysiciansByRegion = _dropdown.PhysiciansByRegion(id);
             SchedulingData modal = new SchedulingData();
             if (modal == null)
             {

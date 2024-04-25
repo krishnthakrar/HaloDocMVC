@@ -16,6 +16,8 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 
         public List<Physician> ProviderByRegion(int regionid);
 
+        public List<AllRegion> PhysiciansByRegion(int id);
+
         public List<HealthProfessionalTypes> HealthProfessionalType();
 
         public List<HealthProfessionals> ProfessionalByType(int? HealthProfessionalID);

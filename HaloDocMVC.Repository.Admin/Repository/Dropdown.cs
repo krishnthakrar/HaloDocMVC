@@ -3,6 +3,7 @@ using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,23 @@ namespace HaloDocMVC.Repository.Admin.Repository
                             .Where(r => r.RegionId == regionid)
                             .OrderByDescending(x => x.CreatedDate)
                             .ToList();
+            return result;
+        }
+        #endregion
+
+        #region PhysiciansByRegion
+        public List<AllRegion> PhysiciansByRegion(int id)
+        {
+            List<AllRegion> result = (from reg in _context.Regions
+                              join Phy in _context.PhysicianRegions
+                              on reg.RegionId equals Phy.RegionId into regPhyGroup
+                              from rc in regPhyGroup.DefaultIfEmpty()
+                              where rc.PhysicianId == id
+                              select new AllRegion
+                              {
+                                  RegionId = rc.RegionId,
+                                  RegionName = rc.Region.Name,
+                              }).ToList();
             return result;
         }
         #endregion

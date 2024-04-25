@@ -234,14 +234,15 @@
                             </div>
                         }
                         <div class="col-6 mb-3">
-                            <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">
+                            <a class="btn btn-white bg-success text-white rounded-pill 2px w-100" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@item.RequestId">
                                 <small>View Uploads</small>
-                            </button>
+                            </a>
                         </div>
                         <div class="col-6 mb-3">
-                            <button class="btn btn-white bg-success text-white rounded-pill 2px w-100">
+
+                            <a class="btn btn-white bg-success text-white rounded-pill 2px w-100" asp-action="Encounter" asp-controller="Home" asp-route-RId="@item.RequestId">
                                 <small>Encounter</small>
-                            </button>
+                            </a>
                         </div>
                         <div class="col-6 mb-3">
                             <a asp-action="Order" asp-controller="Home" asp-route-id="@item.RequestId" class="btn btn-white bg-warning text-white rounded-pill 2px w-100">
