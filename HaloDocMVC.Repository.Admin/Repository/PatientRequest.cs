@@ -169,8 +169,10 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Status = 1;
             R.IsDeleted = new BitArray(1);
             R.IsDeleted[0] = false;
+            R.UserId = isexist.UserId;
             R.ConfirmationNumber = R.PhoneNumber;
             R.RelationName = vdcf.RelationName;
+            R.CreatedUserId = 0;
             _context.Add(R);
             _context.SaveChanges();
             //RequestClient Table
@@ -260,6 +262,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.IsDeleted = new BitArray(1);
             R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
+            R.CreatedUserId = 0;
+            R.UserId = isexist.UserId;
+            R.CreatedDate = DateTime.Now;
             _context.Add(R);
             _context.SaveChanges();
             //RequestClient Table
@@ -339,6 +344,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Email = vdcb.bEmail;
             R.PhoneNumber = vdcb.PhoneNumber;
             R.Status = 1;
+            R.UserId = isexist.UserId;
+            R.CreatedUserId = 0;
             R.IsDeleted = new BitArray(1);
             R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
