@@ -80,6 +80,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Email = vdcp.Email;
             R.PhoneNumber = vdcp.Mobile;
             R.Status = U.Status;
+            R.IsDeleted = new BitArray(1);
+            R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
             R.CreatedUserId = U.UserId;
             _context.Add(R);
@@ -165,6 +167,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Email = vdcf.fEmail;
             R.PhoneNumber = vdcf.PhoneNumber;
             R.Status = 1;
+            R.IsDeleted = new BitArray(1);
+            R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
             R.RelationName = vdcf.RelationName;
             _context.Add(R);
@@ -253,6 +257,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Email = vdcc.cEmail;
             R.PhoneNumber = vdcc.PhoneNumber;
             R.Status = 1;
+            R.IsDeleted = new BitArray(1);
+            R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
             _context.Add(R);
             _context.SaveChanges();
@@ -333,6 +339,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Email = vdcb.bEmail;
             R.PhoneNumber = vdcb.PhoneNumber;
             R.Status = 1;
+            R.IsDeleted = new BitArray(1);
+            R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
             R.CaseNumber = vdcb.CaseNumber;
             _context.Add(R);
@@ -449,6 +457,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Email = vdcp.Email;
             R.PhoneNumber = vdcp.Mobile;
             R.Status = U.Status;
+            R.IsDeleted = new BitArray(1);
+            R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
             R.CreatedUserId = U.UserId;
             _context.Add(R);
@@ -506,10 +516,32 @@ namespace HaloDocMVC.Repository.Admin.Repository
             var RC = new RequestClient();
             var statename = _context.Regions.FirstOrDefault(x => x.RegionId == vdcs.State);
             var isexist = _context.Users.FirstOrDefault(x => x.Email == vdcs.Email);
+            if (isexist == null)
+            {
+                var Subject = "Create Account";
+                var agreementUrl = "https://localhost:44348/PatientHome/CreateAccount";
+                _emailConfig.SendMail(vdcs.Email, Subject, $"<a href='{agreementUrl}'>Create Account</a>");
+
+                EmailLog E = new();
+                E.SubjectName = "Link to Request";
+                E.EmailTemplate = "Create Account";
+                E.EmailId = vdcs.Email;
+                E.RoleId = 3;
+                E.CreateDate = DateTime.Now;
+                E.SentDate = DateTime.Now;
+                E.IsEmailSent = new BitArray(1);
+                E.IsEmailSent[0] = true;
+                E.Action = 2;
+                _context.EmailLogs.Add(E);
+                _context.SaveChanges();
+            }
             R.RequestTypeId = 3;
             R.FirstName = vdcs.FirstName;
             R.LastName = vdcs.LastName;
             R.Email = vdcs.Email;
+            R.Status = 1;
+            R.IsDeleted = new BitArray(1);
+            R.IsDeleted[0] = false;
             R.PhoneNumber = vdcs.Mobile;
             R.RelationName = vdcs.RelationName;
             R.CreatedDate = DateTime.Now;
