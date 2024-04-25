@@ -494,7 +494,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 FirstName = req.FirstName,
                 LastName = req.LastName,
                 ConfirmationNumber = req.City.Substring(0, 2) + req.IntDate.ToString() + req.StrMonth + req.IntYear.ToString() + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + "002",
-                RequestId = req.RequestId
+                RequestId = req.RequestId,
+                Email = req.Email
             };
             return vd;
         }

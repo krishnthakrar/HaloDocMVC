@@ -293,6 +293,7 @@
 <script>
     function model_Case(id) {
         var modeldata = @Html.Raw(Json.Serialize(Model.adl))
+        console.log(modeldata[id]);
         document.getElementById('RequestId_Input_ModelAssignCase').value = modeldata[id].requestId;
         document.getElementById('PatientName_ModelCancelCase').innerText = modeldata[id].patientName;
         document.getElementById('RequestID_Input_ModelCancelCase').value = modeldata[id].requestId;
