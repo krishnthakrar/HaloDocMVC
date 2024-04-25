@@ -547,6 +547,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.LastName = vdcs.LastName;
             R.Email = vdcs.Email;
             R.Status = 1;
+            R.UserId = isexist.UserId;
+            R.CreatedUserId = 0;
             R.IsDeleted = new BitArray(1);
             R.IsDeleted[0] = false;
             R.PhoneNumber = vdcs.Mobile;
