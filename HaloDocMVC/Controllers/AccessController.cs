@@ -267,7 +267,7 @@ namespace HaloDocMVC.Controllers
         #region CreateAdmin
         public IActionResult CreateAdmin()
         {
-            ViewBag.UserRole = _dropdown.PhysRole();
+            ViewBag.UserRole = _dropdown.AdminRole();
             ViewBag.AllRegion = _dropdown.AllRegion();
             return View();
         }
@@ -298,7 +298,7 @@ namespace HaloDocMVC.Controllers
                 return NotFound();
             }
             ViewBag.AllRegion = _dropdown.AllRegion();
-            ViewBag.UserRole = _dropdown.UserRole();
+            ViewBag.UserRole = _dropdown.AdminRole();
             return View("../Access/EditAdmin", p);
         }
         #endregion

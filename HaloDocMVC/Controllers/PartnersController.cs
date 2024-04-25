@@ -35,6 +35,7 @@ namespace HaloDocMVC.Controllers
         public IActionResult AddBusiness()
         {
             ViewBag.Profession = _dropdown.HealthProfessionalType();
+            ViewBag.AllRegion = _dropdown.AllRegion();
             return View();
         }
 
@@ -57,6 +58,7 @@ namespace HaloDocMVC.Controllers
         public IActionResult EditBusiness(int id)
         {
             ViewBag.Profession = _dropdown.HealthProfessionalType();
+            ViewBag.AllRegion = _dropdown.AllRegion();
             PartnersData pd = _partners.EditBusiness(id);
             if (pd == null)
             {

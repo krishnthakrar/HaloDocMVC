@@ -1,4 +1,6 @@
-﻿@model HaloDocMVC.Entity.Models.PaginatedViewModel
+﻿@using HaloDocMVC.Repository.Admin.Repository.Interface;
+@inject ILogin Login;
+@model HaloDocMVC.Entity.Models.PaginatedViewModel
 @using static HaloDocMVC.Entity.Models.Constant
 
 <form class="card" id="filterForm" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"

@@ -57,9 +57,13 @@
                             <td scope="row">@item.ConcludedDate.ToString("MMM d, yyyy")</td>
                             <td scope="row">@Enum.GetName(typeof(Status), item.Status)</td>
                             <td>
-                                <a asp-action="" asp-controller="" class="btn border-info text-info btn-sm document-button">
-                                    View
-                                </a>
+                                @if (item.IsFinalized == true)
+                                {
+                                    <a class="btn border-info text-info btn-sm document-button">
+                                        View
+                                    </a>
+                                }
+                                -
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -73,7 +77,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a asp-controller="" asp-action="" class="dropdown-item">
+                                            <a class="dropdown-item">
                                                 Chat
                                             </a>
                                         </li>

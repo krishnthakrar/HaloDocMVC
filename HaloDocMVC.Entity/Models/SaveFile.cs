@@ -28,6 +28,7 @@ namespace HaloDocMVC.Entity.Models
             }
             return UploadFile.FileName;
         }
+
         #region UploadFile
         public static string UploadProviderDoc(IFormFile UploadFile, int Physicianid, string FileName)
         {
@@ -40,7 +41,7 @@ namespace HaloDocMVC.Entity.Models
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                string newfilename = FileName;
+                string newfilename = $"{Path.GetFileNameWithoutExtension(UploadFile.FileName)}-{DateTime.Now.ToString("yyyyMMddhhmmss")}.{Path.GetExtension(UploadFile.FileName).Trim('.')}";
 
                 string fileNameWithPath = Path.Combine(path, newfilename);
                 upload_path = FilePath.Replace("wwwroot\\Upload\\Physician\\", "/Upload/Physician/") + "/" + newfilename;
@@ -50,7 +51,7 @@ namespace HaloDocMVC.Entity.Models
                     UploadFile.CopyTo(stream);
                 }
             }
-            return UploadFile.FileName;
+            return upload_path;
         }
         #endregion
     }

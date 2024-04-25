@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
-                                <select class="form-select" required asp-for="RoleId" data-allow-clear="true" tabindex="-1" asp-items="@(new SelectList(ViewBag.UserRole, "RoleId", "RoleName"))" data-control="select2" data-placeholder="Select Level" disabled></select>
+                                <select class="form-select" required asp-for="RoleId" data-allow-clear="true" tabindex="-1" asp-items="@(new SelectList(ViewBag.UserRole, "RoleId", "Name"))" data-control="select2" data-placeholder="Select Level" disabled></select>
                                 <label for="role">Role</label>
                             </div>
                         </div>
@@ -165,7 +165,9 @@
                         </div>
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
-                                <input type="text" asp-for="State" class="form-control shadow-none input2" id="State" placeholder=Suchtext autocomplete=off>
+                                <select class="form-select" asp-for="State" id="State" data-allow-clear="true" tabindex="-1" id="regiondropdown" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                                    <option value="">Select State</option>
+                                </select>
                                 <label for="State">State</label>
                             </div>
                         </div>
@@ -199,6 +201,7 @@
     window.onload = function (e) {
         toggleFormElements1('true')
         toggleFormElements2('true')
+        $('.form-select').prop('disabled', true)
         $(".form-check-input").prop("disabled", true);
     }
 
@@ -226,6 +229,7 @@
         for (var i = 0; i < inputs2.length; i++) {
             inputs2[i].disabled = !inputs2[i].disabled;
         }
+        $('.form-select').prop('disabled', false)
         if (inputs2[0].disabled) {
             submit2.style.display = "none";
             editprofile2.style.display = "block";

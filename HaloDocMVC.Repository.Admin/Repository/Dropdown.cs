@@ -5,6 +5,7 @@ using HaloDocMVC.Repository.Admin.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Ocsp;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -111,7 +112,18 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region PhysRole
         public List<Role> PhysRole()
         {
-            return _context.Roles.Select(req => new Role()
+            return _context.Roles.Where(req => req.IsDeleted == new BitArray(1) && req.AccountType == 2).Select(req => new Role()
+            {
+                RoleId = req.RoleId,
+                Name = req.Name
+            }).ToList();
+        }
+        #endregion
+
+        #region AdminRole
+        public List<Role> AdminRole()
+        {
+            return _context.Roles.Where(req => req.IsDeleted == new BitArray(1) && req.AccountType == 1).Select(req => new Role()
             {
                 RoleId = req.RoleId,
                 Name = req.Name

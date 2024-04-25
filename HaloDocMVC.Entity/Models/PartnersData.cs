@@ -39,7 +39,7 @@ namespace HaloDocMVC.Entity.Models
 
         public string? City { get; set; }
 
-        public string? State { get; set; }
+        public int? State { get; set; }
 
         public string? SearchData { get; set;}
 

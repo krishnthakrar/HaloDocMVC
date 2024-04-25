@@ -112,7 +112,7 @@
                             }
                             @if (CredentialValue.role() == "Provider")
                             {
-                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#acceptcase" data-bs-requestid="@item.RequestId"><i class="fa-solid fa-ban"></i> Accept</a></li>
+                                <li><a class="dropdown-item" onclick="model_Case(@index)" data-bs-toggle="modal" data-bs-target="#acceptcase" data-bs-requestid="@item.RequestId"><i class="fa-regular fa-circle-check"></i> Accept</a></li>
                             }
                             <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                             <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>

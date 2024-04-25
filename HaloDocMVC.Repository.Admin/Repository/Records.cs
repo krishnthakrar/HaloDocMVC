@@ -323,6 +323,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                       join reg in _context.Regions
                                                       on rc.RegionId equals reg.RegionId into RegGroup
                                                       from rg in RegGroup.DefaultIfEmpty()
+                                                      join encounter in _context.Encounters
+                                                      on req.RequestId equals encounter.RequestId into reqEncounter
+                                                      from enc in reqEncounter.DefaultIfEmpty()
                                                       where req.UserId == (UserId == null ? data.UserId : UserId)
                                                       select new AdminDashboardList
                                                       {
@@ -341,7 +344,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                                                           RegionId = (int)rc.RegionId,
                                                           RequestorPhoneNumber = req.PhoneNumber,
                                                           ConcludedDate = req.CreatedDate,
-                                                          ConfirmationNumber = req.ConfirmationNumber
+                                                          ConfirmationNumber = req.ConfirmationNumber,
+                                                          IsFinalized = enc.IsFinalized
                                                       }).ToList();
             if (data.IsAscending == true)
             {

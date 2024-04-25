@@ -409,12 +409,12 @@ namespace HaloDocMVC.Repository.Admin.Repository
                         int id = (int)pm.PhysicianId;
                         if (pm.PhotoFile != null)
                         {
-                            string UploadPhoto = SaveFile.UploadDoc(pm.PhotoFile, id);
+                            string UploadPhoto = SaveFile.UploadProviderDoc(pm.PhotoFile, (int)pm.PhysicianId, pm.PhotoFile.Name);
                             DataForChange.Photo = UploadPhoto;
                         }
                         if (pm.SignatureFile != null)
                         {
-                            string UploadSign = SaveFile.UploadDoc(pm.SignatureFile, id);
+                            string UploadSign = SaveFile.UploadProviderDoc(pm.SignatureFile, (int)pm.PhysicianId, pm.SignatureFile.Name);
                             DataForChange.Signature = UploadSign;
                         }
                         _context.Physicians.Update(DataForChange);

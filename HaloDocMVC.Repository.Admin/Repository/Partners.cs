@@ -91,6 +91,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             try
             {
                 HealthProfessional HP = new();
+                var statename = _context.Regions.FirstOrDefault(x => x.RegionId == pd.State);
                 var isexist = _context.HealthProfessionals.FirstOrDefault(x => x.Email == pd.Email);
                 if (isexist == null)
                 {
@@ -99,7 +100,8 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     HP.FaxNumber = pd.FaxNumber;
                     HP.Address = pd.Street + ", " + pd.City + ", " + pd.State + ", " + pd.ZipCode;
                     HP.City = pd.City;
-                    HP.State = pd.State;
+                    HP.RegionId = pd.State;
+                    HP.State = statename.Name;
                     HP.Zip = pd.ZipCode;
                     HP.RegionId = 2;
                     HP.CreatedDate = DateTime.Now;
@@ -142,13 +144,15 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public bool EditBusinessSubmit(PartnersData pd)
         {
             HealthProfessional HP = _context.HealthProfessionals.FirstOrDefault(m => m.VendorId == pd.Id);
+            var statename = _context.Regions.FirstOrDefault(x => x.RegionId == pd.State);
             if (HP != null)
             {
                 HP.VendorName = pd.Business;
                 HP.Profession = Int32.Parse(pd.Profession);
                 HP.FaxNumber = pd.FaxNumber;
                 HP.City = pd.City != null ? pd.City : HP.City;
-                HP.State = pd.State != null ? pd.State : HP.State;
+                HP.RegionId = pd.State;
+                HP.State = statename.Name != null ? statename.Name : HP.State;
                 HP.Zip = pd.ZipCode != null ? pd.ZipCode : HP.Zip;
                 HP.Address = pd.Street + ", " + HP.City + ", " + HP.State + ", " + HP.Zip;
                 HP.ModifiedDate = DateTime.Now;

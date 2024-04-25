@@ -128,7 +128,9 @@
                         </div>
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
-                                <input type="text" asp-for="State" class="form-control shadow-none input3" id="State" placeholder="State">
+                                <select class="form-select" asp-for="State" id="State" data-allow-clear="true" tabindex="-1" id="regiondropdown" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                                    <option value="">Select State</option>
+                                </select>
                                 <label for="State">State</label>
                             </div>
                         </div>

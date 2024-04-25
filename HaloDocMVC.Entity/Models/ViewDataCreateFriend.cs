@@ -19,6 +19,7 @@ namespace HaloDocMVC.Entity.Models
         public string? pLastName { get; set; }
 
         [Required(ErrorMessage = "PhoneNumber is Required!")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "phone Number must contain digits!")]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is Required!")]
@@ -32,6 +33,7 @@ namespace HaloDocMVC.Entity.Models
         public string? RelationName { get; set; }
 
         [Required(ErrorMessage = "Mobile Number is Required!")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Mobile Number must contain digits!")]
         public string? Mobile { get; set; }
 
         [Required(ErrorMessage = "Street is Required!")]

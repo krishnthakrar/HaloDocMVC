@@ -201,7 +201,9 @@
                         </div>
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
-                                <input type="text" asp-for="State" class="form-control shadow-none input3" id="State" placeholder="State">
+                                <select class="form-select" asp-for="State" id="State" data-allow-clear="true" tabindex="-1" id="regiondropdown" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                                    <option value="">Select State</option>
+                                </select>
                                 <label for="State">State</label>
                             </div>
                         </div>
@@ -262,7 +264,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5 pb-3">
+                        <div class="col-md-6 pb-3">
                             <div class="d-flex justify-content-between border border-secondary rounded input4">
                                 <button type="button" id="choosenfile1" class="col btn text-start fileSelect form-control" onclick="document.getElementById('file1').click()">
                                     Select Signature
@@ -272,12 +274,6 @@
                                     <i class="fa fa-cloud-upload"></i>
                                     <span class="d-none d-sm-inline">Upload</span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-1 pb-3">
-                            <div class="btn btn-info text-white p-2">
-                                <i class="fa-solid fa-pen fa-xs"></i>
-                                <span class="d-none d-sm-inline">Create</span>
                             </div>
                         </div>
                         @if (CredentialValue.role() == "Admin")
@@ -504,6 +500,7 @@
         toggleFormElements3('true')
         toggleFormElements4('true')
         $(".cb1").prop("disabled", true);
+        $('.form-select').prop('disabled', true)
         if ("@CredentialValue.role()" == "Provider") {
             $(".cb2").prop("hidden", true);
         }
@@ -549,6 +546,7 @@
         for (var i = 0; i < inputs3.length; i++) {
             inputs3[i].disabled = !inputs3[i].disabled;
         }
+        $('.form-select').prop('disabled', false)
         if ("@CredentialValue.role()" == "Admin") {
             var submit3 = document.getElementById("save3");
             var editprofile3 = document.getElementById("edit3");

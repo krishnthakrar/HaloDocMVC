@@ -182,7 +182,9 @@
                         </div>
                         <div class="col-md-6 pb-3">
                             <div class="form-floating">
-                                <input type="text" asp-for="State" class="form-control shadow-none input3" id="State" placeholder="State">
+                                <select class="form-select" asp-for="State" id="State" data-allow-clear="true" tabindex="-1" id="regiondropdown" asp-items="@(new SelectList(ViewBag.AllRegion,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level">
+                                    <option value="">Select State</option>
+                                </select>
                                 <label for="State">State</label>
                             </div>
                         </div>
@@ -250,12 +252,6 @@
                                     <i class="fa fa-cloud-upload"></i>
                                     <span class="d-none d-sm-inline">Upload</span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-1 pb-3">
-                            <div class="btn btn-info text-white p-2">
-                                <i class="fa-solid fa-pen fa-xs"></i>
-                                <span class="d-none d-sm-inline">Create</span>
                             </div>
                         </div>
                         <div class="col-md-12 pb-3">
@@ -470,6 +466,7 @@
         toggleFormElements3('true')
         toggleFormElements4('true')
         $(".cb1").prop("disabled", true);
+        $('.form-select').prop('disabled', true)
         $(".fileSelect").prop("disabled", true);
     }
     function toggleFormElements1(bDisabled) {
@@ -510,6 +507,7 @@
         for (var i = 0; i < inputs3.length; i++) {
             inputs3[i].disabled = !inputs3[i].disabled;
         }
+        $('.form-select').prop('disabled', false)
         if (inputs3[0].disabled) {
             submit3.style.display = "none";
             editprofile3.style.display = "block";

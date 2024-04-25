@@ -45,9 +45,11 @@ namespace HaloDocMVC.Entity.Models
         [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone Number must be of 10 digits!")]
         [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Phone Number must contain digits!")]
         public string? Mobile { get; set; }
-        
-        public string? State { get; set; }
 
+        [Required(ErrorMessage = "State is Required!")]
+        public int? State { get; set; }
+
+        [Required(ErrorMessage = "Zipcode is Required!")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "ZipCode must be of 6 digits!")]
         [RegularExpression(@"^([0-9]{6})$", ErrorMessage = "ZipCode must contain digits!")]
         public string? ZipCode { get; set; }
@@ -72,13 +74,16 @@ namespace HaloDocMVC.Entity.Models
 
         [Required(ErrorMessage = "Address1 is Required!")]
         public string? Address1 { get; set; }
-        
+
+        [Required(ErrorMessage = "Address2 is Required!")]
         public string? Address2 { get; set; }
-        
+
+        [Required(ErrorMessage = "City is Required!")]
         public string? City { get; set; }
         
         public int? RegionId { get; set; }
 
+        [Required(ErrorMessage = "Phone Number is Required!")]
         [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone Number must be of 10 digits!")]
         [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Phone Number must contain digits!")]
         public string? AltPhone { get; set; }

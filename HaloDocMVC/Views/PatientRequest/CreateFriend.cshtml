@@ -72,7 +72,7 @@
                     <span asp-validation-for="pEmail" class="text-danger"></span>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 phone">
-                    <input asp-for="Mobile" type="tel" class="form-control shadow-none" id="phone1">
+                    <input asp-for="Mobile" type="tel" class="form-control shadow-none" id="uphone">
                     <span asp-validation-for="Mobile" class="text-danger"></span>
                     <span id="error-msg1" class="text-danger"></span>
                 </div>
@@ -129,8 +129,3 @@
     </div>
 </body>
 <partial name="../Shared/_Loader.cshtml" />
-<script>
-    $(document).ready(function () {
-        phone2();
-    });
-</script>
