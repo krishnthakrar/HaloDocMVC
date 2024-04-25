@@ -113,7 +113,7 @@
                             <small>Actions</small>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" asp-route-Status="2" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
+                            <li><a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" class="dropdown-item"><i class="fa-regular fa-rectangle-list"></i> View Case</a></li>
                             <li><a class="dropdown-item" asp-action="ViewUpload" asp-controller="Home" asp-route-id="@item.RequestId"><i class="fa-solid fa-upload"></i> View Uploads</a></li>
                             <li><a asp-controller="Home" asp-action="ViewNotes" asp-route-RId="@item.RequestId" class="dropdown-item"><i class="fa-regular fa-note-sticky"></i> View Notes</a></li>
                             @if (CredentialValue.role() == "Provider")
@@ -165,7 +165,7 @@
                             <hr>
                         </div>
                         <div class="col-2 viewCaseMobile">
-                            <a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" asp-route-Status="1" class="btn btn-sm rounded-pill 2px" style="border-color: #A020F0; color: #A020F0">
+                            <a asp-controller="Home" asp-action="ViewCase" asp-route-RId="@item.RequestId" asp-route-RTId="@item.RequestTypeId" class="btn btn-sm rounded-pill 2px" style="border-color: #A020F0; color: #A020F0">
                                 <small>View Case</small>
                             </a>
                         </div>

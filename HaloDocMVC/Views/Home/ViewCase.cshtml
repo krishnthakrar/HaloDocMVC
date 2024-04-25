@@ -91,13 +91,14 @@
                     <a class="col-1 btn btn-info text-white rounded mx-2 p-2" onclick="model_Case(@Model.RequestId)" data-bs-toggle="modal" data-bs-target="#assigncase" data-bs-requestid="@Model.RequestId" data-bs-patientname="@Model.FirstName">Assign</a>
                 }
                 <a asp-controller="Home" asp-action="ViewNotes" asp-route-id="@Model.RequestId" class="col-1 btn btn-info text-white rounded mx-2 p-2">Notes</a>
-                <a class="col-1 btn btn-danger text-white rounded mx-2 p-2">Cancel</a>
+                <a class="col-1 btn btn-danger text-white rounded mx-2 p-2" onclick="model_Case(@Model.RequestId)" data-bs-toggle="modal" data-bs-target="#cancelcase" data-bs-requestid="@Model.RequestId" data-bs-patientname="@Model.FirstName">Cancel</a>
             </div>
         </form>
     </div>
 </div>
 <partial name="../Shared/_Loader.cshtml" />
 <partial name="../AdminDashboardActions/AssignCase.cshtml" />
+<partial name="../AdminDashboardActions/CancelCase.cshtml" />
 <script src="~/js/phone.js"></script>
 <script>
     $(document).ready(function () {
@@ -123,7 +124,9 @@
     function model_Case(id) {
         console.log(id);
         var modeldata = @Html.Raw(Json.Serialize(Model))
-            console.log(modeldata[id])
+            console.log(modeldata)
         document.getElementById('RequestId_Input_ModelAssignCase').value = id;
+        document.getElementById('RequestID_Input_ModelCancelCase').value = modeldata.requestId;
+        document.getElementById('PatientName_ModelCancelCase').innerText = modeldata.firstName + " " + modeldata.lastName;
     }
 </script>

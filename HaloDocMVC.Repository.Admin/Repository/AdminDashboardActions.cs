@@ -38,7 +38,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public ViewDataViewCase NewRequestData(int RId, int RTId, int Status)
         {
             ViewDataViewCase caseList = _context.RequestClients
-                                        .Where(r => r.Request.RequestId == RId)
+                                        .Where(r => r.Request.RequestId == RId && r.Request.RequestTypeId == RTId && r.Request.Status == Status)
                                         .Select(req => new ViewDataViewCase()
                                         {
                                             UserId = req.Request.UserId,

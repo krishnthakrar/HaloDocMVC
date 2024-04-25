@@ -78,9 +78,11 @@ namespace HaloDocMVC.Controllers
         #endregion
 
         #region ViewCase
-        public IActionResult ViewCase(int RId, int RTId, int Status)
+        public IActionResult ViewCase(int RId, int RTId)
         {
             ViewBag.AllRegion = _dropdown.AllRegion();
+            ViewBag.CaseReason = _dropdown.CaseReason();
+            int Status = Int32.Parse(CredentialValue.CurrentStatus());
             ViewDataViewCase vdvc = _admindashboardactions.NewRequestData(RId, RTId, Status);
             if (vdvc == null)
             {
