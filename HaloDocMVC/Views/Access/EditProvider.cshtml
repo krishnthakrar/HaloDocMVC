@@ -33,8 +33,10 @@
                 <h5><strong>Account Information</strong></h5>
                 @if (CredentialValue.role() == "Provider")
                 {
-                    <a class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#requestadmin">Request To Admin</a>
-                    <partial name="../AdminDashboardActions/RequestAdmin.cshtml" />
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#requestadmin">Request To Admin</a>
+                        <partial name="../AdminDashboardActions/RequestAdmin.cshtml" />
+                    </div>
                 }
             </div>
             @* Account Information *@
