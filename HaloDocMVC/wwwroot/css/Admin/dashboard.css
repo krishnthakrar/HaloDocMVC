@@ -170,6 +170,7 @@
 
 .requestType {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -223,6 +224,7 @@
 
     .requestType {
         display: flex;
+        flex-wrap: wrap;
         justify-content: start;
     }
 

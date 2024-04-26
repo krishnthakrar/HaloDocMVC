@@ -22,6 +22,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             _context = context;
         }
 
+        #region DayWise
         public DayWiseScheduling Daywise(int regionid, DateTime currentDate)
         {
             DayWiseScheduling day = new DayWiseScheduling
@@ -37,7 +38,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
             return day;
         }
+        #endregion
 
+        #region WeekWise
         public WeekWiseScheduling Weekwise(int regionid, DateTime currentDate)
         {
             WeekWiseScheduling week = new()
@@ -53,7 +56,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
             return week;
         }
+        #endregion
 
+        #region MonthWise
         public MonthWiseScheduling Monthwise(int regionid, DateTime currentDate)
         {
             MonthWiseScheduling month = new()
@@ -87,7 +92,9 @@ namespace HaloDocMVC.Repository.Admin.Repository
             }
             return month;
         }
+        #endregion
 
+        #region MonthWIsePhysician
         public MonthWiseScheduling MonthwisePhysician(DateTime currentDate, int id)
         {
             MonthWiseScheduling month = new()
@@ -103,6 +110,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
             };
             return month;
         }
+        #endregion
 
         #region AddShift
         public void AddShift(SchedulingData model, List<string?>? chk, string adminId)
