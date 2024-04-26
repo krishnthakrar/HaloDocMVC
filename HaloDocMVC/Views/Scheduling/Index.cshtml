@@ -86,7 +86,7 @@
                 <a id="regionicon">
                     <i class="fa fa-search"></i>
                 </a>
-                <select class="form-select ms-2" data-allow-clear="true" tabindex="-1" id="suggestions" onchange="regionScheduling()" asp-items="@(new SelectList(ViewBag.RegionComboBox,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level" style="padding-left:5px">
+                <select class="form-select ms-2" data-allow-clear="true" tabindex="-1" id="suggestions" asp-items="@(new SelectList(ViewBag.RegionComboBox,"RegionId","RegionName"))" data-control="select2" data-placeholder="Select Level" style="padding-left:5px">
                     <option value="0">All Region</option>
                 </select>
             </div>
@@ -368,7 +368,7 @@
         // Change Physician according to Region
         $(document).ready(function () {
             localStorage.getItem("currentPartial");
-            $('.region').on('change', function () {
+            $('#suggestions').on('change', function () {
                 regionid = $(this).val();
                 console.log(regionid);
                 $.ajax({
@@ -384,7 +384,6 @@
                 });
             });
             // Change Date From Calender
-            //loadSchedulingPartial('_DayWise');
             localStorage.getItem("currentPartial");
             $('#prevDateBtn').on('click', function () {
                 if (currentPartial == "_MonthWise") {

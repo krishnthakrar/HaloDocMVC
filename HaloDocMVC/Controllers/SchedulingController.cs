@@ -52,53 +52,19 @@ namespace HaloDocMVC.Controllers
         public IActionResult LoadSchedulingPartial(string PartialName, string date, int regionid)
         {
             var currentDate = DateTime.Parse(date);
-            List<Physician> physician = _context.PhysicianRegions.Include(u => u.Physician).Where(u => u.RegionId == regionid).Select(u => u.Physician).ToList();
-            if (regionid == 0)
-            {
-                physician = _context.Physicians.ToList();
-            }
             switch (PartialName)
             {
                 case "_DayWise":
-                    DayWiseScheduling day = new DayWiseScheduling
-                    {
-                        date = currentDate,
-                        physicians = physician,
-                        shiftdetails = _context.ShiftDetailRegions.Include(u => u.ShiftDetail).ThenInclude(u => u.Shift).Where(u => u.RegionId == regionid && u.IsDeleted == new BitArray(new[] { false })).Select(u => u.ShiftDetail).ToList()
-                    };
-                    if (regionid == 0)
-                    {
-                        day.shiftdetails = _context.ShiftDetails.Include(u => u.Shift).Where(u => u.IsDeleted == new BitArray(new[] { false })).ToList();
-                    }
-                    return PartialView("../Scheduling/_DayWise", day);
+                    return PartialView("../Scheduling/_DayWise", _scheduling.Daywise(regionid, currentDate));
 
                 case "_WeekWise":
-                    WeekWiseScheduling week = new WeekWiseScheduling
-                    {
-                        date = currentDate,
-                        physicians = physician,
-                        shiftdetails = _context.ShiftDetailRegions.Include(u => u.ShiftDetail).ThenInclude(u => u.Shift).ThenInclude(u => u.Physician).Where(u => u.IsDeleted == new BitArray(new[] { false })).Where(u => u.RegionId == regionid).Select(u => u.ShiftDetail).ToList()
-                    };
-                    if (regionid == 0)
-                    {
-                        week.shiftdetails = _context.ShiftDetails.Include(u => u.Shift).ThenInclude(u => u.Physician).Where(u => u.IsDeleted == new BitArray(new[] { false })).ToList();
-                    }
-                    return PartialView("../Scheduling/_WeekWise", week);
+                    return PartialView("../Scheduling/_WeekWise", _scheduling.Weekwise(regionid, currentDate));
 
                 case "_MonthWise":
-                    MonthWiseScheduling month = new MonthWiseScheduling
-                    {
-                        date = currentDate,
-                        shiftdetails = _context.ShiftDetailRegions.Include(u => u.ShiftDetail).ThenInclude(u => u.Shift).ThenInclude(u => u.Physician).Where(u => u.IsDeleted == new BitArray(new[] { false })).Where(u => u.RegionId == regionid).Select(u => u.ShiftDetail).ToList()
-                    };
-                    if (regionid == 0)
-                    {
-                        month.shiftdetails = _context.ShiftDetails.Include(u => u.Shift).ThenInclude(u => u.Physician).Where(u => u.IsDeleted == new BitArray(new[] { false })).ToList();
-                    }
-                    return PartialView("../Scheduling/_MonthWise", month);
+                    return PartialView("../Scheduling/_MonthWise", _scheduling.Monthwise(regionid, currentDate));
 
                 default:
-                    return PartialView("../Scheduling/_DayWise");
+                    return PartialView("../Scheduling/_MonthWise", _scheduling.Monthwise(regionid, currentDate));
             }
         }
         #endregion
@@ -107,12 +73,7 @@ namespace HaloDocMVC.Controllers
         public IActionResult LoadSchedulingPartialProivder(string date)
         {
             var currentDate = DateTime.Parse(date);
-            MonthWiseScheduling month = new MonthWiseScheduling
-            {
-                date = currentDate,
-                shiftdetails = _context.ShiftDetails.Include(u => u.Shift).Where(u => u.IsDeleted == new BitArray(new[] { false }) && u.Shift.PhysicianId == Int32.Parse(CredentialValue.UserId())).ToList()
-            };
-            return PartialView("../Scheduling/_MonthWise", month);
+            return PartialView("../Scheduling/_MonthWise", _scheduling.MonthwisePhysician(currentDate, Int32.Parse(CredentialValue.UserId())));
         }
         #endregion
 
@@ -151,7 +112,6 @@ namespace HaloDocMVC.Controllers
         public IActionResult ViewShiftDelete(SchedulingData modal)
         {
             _scheduling.ViewShiftDelete(modal, CredentialValue.ID());
-
             return RedirectToAction("Index");
         }
         #endregion

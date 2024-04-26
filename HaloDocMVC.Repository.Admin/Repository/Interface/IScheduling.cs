@@ -9,6 +9,14 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
 {
     public interface IScheduling
     {
+        public DayWiseScheduling Daywise(int regionid, DateTime currentDate);
+
+        public WeekWiseScheduling Weekwise(int regionid, DateTime currentDate);
+
+        public MonthWiseScheduling Monthwise(int regionid, DateTime currentDate);
+
+        public MonthWiseScheduling MonthwisePhysician(DateTime currentDate, int id);
+
         public void AddShift(SchedulingData model, List<string?>? chk, string adminId);
         
         public SchedulingData ViewShift(int shiftdetailid);

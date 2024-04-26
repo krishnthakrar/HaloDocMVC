@@ -1,4 +1,5 @@
-﻿using HaloDocMVC.Entity.DataContext;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using HaloDocMVC.Entity.DataContext;
 using HaloDocMVC.Entity.DataModels;
 using HaloDocMVC.Entity.Models;
 using HaloDocMVC.Repository.Admin.Repository.Interface;
@@ -19,6 +20,88 @@ namespace HaloDocMVC.Repository.Admin.Repository
         public Scheduling(HaloDocContext context)
         {
             _context = context;
+        }
+
+        public DayWiseScheduling Daywise(int regionid, DateTime currentDate)
+        {
+            DayWiseScheduling day = new DayWiseScheduling
+            {
+                date = currentDate,
+                physicians = _context.Physicians.Where(p => p.RegionId == regionid && p.IsDeleted == new BitArray(new[] { false })).ToList(),
+                shiftdetails = _context.ShiftDetails.Include(u => u.Shift).Where(u => u.RegionId == regionid && u.IsDeleted == new BitArray(new[] { false })).ToList(),
+            };
+            if (regionid == 0)
+            {
+                day.physicians = _context.Physicians.Where(p => p.IsDeleted == new BitArray(new[] { false })).ToList();
+                day.shiftdetails = _context.ShiftDetails.Include(u => u.Shift).Where(u => u.IsDeleted == new BitArray(new[] { false })).ToList();
+            }
+            return day;
+        }
+
+        public WeekWiseScheduling Weekwise(int regionid, DateTime currentDate)
+        {
+            WeekWiseScheduling week = new()
+            {
+                date = currentDate,
+                physicians = _context.Physicians.Where(p => p.RegionId == regionid && p.IsDeleted == new BitArray(new[] { false })).ToList(),
+                shiftdetails = _context.ShiftDetails.Include(u => u.Shift).Where(u => u.RegionId == regionid && u.IsDeleted == new BitArray(new[] { false })).ToList(),
+            };
+            if (regionid == 0)
+            {
+                week.physicians = _context.Physicians.Where(p => p.IsDeleted == new BitArray(new[] { false })).ToList();
+                week.shiftdetails = _context.ShiftDetails.Include(u => u.Shift).Where(u => u.IsDeleted == new BitArray(new[] { false })).ToList();
+            }
+            return week;
+        }
+
+        public MonthWiseScheduling Monthwise(int regionid, DateTime currentDate)
+        {
+            MonthWiseScheduling month = new()
+            {
+                date = currentDate,
+                shiftdetails = _context.ShiftDetailRegions
+                    .Include(u => u.ShiftDetail)
+                        .ThenInclude(u => u.Shift)
+                            .ThenInclude(u => u.Physician)
+                    .Where(u => u.IsDeleted == new BitArray(new[] { false }) && u.RegionId == regionid)
+                    .Select(u => u.ShiftDetail)
+                    .ToList()
+            };
+            if (regionid == 0)
+            {
+                month.shiftdetails = _context.ShiftDetails
+                    .Include(u => u.Shift)
+                        .ThenInclude(u => u.Physician)
+                    .Where(u => u.IsDeleted == new BitArray(new[] { false }) && u.Shift.Physician.IsDeleted == new BitArray(new[] { false }))
+                    .ToList();
+            }
+            else
+            {
+                month.shiftdetails = _context.ShiftDetailRegions
+                    .Include(u => u.ShiftDetail)
+                        .ThenInclude(u => u.Shift)
+                            .ThenInclude(u => u.Physician)
+                    .Where(u => u.IsDeleted == new BitArray(new[] { false }) && u.RegionId == regionid && u.ShiftDetail.Shift.Physician.IsDeleted == new BitArray(new[] { false }))
+                    .Select(u => u.ShiftDetail)
+                    .ToList();
+            }
+            return month;
+        }
+
+        public MonthWiseScheduling MonthwisePhysician(DateTime currentDate, int id)
+        {
+            MonthWiseScheduling month = new()
+            {
+                date = currentDate,
+                shiftdetails = _context.ShiftDetailRegions
+                    .Include(u => u.ShiftDetail)
+                        .ThenInclude(u => u.Shift)
+                            .ThenInclude(u => u.Physician)
+                    .Where(u => u.IsDeleted == new BitArray(new[] { false }) && u.ShiftDetail.Shift.PhysicianId == id)
+                    .Select(u => u.ShiftDetail)
+                    .ToList()
+            };
+            return month;
         }
 
         #region AddShift
