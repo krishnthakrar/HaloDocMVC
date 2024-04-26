@@ -63,7 +63,7 @@
             </div>
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-floating mb-4 dateInput">
-                    <input asp-for="DOB" type="date" class="form-control shadow-none" id="date">
+                    <input asp-for="DOB" type="date" max="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control shadow-none" id="date">
                     <label for="date" class="form-label">Date of Birth</label>
                     <span asp-validation-for="DOB" class="text-danger"></span>
                 </div>
