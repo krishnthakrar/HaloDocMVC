@@ -131,6 +131,9 @@ public partial class Physician
     public virtual ICollection<PhysicianNotification> PhysicianNotifications { get; set; } = new List<PhysicianNotification>();
 
     [InverseProperty("Physician")]
+    public virtual PhysicianPayrate? PhysicianPayrate { get; set; }
+
+    [InverseProperty("Physician")]
     public virtual ICollection<PhysicianRegion> PhysicianRegions { get; set; } = new List<PhysicianRegion>();
 
     [ForeignKey("RegionId")]

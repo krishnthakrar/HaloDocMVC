@@ -37,5 +37,9 @@ namespace HaloDocMVC.Repository.Admin.Repository.Interface
         public bool MessageLog(string? mobile, string? Message);
 
         public bool EmailLog(string? email, string? subject, string? Message);
+
+        public Payrate GetPayrate(int id);
+
+        public bool PayratePost(Payrate pr, string id);
     }
 }

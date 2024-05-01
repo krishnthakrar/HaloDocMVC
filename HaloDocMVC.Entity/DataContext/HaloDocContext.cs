@@ -52,6 +52,8 @@ public partial class HaloDocContext : DbContext
 
     public virtual DbSet<PhysicianNotification> PhysicianNotifications { get; set; }
 
+    public virtual DbSet<PhysicianPayrate> PhysicianPayrates { get; set; }
+
     public virtual DbSet<PhysicianRegion> PhysicianRegions { get; set; }
 
     public virtual DbSet<Region> Regions { get; set; }
@@ -263,6 +265,17 @@ public partial class HaloDocContext : DbContext
             entity.HasOne(d => d.Physician).WithMany(p => p.PhysicianNotifications)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("PhysicianNotification_PhysicianId_fkey");
+        });
+
+        modelBuilder.Entity<PhysicianPayrate>(entity =>
+        {
+            entity.HasKey(e => e.PhysicianId).HasName("PhysicianPayrate_pkey");
+
+            entity.Property(e => e.PhysicianId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Physician).WithOne(p => p.PhysicianPayrate)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("PhysicianPayrate_PhysicianId_fkey");
         });
 
         modelBuilder.Entity<PhysicianRegion>(entity =>

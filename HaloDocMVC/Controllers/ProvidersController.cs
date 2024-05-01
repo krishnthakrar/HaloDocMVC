@@ -22,6 +22,8 @@ namespace HaloDocMVC.Controllers
             _emailConfiguration = emailConfiguration;
             _notyf = notyf;
         }
+
+        #region Index
         [ProviderAccess("Admin")]
         public IActionResult Index(ProviderMenu pm, int? Region)
         {
@@ -45,6 +47,7 @@ namespace HaloDocMVC.Controllers
                 return View("../Providers/Index", v);
             }
         }
+        #endregion
 
         #region ChangeNotificationPhysician
         public IActionResult ChangeNotificationPhysician(string changedValues)
@@ -215,6 +218,31 @@ namespace HaloDocMVC.Controllers
                 _notyf.Error("Account can't be Deleted...");
             }
             return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region GetPayrate
+        public IActionResult Payrate(int id)
+        {
+            Payrate p = _providers.GetPayrate(id);
+            return View("../Providers/Payrate", p);
+        }
+        #endregion
+
+        #region PayratePost
+        [HttpPost]
+        public IActionResult PayratePost(Payrate pr)
+        {
+            string id = CredentialValue.UserId();
+            if (_providers.PayratePost(pr, id))
+            {
+                _notyf.Success("Payrate Information changed Successfully...");
+            }
+            else
+            {
+                _notyf.Error("Payrate Information not Changed...");
+            }
+            return RedirectToAction("Payrate", new { id = pr.PhysicianId });
         }
         #endregion
     }

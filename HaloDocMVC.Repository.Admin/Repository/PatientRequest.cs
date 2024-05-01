@@ -159,6 +159,11 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.EmailLogs.Add(E);
                 _context.SaveChanges();
             }
+            if (isexist != null)
+            {
+                R.UserId = isexist.UserId;
+            }
+
             //Request Table
             R.RequestTypeId = 3; // 3 stands for Family/Friend in RequestType table
             R.CreatedDate = DateTime.Now;
@@ -169,7 +174,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Status = 1;
             R.IsDeleted = new BitArray(1);
             R.IsDeleted[0] = false;
-            R.UserId = isexist.UserId;
             R.ConfirmationNumber = R.PhoneNumber;
             R.RelationName = vdcf.RelationName;
             R.CreatedUserId = 0;
@@ -251,6 +255,11 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.EmailLogs.Add(E);
                 _context.SaveChanges();
             }
+            if (isexist != null)
+            {
+                R.UserId = isexist.UserId;
+            }
+
             //Request Table
             R.RequestTypeId = 4; // 4 stands for Concierge in RequestType table
             R.CreatedDate = DateTime.Now;
@@ -263,7 +272,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.IsDeleted[0] = false;
             R.ConfirmationNumber = R.PhoneNumber;
             R.CreatedUserId = 0;
-            R.UserId = isexist.UserId;
             R.CreatedDate = DateTime.Now;
             _context.Add(R);
             _context.SaveChanges();
@@ -336,6 +344,11 @@ namespace HaloDocMVC.Repository.Admin.Repository
                 _context.SaveChanges();
             }
 
+            if (isexist != null)
+            {
+                R.UserId = isexist.UserId;
+            }
+
             //Request Table
             R.RequestTypeId = 1; // 1 stands for Business in RequestType table
             R.CreatedDate = DateTime.Now;
@@ -344,7 +357,6 @@ namespace HaloDocMVC.Repository.Admin.Repository
             R.Email = vdcb.bEmail;
             R.PhoneNumber = vdcb.PhoneNumber;
             R.Status = 1;
-            R.UserId = isexist.UserId;
             R.CreatedUserId = 0;
             R.IsDeleted = new BitArray(1);
             R.IsDeleted[0] = false;
