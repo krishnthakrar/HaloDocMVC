@@ -88,12 +88,17 @@ public partial class HaloDocContext : DbContext
 
     public virtual DbSet<Smslog> Smslogs { get; set; }
 
+    public virtual DbSet<TimeSheet> TimeSheets { get; set; }
+
+    public virtual DbSet<TimeSheetDetail> TimeSheetDetails { get; set; }
+
+    public virtual DbSet<TimeSheetReceipt> TimeSheetReceipts { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseNpgsql("User ID = postgres;Password=Krishn@1303;Server=localhost;Port=5432;Database=HaloDoc;Integrated Security=true;Pooling=true;");
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("User ID = postgres;Password=Krishn@1303;Server=localhost;Port=5432;Database=HaloDoc;Integrated Security=true;Pooling=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -272,6 +277,12 @@ public partial class HaloDocContext : DbContext
             entity.HasKey(e => e.PhysicianId).HasName("PhysicianPayrate_pkey");
 
             entity.Property(e => e.PhysicianId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.PhysicianPayrateCreatedByNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("PhysicianPayrate_CreatedBy_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.PhysicianPayrateModifiedByNavigations).HasConstraintName("PhysicianPayrate_ModifiedBy_fkey");
 
             entity.HasOne(d => d.Physician).WithOne(p => p.PhysicianPayrate)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -467,6 +478,47 @@ public partial class HaloDocContext : DbContext
             entity.HasOne(d => d.Physician).WithMany(p => p.Smslogs).HasConstraintName("SMSLog_PhysicianId_fkey");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Smslogs).HasConstraintName("SMSLog_RequestId_fkey");
+        });
+
+        modelBuilder.Entity<TimeSheet>(entity =>
+        {
+            entity.HasKey(e => e.TimeSheetId).HasName("TimeSheet_pkey");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TimeSheetCreatedByNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("TimeSheet_CreatedBy_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetModifiedByNavigations).HasConstraintName("TimeSheet_ModifiedBy_fkey");
+
+            entity.HasOne(d => d.Physician).WithMany(p => p.TimeSheets).HasConstraintName("TimeSheet_PhysicianId_fkey");
+        });
+
+        modelBuilder.Entity<TimeSheetDetail>(entity =>
+        {
+            entity.HasKey(e => e.TimeSheetDetailId).HasName("TimeSheetDetail_pkey");
+
+            entity.Property(e => e.TimeSheetDetailId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TimeSheetDetailCreatedByNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("TimeSheetDetail_CreatedBy_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetDetailModifiedByNavigations).HasConstraintName("TimeSheetDetail_ModifiedBy_fkey");
+
+            entity.HasOne(d => d.TimeSheet).WithMany(p => p.TimeSheetDetails).HasConstraintName("TimeSheetDetail_TimeSheetId_fkey");
+        });
+
+        modelBuilder.Entity<TimeSheetReceipt>(entity =>
+        {
+            entity.HasKey(e => e.TimeSheetReceiptId).HasName("TimeSheetReceipt_pkey");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TimeSheetReceiptCreatedByNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("TimeSheetReceipt_CreatedBy_fkey");
+
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetReceiptModifiedByNavigations).HasConstraintName("TimeSheetReceipt_ModifiedBy_fkey");
+
+            entity.HasOne(d => d.TimeSheetDetail).WithMany(p => p.TimeSheetReceipts).HasConstraintName("TimeSheetReceipt_TimeSheetDetailId_fkey");
         });
 
         modelBuilder.Entity<User>(entity =>

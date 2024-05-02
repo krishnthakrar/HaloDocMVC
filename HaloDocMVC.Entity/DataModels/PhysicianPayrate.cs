@@ -38,6 +38,14 @@ public partial class PhysicianPayrate
     [Column(TypeName = "timestamp without time zone")]
     public DateTime? ModifiedDate { get; set; }
 
+    [ForeignKey("CreatedBy")]
+    [InverseProperty("PhysicianPayrateCreatedByNavigations")]
+    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
+
+    [ForeignKey("ModifiedBy")]
+    [InverseProperty("PhysicianPayrateModifiedByNavigations")]
+    public virtual AspNetUser? ModifiedByNavigation { get; set; }
+
     [ForeignKey("PhysicianId")]
     [InverseProperty("PhysicianPayrate")]
     public virtual Physician Physician { get; set; } = null!;
