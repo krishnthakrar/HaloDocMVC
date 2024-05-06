@@ -296,7 +296,7 @@ namespace HaloDocMVC.Controllers
         }
         #endregion
 
-        #region SendFilEmail
+        #region SendFileEmail
         public async Task<IActionResult> SendFileEmail(string mailids, int Requestid, string email)
         {
             if (await _admindashboardactions.SendFileEmail(mailids, Requestid, email))
@@ -459,7 +459,7 @@ namespace HaloDocMVC.Controllers
             {
                 _notyf.Success("Case Not Accepted...");
             }
-            return Redirect("~/Physician/DashBoard");
+            return Redirect("~/DashBoard");
         }
         #endregion
 
@@ -470,7 +470,7 @@ namespace HaloDocMVC.Controllers
             {
                 _notyf.Success("Request Successfully transfered to admin...");
             }
-            return Redirect("~/Physician/DashBoard");
+            return Redirect("~/DashBoard");
         }
         #endregion
 

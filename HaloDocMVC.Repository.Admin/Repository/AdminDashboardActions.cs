@@ -849,7 +849,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
         #region EncounterIndex
         public ViewEncounter EncounterIndex(int? RId)
         {
-            if (RId == null) return null;
+            if (RId == null) return new ViewEncounter();
             var encounter = (from rc in _context.RequestClients
                              join en in _context.Encounters on rc.RequestId equals en.RequestId into renGroup
                              from subEn in renGroup.DefaultIfEmpty()
