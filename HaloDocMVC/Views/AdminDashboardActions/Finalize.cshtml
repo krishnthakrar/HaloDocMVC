@@ -5,16 +5,30 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Encouter Form</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="mt-0" asp-action="generatePDF" asp-controller="Home" onsubmit="displayBusyIndicator()">
+            <form class="mt-0" onsubmit="displayBusyIndicator()">
                 <input type="hidden" value="" id="RequestId_Input_ModelFinalize" name="RequestId" />
                 <div class="modal-body">
                     <p>Encounter Form is finalized Successfully!!!!!</p>
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-info text-white mx-2">Download</button>
+                        <button type="button" onclick="downloadPDF()" class="btn btn-info text-white mx-2">Download</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+    function downloadPDF() {
+        var requestId = document.getElementById("RequestId_Input_ModelFinalize").value;
+        var url = "@Url.Action("generatePDF", "Home")?RequestId=" + requestId;
+        openPdfInNewTab(url);
+    }
+
+    function openPdfInNewTab(url) {
+        // Open the URL in a new tab
+        var win = window.open(url, '_blank');
+        win.focus();
+        return false;
+    }
+</script>
 <partial name="../Shared/_Loader.cshtml" />
