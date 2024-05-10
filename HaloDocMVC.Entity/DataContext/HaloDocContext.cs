@@ -92,13 +92,14 @@ public partial class HaloDocContext : DbContext
 
     public virtual DbSet<TimeSheetDetail> TimeSheetDetails { get; set; }
 
-    public virtual DbSet<TimeSheetReceipt> TimeSheetReceipts { get; set; }
+    public virtual DbSet<TimeSheetDetailReimbursement> TimeSheetDetailReimbursements { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("User ID = postgres;Password=Krishn@1303;Server=localhost;Port=5432;Database=HaloDoc;Integrated Security=true;Pooling=true;");
+    {
+        optionsBuilder.UseNpgsql("User ID = postgres;Password=Krishn@1303;Server=localhost;Port=5432;Database=HaloDoc;Integrated Security=true;Pooling=true;");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -482,43 +483,50 @@ public partial class HaloDocContext : DbContext
 
         modelBuilder.Entity<TimeSheet>(entity =>
         {
-            entity.HasKey(e => e.TimeSheetId).HasName("TimeSheet_pkey");
+            entity.HasKey(e => e.TimeSheetId).HasName("timesheet_pkey");
+
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsApproved).HasDefaultValueSql("false");
+            entity.Property(e => e.IsFinalize).HasDefaultValueSql("false");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TimeSheetCreatedByNavigations)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("TimeSheet_CreatedBy_fkey");
+                .HasConstraintName("timesheet_createdby_fkey");
 
-            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetModifiedByNavigations).HasConstraintName("TimeSheet_ModifiedBy_fkey");
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetModifiedByNavigations).HasConstraintName("timesheet_modifiedby_fkey");
 
-            entity.HasOne(d => d.Physician).WithMany(p => p.TimeSheets).HasConstraintName("TimeSheet_PhysicianId_fkey");
+            entity.HasOne(d => d.Physician).WithMany(p => p.TimeSheets)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("timesheet_physicianid_fkey");
         });
 
         modelBuilder.Entity<TimeSheetDetail>(entity =>
         {
-            entity.HasKey(e => e.TimeSheetDetailId).HasName("TimeSheetDetail_pkey");
+            entity.HasKey(e => e.TimeSheetDetailId).HasName("timesheetdetail_pkey");
 
-            entity.Property(e => e.TimeSheetDetailId).ValueGeneratedNever();
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetDetails).HasConstraintName("timesheetdetail_modifiedby_fkey");
 
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TimeSheetDetailCreatedByNavigations)
+            entity.HasOne(d => d.TimeSheet).WithMany(p => p.TimeSheetDetails)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("TimeSheetDetail_CreatedBy_fkey");
-
-            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetDetailModifiedByNavigations).HasConstraintName("TimeSheetDetail_ModifiedBy_fkey");
-
-            entity.HasOne(d => d.TimeSheet).WithMany(p => p.TimeSheetDetails).HasConstraintName("TimeSheetDetail_TimeSheetId_fkey");
+                .HasConstraintName("timesheetdetail_timesheetid_fkey");
         });
 
-        modelBuilder.Entity<TimeSheetReceipt>(entity =>
+        modelBuilder.Entity<TimeSheetDetailReimbursement>(entity =>
         {
-            entity.HasKey(e => e.TimeSheetReceiptId).HasName("TimeSheetReceipt_pkey");
+            entity.HasKey(e => e.TimeSheetDetailReimbursementId).HasName("timesheetdetailreimbursement_pkey");
 
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TimeSheetReceiptCreatedByNavigations)
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsDeleted).HasDefaultValueSql("false");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.TimeSheetDetailReimbursementCreatedByNavigations)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("TimeSheetReceipt_CreatedBy_fkey");
+                .HasConstraintName("timesheetdetailreimbursement_createdby_fkey");
 
-            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetReceiptModifiedByNavigations).HasConstraintName("TimeSheetReceipt_ModifiedBy_fkey");
+            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.TimeSheetDetailReimbursementModifiedByNavigations).HasConstraintName("timesheetdetailreimbursement_modifiedby_fkey");
 
-            entity.HasOne(d => d.TimeSheetDetail).WithMany(p => p.TimeSheetReceipts).HasConstraintName("TimeSheetReceipt_TimeSheetDetailId_fkey");
+            entity.HasOne(d => d.TimeSheetDetail).WithMany(p => p.TimeSheetDetailReimbursements)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("timesheetdetailreimbursement_timesheetdetailid_fkey");
         });
 
         modelBuilder.Entity<User>(entity =>

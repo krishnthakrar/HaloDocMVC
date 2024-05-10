@@ -233,7 +233,7 @@ namespace HaloDocMVC.Controllers
         [HttpPost]
         public IActionResult PayratePost(Payrate pr)
         {
-            string id = CredentialValue.UserId();
+            string id = CredentialValue.ID();
             if (_providers.PayratePost(pr, id))
             {
                 _notyf.Success("Payrate Information changed Successfully...");

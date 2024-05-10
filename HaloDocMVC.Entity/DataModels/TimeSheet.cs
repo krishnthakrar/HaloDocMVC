@@ -12,34 +12,33 @@ public partial class TimeSheet
     [Key]
     public int TimeSheetId { get; set; }
 
-    public int? PhysicianId { get; set; }
+    public int PhysicianId { get; set; }
 
-    public DateOnly? StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
 
-    public DateOnly? EndDate { get; set; }
+    public DateOnly EndDate { get; set; }
 
-    public bool? IsFinalized { get; set; }
+    public bool? IsFinalize { get; set; }
 
     public bool? IsApproved { get; set; }
 
-    [StringLength(200)]
-    public string? AdminDescription { get; set; }
+    [StringLength(128)]
+    public string? BonusAmount { get; set; }
 
-    public int? BonusAmount { get; set; }
-
-    public int? TotalAmount { get; set; }
-
-    [StringLength(50)]
+    [StringLength(128)]
     public string CreatedBy { get; set; } = null!;
 
     [Column(TypeName = "timestamp without time zone")]
-    public DateTime? CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
-    [StringLength(50)]
+    [StringLength(128)]
     public string? ModifiedBy { get; set; }
 
     [Column(TypeName = "timestamp without time zone")]
     public DateTime? ModifiedDate { get; set; }
+
+    [StringLength(128)]
+    public string? AdminNotes { get; set; }
 
     [ForeignKey("CreatedBy")]
     [InverseProperty("TimeSheetCreatedByNavigations")]
@@ -51,7 +50,7 @@ public partial class TimeSheet
 
     [ForeignKey("PhysicianId")]
     [InverseProperty("TimeSheets")]
-    public virtual Physician? Physician { get; set; }
+    public virtual Physician Physician { get; set; } = null!;
 
     [InverseProperty("TimeSheet")]
     public virtual ICollection<TimeSheetDetail> TimeSheetDetails { get; set; } = new List<TimeSheetDetail>();

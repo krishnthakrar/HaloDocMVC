@@ -21,7 +21,7 @@
                     @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "Invoicing"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link px-3 text-dark @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="Invoicing">Invoicing</a>
+                            <a class="nav-link px-3 text-dark @(path.StartsWith("/Physician/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="Invoicing">Invoicing</a>
                         </li>
                     }
                     @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "MySchedule"))
@@ -69,7 +69,7 @@
                             }
                             @if (Login.isAccessGranted((int)CredentialValue.RoleId(), "Invoicing"))
                             {
-                                <a class="dropdown-item @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="Index" asp-controller="Invoicing"> Invoicing</a>
+                                <a class="dropdown-item @(path.StartsWith("/Invoicing") ? "active" : "")" asp-action="IndexAdmin" asp-controller="Invoicing"> Invoicing</a>
                             }
                         </div>
                     </li>

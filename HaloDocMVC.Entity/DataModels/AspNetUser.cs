@@ -77,19 +77,16 @@ public partial class AspNetUser
     public virtual ICollection<TimeSheet> TimeSheetCreatedByNavigations { get; set; } = new List<TimeSheet>();
 
     [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<TimeSheetDetail> TimeSheetDetailCreatedByNavigations { get; set; } = new List<TimeSheetDetail>();
+    public virtual ICollection<TimeSheetDetailReimbursement> TimeSheetDetailReimbursementCreatedByNavigations { get; set; } = new List<TimeSheetDetailReimbursement>();
 
     [InverseProperty("ModifiedByNavigation")]
-    public virtual ICollection<TimeSheetDetail> TimeSheetDetailModifiedByNavigations { get; set; } = new List<TimeSheetDetail>();
+    public virtual ICollection<TimeSheetDetailReimbursement> TimeSheetDetailReimbursementModifiedByNavigations { get; set; } = new List<TimeSheetDetailReimbursement>();
+
+    [InverseProperty("ModifiedByNavigation")]
+    public virtual ICollection<TimeSheetDetail> TimeSheetDetails { get; set; } = new List<TimeSheetDetail>();
 
     [InverseProperty("ModifiedByNavigation")]
     public virtual ICollection<TimeSheet> TimeSheetModifiedByNavigations { get; set; } = new List<TimeSheet>();
-
-    [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<TimeSheetReceipt> TimeSheetReceiptCreatedByNavigations { get; set; } = new List<TimeSheetReceipt>();
-
-    [InverseProperty("ModifiedByNavigation")]
-    public virtual ICollection<TimeSheetReceipt> TimeSheetReceiptModifiedByNavigations { get; set; } = new List<TimeSheetReceipt>();
 
     [InverseProperty("AspNetUser")]
     public virtual ICollection<User> Users { get; set; } = new List<User>();

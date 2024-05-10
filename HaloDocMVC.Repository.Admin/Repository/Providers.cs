@@ -722,6 +722,7 @@ namespace HaloDocMVC.Repository.Admin.Repository
                     p.PhoneConsultsNightsWeekend = pr.PhoneConsultsNightsWeekend == null ? p.PhoneConsultsNightsWeekend : pr.PhoneConsultsNightsWeekend;
                     p.BatchTesting = pr.BatchTesting == null ? p.BatchTesting : pr.BatchTesting;
                     p.HouseCalls = pr.HouseCalls == null ? p.HouseCalls : pr.HouseCalls;
+                    p.CreatedBy = id;
                     if (p != null)
                     {
                         p.ModifiedBy = id;
